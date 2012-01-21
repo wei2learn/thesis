@@ -1,0 +1,1523 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass report
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Introduction
+\end_layout
+
+\begin_layout Standard
+In this thesis, we present efficient algorithms for the computation of a
+ shifted order basis of a matrix of univariate power series over a field,
+ and the computation of a shifted minimal nullspace basis of a matrix of
+ univariate polynomials over a field.
+ Both are fundamental problems that have many applications in polynomial
+ matrix computations.
+ In this chapter, we give a brief introduction to order basis and nullspace
+ basis.
+\end_layout
+
+\begin_layout Section
+Order Basis
+\end_layout
+
+\begin_layout Standard
+First, let us look at order basis.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+remove all soft O notation and always write logs explicitly? 
+\end_layout
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[\left[x\right]\right]^{m\times n}$
+\end_inset
+
+ be a matrix of power series over a field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+ with 
+\begin_inset Formula $m\le n$
+\end_inset
+
+.
+ Given a nonnegative integer 
+\begin_inset Formula $\sigma$
+\end_inset
+
+, we say a vector 
+\begin_inset Formula $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$
+\end_inset
+
+ of polynomials gives an 
+\emph on
+order
+\emph default
+ 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ approximation of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, or 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ has order 
+\begin_inset Formula $\left(\mathbf{F},\sigma\right)$
+\end_inset
+
+, if 
+\begin_inset Formula 
+\[
+\mathbf{F}\cdot\mathbf{p}\equiv\mathbf{0}\mod x^{\sigma},
+\]
+
+\end_inset
+
+ that is, the first 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ terms of 
+\begin_inset Formula $\mathbf{F}\cdot\mathbf{p}$
+\end_inset
+
+ are zero.
+ Historically such problems date back to their use in Hermite's proof of
+ the transcendence of 
+\begin_inset Formula $e$
+\end_inset
+
+ in 1873.
+ In 1893 Padé, a student of Hermite, formalized the concepts introduced
+ by Hermite and defined what is now known as Hermite-Padé approximants (where
+ 
+\begin_inset Formula $m=1$
+\end_inset
+
+), Padé approximants (where 
+\begin_inset Formula $m=1,n=2$
+\end_inset
+
+) and simultaneous Padé approximants (where 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has a special structure).
+ Such rational approximations also specified degree constraints on the polynomia
+ls 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ and had their order conditions related to these degree constraints.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%Pad
+\backslash
+'e also introduced the notion of a Pad
+\backslash
+'e
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%table for the case $m=1,n=2$ which described all Pad
+\backslash
+'e approximants 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%in terms of $2$ nearby approximants.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+Additional order problems include vector and matrix versions of rational
+ approximation, partial realizations of matrix sequences and vector rational
+ reconstruction just to name a few (cf.
+ the references in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "BL1997"
+
+\end_inset
+
+).
+ As an example, the factorization of differential operators algorithm of
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "vanHoeij"
+
+\end_inset
+
+ makes use of vector Hermite-Padé approximation to reconstruct differential
+ factorizations over rational functions from factorizations of differential
+ operators over power series domains.
+\end_layout
+
+\begin_layout Standard
+The set of all such order 
+\begin_inset Formula $\left(\mathbf{F},\sigma\right)$
+\end_inset
+
+ approximations forms a module over 
+\begin_inset Formula $\mathbb{K}\left[x\right]$
+\end_inset
+
+.
+ An 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ order basis
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ - or minimal approximant basis or 
+\begin_inset Formula $\sigma$
+\end_inset
+
+-basis - is a basis of this module having a type of minimal degree property
+ (called reduced order basis in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BL1997"
+
+\end_inset
+
+).
+ The minimal degree property parameterizes solutions to an order problem
+ by the degrees of the columns of the order basis.
+ In the case of rational approximation, order bases can be viewed as a natural
+ generalization of the Padé table of a power series 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "gravesmorris"
+
+\end_inset
+
+ since they are able to describe 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ all
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ solutions to such problems given particular degree bounds.
+ They can even be used to show the well known block structure of the Padé
+ and related Rational Interpolation tables 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BL1997"
+
+\end_inset
+
+.
+ Order bases are used in such diverse applications as the inversion of structure
+d matrices 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "La92"
+
+\end_inset
+
+, normal forms of matrix polynomials 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BLV:1999,BLV:jsc06"
+
+\end_inset
+
+, and other important problems in matrix polynomial arithmetic including
+ matrix inversion, determinant and nullspace computation 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Giorgi2003,storjohann-villard:2005"
+
+\end_inset
+
+.
+ In our case we also allow the minimal degree property to include a shift
+ 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+ Such a shift is important, for example, for matrix normal form problems
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BLV:1999,BLV:jsc06"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this thesis we present algorithms for the efficient computation of order
+ basis.
+ Algorithms for fast computation of order basis include that of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "BeLa94"
+
+\end_inset
+
+ which converts the matrix problem into a vector problem of higher order
+ (which they called the Power Hermite-Padé problem).
+ Their divide and conquer algorithm has complexity of 
+\begin_inset Formula $O^{\sim}(n^{2}m\sigma+nm^{2}\sigma)$
+\end_inset
+
+ field operations.
+ As usual, the soft-
+\begin_inset Formula $O$
+\end_inset
+
+ notation 
+\begin_inset Formula $O^{\sim}$
+\end_inset
+
+ is simply Big-
+\begin_inset Formula $O$
+\end_inset
+
+ with polylogarithmic factors 
+\begin_inset Formula $(\log(nm\sigma))^{O(1)}$
+\end_inset
+
+ omitted.
+ By working more directly on the input 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ input matrix, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Giorgi2003"
+
+\end_inset
+
+ give a divide and conquer method with cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}\sigma\right)$
+\end_inset
+
+ arithmetic operations.
+ Their method is very efficient if 
+\begin_inset Formula $m$
+\end_inset
+
+ is close to the size of 
+\begin_inset Formula $n$
+\end_inset
+
+ but can be improved if 
+\begin_inset Formula $m$
+\end_inset
+
+ is small.
+\end_layout
+
+\begin_layout Standard
+In a novel construction, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Storjohann:2006"
+
+\end_inset
+
+ effectively reverses the approach of Beckermann and Labahn.
+ Namely, rather than convert a high dimension matrix order problem into
+ a lower dimension vector problem of higher order, Storjohann converts a
+ low dimension problem to a high dimension problem with lower order.
+ For example, computing an order basis for a 
+\begin_inset Formula $1\times n$
+\end_inset
+
+ vector input 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ and order 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ can be converted to a problem of order basis computation with an 
+\begin_inset Formula $O\left(n\right)\times O\left(n\right)$
+\end_inset
+
+ input matrix and an order 
+\begin_inset Formula $O\left(\left\lceil \sigma/n\right\rceil \right)$
+\end_inset
+
+.
+ Combining this conversion with the method of Giorgi et al.
+ can then be used effectively for problems with small row dimensions to
+ achieve a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil m\sigma/n\right\rceil \right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+However, while order bases of the original problem can have degree up to
+ 
+\begin_inset Formula $\sigma$
+\end_inset
+
+, the nature of Storjohann's conversion limits the degree of an order basis
+ of the converted problem to 
+\begin_inset Formula $O\left(\left\lceil m\sigma/n\right\rceil \right)$
+\end_inset
+
+ in order to be computationally efficient.
+ In other words, this approach does not in general compute a complete order
+ basis.
+ Rather, in order to achieve efficiency, it only computes a partial order
+ basis containing basis elements with degrees within 
+\begin_inset Formula $O\left(\left\lceil m\sigma/n\right\rceil \right)$
+\end_inset
+
+, referred to by Storjohann as a 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ minbasis
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+.
+ Fast methods for computing a minbasis are particularly useful for certain
+ problems, for example, in the case of inversion of structured block matrices
+ where one needs only precisely the minbasis 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "La92"
+
+\end_inset
+
+.
+ However, in other applications, such as those arising in matrix polynomial
+ arithmetic, one needs a complete basis which specifies all solutions of
+ a given order, not just those within a particular degree bound (cf.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "BL1997"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:OrderBasis"
+
+\end_inset
+
+ we present two algorithms which compute an entire order basis with a cost
+ of 
+\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+\end_inset
+
+ field operations.
+ This work extends the previous results first reported in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "za2009"
+
+\end_inset
+
+.
+ The two algorithms differ depending on the nature of the degree shift required
+ for the reduced order basis.
+ In the first case we use a transformation that can be considered as an
+ extension of Storjohann's transformation.
+ This new transformation provides a way to extend the results from one transform
+ed problem to another transformed problem of a higher degree.
+ This enables us to use an idea from the null space basis algorithm found
+ in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "storjohann-villard:2005"
+
+\end_inset
+
+ in order to achieve efficient computation.
+ At each iteration, basis elements within a specified degree bound are computed
+ via a Storjohann transformed problem.
+ Then the partial result is used to simplify the next Storjohann transformed
+ problem of a higher degree, allowing basis elements within a higher degree
+ bound to be computed efficiently.
+ This is repeated until all basis elements are computed.
+\end_layout
+
+\begin_layout Standard
+In order to compute an order basis efficiently, the first algorithm requires
+ that the degree shifts are balanced.
+ In the case where the shift is not balanced, the row degrees of the basis
+ can also become unbalanced in addition to the unbalanced column degrees.
+ We give a second algorithm that balances the high degree rows and uses
+ 
+\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+\end_inset
+
+ field operations when the shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is unbalanced but satisfies the condition 
+\begin_inset Formula $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma$
+\end_inset
+
+.
+ This condition essentially allows us to locate the high degree unbalanced
+ rows that need to be balanced.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+In fact, every problem with any unbalanced shift can be reformulated to
+ a problem with a shift satisfying this condition if the degrees of the
+ resulting order basis is known.
+ 
+\end_layout
+
+\end_inset
+
+ The algorithm converts a problem of unbalanced shift to one with balanced
+ shift, based on a second idea from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Storjohann:2006"
+
+\end_inset
+
+.
+ Then the first algorithm is used to efficiently compute the elements of
+ an order basis whose shifted degrees exceed a specified parameter.
+ The problem is then reduced to one where we remove the computed elements.
+ This results in a new problem with smaller dimension and higher degree.
+ The same process is repeated again on this new problem in order to compute
+ the elements with the next highest shifted degrees.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+The remaining paper is structured as follows.
+ Basic definitions and properties of order bases are given in the next section.
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:transform"
+
+\end_inset
+
+ provides an extension to Storjohann's transformation to allow higher degree
+ basis elements to be computed.
+ Based on this new transformation, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Order-Basis-Computation"
+
+\end_inset
+
+ establishes a link between two Storjohann transformed problems of different
+ degrees, from which an recursive method and then an iterative algorithm
+ are derived.
+ The time complexity is analyzed in the next section.
+ After this, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Unbalanced-Shift"
+
+\end_inset
+
+ describes an algorithm which handles problems with a type of unbalanced
+ shift.
+ This is followed by a conclusion along with a description for topics for
+ future research.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Nullspace Basis
+\end_layout
+
+\begin_layout Standard
+We now look at nullspace basis.
+ 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ be a matrix of polynomials over a field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+ with rank 
+\begin_inset Formula $r\le m\le n$
+\end_inset
+
+.
+ The set
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left\{ \mathbf{p}\in\mathbb{K}\left[x\right]^{n}~|~\mathbf{F}\mathbf{p}=0\right\} ,
+\]
+
+\end_inset
+
+ is a (right) nullspace of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which is also a 
+\begin_inset Formula $\mathbb{K}[x]$
+\end_inset
+
+-module.
+ It can be generated by a basis -- a nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, that can be represented as a matrix in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{n\times\left(n-r\right)}$
+\end_inset
+
+, with the columns being the basis elements.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% why are these objects important (beyond the usual)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nullspaces of polynomial matrices appear in a large number of applications,
+ being first used as an algebraic formalism in the area of control theory
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "kucera:1979"
+
+\end_inset
+
+.
+ For example, in linear system theory if a system is respresented by a transfer
+ function given in terms of a left coprime matrix fraction decomposition
+ 
+\begin_inset Formula $\mathbf{T}=\mathbf{D}_{\ell}^{-1}\mathbf{N}_{\ell}$
+\end_inset
+
+, with 
+\begin_inset Formula $\mathbf{D}_{\ell}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}_{\ell}$
+\end_inset
+
+ polynomial matrices, then one often wants to find a right coprime matrix
+ fraction representation 
+\begin_inset Formula $\mathbf{T}=\mathbf{N}_{r}\mathbf{D}_{r}^{-1}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{D}_{r}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}_{r}$
+\end_inset
+
+ polynomial matrices of appropriate dimensions 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "kailath:1980"
+
+\end_inset
+
+.
+ This is equivalent to the nullspace basis computation 
+\begin_inset Formula 
+\begin{equation}
+[\mathbf{D}_{\ell}~~-\mathbf{N}_{\ell}]\left[\begin{array}{c}
+\mathbf{N}_{r}\\
+\mathbf{D}_{r}
+\end{array}\right]=0.\label{rightfactor}
+\end{equation}
+
+\end_inset
+
+ Solving and determining fundamental properties of the basic matrix equation
+ 
+\begin_inset Formula $\mathbf{A}\mathbf{Z}=\mathbf{B}$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ have polynomial elements can be determined by finding a complete description
+ (that is, a basis) of the nullspace of 
+\begin_inset Formula $[\mathbf{A},-\mathbf{B}]$
+\end_inset
+
+.
+ Other examples of the use of nullspaces and their bases include fault diagnosti
+cs 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "frisk:phd"
+
+\end_inset
+
+ and column reduction of matrix polynomials 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BVP:1988,neven:1993"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% a bit more specific description of our problem.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In most applications one is interested in finding a 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ minimal nullspace basis
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{n}$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "forney:1975"
+
+\end_inset
+
+.
+ A nullspace basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is said to be minimal if it has the minimal possible column degrees among
+ all right nullspace bases.
+ This is also often referred to as a 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ minimal polynomial basis
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+.
+ Examples where minimality are needed include the right coprime matrix factoriza
+tion problem and the problem of column reducing a polynomial matrix.
+ As an example, finding a basis for the nullspace corresponding to the right
+ matrix fraction problem (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "rightfactor"
+
+\end_inset
+
+) finds a matrix fraction while a minimal nullspace basis finds such a fraction
+ in reduced form having a minimal column degree denominator (needed for
+ example in minimal partial realization problems).
+ In some cases, for example when using nullspace bases for column reduction,
+ as in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BVP:1988"
+
+\end_inset
+
+, or for normal form computation, as in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BLV:jsc06"
+
+\end_inset
+
+, one is interested in shifting the importance of the degrees of some of
+ the rows of a basis via a vector.
+ If 
+\begin_inset Formula $\vec{s}=[s_{1},\dots,s_{n}]\in\mathbb{Z}^{n}$
+\end_inset
+
+ then the shifted 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree of a column vector of polynomials 
+\begin_inset Formula $\mathbf{p}=[p_{1},\ldots,p_{n}]$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+\max_{i}\{\mbox{ degree }(p_{i})+s_{i}\}.
+\]
+
+\end_inset
+
+ A nullspace basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is said to be 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal if it has the minimal possible 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees among all nullspace bases, or equivalently, the column degrees
+ of 
+\begin_inset Formula 
+\[
+x^{\vec{s}}\mathbf{N}=\mbox{diagonal}(x^{s_{1}},\ldots,x^{s_{m}})\cdot\mathbf{N}
+\]
+
+\end_inset
+
+ are the minimal possible among all nullspace bases of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%
+\backslash
+arne{Start by recalling what a nullspace is.
+ Here a nullspace is
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%a matrix over $
+\backslash
+mathbb{K}[x]$ (rather than fraction field).
+ Also,
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%give the dimensions of $
+\backslash
+mathbf{N}$.
+ Is it OK if $
+\backslash
+mathbf{F}$ does
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%not have full row rank?}
+\backslash
+wei{Added a few more sentences about nullspace
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%and nullspace basis.
+  $
+\backslash
+mathbf{F}$ does not need to be full rank.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% our contribution and previous work
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We are interested in fast computation of minimal nullspace bases and shifted
+ minimal nullspace bases in exact environments.
+ Historically computation of a minimal nullspace basis has made use of either
+ matrix pencil or resultant methods (often called a linearized approaches)
+ or use of elimination methods for matrix polynomials.
+ Matrix pencil methods convert a nullspace basis computation problem to
+ one of larger matrix size but having polynomial degree one.
+ In this case a minimal nullspace basis is determined from the computation
+ of the Kronecker canonical form, with efficient algorithms given by 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "beelen:1988,varga:1994,Oara:1997"
+
+\end_inset
+
+.
+ The cost of these algorithms is 
+\begin_inset Formula $O(m^{2}nd^{3})$
+\end_inset
+
+.
+ Resultant methods convert the nullspace basis computation of the matrix
+ polynomial 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ into a block Toeplitz kernel problem with much higher dimension with the
+ resulting complexity again being high.
+ An elimination method specific to matrix polynomials is given by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "mulders-storjohann:2003"
+
+\end_inset
+
+ which has a complexity 
+\begin_inset Formula $O(mnrd^{2})$
+\end_inset
+
+.
+ In 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "storjohann-villard:2005"
+
+\end_inset
+
+ the authors give an algorithm for computing a nullspace basis with a cost
+ of 
+\begin_inset Formula $O^{\sim}\left(nmr^{\omega-1}\right)$
+\end_inset
+
+ where 
+\begin_inset Formula $O^{\sim}$
+\end_inset
+
+ is the same as Big-
+\begin_inset Formula $O$
+\end_inset
+
+ but without log factors and where 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is the power of fast matrix multiplication.
+ However, their algorithm is randomized Las Vegas and, in addition, the
+ bases they compute are not minimal in general.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:NullspaceBasis"
+
+\end_inset
+
+ we present a deterministic algorithm for computing a minimal nullspace
+ basis with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil md/n\right\rceil \right)$
+\end_inset
+
+ field operations in 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+.
+ The same algorithm can also compute a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}(n^{\omega}\rho/m)$
+\end_inset
+
+ if the entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ bound the corresponding column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, where 
+\begin_inset Formula $\rho$
+\end_inset
+
+ is the sum of the 
+\begin_inset Formula $m$
+\end_inset
+
+ largest entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+ The computational cost in this paper is analyzed by bounding the number
+ of arithmetic operations in the coefficient field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+ on an algebraic random access machine.
+ We assume the cost of multiplying two polynomial matrices with dimension
+ 
+\begin_inset Formula $n$
+\end_inset
+
+ and degree 
+\begin_inset Formula $d$
+\end_inset
+
+ is 
+\begin_inset Formula $O^{\sim}(n^{\omega}d)$
+\end_inset
+
+ field operations, where the multiplication exponent 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is assumed to satisfy 
+\begin_inset Formula $2<\omega\le3$
+\end_inset
+
+.
+ We refer to the book by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "vonzurgathen"
+
+\end_inset
+
+ for more details and reference about the cost of polynomial multiplication
+ and matrix multiplication.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% a bit more information about our method
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A key component of the algorithm is the computation of order basis
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+ (also known as minimal approximant basis or 
+\begin_inset Formula $\sigma$
+\end_inset
+
+-basis) 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BeLa94"
+
+\end_inset
+
+.
+ Order bases are efficiently computed using the algorithms from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Giorgi2003"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "za2009"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ We use order basis computation to compute a partial nullspace basis, which
+ also reduces the column dimension of the problem.
+ The problem can then be separated to two subproblems of smaller row dimensions,
+ which can then be handled in the same way as the original problem.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% the rest
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The remainder of this paper is structured as follows.
+ Basic definitions and properties of order bases and nullspace bases are
+ given in the next section.
+ The details of our nullspace basis computation and a formal statement of
+ the algorithm can be found in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Nullspace-Basis-Computation"
+
+\end_inset
+
+.
+ A complexity analysis of the algorithm is provided in the following section.
+ The paper ends with a conclusion and topics for future research.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Overview
+\end_layout
+
+\begin_layout Standard
+The remainder of this paper is structured as follows.
+ Basic definitions and properties of order bases and nullspace bases are
+ given in the next Chapter.
+ The details of our order basis computation can be found in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:OrderBasis"
+
+\end_inset
+
+.
+ Nullspace basis computation is described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:NullspaceBasis"
+
+\end_inset
+
+.
+  The paper ends with a conclusion and topics for future research.
+ 
+\end_layout
+
+\end_body
+\end_document

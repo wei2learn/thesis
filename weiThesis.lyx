@@ -1,0 +1,1451 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass report
+\begin_preamble
+% UW Thesis Template for LaTeX -- Updated Mar 27, 2008 by Stephen Carr
+% FOR ASSISTANCE, please send mail to rt-IST-CSmathsci@ist.uwaterloo.ca
+
+% Effective October 2006, the University of Waterloo 
+% requires electronic thesis submission
+% (http://www.grad.uwaterloo.ca/students/current/thesis_regulations.asp).
+% However, many faculties/departments also require one or more printed
+% copies. This template attempts to satisfy both types of output. 
+% It is based on the standard "report" document class. The "book" document 
+% class can be substituted if you have a very large, multi-part thesis.
+% To the best of our knowledge, it satisfies the current UW
+% requirements (http://www.grad.uwaterloo.ca/Thesis_Regs/thesistofc.asp).
+% However, it is your responsibility to assure that you have met all 
+% requirements of the University and your particular department.
+% Many thanks to Colin Alie for assistance in preparing this updated template.
+
+% -----------------------------------------------------------------------
+
+% By default, output is produced that is geared toward generating a PDF 
+% version optimized for viewing on an electronic display, including 
+% hyperlinks within the PDF.
+ 
+% To process a thesis called "mythesis.tex" based on this template, run:
+
+% pdflatex mythesis	-- first pass of the pdflatex processor
+% bibtex mythesis	-- generates bibliography from .bib data file(s) 
+% pdflatex mythesis	-- fixes cross-references, bibliographic references, etc
+% pdflatex mythesis	-- fixes cross-references, bibliographic references, etc
+
+% N.B. The "pdftex" program allows graphics in the following formats to be
+% included with the "\includegraphics" command: PNG, PDF, JPEG, TIFF
+% Tip 1: Generate your figures and photos in the size you want them to appear
+% in your thesis, rather than scaling them with \includegraphics options.
+% Tip 2: Any drawings you do should be in scalable vector graphic formats:
+% SVG, PNG, WMF, EPS and then converted to PNG or PDF, so they are scalable in
+% the final PDF as well.
+% Tip 3: Photographs should be cropped and compressed so as not to be too large.
+
+% To create PDF output that is optimized for double-sided printing: 
+%
+% 1) comment-out the \documentclass statement in the preamble below, and
+% un-comment the second \documentclass line.
+%
+% 2) change the value assigned below to the boolean variable
+% "ElectronicVersion" from "true" to "false".
+
+% --------------------- Start of Document Preamble -----------------------
+
+% Specify the document class, default style attributes, and page dimensions
+% For hyperlinked PDF, suitable for viewing on a computer, use this:
+
+ 
+% For un-hyperlinked PDF, suitable for double-sided printing, use this:
+%\documentclass[letterpaper,12pt,titlepage,openright,twoside,final]{report}
+
+% Some LaTeX commands I define for my own nomenclature.
+% If you have to, it's better to change nomenclature once here than in a 
+% million places throughout your thesis!
+\newcommand{\package}[1]{\textbf{#1}} % package names in bold text
+\newcommand{\cmmd}[1]{\textbackslash\texttt{#1}} % command name in tt font 
+\newcommand{\href}[1]{#1} % does nothing, but defines the command so the
+    % print-optimized version will ignore \href tags (redefined by hyperref pkg).
+%\newcommand{\texorpdfstring}[2]{#1} % does nothing, but defines the command
+% Anything defined here may be redefined by packages added below...
+
+% This package allows if-then-else control structures.
+\usepackage{ifthen}
+
+\newboolean{ElectronicVersion}
+\setboolean{ElectronicVersion}{false} % CHANGE THIS AS REQUIRED
+
+% allows easy specifying of the page layout
+\usepackage{geometry}
+
+
+\usepackage{nomencl}
+
+\usepackage{amstext}
+ % Lots of math symbols and environments
+ % For including graphics N.B. pdftex graphics driver 
+\usepackage{geometry}
+ % allows easy specifying of the page layout
+
+% Hyperlinks make it very easy to navigate an electronic document.
+% The following statement places "bookmarks" in the PDF document
+% linking Table of Contents, List of Figures, List of Tables, and
+% List of References entries to their appearance in the body of the
+% text.  In addition, this is where one would specify the thesis title
+% and author as it should appear in the properties of the PDF
+% document.
+% Use the "hyperref" package only for the electronic version:
+% N.B. HYPERREF MUST BE THE LAST PACKAGE LOADED; ADD ADDITIONAL PKGS ABOVE
+\ifthenelse{\boolean{ElectronicVersion}}{
+    \usepackage[letterpaper=true,pdftex,bookmarks,pagebackref,
+plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis\ Template,         pdfauthor=Pat\ Neugraad	         ]{hyperref}
+}{}
+
+% UW thesis requirements specify a minimum of 1" (72pt) margin at the
+% top, bottom, and outside page edges and a 1.125" (81pt) gutter
+% margin.  More space is needed for the gutter margin so that the text
+% remains legible after the printed material is bound (not an issue
+% for an electronic document).  The following statement specifies a
+% page layout which is suitable for both electronic and print versions
+% of the thesis (a 20pt shift to the outside of the page is
+% automatically imposed when the print version is being generated
+% providing the wider gutter margin).
+\geometry{
+  verbose,
+  dvips,
+  width=422.695pt, marginparsep=0pt, marginparwidth=0pt,
+  top=72.27pt, headheight=12pt, headsep=36pt, footskip=30pt, bottom=72.27pt
+}
+
+% The following statement specifies the amount of space between
+% paragraphs.  Other reasonable specifications are \bigskipamount and \smallskipamount.
+
+
+% The following statement controls the line spacing.  The default
+% spacing corresponds to good typographic conventions and only slight
+% changes (e.g., perhaps "1.2"), if any, should be made.
+\renewcommand{\baselinestretch}{1}     
+
+% By default, each chapter will start on a recto (right-hand side)
+% page.  In some cases, this will require that the verso page be
+% blank and, while it should be counted, a page number should not be
+% printed.  The following statements ensure a page number is not
+% printed on an otherwise blank verso page.
+\let\origdoublepage\cleardoublepage
+\newcommand{\clearemptydoublepage}{%
+  \clearpage{\pagestyle{empty}\origdoublepage}}
+\let\cleardoublepage\clearemptydoublepage
+
+
+%%%%%%%%%%%%%%
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\renewcommand{\algorithmicensure}{\textbf{if}}
+\renewcommand{\algorithmicensure}{\textbf{Uses:}}
+
+\def\diag{\mbox{diag}}
+\def\cdeg{\qopname\relax n{cdeg}}
+%\keycomment{\{\{}{\}\}}
+\def\MM{\qopname\relax n{MM}}
+\def\M{\qopname\relax n{M}}
+\def\ord{\qopname\relax n{ord}}
+
+\def\StorjohannTransform{\qopname\relax n{StorjohannTransform}}
+\def\TransformUnbalanced{\qopname\relax n{TransformUnbalanced}}
+\def\rowDimension{\qopname\relax n{rowDimension}}
+\def\columnDimension{\qopname\relax n{columnDimension}}
+\DeclareMathOperator{\re}{rem}
+\DeclareMathOperator{\coeff}{coeff}
+\DeclareMathOperator{\lcoeff}{lcoeff}
+\def\mab{\qopname\relax n{OrderBasis}}
+\def\mmab{\qopname\relax n{FastBasis}}
+\def\umab{\qopname\relax n{UnbalancedFastBasis}}
+\def\mnb{\qopname\relax n{MinimalNullspaceBasis ~ }}
+\newcommand{\bb}{\\}
+
+
+%======================================================================
+%   L O G I C A L    D O C U M E N T -- the content of your thesis
+%======================================================================
+\end_preamble
+\options letterpaper,titlepage,oneside,final
+\use_default_options false
+\begin_modules
+algorithm
+theorems-ams
+theorems-chap
+algorithmics
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing double
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% T I T L E   P A G E
+\end_layout
+
+\begin_layout Plain Layout
+
+% -------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+% The title page is counted as page `i' but we need to suppress the
+\end_layout
+
+\begin_layout Plain Layout
+
+% page number.
+  We also don't want any headers or footers.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{empty}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{roman}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+% The contents of the title page are specified in the "titlepage"
+\end_layout
+
+\begin_layout Plain Layout
+
+% environment.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{titlepage}
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+vspace*{1.0cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+Huge
+\end_layout
+
+\begin_layout Plain Layout
+
+   {
+\backslash
+bf Order Basis and Nullspace Basis Computation}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+vspace*{1.0cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+normalsize
+\end_layout
+
+\begin_layout Plain Layout
+
+        by 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+vspace*{1.0cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+Large
+\end_layout
+
+\begin_layout Plain Layout
+
+        Wei Zhou 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+vspace*{3.0cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+normalsize
+\end_layout
+
+\begin_layout Plain Layout
+
+        A thesis 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        presented to the University of Waterloo 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+        in fulfillment of the 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        thesis requirement for the degree of 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  Doctor of Philosophy 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        in 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        Computer Science 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+vspace*{2.0cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        Waterloo, Ontario, Canada, 2011 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+vspace*{1.0cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+copyright
+\backslash
+ Wei Zhou 2011 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{titlepage}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% The rest of the front pages should contain no headers and be
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% numbered using roman numerals starting with `ii'
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+plain
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{page}{2}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% D E C L A R A T I O N   P A G E
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% -------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ifthenelse
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+boolean
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+ElectronicVersion
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% The following is the sample Delaration Page as provided by the GSO
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% December 13th, 2006.
+  It is designed for an electronic thesis.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+I hereby declare that I am the sole author of this thesis.
+ This is a true copy of the thesis, including any required final revisions,
+ as accepted by my examiners.
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+I understand that my thesis may be made electronically available to the
+ public.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% The following text was what was required back when the GSO acceped
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% printed versions and you may want to continue to use it for your
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% printed version.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+I hereby declare that I am the sole author of this thesis.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+I authorize the University of Waterloo to lend this thesis to other institutions
+ or individuals for the purpose of scholarly research.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+I further authorize the University of Waterloo to reproduce this thesis
+ by photocopying or by other means, in total or in part, at the request
+ of other institutions or individuals for the purpose of scholarly research.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\series bold
+Abstract
+\end_layout
+
+\begin_layout Standard
+\noindent
+In this thesis, we present efficient deterministic algorithms for the computatio
+n of a shifted order basis of a matrix of univariate power series over a
+ field, and the computation of a shifted minimal nullspace basis of a matrix
+ of univariate polynomials over a field.
+ Both are fundamental problems that have many applications in polynomial
+ matrix computations.
+ Computing these bases without shifts are special cases of computing with
+ shifts handled by our algorithms.
+ In fact, one major contribution of this thesis is to illustrate the usefulness
+ of working with shifts, which helps us to keep track of the degrees throughout
+ the computations and to reveal new useful properties and structures that
+ enables efficient computation of these bases.
+\end_layout
+
+\begin_layout Standard
+We first give two algorithms for computing a shifted order basis of an 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrix of power series over a field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+ with 
+\begin_inset Formula $m\le n$
+\end_inset
+
+.
+ For a given order 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ and balanced shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ the first algorithm determines an order basis with a cost of 
+\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+\end_inset
+
+ field operations in 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+, where 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is the exponent of matrix multiplication.
+ Here an input shift is balanced when 
+\begin_inset Formula $\max(\vec{s})-\min(\vec{s})\in O(m\sigma/n)$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%Here $O^{
+\backslash
+sim}$
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%is just $O$ with log factors omitted and 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%$
+\backslash
+MM
+\backslash
+left(n,d
+\backslash
+right)$ denotes
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%the cost of multiplying two polynomial matrices with dimension $n$
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%and degree $d$.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+This extends earlier work of Storjohann which only determines a subset of
+ an order basis that is within a specified degree bound 
+\begin_inset Formula $\delta$
+\end_inset
+
+ using 
+\begin_inset Formula $O^{\sim}(n^{\omega}\delta)$
+\end_inset
+
+ field operations for 
+\begin_inset Formula $\delta\ge\lceil m\sigma/n\rceil$
+\end_inset
+
+.
+ While the first algorithm addresses the case when the column degrees of
+ a complete order basis are unbalanced given a balanced input shift, it
+ is not efficient in the case when an unbalanced shift results in the row
+ degrees also becoming unbalanced.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%The column degrees of a complete basis may be unbalanced, which is
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%a major issue we address in the first algorithm.
+ When the input shift
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%is unbalanced, the row degrees of the basis can also be unbalanced
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%in addition to the unbalanced column degrees.
+ For this, we present
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+We present a second algorithm which balances the high degree rows and computes
+ an order basis also using 
+\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+\end_inset
+
+ field operations in the case that the shift is unbalanced but satisfies
+ the condition 
+\begin_inset Formula $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma$
+\end_inset
+
+.
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Every problem with any unbalanced shift can be in fact reduced to a problem
+ with a shift that satisfying this condition if the degrees of a resulting
+ order basis is known.
+ 
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Many unbalanced shift problems can be in fact converted to problems satisfying
+ this condition.
+ 
+\end_layout
+
+\end_inset
+
+ This condition essentially allows us to locate those high degree rows that
+ need to be balanced.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+In more general unbalanced shift cases, this algorithm may not work well
+ directly since we do not know in advance which are the high degree rows
+ need to be balanced.
+ But it may work efficiently if we have an effective way of estimating the
+ resulting row degrees.
+ 
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+This extends the earlier work by the authors from ISSAC'09.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We then present an algorithm for the computation of a minimal nullspace
+ basis of an 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ input matrix of univariate polynomials over a field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+ with 
+\begin_inset Formula $m\le n$
+\end_inset
+
+.
+ This algorithm computes a minimal nullspace basis of a degree 
+\begin_inset Formula $d$
+\end_inset
+
+ input matrix with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil md/n\right\rceil \right)$
+\end_inset
+
+ field operations in 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Here the soft-
+\begin_inset Formula $O$
+\end_inset
+
+ notation is Big-
+\begin_inset Formula $O$
+\end_inset
+
+ with log factors removed while 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is the exponent of matrix multiplication.
+\end_layout
+
+\end_inset
+
+ The same algorithm also works in the more general situation on computing
+ a shifted minimal nullspace basis, with a given degree shift 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
+\end_inset
+
+ whose entries bound the corresponding column degrees of the input matrix.
+ In this case if 
+\begin_inset Formula $\rho$
+\end_inset
+
+ is the sum of the 
+\begin_inset Formula $m$
+\end_inset
+
+ largest entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, then a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal right nullspace basis can be computed with a cost of 
+\begin_inset Formula $O^{\sim}(n^{\omega}\rho/m)$
+\end_inset
+
+ field operations.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\series bold
+Acknowledgements
+\end_layout
+
+\begin_layout Standard
+\noindent
+I would like to thank my supervisor George 
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\series bold
+Dedication
+\end_layout
+
+\begin_layout Standard
+\noindent
+To my father, mother, wife, and daughter.
+ 
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList table
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{arabic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+doublespacing
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+preview true
+filename "mainIntroduction.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "preliminaries.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "orderBasis.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "nullspaceBasis.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "conclusion.lyx"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "paper"
+options "elsarticle-harv"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
