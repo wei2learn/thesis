@@ -37,7 +37,7 @@ theorems-chap
 \use_esint 1
 \use_mhchem 1
 \use_mathdots 1
-\cite_engine basic
+\cite_engine natbib_authoryear
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -794,12 +794,12 @@ Note that there is no need to set the degree parameter
 
 .
  The ceiling function here is used to take care of the case of 
-\begin_inset Formula $m\sigma<n$
+\begin_inset Formula $m\sigma\in o(n)$
 \end_inset
 
 .
  For the remainder of the paper, we assume that 
-\begin_inset Formula $m\sigma\ge n$
+\begin_inset Formula $m\sigma\in\Omega(n)$
 \end_inset
 
  in order to avoid the need for the ceiling function and so simplify the
@@ -1258,6 +1258,12 @@ balanced
 \end_layout
 
 \begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:balancedShift"
+
+\end_inset
+
 A shift 
 \begin_inset Formula $\vec{s}$
 \end_inset
@@ -1542,6 +1548,16 @@ filename "orderBasisComplexity.lyx"
 \begin_inset CommandInset include
 LatexCommand input
 filename "orderBasisUnbalanced.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "orderBasisRemoveCeilingFunction.lyx"
 
 \end_inset
 

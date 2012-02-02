@@ -8,7 +8,7 @@
 \end_preamble
 \options amsthm
 \use_default_options false
-\master nullspaceBasisComputing.lyx
+\master nullspaceBasisApplications.lyx
 \begin_modules
 algorithmics
 \end_modules
@@ -69,6 +69,22 @@ algorithmics
 \begin_body
 
 \begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Note that rank sensitive computation for order basis is not as natural,
+ since for order basis we work with power series in general, whose rank
+ may never be truly computed.
+ In addition, the computed basis does not correspond to the rank.
+ For these reasons, we do not pursue rank sensitive computations for order
+ basis.
+ 
+\end_layout
+
+\end_inset
+
+
 \begin_inset Float algorithm
 placement t
 wide false
@@ -79,14 +95,10 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mnb(\mathbf{F},\vec{s})$
+\begin_inset Formula $\inv(\mathbf{F})$
 \end_inset
 
-: Compute a 
-\begin_inset Formula $\vec{s}$
-\end_inset
 
--minimal Nullspace Basis
 \end_layout
 
 \end_inset
@@ -94,7 +106,7 @@ status open
 
 \begin_inset CommandInset label
 LatexCommand label
-name "alg:minimalNullspaceBasis"
+name "alg:matrixInverse"
 
 \end_inset
 
@@ -110,20 +122,10 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
-, 
-\begin_inset Formula $\vec{s}=[s_{1},\dots,s_{n}]\in\mathbb{Z}^{n}$
-\end_inset
 
- with entries arranged in non-decreasing order and bounding the corresponding
- column degrees of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-.
- 
 \end_layout
 
 \end_inset
@@ -136,23 +138,22 @@ status open
 status open
 
 \begin_layout Plain Layout
-A 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\mathbf{A},\mathbf{B}$
 \end_inset
 
--minimal nullspace basis of 
+ such that 
+\begin_inset Formula $\mathbf{A}\mathbf{B}^{-1}=\mathbf{F}^{-1}$
+\end_inset
+
+ if 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- and its 
-\begin_inset Formula $\vec{s}$
+ is nonsingular, or 0,0 if 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
--column degrees 
-\begin_inset Formula $\vec{s}'$
-\end_inset
-
-.
+ is singular.
 \end_layout
 
 \end_inset
@@ -165,18 +166,14 @@ A
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\xi:=\sum_{i=1}^{n}s_{i}$
+\begin_inset Formula $\vec{s}:=$
 \end_inset
 
-; 
-\begin_inset Formula $\rho:=\sum_{i=n-m+1}^{n}s_{i};$
+column degrees of 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
- 
-\begin_inset Formula $s:=\rho/m$
-\end_inset
-
-; 
+;
 \end_layout
 
 \end_inset
@@ -189,90 +186,19 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left[\mathbf{P},\vec{b}\right]:=\mab\left(\mathbf{F},3s,\vec{s}\right)$
+\begin_inset Formula $\left[\mathbf{F}_{1}^{T},\mathbf{F}_{2}^{T}\right]:=\mathbf{F}^{T}$
 \end_inset
 
-, a 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\left(\mathbf{F},3s,\vec{s}\right)$
+ with 
+\begin_inset Formula $\mathbf{F}_{1}$
 \end_inset
 
--basis
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- with the columns of 
-\begin_inset Formula $\mathbf{P}$
+ consists of the top 
+\begin_inset Formula $\left\lceil n\right\rceil $
 \end_inset
 
- and the entries of is 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column degrees 
-\begin_inset Formula $\vec{b}$
-\end_inset
-
- arranged so that the entries of 
-\begin_inset Formula $\vec{b}$
-\end_inset
-
- are in non-decreasing order;
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "line:orderBasis"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]:=\mathbf{P}$
-\end_inset
-
- where 
-\begin_inset Formula $\mathbf{P}_{1}$
-\end_inset
-
- consists of all columns 
-\begin_inset Formula $\mathbf{p}$
-\end_inset
-
- of 
-\begin_inset Formula $\mathbf{P}$
-\end_inset
-
- satisfying 
-\begin_inset Formula $\mathbf{F}\mathbf{p}=0$
+ rows of 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
 ;
@@ -288,10 +214,51 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $m=1$
+\begin_inset Formula $\mathbf{F}=0$
+\end_inset
+
+ 
+\end_layout
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex IFBODY
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+RETURN
+\end_layout
+
+\end_inset
+
+ 0,0;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex IF
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=1$
+\end_inset
+
+ 
 \end_layout
 
 \end_inset
@@ -317,14 +284,54 @@ RETURN
 \end_inset
 
  
-\begin_inset Formula $\mathbf{P}_{1},\deg_{\vec{s}}\mathbf{P}_{1}$
+\begin_inset Formula $1,\mathbf{F}$
 \end_inset
 
- 
+;
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Flex ELSE
+\begin_inset CommandInset label
+LatexCommand label
+name "line:nullspaceBasisComputation"
+
+\end_inset
+
+
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{N}_{1}:=\mnb(\mathbf{F}_{1},\vec{s})$
+\end_inset
+
+;
+\begin_inset Formula $\mathbf{N}_{2}:=\mnb(\mathbf{F}_{2},\vec{s})$
+\end_inset
+
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex IF
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\columnDimension(\mathbf{N}_{1})\ne\left\lfloor n\right\rfloor $
+\end_inset
+
+ 
+\begin_inset Flex OR
 status collapsed
 
 \begin_layout Plain Layout
@@ -333,87 +340,8 @@ status collapsed
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
  
-\begin_inset Formula $\vec{t}:=\deg_{\vec{s}}\mathbf{P}_{2}-\left[3s,3s,\dots,3s\right];$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathbf{G}:=\mathbf{F}\mathbf{P}_{2}/x^{3s}$
-\end_inset
-
-;
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "line:multiplyFP2"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\left[\mathbf{G}_{1}^{T},\mathbf{G}_{2}^{T}\right]^{T}:=\mathbf{G}$
-\end_inset
-
-, with 
-\begin_inset Formula $\mathbf{G}_{1}$
-\end_inset
-
- having 
-\begin_inset Formula $\left\lfloor m/2\right\rfloor $
-\end_inset
-
- rows and 
-\begin_inset Formula $\mathbf{G}_{2}$
-\end_inset
-
- having 
-\begin_inset Formula $\left\lceil m/2\right\rceil $
-\end_inset
-
- rows;
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\left[\mathbf{N}_{1},\vec{u}\right]:=\mnb\left(\mathbf{G}_{1},\vec{t}\right);$
+\begin_inset Formula $\columnDimension(\mathbf{N}_{2})\ne\left\lceil n\right\rceil $
 \end_inset
 
  
@@ -425,34 +353,51 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Flex STATE
+\begin_inset Flex IFBODY
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left[\mathbf{N}_{2},\vec{v}\right]:=\mnb\left(\mathbf{G}_{2}\mathbf{N}_{1},\vec{u}\right);$
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+RETURN
+\end_layout
+
 \end_inset
 
+ 0,0; //
+\begin_inset Formula $\mathbf{F}$
+\end_inset
 
+ is nonsingular
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "line:multiplyG2N1"
+name "line:multiplyFN"
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Flex STATE
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{Q}:=\mathbf{N}_{1}\mathbf{N}_{2}$
+\begin_inset Formula $\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$
+\end_inset
+
+;
+\begin_inset Formula $\mathbf{R}_{2}:=\mathbf{F}_{2}\mathbf{N}_{1}$
 \end_inset
 
 ;
@@ -461,14 +406,42 @@ status open
 \end_inset
 
 
-\begin_inset CommandInset label
-LatexCommand label
-name "line:multiplyN1N2"
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{G}_{1},\mathbf{H}_{1}:=\inv(\mathbf{R}_{1})$
+\end_inset
+
+; 
+\begin_inset Formula $\mathbf{G}_{2},$
+\end_inset
+
+
+\begin_inset Formula $\mathbf{H}_{2}:=\inv(\mathbf{R}_{2})$
+\end_inset
+
+;
+\end_layout
 
 \end_inset
 
 
 \end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "line:multiplyNG"
+
+\end_inset
+
+
+\begin_inset Flex STATE
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -484,17 +457,14 @@ RETURN
 \end_inset
 
  
-\begin_inset Formula $\left[\mathbf{P}_{1},\mathbf{P}_{2}\mathbf{Q}\right],\left[\deg_{\vec{s}}\mathbf{P}_{1},\vec{v}\right]$
+\begin_inset Formula $[\mathbf{N}_{2}\mathbf{G}_{1},\mathbf{N}_{1}\mathbf{G}_{2}]$
 \end_inset
 
-
-\begin_inset CommandInset label
-LatexCommand label
-name "line:multiplyP2Q"
-
+,
+\begin_inset Formula $\diag\left([\mathbf{H}_{1},\mathbf{H}_{2}]\right)$
 \end_inset
 
-
+;
 \end_layout
 
 \end_inset

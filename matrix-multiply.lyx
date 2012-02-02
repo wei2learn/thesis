@@ -5,6 +5,7 @@
 \textclass report
 \options amsthm,seceqn,secthm
 \use_default_options false
+\master nullspaceBasisComputing.lyx
 \begin_modules
 theorems-ams
 theorems-chap

@@ -140,8 +140,6 @@ plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis
 %%%%%%%%%%%%%%
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
-\renewcommand{\algorithmicensure}{\textbf{if}}
-\renewcommand{\algorithmicensure}{\textbf{Uses:}}
 
 \def\diag{\mbox{diag}}
 \def\cdeg{\qopname\relax n{cdeg}}
@@ -157,7 +155,9 @@ plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis
 \DeclareMathOperator{\re}{rem}
 \DeclareMathOperator{\coeff}{coeff}
 \DeclareMathOperator{\lcoeff}{lcoeff}
+\DeclareMathOperator{\inv}{inverse}
 \def\mab{\qopname\relax n{OrderBasis}}
+\def\mnbr{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
 \def\mmab{\qopname\relax n{FastBasis}}
 \def\umab{\qopname\relax n{UnbalancedFastBasis}}
 \def\mnb{\qopname\relax n{MinimalNullspaceBasis ~ }}
@@ -1440,7 +1440,7 @@ filename "conclusion.lyx"
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "paper"
-options "elsarticle-harv"
+options "plainnat"
 
 \end_inset
 

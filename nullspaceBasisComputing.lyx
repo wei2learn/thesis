@@ -4105,7 +4105,7 @@ reference "thm:multiplyUnbalancedMatrices"
 
 .
 \begin_inset Note Comment
-status collapsed
+status open
 
 \begin_layout Lemma
 \begin_inset CommandInset label
@@ -4377,7 +4377,7 @@ Computational Complexity of Algorithm
 \begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:complexity"
+name "sec:complexityNullspaceBasis"
 
 \end_inset
 
@@ -4414,13 +4414,6 @@ input{algorithmNullspaceBasis.tex}
 \begin_layout Plain Layout
 
 \end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset include
-LatexCommand input
-filename "matrix-multiply.lyx"
 
 \end_inset
 

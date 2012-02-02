@@ -1,0 +1,757 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass report
+\options amsthm,seceqn,secthm
+\use_default_options false
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding latin9
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 2
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+The Case 
+\begin_inset Formula $m\sigma\in o(n)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:removeCeilingFunction"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have been assuming 
+\begin_inset Formula $m\sigma\in\Omega(n)$
+\end_inset
+
+ so far.
+ With this assumption, we can transform the original problem with dimension
+ 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ and degree 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ to one with dimension 
+\begin_inset Formula $\Theta(n)\times\Theta(n)$
+\end_inset
+
+ and degree 
+\begin_inset Formula $\Theta(d)=\Theta(m\sigma/n)$
+\end_inset
+
+, allowing order basis computation to be efficient with a final cost of
+ 
+\begin_inset Formula $O^{\sim}(n^{\omega}d)$
+\end_inset
+
+.
+ However, if 
+\begin_inset Formula $m\sigma\in o(n)$
+\end_inset
+
+, the average degree 
+\begin_inset Formula $d=m\sigma/n\in o(1)$
+\end_inset
+
+ but 
+\begin_inset Formula $1$
+\end_inset
+
+ is the lowest possible degree and 
+\begin_inset Formula $m\sigma$
+\end_inset
+
+ is the maximum possible row dimension of our transformed problems.
+ In other words, we cannot obtain a nearly square transformed problem for
+ our algorithms to behave efficiently.
+ In this case, our algorithms still require 
+\begin_inset Formula $O^{\sim}(n^{\omega}$
+\end_inset
+
+
+\begin_inset Formula $\left\lceil d\right\rceil )=O^{\sim}(n^{\omega})$
+\end_inset
+
+ field operations.
+ We now look how this cost can be improved to 
+\begin_inset Formula $O^{\sim}(n^{\omega}d)=O^{\sim}(n^{\omega-1}m\sigma)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+First note that in this case, using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "def:balancedShift"
+
+\end_inset
+
+, a balanced shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is also uniform, since 
+\begin_inset Formula $\max\left(\vec{s}\right)-\min\left(\vec{s}\right)\in O\left(m\sigma/n\right)\subseteq o(1)$
+\end_inset
+
+, which makes 
+\begin_inset Formula $\max\left(\vec{s}\right)-\min\left(\vec{s}\right)=0$
+\end_inset
+
+.
+ So let us just consider the uniform shift case.
+\end_layout
+
+\begin_layout Standard
+We first compute all degree 0 basis elements, which then helps to eliminate
+ the columns of the input that are never going to be needed as pivots.
+ The remaining columns can then be used as the input to compute the remaining
+ basis elements efficiently.
+ The degree 0 elements of a 
+\begin_inset Formula $\left(\mathbf{F},\sigma\right)$
+\end_inset
+
+-basis
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+nullspace basis elements of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ correspond to a nullspace basis of a linearized matrix 
+\begin_inset Formula 
+\[
+\bar{F}=\left[\begin{array}{c}
+F_{0}\\
+F_{1}\\
+F_{2}\\
+\vdots\\
+F_{\sigma-1}
+\end{array}\right]\in\mathbb{K}^{(m\sigma)\times n}
+\]
+
+\end_inset
+
+of 
+\begin_inset Formula $\mathbf{F}=F_{0}+F_{1}x+F_{2}x^{2}+\cdots+F_{\sigma-1}x^{\sigma-1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+The elements of a nullspace basis of 
+\begin_inset Formula $\bar{F}$
+\end_inset
+
+ over 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+ are also the degree 0 elements of a 
+\begin_inset Formula $\left(\mathbf{F},\sigma\right)$
+\end_inset
+
+-basis
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+a minimal nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+The columns of 
+\begin_inset Formula $\bar{F}$
+\end_inset
+
+ and the columns of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ are equivalent representations of the same elements of the same 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+-module, which is also a vector space over 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To compute these basis elements, we can use the Gauss Jordan transform algorithm
+ from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "storjohann:phd2000"
+
+\end_inset
+
+ on 
+\begin_inset Formula $\bar{F}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O\left(nm\sigma\bar{r}^{\omega-2}\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $\bar{r}\le m\sigma$
+\end_inset
+
+ is the rank of 
+\begin_inset Formula $\bar{F}$
+\end_inset
+
+.
+ The algorithm finds a permutation matrix 
+\begin_inset Formula $P$
+\end_inset
+
+ and a unimodular matrix 
+\begin_inset Formula $U$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbb{K}^{n\times n}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\bar{F}PU$
+\end_inset
+
+ is in the reduced column echelon form of 
+\begin_inset Formula $\bar{F}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $P$
+\end_inset
+
+ permutes the columns of 
+\begin_inset Formula $\bar{F}$
+\end_inset
+
+ so that the first 
+\begin_inset Formula $\bar{r}$
+\end_inset
+
+ columns of 
+\begin_inset Formula $\bar{F}$
+\end_inset
+
+ are linearly independent.
+ Let 
+\begin_inset Formula $\left[U_{1},U_{0}\right]:=U$
+\end_inset
+
+ with 
+\begin_inset Formula $U_{0}$
+\end_inset
+
+ correspond to the zero columns of 
+\begin_inset Formula $\bar{F}PU$
+\end_inset
+
+.
+ Then the matrix consists of the bottom 
+\begin_inset Formula $n-\bar{r}$
+\end_inset
+
+ rows of 
+\begin_inset Formula $U_{0}$
+\end_inset
+
+ is the identity matrix, and only the first 
+\begin_inset Formula $\bar{r}$
+\end_inset
+
+ rows of 
+\begin_inset Formula $U_{1}$
+\end_inset
+
+ are nonzero.
+ Because of this simpler structure after permutation, let us compute a 
+\begin_inset Formula $\left(\mathbf{F}P,\sigma\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ instead, which also gives us a 
+\begin_inset Formula $\left(\mathbf{F},\sigma\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $P\mathbf{P}$
+\end_inset
+
+.
+ Notice that 
+\begin_inset Formula $U_{0}$
+\end_inset
+
+ consists of all the degree 0 elements of a 
+\begin_inset Formula $\left(\mathbf{F}P,\sigma\right)$
+\end_inset
+
+-basis.
+ We can then use 
+\begin_inset Formula $\mathbf{F}PU_{1}$
+\end_inset
+
+ as the input matrix to compute the remaining basis elements.
+ But to further simplify our future computation, let us replace 
+\begin_inset Formula $U_{1}$
+\end_inset
+
+ with 
+\begin_inset Formula $V=\left[I,0\right]^{T}$
+\end_inset
+
+ of the same dimension, where the identity matrix 
+\begin_inset Formula $I$
+\end_inset
+
+ replaces the first nonzero 
+\begin_inset Formula $\bar{r}$
+\end_inset
+
+ rows in 
+\begin_inset Formula $U_{1}$
+\end_inset
+
+.
+ In essence, 
+\begin_inset Formula $PV$
+\end_inset
+
+ picks 
+\begin_inset Formula $\bar{r}$
+\end_inset
+
+ columns from 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ for computing the remaining basis elements.
+ Since 
+\begin_inset Formula $U_{0}$
+\end_inset
+
+ has at least 
+\begin_inset Formula $n-m\sigma$
+\end_inset
+
+ columns, there are at most 
+\begin_inset Formula $m\sigma$
+\end_inset
+
+ columns in 
+\begin_inset Formula $U_{1}$
+\end_inset
+
+, and hence at most 
+\begin_inset Formula $m\sigma$
+\end_inset
+
+ columns in 
+\begin_inset Formula $V$
+\end_inset
+
+ and in 
+\begin_inset Formula $\mathbf{F}PV$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Let If 
+\begin_inset Formula $\bar{F}P\left[U_{2},U_{0}\right]$
+\end_inset
+
+ is in the reduced column echelon form of 
+\begin_inset Formula $\bar{F}$
+\end_inset
+
+ with 
+\begin_inset Formula $U_{0}$
+\end_inset
+
+ being a nullspace basis of 
+\begin_inset Formula $\bar{F}P$
+\end_inset
+
+, and i
+\end_layout
+
+\end_inset
+
+If we compute a 
+\begin_inset Formula $\left(\mathbf{F}PV,\sigma\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+, then 
+\begin_inset Formula $\left[V\mathbf{Q},U_{0}\right]$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{F}P,\sigma\right)$
+\end_inset
+
+-basis.
+\end_layout
+
+\begin_layout Proof
+Note that the matrix 
+\begin_inset Formula $\left[V,U_{0}\right]$
+\end_inset
+
+, which has the structure
+\begin_inset Formula 
+\[
+\begin{bmatrix}I & *\\
+0 & I
+\end{bmatrix}
+\]
+
+\end_inset
+
+ with 
+\begin_inset Formula $*$
+\end_inset
+
+ representing the first 
+\begin_inset Formula $r$
+\end_inset
+
+ rows of 
+\begin_inset Formula $U_{0}$
+\end_inset
+
+, is a 
+\begin_inset Formula $\left(\mathbf{F}P,0\right)$
+\end_inset
+
+-basis since it is unimodular and column reduced.
+ From 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:combineOrderBases"
+
+\end_inset
+
+, we can use the residual 
+\begin_inset Formula $\mathbf{F}P[V,U_{0}]=\left[\mathbf{F}PV,0\right]$
+\end_inset
+
+ to compute a 
+\begin_inset Formula $\left(\left[\mathbf{F}PV,0\right],\sigma\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\bar{\mathbf{Q}}$
+\end_inset
+
+, then 
+\begin_inset Formula $[V,U_{0}]\bar{\mathbf{Q}}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{F}P,\sigma\right)$
+\end_inset
+
+-basis.
+ Also note that if 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{F}PV,\sigma\right)$
+\end_inset
+
+-basis, then 
+\begin_inset Formula 
+\[
+\bar{\mathbf{Q}}=\begin{bmatrix}\mathbf{Q}\\
+ & I
+\end{bmatrix}
+\]
+
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\left[\mathbf{F}PV,0\right],\sigma\right)$
+\end_inset
+
+-basis, and 
+\begin_inset Formula $[V,U_{0}]\bar{\mathbf{Q}}=\left[V\mathbf{Q},U_{0}\right]$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{F}P,\sigma\right)$
+\end_inset
+
+-basis.
+\end_layout
+
+\begin_layout Standard
+Our new problem of computing a 
+\begin_inset Formula $\left(\mathbf{F}PV,\sigma\right)$
+\end_inset
+
+-basis now satisfies the condition of having column dimension bounded by
+ 
+\begin_inset Formula $m\sigma$
+\end_inset
+
+.
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Lemma
+The column dimensions of 
+\begin_inset Formula $V$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}PV$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $m\sigma$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+The rank of 
+\begin_inset Formula $\bar{F}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $m\sigma$
+\end_inset
+
+.
+ This means its nullspace basis 
+\begin_inset Formula $U_{0}$
+\end_inset
+
+ has at least 
+\begin_inset Formula $n-m\sigma$
+\end_inset
+
+ columns.
+ Therefore 
+\begin_inset Formula $V$
+\end_inset
+
+ has at most 
+\begin_inset Formula $m\sigma$
+\end_inset
+
+ columns.
+\end_layout
+
+\end_inset
+
+ We can therefore compute a 
+\begin_inset Formula $\left(\mathbf{F}PV,\sigma\right)$
+\end_inset
+
+-basis using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:mab"
+
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(\left(m\sigma\right)^{\omega}\right)=O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The last thing to check is making sure that the multiplications for computing
+ the residual 
+\begin_inset Formula $\mathbf{F}PV$
+\end_inset
+
+, and for combining the results 
+\begin_inset Formula $V\mathbf{Q}$
+\end_inset
+
+, and for obtaining the final result 
+\begin_inset Formula $P\left[V\mathbf{Q},U_{0}\right]$
+\end_inset
+
+ can all be done efficiently, which is not difficult since 
+\begin_inset Formula $P$
+\end_inset
+
+ is a permutation matrix, and 
+\begin_inset Formula $V$
+\end_inset
+
+ consists of an identity matrix and zeros.
+ Therefore, the 
+\begin_inset Formula $(\mathbf{F},\sigma)$
+\end_inset
+
+-basis 
+\begin_inset Formula $P\left[V\mathbf{Q},U_{0}\right]$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+\end_inset
+
+.
+ This allows us to remove the assumption of 
+\begin_inset Formula $m\sigma\in\Omega(n)$
+\end_inset
+
+, and to extend 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:balancedCost"
+
+\end_inset
+
+ to the situation of 
+\begin_inset Formula $m\sigma\in o(n)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Theorem
+When 
+\begin_inset Formula $m\sigma\in o(n)$
+\end_inset
+
+ and the shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is balanced, a 
+\begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)$
+\end_inset
+
+-basis can be computed with a cost of 
+\begin_inset Formula $O\left(n^{\omega}\bar{\M}(d)\log\sigma)\right)=O\left(n^{\omega}d\log d\log\log d\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+ field operations, where 
+\begin_inset Formula $d=m\sigma/n$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_body
+\end_document

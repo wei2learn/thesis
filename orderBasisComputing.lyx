@@ -1,22 +1,34 @@
-#LyX 1.6.6.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 345
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
 \begin_document
 \begin_header
 \textclass report
 \options amsthm,seceqn,secthm
 \use_default_options false
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
+\maintain_unincluded_children false
 \language english
+\language_package default
 \inputencoding latin9
+\fontencoding global
 \font_roman default
 \font_sans default
 \font_typewriter default
 \font_default_family default
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
 
 \graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
 \paperfontsize default
 \spacing single
 \use_hyperref false
@@ -24,26 +36,36 @@
 \use_geometry false
 \use_amsmath 2
 \use_esint 1
+\use_mhchem 1
+\use_mathdots 1
 \cite_engine natbib_authoryear
 \use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
-\defskip medskip
+\paragraph_indentation default
 \quotes_language english
 \papercolumns 1
 \papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
-\author "" 
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
 \end_header
 
 \begin_body
 
-\begin_layout Chapter
+\begin_layout Section
 Computation of Order Bases
 \end_layout
 
@@ -84,7 +106,7 @@ Dividing into Subproblems
 \begin_layout Standard
 In 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "sec:transform"
 
 \end_inset
@@ -168,7 +190,255 @@ key "BL1997"
 \end_inset
 
 .
- 
+ For completeness, we state a version of this theorem specialized for our
+ needs below and provide a simpler proof.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:combineOrderBases"
+
+\end_inset
+
+For an input matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+, an order vector 
+\begin_inset Formula $\vec{\sigma}$
+\end_inset
+
+, and a shift vector 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, if 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$
+\end_inset
+
+-basis with 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ is a 
+\begin_inset Formula $(\mathbf{F}\mathbf{P},\vec{\tau},\vec{t})$
+\end_inset
+
+ -basis with 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+, where 
+\begin_inset Formula $\vec{\tau}\ge\vec{\sigma}$
+\end_inset
+
+ component-wise, then 
+\begin_inset Formula $\mathbf{P}\mathbf{Q}$
+\end_inset
+
+ is a 
+\begin_inset Formula $(\mathbf{F},\vec{\tau},\vec{s})$
+\end_inset
+
+-basis with 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+It is clear that 
+\begin_inset Formula $\mathbf{P}\mathbf{Q}$
+\end_inset
+
+ has order 
+\begin_inset Formula $(\mathbf{F},\vec{\tau})$
+\end_inset
+
+.
+ We now show that 
+\begin_inset Formula $\mathbf{P}\mathbf{Q}$
+\end_inset
+
+ is 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced and has 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+, or equivalently, 
+\begin_inset Formula $x^{\vec{s}}\mathbf{P}\mathbf{Q}$
+\end_inset
+
+ is column reduced and has column degrees 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+.
+ Notice that 
+\begin_inset Formula $x^{\vec{s}}\mathbf{P}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+ and a full rank leading column coefficient matrix 
+\begin_inset Formula $P$
+\end_inset
+
+.
+ Hence 
+\begin_inset Formula $x^{\vec{s}}\mathbf{P}x^{-\vec{t}}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $\left[0,\dots0\right]$
+\end_inset
+
+.
+ Similarly, 
+\begin_inset Formula $x^{\vec{t}}\mathbf{Q}x^{-\vec{u}}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $[0,\dots,0]$
+\end_inset
+
+ and a full rank leading column coefficient matrix 
+\begin_inset Formula $Q$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $x^{\vec{s}}\mathbf{P}x^{-\vec{t}}x^{\vec{t}}\mathbf{Q}x^{-\vec{u}}=x^{\vec{s}}\mathbf{P}\mathbf{Q}x^{-\vec{u}}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $[0,\dots,0]$
+\end_inset
+
+ and a full rank leading column coefficient matrix 
+\begin_inset Formula $PQ$
+\end_inset
+
+, implying that 
+\begin_inset Formula $x^{\vec{s}}\mathbf{P}\mathbf{Q}$
+\end_inset
+
+ is column reduced and that 
+\begin_inset Formula $x^{\vec{s}}\mathbf{P}\mathbf{Q}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+, or equivalently, the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{PQ}$
+\end_inset
+
+ is 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+It remains to show that any 
+\begin_inset Formula $\mathbf{t}\in\left\langle \left(\mathbf{F},\vec{\tau}\right)\right\rangle $
+\end_inset
+
+ is generated by the columns of 
+\begin_inset Formula $\mathbf{PQ}$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\mathbf{t}\in\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
+\end_inset
+
+, it is generated by the 
+\begin_inset Formula $\left(\mathbf{F},\vec{\sigma}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{t}=\mathbf{P}\mathbf{a}$
+\end_inset
+
+ for 
+\begin_inset Formula $\mathbf{a}=\mathbf{P}^{-1}\mathbf{t}\in\mathbb{K}\left[x\right]^{n}$
+\end_inset
+
+.
+ Also, 
+\begin_inset Formula $\mathbf{t}\in\left\langle \left(\mathbf{F},\vec{\tau}\right)\right\rangle $
+\end_inset
+
+ implies that 
+\begin_inset Formula $\mathbf{a}\in\left\langle \left(\mathbf{FP},\vec{\tau}\right)\right\rangle $
+\end_inset
+
+ since 
+\begin_inset Formula $\mathbf{F}\mathbf{P}\mathbf{a}=\mathbf{F}\mathbf{t}\equiv0\mod x^{\vec{\tau}}$
+\end_inset
+
+.
+ It follows that 
+\begin_inset Formula $\mathbf{a}=\mathbf{Q}\mathbf{b}$
+\end_inset
+
+ for 
+\begin_inset Formula $\mathbf{b}=\mathbf{Q}^{-1}\mathbf{a}\in\mathbb{K}\left[x\right]^{n}$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $\mathbf{a}=\mathbf{P}^{-1}\mathbf{t}=\mathbf{Q}\mathbf{b}$
+\end_inset
+
+, which gives 
+\begin_inset Formula $\mathbf{t}=\mathbf{P}\mathbf{Q}\mathbf{b}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Example
@@ -180,14 +450,14 @@ name "exm:subproblems"
 
  Let us continue with 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:StorjohannTransformation"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:auxiliaryTransformation"
 
 \end_inset
@@ -207,7 +477,7 @@ reference "exm:auxiliaryTransformation"
 
 -basis as shown in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:auxiliaryTransformation"
 
 \end_inset
@@ -232,18 +502,21 @@ reference "exm:auxiliaryTransformation"
 
 , the Storjohann partial linearized problem in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:StorjohannTransformation"
 
 \end_inset
 
 .
  The residual 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{F}'^{(2)}\bar{\mathbf{P}}^{(1)}=\left[{\begin{array}{rcccccccccc}
 0 & \  & x^{8} & \  & x^{6}+x^{9} & \  & x^{4}+x^{6}+x^{9} & \  & x^{6}+x^{8}+x^{9}+x^{10} & \  & x^{5}+x^{8}\\
 0 &  & 0 &  & x^{5} &  & x^{4}+x^{6} &  & x^{4}+x^{6} &  & x^{5}+x^{6}\\
-0 &  & x^{4} &  & x^{5} &  & x^{5} &  & x^{4}+x^{5}+x^{6} &  & x^{4}\end{array}}\right]\]
+0 &  & x^{4} &  & x^{5} &  & x^{5} &  & x^{4}+x^{5}+x^{6} &  & x^{4}
+\end{array}}\right]
+\]
 
 \end_inset
 
@@ -261,14 +534,17 @@ reference "exm:StorjohannTransformation"
 \end_inset
 
 -basis, which is 
-\begin_inset Formula \begin{equation}
+\begin_inset Formula 
+\begin{equation}
 \bar{\mathbf{Q}}^{(2)}=\left[{\begin{array}{cccccc}
 ~~1~ & ~~0~ & ~0~ & ~0~ & ~0~ & ~0~\\
 0 & 1 & 0 & 0 & 0 & 0\\
 0 & 0 & 1 & ~x^{2}~ & ~x~ & ~1~\\
 0 & 0 & 0 & 0 & x & 0\\
 0 & 0 & 1 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 1 & ~x~\end{array}}\right].\label{eq:Qbar2}\end{equation}
+0 & 0 & 0 & 0 & 1 & ~x~
+\end{array}}\right].\label{eq:Qbar2}
+\end{equation}
 
 \end_inset
 
@@ -282,7 +558,7 @@ reference "exm:StorjohannTransformation"
 
 -basis shown in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:auxiliaryTransformation"
 
 \end_inset
@@ -376,7 +652,7 @@ The column dimension of the second subproblem can be reduced by disregarding
 
 -basis by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:linkStorjohanTransform"
 
 \end_inset
@@ -435,10 +711,13 @@ name "lem:disregardComputedBasisElements"
 \end_inset
 
  The matrix 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \bar{\mathbf{Q}}^{\left(i\right)}=\left[\begin{array}{cc}
 \mathbf{I}_{k^{\left(i-1\right)}}\\
- & \bar{\mathbf{Q}}_{2}^{\left(i\right)}\end{array}\right]\]
+ & \bar{\mathbf{Q}}_{2}^{\left(i\right)}
+\end{array}\right]
+\]
 
 \end_inset
 
@@ -463,8 +742,10 @@ First note that
 \end_inset
 
  as 
-\begin_inset Formula \[
-\bar{\mathbf{F}}^{\left(i\right)}\hat{\mathbf{P}}^{\left(i-1\right)}\bar{\mathbf{Q}}^{\left(i\right)}=[\bar{\mathbf{F}}^{\left(i\right)}\hat{\mathbf{P}}_{1}^{\left(i-1\right)},\bar{\mathbf{F}}^{\left(i\right)}\hat{\mathbf{P}}_{2}^{\left(i-1\right)}\bar{\mathbf{Q}}_{2}^{\left(i\right)}]\equiv0\mod x^{2\delta^{\left(i\right)}}.\]
+\begin_inset Formula 
+\[
+\bar{\mathbf{F}}^{\left(i\right)}\hat{\mathbf{P}}^{\left(i-1\right)}\bar{\mathbf{Q}}^{\left(i\right)}=[\bar{\mathbf{F}}^{\left(i\right)}\hat{\mathbf{P}}_{1}^{\left(i-1\right)},\bar{\mathbf{F}}^{\left(i\right)}\hat{\mathbf{P}}_{2}^{\left(i-1\right)}\bar{\mathbf{Q}}_{2}^{\left(i\right)}]\equiv0\mod x^{2\delta^{\left(i\right)}}.
+\]
 
 \end_inset
 
@@ -487,7 +768,7 @@ First note that
 -minimal.
  Hence, by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:orderBasisEquivalence"
 
 \end_inset
@@ -541,7 +822,7 @@ Alternatively, one can also argue that since
 
 \begin_layout Standard
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:disregardComputedBasisElements"
 
 \end_inset
@@ -584,7 +865,7 @@ Let
 \begin_layout Proof
 From 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:disregardComputedBasisElements"
 
 \end_inset
@@ -612,7 +893,7 @@ reference "lem:disregardComputedBasisElements"
 
 , the result follows from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:extractingOrderBasis"
 
 \end_inset
@@ -637,21 +918,21 @@ status open
 \begin_layout Example
 Continuing with 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:StorjohannTransformation"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:auxiliaryTransformation"
 
 \end_inset
 
 , and 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:subproblems"
 
 \end_inset
@@ -668,7 +949,7 @@ notice that after the first subproblem, the second subproblem of computing
 
  in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:subproblems"
 
 \end_inset
@@ -798,7 +1079,7 @@ of lower dimensions.
 
 \begin_layout Standard
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:computationAtTopLevel"
 
 \end_inset
@@ -831,7 +1112,7 @@ reference "lem:computationAtTopLevel"
 -basis.
  By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:computationAtTopLevel"
 
 \end_inset
@@ -901,7 +1182,7 @@ The recursive top-down approach of the previous subsection is useful for
  giving an overall picture of the computation process.
  Algorithm 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -949,7 +1230,7 @@ status open
 
 \begin_layout Standard
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -990,7 +1271,7 @@ key "Giorgi2003"
 
  is the transformation described in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "sub:storjohannTransformation"
 
 \end_inset
@@ -1000,7 +1281,7 @@ reference "sub:storjohannTransformation"
 
 \begin_layout Standard
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -1134,7 +1415,7 @@ status open
 \begin_layout Theorem
 Algorithm 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -1149,21 +1430,21 @@ reference "alg:mab"
 \begin_layout Proof
 This follows from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:simplifySecondSubproblem"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:disregardComputedBasisElements"
 
 \end_inset
 
 , and 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:computationAtTopLevel"
 
 \end_inset

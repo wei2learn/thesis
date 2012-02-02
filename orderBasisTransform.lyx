@@ -1,22 +1,30 @@
-#LyX 1.6.6.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 345
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
 \begin_document
 \begin_header
 \textclass report
 \options amsthm,seceqn,secthm
 \use_default_options false
+\maintain_unincluded_children false
 \language english
+\language_package default
 \inputencoding latin9
+\fontencoding global
 \font_roman default
 \font_sans default
 \font_typewriter default
 \font_default_family default
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
 
 \graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
 \paperfontsize default
 \spacing single
 \use_hyperref false
@@ -24,25 +32,36 @@
 \use_geometry false
 \use_amsmath 2
 \use_esint 1
+\use_mhchem 1
+\use_mathdots 1
 \cite_engine natbib_authoryear
 \use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
-\defskip medskip
+\paragraph_indentation default
 \quotes_language english
 \papercolumns 1
 \papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
 \end_header
 
 \begin_body
 
-\begin_layout Chapter
+\begin_layout Section
 Extending Storjohann's Transformation
 \end_layout
 
@@ -58,7 +77,7 @@ name "sec:transform"
 
 \begin_layout Standard
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
 notations: 
@@ -338,14 +357,14 @@ In this section, we introduce a transformation that can be viewed as an
  For easier understanding, we first focus on a particular case of this transform
 ation in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "sub:particularCase"
 
 \end_inset
 
  and then generalize this in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "sub:generalTransform"
 
 \end_inset
@@ -428,13 +447,17 @@ again, changed from
 \end_inset
 
 -basis where 
-\begin_inset Formula \begin{equation}
+\begin_inset Formula 
+\begin{equation}
 \mathbf{F}'=\left[\begin{array}{cc}
 \mathbf{F} & \mathbf{0}\\
-\mathbf{F}'_{21} & \mathbf{F}'_{22}\end{array}\right]=\left[\begin{array}{c|cr}
+\mathbf{F}'_{21} & \mathbf{F}'_{22}
+\end{array}\right]=\left[\begin{array}{c|cr}
 \mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}+\mathbf{F}_{2}x^{2\delta}+\mathbf{F}_{3}x^{3\delta} & \mathbf{0} & \mathbf{0}\\
 \hline \mathbf{F}_{1}+\mathbf{F}_{2}x^{\delta} & \mathbf{I}_{m} & \mathbf{0}\\
-\mathbf{F}_{2}+\mathbf{F}_{3}x^{\delta} & \mathbf{0} & \mathbf{I}_{m}\end{array}\right]\label{eq:extendedSTransformTop}\end{equation}
+\mathbf{F}_{2}+\mathbf{F}_{3}x^{\delta} & \mathbf{0} & \mathbf{I}_{m}
+\end{array}\right]\label{eq:extendedSTransformTop}
+\end{equation}
 
 \end_inset
 
@@ -555,7 +578,7 @@ In fact, it is quite easy to construct a
 
 -basis, as we show later in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:FtoAbasis"
 
 \end_inset
@@ -571,7 +594,7 @@ reference "lem:FtoAbasis"
 
 -basis, which is addressed eventually in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:extractingFbasisFromGbasis"
 
 \end_inset
@@ -587,7 +610,7 @@ reference "cor:extractingFbasisFromGbasis"
 
 -basis in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:FtoAbasis"
 
 \end_inset
@@ -602,7 +625,7 @@ reference "lem:FtoAbasis"
 
  to a simple form shown in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:FtauBasisForm"
 
 \end_inset
@@ -617,21 +640,21 @@ reference "cor:FtauBasisForm"
 
 -basis in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:2delta-1Basis"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:2deltaBasis"
 
 \end_inset
 
 , and 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:mainTheorem"
 
 \end_inset
@@ -656,14 +679,14 @@ We first look at the correspondence bettween the elements of
 
  in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:qToBqOrder"
 
 \end_inset
 
  to 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:bqToqOrder"
 
 \end_inset
@@ -679,14 +702,14 @@ reference "lem:bqToqOrder"
 
 -bases is then considered in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:FtauBasisForm"
 
 \end_inset
 
  to 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:mainTheorem"
 
 \end_inset
@@ -696,11 +719,14 @@ reference "thm:mainTheorem"
 
 \begin_layout Standard
 Let 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{B}=\left[\begin{array}{c}
 \mathbf{I}_{n}\\
 x^{-\delta}\mathbf{F}_{0}\\
-x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\end{array}\right].\]
+x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)
+\end{array}\right].
+\]
 
 \end_inset
 
@@ -727,11 +753,14 @@ If
 
 \begin_layout Proof
 The lemma follows from 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{F}'\mathbf{B}\mathbf{q}=\left[\begin{array}{r}
 \mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}+\mathbf{F}_{2}x^{2\delta}+\mathbf{F}_{3}x^{3\delta}\\
 \mathbf{F}_{0}x^{-\delta}+\mathbf{F}_{1}+\mathbf{F}_{2}x^{\delta}\\
-\mathbf{F}_{0}x^{-2\delta}+\mathbf{F}_{1}x^{-\delta}+\mathbf{F}_{2}+\mathbf{F}_{3}x^{\delta}\end{array}\right]\mathbf{q}\equiv\mathbf{0}\mod x^{\vec{\omega}}.\]
+\mathbf{F}_{0}x^{-2\delta}+\mathbf{F}_{1}x^{-\delta}+\mathbf{F}_{2}+\mathbf{F}_{3}x^{\delta}
+\end{array}\right]\mathbf{q}\equiv\mathbf{0}\mod x^{\vec{\omega}}.
+\]
 
 \end_inset
 
@@ -818,13 +847,17 @@ By assumption
 \end_inset
 
 , of 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \begin{bmatrix}\mathbf{q}\\
 \mathbf{q}_{2}\\
-\mathbf{q}_{3}\end{bmatrix}=\mathbf{B}\mathbf{q}=\left[\begin{array}{r}
+\mathbf{q}_{3}
+\end{bmatrix}=\mathbf{B}\mathbf{q}=\left[\begin{array}{r}
 \mathbf{q}\\
 x^{-\delta}\mathbf{F}_{0}\cdot\mathbf{q}\\
-x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\cdot\mathbf{q}\end{array}\right].\]
+x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\cdot\mathbf{q}
+\end{array}\right].
+\]
 
 \end_inset
 
@@ -834,8 +867,10 @@ x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\cdot\mathbf{q}\
 
 .
  Note that 
-\begin_inset Formula \[
-\deg\mathbf{q}_{2}=\deg\left(\mathbf{F}_{0}\mathbf{q}/x^{\delta}\right)\le\deg\mathbf{q}+\delta-1-\delta\le\deg_{\vec{s}}\mathbf{q}-1,\]
+\begin_inset Formula 
+\[
+\deg\mathbf{q}_{2}=\deg\left(\mathbf{F}_{0}\mathbf{q}/x^{\delta}\right)\le\deg\mathbf{q}+\delta-1-\delta\le\deg_{\vec{s}}\mathbf{q}-1,
+\]
 
 \end_inset
 
@@ -845,10 +880,14 @@ x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\cdot\mathbf{q}\
 
 .
  Therefore 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \deg_{\vec{e}}\begin{bmatrix}\mathbf{q}_{2}\\
-\mathbf{q}_{3}\end{bmatrix}=\deg\begin{bmatrix}\mathbf{q}_{2}\\
-\mathbf{q}_{3}\end{bmatrix}+e\le\deg_{\vec{s}}\mathbf{q}-1+e\le\deg_{\vec{s}}\mathbf{q}.\]
+\mathbf{q}_{3}
+\end{bmatrix}=\deg\begin{bmatrix}\mathbf{q}_{2}\\
+\mathbf{q}_{3}
+\end{bmatrix}+e\le\deg_{\vec{s}}\mathbf{q}-1+e\le\deg_{\vec{s}}\mathbf{q}.
+\]
 
 \end_inset
 
@@ -973,7 +1012,7 @@ Let
 \begin_layout Proof
 By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:sToBs"
 
 \end_inset
@@ -1044,13 +1083,18 @@ Let
 
 \begin_layout Proof
 The top rows of 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{F}'\mathbf{q}=\left[\begin{array}{cc}
 \mathbf{F} & \mathbf{0}\\
-\mathbf{F}'_{21} & \mathbf{F}'_{22}\end{array}\right]\left[\begin{array}{c}
+\mathbf{F}'_{21} & \mathbf{F}'_{22}
+\end{array}\right]\left[\begin{array}{c}
 \mathbf{q}_{1}\\
-\mathbf{q}_{2}\end{array}\right]=\begin{bmatrix}\mathbf{F}\mathbf{q}_{1}\\
-\mathbf{F}'_{21}\mathbf{q}_{1}+\mathbf{F}'_{22}\mathbf{q}_{2}\end{bmatrix}\equiv\mathbf{0}\mod x^{\vec{\omega}}\]
+\mathbf{q}_{2}
+\end{array}\right]=\begin{bmatrix}\mathbf{F}\mathbf{q}_{1}\\
+\mathbf{F}'_{21}\mathbf{q}_{1}+\mathbf{F}'_{22}\mathbf{q}_{2}
+\end{bmatrix}\equiv\mathbf{0}\mod x^{\vec{\omega}}
+\]
 
 \end_inset
 
@@ -1082,7 +1126,7 @@ The next lemma shows a
 
  to a simple form shown in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:FtauBasisForm"
 
 \end_inset
@@ -1098,21 +1142,21 @@ reference "cor:FtauBasisForm"
 
 -basis in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:2delta-1Basis"
 
 \end_inset
 
 , 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:2deltaBasis"
 
 \end_inset
 
 , and 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:mainTheorem"
 
 \end_inset
@@ -1137,13 +1181,17 @@ If
 \end_inset
 
 -basis, then 
-\begin_inset Formula \begin{eqnarray*}
+\begin_inset Formula 
+\begin{eqnarray*}
 \bar{\mathbf{T}} & = & \left[\mathbf{B}\mathbf{P}~\begin{array}{|c}
 \mathbf{0}_{n\times2m}\\
-x^{2\delta}\mathbf{I}_{2m}\end{array}\right]=\left[\begin{array}{r|cc}
+x^{2\delta}\mathbf{I}_{2m}
+\end{array}\right]=\left[\begin{array}{r|cc}
 \mathbf{P} & \mathbf{0}_{n\times m} & \mathbf{0}_{n\times m}\\
 \hline x^{-\delta}\mathbf{F}_{0}\cdot\mathbf{P} & x^{2\delta}\mathbf{I}_{m} & \mathbf{0}_{m}\\
-x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\cdot\mathbf{P} & \mathbf{0}_{m} & x^{2\delta}\mathbf{I}_{m}\end{array}\right]\end{eqnarray*}
+x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\cdot\mathbf{P} & \mathbf{0}_{m} & x^{2\delta}\mathbf{I}_{m}
+\end{array}\right]
+\end{eqnarray*}
 
 \end_inset
 
@@ -1157,7 +1205,7 @@ x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\cdot\mathbf{P} 
 \begin_layout Proof
 By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:qToBqOrder"
 
 \end_inset
@@ -1188,7 +1236,7 @@ reference "lem:qToBqOrder"
 
  on the left side by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:qToBqDegree"
 
 \end_inset
@@ -1221,7 +1269,7 @@ Let
 .
  Then by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:bqToqOrder"
 
 \end_inset
@@ -1252,10 +1300,13 @@ reference "lem:bqToqOrder"
 \end_inset
 
 , we get 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{q}'=\bar{\mathbf{q}}-\mathbf{B}\mathbf{P}\mathbf{u}=\bar{\mathbf{q}}-\mathbf{B}\mathbf{q}=\left[\begin{array}{c}
 \mathbf{0}\\
-\mathbf{v}\end{array}\right],\]
+\mathbf{v}
+\end{array}\right],
+\]
 
 \end_inset
 
@@ -1264,9 +1315,12 @@ reference "lem:bqToqOrder"
 \end_inset
 
 , that is, 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{F}'\mathbf{q}'=\begin{bmatrix}\mathbf{0}\\
-\mathbf{I}_{2m}\mathbf{v}\end{bmatrix}\equiv\mathbf{0}\mod x^{\vec{\omega}}.\]
+\mathbf{I}_{2m}\mathbf{v}
+\end{bmatrix}\equiv\mathbf{0}\mod x^{\vec{\omega}}.
+\]
 
 \end_inset
 
@@ -1331,10 +1385,14 @@ Let
 \end_inset
 
  must have the form 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \bar{\mathbf{q}}=\mathbf{B}\mathbf{P}_{\tau}\mathbf{u}+x^{2\delta}\begin{bmatrix}\mathbf{0}\\
-\mathbf{v}\end{bmatrix}=\mathbf{B}\mathbf{q}+x^{2\delta}\begin{bmatrix}\mathbf{0}\\
-\mathbf{v}\end{bmatrix}\]
+\mathbf{v}
+\end{bmatrix}=\mathbf{B}\mathbf{q}+x^{2\delta}\begin{bmatrix}\mathbf{0}\\
+\mathbf{v}
+\end{bmatrix}
+\]
 
 \end_inset
 
@@ -1362,7 +1420,7 @@ Let
 \begin_layout Proof
 This follows directly from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:FtoAbasis"
 
 \end_inset
@@ -1411,7 +1469,7 @@ If
 \begin_layout Proof
 By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:bqToqOrder"
 
 \end_inset
@@ -1427,7 +1485,7 @@ reference "lem:bqToqOrder"
 .
  By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:linearCombinationOfFirstnRows"
 
 \end_inset
@@ -1455,7 +1513,7 @@ reference "cor:linearCombinationOfFirstnRows"
 \begin_layout Proof
 By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:FtauBasisForm"
 
 \end_inset
@@ -1466,7 +1524,7 @@ reference "cor:FtauBasisForm"
 
 , and by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:bqToqOrder"
 
 \end_inset
@@ -1482,7 +1540,7 @@ reference "lem:bqToqOrder"
 .
  Thus, by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:qToBqDegree"
 
 \end_inset
@@ -1624,7 +1682,7 @@ Consider doing
 .
  From 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:2delta-1Basis"
 
 \end_inset
@@ -1729,7 +1787,7 @@ reference "lem:2delta-1Basis"
 
  by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:bqToqOrder"
 
 \end_inset
@@ -1737,7 +1795,7 @@ reference "lem:bqToqOrder"
 .
  From 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:linearCombinationOfFirstnRows"
 
 \end_inset
@@ -1842,9 +1900,11 @@ Recall that the leading column coefficient matrix of a matrix
  used for column reduction is
 \emph on
  
-\begin_inset Formula \begin{eqnarray*}
+\begin_inset Formula 
+\begin{eqnarray*}
 \lcoeff\left(\mathbf{A}\right) & = & \left[\lcoeff\left(\mathbf{a}_{1}\right),\dots,\lcoeff\left(\mathbf{a}_{k}\right)\right]\\
- & = & \left[\coeff\left(\mathbf{a}_{1},\deg\left(\mathbf{a}_{1}\right)\right),\dots,\coeff\left(\mathbf{a}_{k},\deg\left(\mathbf{a}_{k}\right)\right)\right].\end{eqnarray*}
+ & = & \left[\coeff\left(\mathbf{a}_{1},\deg\left(\mathbf{a}_{1}\right)\right),\dots,\coeff\left(\mathbf{a}_{k},\deg\left(\mathbf{a}_{k}\right)\right)\right].
+\end{eqnarray*}
 
 \end_inset
 
@@ -1970,7 +2030,7 @@ of
 \begin_layout Proof
 By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:bqToqOrder"
 
 \end_inset
@@ -1994,7 +2054,7 @@ reference "lem:bqToqOrder"
 .
  By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:linearCombinationOfFirstnRows"
 
 \end_inset
@@ -2050,7 +2110,7 @@ Let
 
  as in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:FtoAbasis"
 
 \end_inset
@@ -2124,7 +2184,7 @@ reference "lem:FtoAbasis"
 
  from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:2deltaBasis"
 
 \end_inset
@@ -2221,7 +2281,7 @@ Let
 \begin_layout Proof
 This follows directly from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:mainTheorem"
 
 \end_inset
@@ -2267,7 +2327,7 @@ name "exm:auxiliaryTransformation"
 
 For the problem in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:StorjohannTransformation"
 
 \end_inset
@@ -2277,11 +2337,14 @@ reference "exm:StorjohannTransformation"
 \end_inset
 
  is given by 
-\begin_inset Formula \begin{align*}
+\begin_inset Formula 
+\begin{align*}
  & \left[{\begin{array}{cccccr}
 x+x^{2}+x^{3}+x^{4}+x^{5}+x^{6} & \ 1+x+x^{5}+x^{6}+x^{7}\  & 1+x^{2}+x^{6}+x^{7} & \ 1+x+x^{3}+x^{7}\  & 0\  & 0\\
 1+x+x^{2}+x^{3} & x^{3} & 1+x^{2}+x^{3} & x & 1\  & 0\\
-1+x+x^{2} & x+x^{2}+x^{3} & 1+x+x^{2}+x^{3} & x^{3} & 0\  & 1\end{array}}\right],\end{align*}
+1+x+x^{2} & x+x^{2}+x^{3} & 1+x+x^{2}+x^{3} & x^{3} & 0\  & 1
+\end{array}}\right],
+\end{align*}
 
 \end_inset
 
@@ -2290,14 +2353,17 @@ x+x^{2}+x^{3}+x^{4}+x^{5}+x^{6} & \ 1+x+x^{5}+x^{6}+x^{7}\  & 1+x^{2}+x^{6}+x^{7
 \end_inset
 
 -basis is given as 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \left[\begin{array}{cccc|cc}
 ~1~ & x & 1 & x^{2} & x^{2}+x^{4} & 1+x^{2}+x^{3}+x^{4}\\
 0 & 1 & x^{2}+x^{3} & 0 & x^{3} & 0\\
 1 & 1+x & x & x^{3}+x^{4} & 0 & x+x^{2}+x^{3}\\
 1 & 0 & 0 & 0 & 0 & 0\\
 \hline 0 & 1 & 1+x^{2} & x^{2} & x^{2}+x^{3} & 1+x^{2}+x^{3}+x^{4}\\
-0 & 1 & 1 & x^{2}+x^{4} & x^{2}+x^{3} & 1+x^{3}\end{array}\right].\]
+0 & 1 & 1 & x^{2}+x^{4} & x^{2}+x^{3} & 1+x^{3}
+\end{array}\right].
+\]
 
 \end_inset
 
@@ -2337,11 +2403,14 @@ The following two lemmas verify Storjohann's result in the case of degree
 \end_inset
 
 -basis, with the transformed input matrix 
-\begin_inset Formula \begin{equation}
+\begin_inset Formula 
+\begin{equation}
 \bar{\mathbf{F}}=\left[\begin{array}{l|cc}
 \mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta} & \mathbf{0} & \mathbf{0}\\
 \hline \mathbf{F}_{1}+\mathbf{F}_{2}x^{\delta} & \mathbf{I}_{m} & \mathbf{0}\\
-\mathbf{F}_{2}+\mathbf{F}_{3}x^{\delta} & \mathbf{0} & ~\mathbf{I}_{m}\end{array}\right]\equiv\mathbf{F}'\mod x^{2\delta}.\label{eq:storjohannTransformation4parts}\end{equation}
+\mathbf{F}_{2}+\mathbf{F}_{3}x^{\delta} & \mathbf{0} & ~\mathbf{I}_{m}
+\end{array}\right]\equiv\mathbf{F}'\mod x^{2\delta}.\label{eq:storjohannTransformation4parts}
+\end{equation}
 
 \end_inset
 
@@ -2376,11 +2445,14 @@ If
 \end_inset
 
  must have the form 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \bar{\mathbf{q}}=\mathbf{B}\mathbf{q}=\left[\begin{array}{r}
 \mathbf{q}\\
 x^{-\delta}\mathbf{F}_{0}\cdot\mathbf{q}\\
-x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\cdot\mathbf{q}\end{array}\right]\]
+x^{-2\delta}\left(\mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta}\right)\cdot\mathbf{q}
+\end{array}\right]
+\]
 
 \end_inset
 
@@ -2413,11 +2485,14 @@ Let
 \end_inset
 
  so that 
-\begin_inset Formula \begin{align}
+\begin_inset Formula 
+\begin{align}
 \bar{\mathbf{F}}\bar{\mathbf{q}} & \equiv\left[\begin{array}{r}
 \mathbf{F}_{0}\mathbf{q}+x^{\delta}\mathbf{F}_{1}\mathbf{q}\\
 \mathbf{q}_{2}+\mathbf{F}_{1}\mathbf{q}+x^{\delta}\mathbf{F}_{2}\mathbf{q}\\
-\mathbf{q}_{3}+\mathbf{F}_{2}\mathbf{q}+x^{\delta}\mathbf{F}_{3}\mathbf{q}\end{array}\right]\equiv\mathbf{0}\mod x^{2\delta}.\label{eq:Aq}\end{align}
+\mathbf{q}_{3}+\mathbf{F}_{2}\mathbf{q}+x^{\delta}\mathbf{F}_{3}\mathbf{q}
+\end{array}\right]\equiv\mathbf{0}\mod x^{2\delta}.\label{eq:Aq}
+\end{align}
 
 \end_inset
 
@@ -2430,8 +2505,10 @@ Let
 \end_inset
 
 , which implies 
-\begin_inset Formula \begin{equation}
-\mathbf{F}_{0}\mathbf{q}\equiv x^{\delta}\mathbf{q}_{2}\mod x^{2\delta}.\label{eq:q1q2}\end{equation}
+\begin_inset Formula 
+\begin{equation}
+\mathbf{F}_{0}\mathbf{q}\equiv x^{\delta}\mathbf{q}_{2}\mod x^{2\delta}.\label{eq:q1q2}
+\end{equation}
 
 \end_inset
 
@@ -2461,7 +2538,7 @@ Since
 
 , hence from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "eq:q1q2"
 
 \end_inset
@@ -2494,7 +2571,7 @@ reference "eq:q1q2"
 
  using the bottom block row of 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "eq:Aq"
 
 \end_inset
@@ -2535,7 +2612,7 @@ name "lem:delta-1Basis"
 \begin_layout Proof
 By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:A_delta-1Form"
 
 \end_inset
@@ -2600,7 +2677,7 @@ reference "cor:linearCombinationOfFirstnRows"
 
  by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:A_delta-1Form"
 
 \end_inset
@@ -2615,7 +2692,7 @@ reference "lem:A_delta-1Form"
 
 , it follows from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:qToBqDegree"
 
 \end_inset
@@ -2675,13 +2752,16 @@ Let us now consider an immediate extension of the results in the previous
 \end_inset
 
 -basis with a Storjohann transformed input matrix 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \bar{\mathbf{F}}^{\left(i\right)}=\left[\begin{array}{c|cccc}
 \mathbf{F}_{0}+\mathbf{F}_{1}x^{\delta^{\left(i\right)}} & \mathbf{0}_{m} & \cdots & \mathbf{\cdots} & \mathbf{0}_{m}\\
 \hline \mathbf{F}_{1}+\mathbf{F}_{2}x^{\delta^{\left(i\right)}} & \mathbf{I}_{m}\\
 \mathbf{F}_{2}+\mathbf{F}_{3}x^{\delta^{\left(i\right)}} &  & \mathbf{I}_{m}\\
 \vdots &  &  & \ddots\\
-\mathbf{F}_{l^{\left(i\right)}-1}+\mathbf{F}_{l^{\left(i\right)}}x^{\delta^{\left(i\right)}} &  &  &  & \mathbf{I}_{m}\end{array}\right]_{ml^{(i)}\times(n+m(l^{(i)}-1))}\]
+\mathbf{F}_{l^{\left(i\right)}-1}+\mathbf{F}_{l^{\left(i\right)}}x^{\delta^{\left(i\right)}} &  &  &  & \mathbf{I}_{m}
+\end{array}\right]_{ml^{(i)}\times(n+m(l^{(i)}-1))}
+\]
 
 \end_inset
 
@@ -2780,7 +2860,7 @@ key "Giorgi2003"
 .
  To apply a transformation analogous to 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "eq:extendedSTransformTop"
 
 \end_inset
@@ -2790,7 +2870,8 @@ reference "eq:extendedSTransformTop"
 \end_inset
 
  and set 
-\begin_inset Formula \begin{equation}
+\begin_inset Formula 
+\begin{equation}
 \mathbf{F}'^{\left(i\right)}=\left[\begin{array}{l|c}
 \mathbf{F}_{00}+\mathbf{F}_{01}x^{\delta^{\left(i-1\right)}}+\mathbf{F}_{10}x^{2\delta^{\left(i-1\right)}}+\mathbf{F}_{11}x^{3\delta^{\left(i-1\right)}} & ~~\mathbf{0}~~\\
 \hline \mathbf{F}_{01}+\mathbf{F}_{10}x^{\delta^{\left(i-1\right)}}\\
@@ -2799,7 +2880,9 @@ reference "eq:extendedSTransformTop"
 \vdots & ~~\mathbf{I}~~\\
 \mathbf{F}_{\left(l^{\left(i\right)}-1\right)0}+\mathbf{F}_{\left(l^{\left(i\right)}-1\right)1}x^{\delta^{\left(i-1\right)}}+\mathbf{F}_{l^{\left(i\right)}0}x^{2\delta^{\left(i-1\right)}}+\mathbf{F}_{l^{\left(i\right)}1}x^{3\delta^{\left(i-1\right)}}\\
 \mathbf{F}_{\left(l^{\left(i\right)}-1\right)1}+\mathbf{F}_{l^{\left(i\right)}0}x^{\delta^{\left(i-1\right)}}\\
-\mathbf{F}_{l^{\left(i\right)}0}+\mathbf{F}_{l^{\left(i\right)}1}x^{\delta^{\left(i-1\right)}}\end{array}\right],\label{eq:extendedStorjohannTransform}\end{equation}
+\mathbf{F}_{l^{\left(i\right)}0}+\mathbf{F}_{l^{\left(i\right)}1}x^{\delta^{\left(i-1\right)}}
+\end{array}\right],\label{eq:extendedStorjohannTransform}
+\end{equation}
 
 \end_inset
 
@@ -2868,13 +2951,16 @@ Not sure if using this notation is a good thing to do, but it saves space
 
  respectively.
  Let 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{E}^{\left(i\right)}=\left[\begin{array}{c||cc|cc|cc|cc||cc}
 \mathbf{I}_{n} &  &  &  &  &  &  &  &  & \mathbf{0}_{n\times m} & \mathbf{0}_{n\times m}\\
 \hline\hline  & \mathbf{0}_{m} & \mathbf{I}_{m} &  &  &  &  &  &  & \ \\
 \hline  &  &  & \mathbf{0}_{m} & \mathbf{I}_{m} &  &  &  &  & \ \\
 \hline  &  &  &  &  & \ddots & \ddots &  &  & \ \\
-\hline  &  &  &  &  &  &  & \mathbf{0}_{m} & \mathbf{I}_{m}\end{array}\right]\]
+\hline  &  &  &  &  &  &  & \mathbf{0}_{m} & \mathbf{I}_{m}
+\end{array}\right]
+\]
 
 \end_inset
 
@@ -2927,7 +3013,7 @@ Not sure if using this notation is a good thing to do, but it saves space
 
  gives the problem considered earlier in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "sub:particularCase"
 
 \end_inset
@@ -2954,7 +3040,7 @@ reference "sub:particularCase"
 \begin_layout Standard
 We can now state the analog of 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:extractingFbasisFromGbasis"
 
 \end_inset
@@ -3010,14 +3096,14 @@ Let
 \begin_layout Proof
 One can follow the same arguments used before from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:qToBqOrder"
 
 \end_inset
 
  to 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:extractingFbasisFromGbasis"
 
 \end_inset
@@ -3025,7 +3111,7 @@ reference "cor:extractingFbasisFromGbasis"
 .
  Alternatively, this can be derived from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:extractingFbasisFromGbasis"
 
 \end_inset
@@ -3033,7 +3119,7 @@ reference "cor:extractingFbasisFromGbasis"
  by noticing the redundant block rows that can be disregarded after applying
  transformation 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "eq:extendedSTransformTop"
 
 \end_inset
@@ -3048,7 +3134,7 @@ reference "eq:extendedSTransformTop"
 
 \begin_layout Standard
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:delta-1Basis"
 
 \end_inset
@@ -3098,7 +3184,7 @@ If
 \begin_layout Proof
 Again, this can be justified as done in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:delta-1Basis"
 
 \end_inset
@@ -3115,7 +3201,7 @@ reference "lem:delta-1Basis"
 
  as in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "eq:storjohannTransformation4parts"
 
 \end_inset
@@ -3123,7 +3209,7 @@ reference "eq:storjohannTransformation4parts"
 .
  The lemma then follows from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:delta-1Basis"
 
 \end_inset
@@ -3139,28 +3225,28 @@ Notice that if
 
  then 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:extractingOrderBasis"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:linkStorjohanTransform"
 
 \end_inset
 
  specialize to 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:extractingFbasisFromGbasis"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:delta-1Basis"
 
 \end_inset

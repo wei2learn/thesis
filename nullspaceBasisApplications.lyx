@@ -1,0 +1,279 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass report
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Applications
+\end_layout
+
+\begin_layout Standard
+We describe several applications of nullspace basis.
+\end_layout
+
+\begin_layout Subsection
+Linear System Solving
+\end_layout
+
+\begin_layout Subsection
+Matrix inverse
+\end_layout
+
+\begin_layout Standard
+In this section, we consider the problem of computing the inverse of a 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix with degree 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "jeannerod-villard:05"
+
+\end_inset
+
+ gave an algorithm for this problem.
+ But their algorithm only works well on input matrices that are generic
+ with dimension a power of 2.
+ In the following, we show that their algorithm can be improved to handle
+ any matrix with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
+\end_inset
+
+ using new results from this thesis.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "algorithmInversion.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:matrixInverse"
+
+\end_inset
+
+ is just an recursive version of the algorithm from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "jeannerod-villard:05"
+
+\end_inset
+
+, except that we replace the nullspace basis computation at 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "line:nullspaceBasisComputation"
+
+\end_inset
+
+ and the matrix multiplications at 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "line:multiplyFN"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "line:multiplyNG"
+
+\end_inset
+
+ with the new algorithms from this thesis.
+ Let us first look at the cost of these operations, since they dominate
+ the cost of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:matrixInverse"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Lemma
+The nullspace basis computation at 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "line:nullspaceBasisComputation"
+
+\end_inset
+
+ costs 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
+\end_inset
+
+, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the sum of the column degrees of the input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Just use the earlier nullspace basis algorithm with the shift set to the
+ column degrees.
+\end_layout
+
+\begin_layout Lemma
+The multiplications 
+\begin_inset Formula $\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{R}_{2}:=\mathbf{F}_{2}\mathbf{N}_{1}$
+\end_inset
+
+at 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "line:multiplyFN"
+
+\end_inset
+
+ cost 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+
+\end_inset
+
+ we know that the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+ and that of 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+ are both bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ Now 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fastmultiply"
+
+\end_inset
+
+ can be applied.
+\end_layout
+
+\begin_layout Lemma
+The multiplications 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{G}_{1},\mathbf{N}_{1}\mathbf{G}_{2}$
+\end_inset
+
+ at 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "line:multiplyNG"
+
+\end_inset
+
+ cost 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Determinant
+\end_layout
+
+\end_body
+\end_document

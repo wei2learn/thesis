@@ -1,22 +1,30 @@
-#LyX 1.6.6.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 345
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
 \begin_document
 \begin_header
 \textclass report
 \options amsthm,seceqn,secthm
 \use_default_options false
+\maintain_unincluded_children false
 \language english
+\language_package default
 \inputencoding latin9
+\fontencoding global
 \font_roman default
 \font_sans default
 \font_typewriter default
 \font_default_family default
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
 
 \graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
 \paperfontsize default
 \spacing single
 \use_hyperref false
@@ -24,26 +32,36 @@
 \use_geometry false
 \use_amsmath 2
 \use_esint 1
+\use_mhchem 1
+\use_mathdots 1
 \cite_engine natbib_authoryear
 \use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
-\defskip medskip
+\paragraph_indentation default
 \quotes_language english
 \papercolumns 1
 \papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
-\author "" 
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
 \end_header
 
 \begin_body
 
-\begin_layout Chapter
+\begin_layout Section
 Unbalanced Shifts
 \end_layout
 
@@ -59,14 +77,14 @@ name "sec:Unbalanced-Shift"
 
 \begin_layout Standard
 \begin_inset CommandInset ref
-LatexCommand prettyref
-reference "sec:complexity"
+LatexCommand formatted
+reference "sec:removeCeilingFunction"
 
 \end_inset
 
  shows that 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -94,7 +112,7 @@ key "BLV:1999,BLV:jsc06"
 
 ), then 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -124,7 +142,7 @@ reference "alg:mab"
 
  as stated in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:size"
 
 \end_inset
@@ -136,7 +154,7 @@ reference "lem:size"
 .
  Recall that 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:size"
 
 \end_inset
@@ -163,14 +181,18 @@ In this section, we describe an algorithm for an important special case
 \end_inset
 
  satisfies the condition:
-\begin_inset Formula \[
-\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma.\]
+\begin_inset Formula 
+\[
+\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma.
+\]
 
 \end_inset
 
  For simpler presentation, we use the equivalent condition 
-\begin_inset Formula \begin{equation}
-\vec{s}\le0\mbox{ and }\sum_{i}-\vec{s}_{i}\le m\sigma,\label{con:unbalancedCondition}\end{equation}
+\begin_inset Formula 
+\begin{equation}
+\vec{s}\le0\mbox{ and }\sum_{i}-\vec{s}_{i}\le m\sigma,\label{con:unbalancedCondition}
+\end{equation}
 
 \end_inset
 
@@ -200,7 +222,7 @@ key "Storjohann:2006"
  We refer to this as Storjohann's second transformation to distinguish it
  from that described in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "sub:storjohannTransformation"
 
 \end_inset
@@ -208,7 +230,7 @@ reference "sub:storjohannTransformation"
 .
  The transformed problem can then be computed efficiently using 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -290,8 +312,10 @@ reference "con:unbalancedCondition"
 \end_inset
 
 , let 
-\begin_inset Formula \[
-r_{i}=\mbox{rem}\left(-s_{i}-\alpha-1,\beta\right)+1\]
+\begin_inset Formula 
+\[
+r_{i}=\mbox{rem}\left(-s_{i}-\alpha-1,\beta\right)+1
+\]
 
 \end_inset
 
@@ -312,10 +336,13 @@ r_{i}=\mbox{rem}\left(-s_{i}-\alpha-1,\beta\right)+1\]
 \end_inset
 
 , and set 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 q_{i}=\begin{cases}
 1 & \mbox{if }-s_{i}\le\alpha+\beta\\
-1+\left(-s_{i}-\alpha-r_{i}\right)/\beta & \mbox{otherwise}\end{cases}\]
+1+\left(-s_{i}-\alpha-r_{i}\right)/\beta & \mbox{otherwise}
+\end{cases}
+\]
 
 \end_inset
 
@@ -340,8 +367,10 @@ th column
 \end_inset
 
  to 
-\begin_inset Formula \begin{eqnarray*}
-\tilde{\mathbf{F}}^{\left(i\right)} & = & \left[~\mathbf{f}_{i},~x^{r_{i}}\mathbf{f}_{i},~x^{r_{i}+\beta}\mathbf{f}_{i},~\dots~,~x^{r_{i}+(q_{i}-2)\beta}\mathbf{f}_{i}\right],~~\tilde{s}_{i}=\left[-\alpha-\beta,~\dots~,-\alpha-\beta\right]\end{eqnarray*}
+\begin_inset Formula 
+\begin{eqnarray*}
+\tilde{\mathbf{F}}^{\left(i\right)} & = & \left[~\mathbf{f}_{i},~x^{r_{i}}\mathbf{f}_{i},~x^{r_{i}+\beta}\mathbf{f}_{i},~\dots~,~x^{r_{i}+(q_{i}-2)\beta}\mathbf{f}_{i}\right],~~\tilde{s}_{i}=\left[-\alpha-\beta,~\dots~,-\alpha-\beta\right]
+\end{eqnarray*}
 
 \end_inset
 
@@ -395,12 +424,15 @@ th column
 
 .
  Let 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{E}=\left[\begin{array}{ccccc|ccc|ccccccc}
 1 & x^{r_{1}} & x^{r_{1}+\beta} & \cdots & x^{r_{1}+(q_{1}-2)\beta} &  &  & \\
 \hline  &  &  &  &  & \ddots &  & \\
  &  &  &  &  &  & \  & \ddots\\
-\hline  &  &  &  &  &  &  &  & 1 & x^{r_{n}} & x^{r_{n}+\beta} & \cdots & x^{r_{n}+(q_{n}-2)\beta}\end{array}\right]_{n\times\bar{n}}.\]
+\hline  &  &  &  &  &  &  &  & 1 & x^{r_{n}} & x^{r_{n}+\beta} & \cdots & x^{r_{n}+(q_{n}-2)\beta}
+\end{array}\right]_{n\times\bar{n}}.
+\]
 
 \end_inset
 
@@ -415,15 +447,17 @@ th column
 
 , a value not allowed in our transformation (we show later in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:correctHighDegreeElements"
 
 \end_inset
 
  that this value is not useful in our case).
  One can verify that the new dimension 
-\begin_inset Formula \[
-\bar{n}=\sum_{i=1}^{n}q_{i}\le n+\sum_{i=1}^{n}-s_{i}/\beta\le m\sigma/\beta+n.\]
+\begin_inset Formula 
+\[
+\bar{n}=\sum_{i=1}^{n}q_{i}\le n+\sum_{i=1}^{n}-s_{i}/\beta\le m\sigma/\beta+n.
+\]
 
 \end_inset
 
@@ -441,14 +475,16 @@ reference "thm:correctHighDegreeElements"
 \end_inset
 
 , we have a balanced shift problem since 
-\begin_inset Formula \[
-\max\bar{s}-\min\bar{s}\le-\min\bar{s}\le\alpha+\beta\in\Theta(d).\]
+\begin_inset Formula 
+\[
+\max\bar{s}-\min\bar{s}\le-\min\bar{s}\le\alpha+\beta\in\Theta(d).
+\]
 
 \end_inset
 
  Hence 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -555,7 +591,7 @@ name "exm:unbalancedShift"
 
  Let us use the same input as in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:StorjohannTransformation"
 
 \end_inset
@@ -570,11 +606,13 @@ reference "exm:StorjohannTransformation"
 
 .
  Then we get the transformed input 
-\begin_inset Formula \begin{align*}
+\begin_inset Formula 
+\begin{align*}
 \bar{\mathbf{F}}=[ & x+x^{2}+x^{3}+x^{4}+x^{5}+x^{6},\,~1+x+x^{5}+x^{6}+x^{7},\,~x+x^{2}+x^{6}+x^{7}+x^{8},\\
  & 1+x^{2}+x^{4}+x^{5}+x^{6}+x^{7},\,~x+x^{3}+x^{5}+x^{6}+x^{7}+x^{8},\,~x^{2}+x^{4}+x^{6}+x^{7}+x^{8}+x^{9},\\
  & x^{3}+x^{5}+x^{7}+x^{8}+x^{9}+x^{10},\,~1+x+x^{3}+x^{7},\,~x+x^{2}+x^{4}+x^{8},\\
- & x^{2}+x^{3}+x^{5}+x^{9},\,~x^{3}+x^{4}+x^{6}+x^{10},\,~x^{4}+x^{5}+x^{7}+x^{11}]\end{align*}
+ & x^{2}+x^{3}+x^{5}+x^{9},\,~x^{3}+x^{4}+x^{6}+x^{10},\,~x^{4}+x^{5}+x^{7}+x^{11}]
+\end{align*}
 
 \end_inset
 
@@ -608,12 +646,15 @@ reference "exm:StorjohannTransformation"
 \end_inset
 
  and the transformation matrix is 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{E}=\left[{\begin{array}{c|cc|cccc|ccccc}
 ~1~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~\\
 \hline 0 & 1 & x & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 \hline 0 & 0 & 0 & 1 & x & x^{2} & x^{3} & 0 & 0 & 0 & 0 & 0\\
-\hline 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & x & x^{2} & x^{3} & x^{4}\end{array}}\right].\]
+\hline 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & x & x^{2} & x^{3} & x^{4}
+\end{array}}\right].
+\]
 
 \end_inset
 
@@ -622,7 +663,8 @@ reference "exm:StorjohannTransformation"
 \end_inset
 
 -basis 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \bar{\mathbf{P}}=\left[{\begin{array}{cccccccccccc}
 0 & ~0~ & ~0~ & ~0~ & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
 \hline ~x~ & 1 & 0 & 0 & 1 & 0 & ~x~ & 0 & 0 & 0 & ~x~ & ~0~\\
@@ -635,7 +677,9 @@ reference "exm:StorjohannTransformation"
 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 0 & 0 & 0 & 1 & 0 & ~x~ & 1 & 1 & 1 & 1 & 0 & 0\\
-0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\end{array}}\right]\]
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+\end{array}}\right]
+\]
 
 \end_inset
 
@@ -662,12 +706,15 @@ reference "exm:StorjohannTransformation"
 
 -basis element.
  Comparing 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{E}\bar{\mathbf{P}}=\left[{\begin{array}{cccccccccccc}
 0 & ~0~ & ~0~ & 0 & ~0~ & 0 & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~1~\\
 x & 1 & x & 0 & 1 & x^{2} & x^{2} & x^{2} & x^{2} & x^{2} & 0 & 0\\
 x+x^{2}+x^{3}+x^{4} & 1 & x & 1+x+x^{2}+x^{3} & 1 & 1+x+x^{3} & x^{2} & x^{2} & x^{2} & x^{2} & 0 & 1\\
-0 & x & x^{2} & 1+x^{3}+x^{4} & x & 1+x^{4} & x^{3} & x^{3} & x^{3} & x^{3} & 0 & 1\end{array}}\right]\]
+0 & x & x^{2} & 1+x^{3}+x^{4} & x & 1+x^{4} & x^{3} & x^{3} & x^{3} & x^{3} & 0 & 1
+\end{array}}\right]
+\]
 
 \end_inset
 
@@ -676,12 +723,15 @@ x+x^{2}+x^{3}+x^{4} & 1 & x & 1+x+x^{2}+x^{3} & 1 & 1+x+x^{3} & x^{2} & x^{2} & 
 \end_inset
 
 -basis 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{P}=\left[{\begin{array}{cccc}
 ~0~ & 0 & 0 & ~1~\\
 1 & 0 & 0 & 0\\
 1 & x^{2}+x^{3}+x^{4} & 1+x+x^{2}+x^{3} & 1\\
-x & x^{2} & 1+x^{3}+x^{4} & 1\end{array}}\right]\]
+x & x^{2} & 1+x^{3}+x^{4} & 1
+\end{array}}\right]
+\]
 
 \end_inset
 
@@ -710,7 +760,8 @@ If we set
 \end_inset
 
 , then the new transformed problem gives 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \bar{\mathbf{P}}=\left[{\begin{array}{ccccccccc}
 ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~1~\\
 1 & 0 & 0 & x & 1+x & x & x & \, x\, & \,0\,\\
@@ -720,7 +771,9 @@ If we set
 0 & x^{2} & 1 & 0 & \, x\, & 0 & 0 & 0 & 1\\
 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
 \,0\, & \,0\, & \, x\, & 1+x & 1 & 1 & 1 & 1 & 0\\
-0 & 0 & x & 1 & 0 & 0 & 0 & 0 & 0\end{array}}\right]\]
+0 & 0 & x & 1 & 0 & 0 & 0 & 0 & 0
+\end{array}}\right]
+\]
 
 \end_inset
 
@@ -747,12 +800,15 @@ If we set
 
 -basis.
  Computing 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{E}\bar{\mathbf{P}}=\left[{\begin{array}{ccccccccc}
 ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~1~\\
 1 & 0 & 0 & x & 1+x & x & x & x & 0\\
 1 & x^{2}+x^{3}+x^{4} & 1+x+x^{2}+x^{3} & x & 1+x & x & x & x & 1\\
-x & x^{2} & 1+x^{3}+x^{4} & x^{2} & x+x^{2} & ~x^{2} & ~x^{2} & ~x^{2} & 1\end{array}}\right],\]
+x & x^{2} & 1+x^{3}+x^{4} & x^{2} & x+x^{2} & ~x^{2} & ~x^{2} & ~x^{2} & 1
+\end{array}}\right],
+\]
 
 \end_inset
 
@@ -800,15 +856,19 @@ We now work towards establishing the correspondence between the high degree
 
 \begin_layout Standard
 Set 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{A}_{i}=\begin{bmatrix}~~x^{r_{i}}\\
 -1 & ~~x^{\beta}\\
  & -1 & \ddots\\
  &  & \ddots & ~~x^{\beta}\\
- &  &  & -1\end{bmatrix}_{q_{i}\times(q_{i}-1)}\mbox{ and \qquad}\mathbf{A}=\left[\begin{array}{ccc}
+ &  &  & -1
+\end{bmatrix}_{q_{i}\times(q_{i}-1)}\mbox{ and \qquad}\mathbf{A}=\left[\begin{array}{ccc}
 \mathbf{A}_{1}\\
  & \ddots\\
- &  & \mathbf{A}_{n}\end{array}\right]_{\bar{n}\times(\bar{n}-n)}.\]
+ &  & \mathbf{A}_{n}
+\end{array}\right]_{\bar{n}\times(\bar{n}-n)}.
+\]
 
 \end_inset
 
@@ -855,12 +915,16 @@ We now show that for any
 
 \begin_layout Lemma
 Let 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \bar{\mathbf{w}}=\begin{bmatrix}\bar{\mathbf{w}}_{1}\\
 \vdots\\
-\bar{\mathbf{w}}_{n}\end{bmatrix}\in\langle(\bar{\mathbf{F}},\sigma,\bar{s})\rangle\mbox{ with }\bar{\mathbf{w}}_{i}=\begin{bmatrix}\bar{w}_{i,0}\\
+\bar{\mathbf{w}}_{n}
+\end{bmatrix}\in\langle(\bar{\mathbf{F}},\sigma,\bar{s})\rangle\mbox{ with }\bar{\mathbf{w}}_{i}=\begin{bmatrix}\bar{w}_{i,0}\\
 \vdots\\
-\bar{w}_{i,q_{i}-1}\end{bmatrix}_{q_{i}\times1}.\]
+\bar{w}_{i,q_{i}-1}
+\end{bmatrix}_{q_{i}\times1}.
+\]
 
 \end_inset
 
@@ -945,13 +1009,17 @@ status collapsed
  The first form is 
 \shape up
 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{w}^{[1]}=\begin{bmatrix}\mathbf{w}_{1}^{[1]}\\
 \vdots\\
-\mathbf{w}_{n}^{[1]}\end{bmatrix}\mbox{ with }\mathbf{w}_{i}^{[1]}=\begin{bmatrix}w_{i}\\
+\mathbf{w}_{n}^{[1]}
+\end{bmatrix}\mbox{ with }\mathbf{w}_{i}^{[1]}=\begin{bmatrix}w_{i}\\
 0\\
 \vdots\\
-0\end{bmatrix}_{q_{i}\times1},\]
+0
+\end{bmatrix}_{q_{i}\times1},
+\]
 
 \end_inset
 
@@ -1037,12 +1105,16 @@ status collapsed
 \end_inset
 
  The second form is 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{w}^{[2]}=\begin{bmatrix}\mathbf{w}_{1}^{[2]}\\
 \vdots\\
-\mathbf{w}_{n}^{[2]}\end{bmatrix}\mbox{ with }\mathbf{w}_{i}^{[2]}=\begin{bmatrix}w_{i,0}\\
+\mathbf{w}_{n}^{[2]}
+\end{bmatrix}\mbox{ with }\mathbf{w}_{i}^{[2]}=\begin{bmatrix}w_{i,0}\\
 \vdots\\
-w_{i,q_{i}-1}\end{bmatrix},\]
+w_{i,q_{i}-1}
+\end{bmatrix},
+\]
 
 \end_inset
 
@@ -1074,14 +1146,18 @@ w_{i,q_{i}-1}\end{bmatrix},\]
 \end_deeper
 \begin_layout Proof
 The first form is obtained by setting 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{u}^{[1]}=\begin{bmatrix}\mathbf{u}_{1}^{[1]}\\
 \vdots\\
-\mathbf{u}_{n}^{[1]}\end{bmatrix}\mbox{ with }\mathbf{u}_{i}^{[1]}=\left[\begin{array}{r}
+\mathbf{u}_{n}^{[1]}
+\end{bmatrix}\mbox{ with }\mathbf{u}_{i}^{[1]}=\left[\begin{array}{r}
 \bar{w}_{i,1}+\bar{w}_{i,2}x^{\beta}+\bar{w}_{i,3}x^{2\beta}+\cdots+\bar{w}_{i,q_{i}-1}x^{(q_{i}-2)\beta}\\
 \bar{w}_{i,2}+\bar{w}_{i,3}x^{\beta}+\cdots+\bar{w}_{i,q_{i}-1}x^{(q_{i}-3)\beta}\\
 \vdots~~~~~\\
-\bar{w}_{i,q_{i}-1}\end{array}\right].\]
+\bar{w}_{i,q_{i}-1}
+\end{array}\right].
+\]
 
 \end_inset
 
@@ -1108,10 +1184,13 @@ The first form is obtained by setting
 \begin_layout Proof
 The second form can be obtained based on the first form.
  Let 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 t_{i,j}=\begin{cases}
 r_{i} & \mbox{if }j=0\\
-\beta & \mbox{if }j\in\{1,\dots,q_{i}-2\}\end{cases}\]
+\beta & \mbox{if }j\in\{1,\dots,q_{i}-2\}
+\end{cases}
+\]
 
 \end_inset
 
@@ -1120,8 +1199,10 @@ r_{i} & \mbox{if }j=0\\
 \end_inset
 
  from the first form as 
-\begin_inset Formula \begin{equation}
-w_{i}=w_{i,0}+w_{i,1}x^{r_{i}}+w_{i,2}x^{r_{i}+\beta}+\cdots+w_{i,q_{i}-1}x^{r_{i}+(q_{i}-2)\beta}\label{eq:wiSeparatedForm}\end{equation}
+\begin_inset Formula 
+\begin{equation}
+w_{i}=w_{i,0}+w_{i,1}x^{r_{i}}+w_{i,2}x^{r_{i}+\beta}+\cdots+w_{i,q_{i}-1}x^{r_{i}+(q_{i}-2)\beta}\label{eq:wiSeparatedForm}
+\end{equation}
 
 \end_inset
 
@@ -1148,14 +1229,18 @@ w_{i}=w_{i,0}+w_{i,1}x^{r_{i}}+w_{i,2}x^{r_{i}+\beta}+\cdots+w_{i,q_{i}-1}x^{r_{
 
 .
  Now set 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \mathbf{v}=\begin{bmatrix}\mathbf{v}_{1}\\
 \vdots\\
-\mathbf{v}_{n}\end{bmatrix}\mbox{ with }\mathbf{v}_{i}=\left[\begin{array}{r}
+\mathbf{v}_{n}
+\end{bmatrix}\mbox{ with }\mathbf{v}_{i}=\left[\begin{array}{r}
 w_{i,1}+w_{i,2}x^{\beta}+w_{i,3}x^{2\beta}+\cdots+w_{i,q_{i}-1}x^{(q_{i}-2)\beta}\\
 w_{i,2}+w_{i,3}x^{\beta}+\cdots+w_{i,q_{i}-1}x^{(q_{i}-3)\beta}\\
 \vdots~~~~~\\
-w_{i,q_{i}-1}\end{array}\right]\]
+w_{i,q_{i}-1}
+\end{array}\right]
+\]
 
 \end_inset
 
@@ -1164,14 +1249,19 @@ w_{i,q_{i}-1}\end{array}\right]\]
 \end_inset
 
 , which comes from the unimodular transformation 
-\begin_inset Formula \[
+\begin_inset Formula 
+\[
 \left[\bar{\mathbf{w}},\mathbf{A}\right]\left[\begin{array}{c|c}
 1\\
-\hline \mathbf{\mathbf{u}}^{[1]} & \mathbf{I}\end{array}\right]\left[\begin{array}{c|c}
+\hline \mathbf{\mathbf{u}}^{[1]} & \mathbf{I}
+\end{array}\right]\left[\begin{array}{c|c}
 1\\
-\hline -\mathbf{v} & \mathbf{I}\end{array}\right]=\left[\bar{\mathbf{w}},\mathbf{A}\right]\left[\begin{array}{c|c}
+\hline -\mathbf{v} & \mathbf{I}
+\end{array}\right]=\left[\bar{\mathbf{w}},\mathbf{A}\right]\left[\begin{array}{c|c}
 1\\
-\hline \mathbf{u}^{[1]}-\mathbf{v} & \mathbf{I}\end{array}\right].\]
+\hline \mathbf{u}^{[1]}-\mathbf{v} & \mathbf{I}
+\end{array}\right].
+\]
 
 \end_inset
 
@@ -1301,7 +1391,7 @@ entries
 
  as in Equation 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "eq:wiSeparatedForm"
 
 \end_inset
@@ -1321,9 +1411,11 @@ reference "eq:wiSeparatedForm"
 
 .
  It follows that 
-\begin_inset Formula \begin{eqnarray*}
+\begin_inset Formula 
+\begin{eqnarray*}
 \deg_{\vec{s}}\mathbf{E}\bar{\mathbf{w}} & = & \max_{i}(\deg w_{i}+s_{i})=\max_{i}(\deg w_{i,q_{i}-1}+\bar{s}_{\ell(i)})\\
- & \le & \max_{i,j}\left(\deg w_{i,j}+\bar{s}_{\ell(i-1)+j+1}\right)=\deg_{\bar{s}}\mathbf{w}^{[2]}.\end{eqnarray*}
+ & \le & \max_{i,j}\left(\deg w_{i,j}+\bar{s}_{\ell(i-1)+j+1}\right)=\deg_{\bar{s}}\mathbf{w}^{[2]}.
+\end{eqnarray*}
 
 \end_inset
 
@@ -1427,7 +1519,7 @@ Notice that the first form
 \shape default
  Hence 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:degreeCorrespondence"
 
 \end_inset
@@ -1482,7 +1574,7 @@ Let
 \begin_layout Proof
 The proof follows directly from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:degreeCorrespondence"
 
 \end_inset
@@ -1513,7 +1605,7 @@ Let
 \begin_layout Proof
 As in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:degreeCorrespondence"
 
 \end_inset
@@ -1566,17 +1658,21 @@ th entry
 \end_inset
 
  we get 
-\begin_inset Formula \[
-\deg w_{i}=\max\left\{ \deg\bar{w}_{i,0},\deg\bar{w}_{i,1}+r_{i},\deg\bar{w}_{i,2}+r_{i}+\beta,\dots,\deg\bar{w}_{i,q_{i}-2}+r_{i}+(q_{i}-2)\beta\right\} .\]
+\begin_inset Formula 
+\[
+\deg w_{i}=\max\left\{ \deg\bar{w}_{i,0},\deg\bar{w}_{i,1}+r_{i},\deg\bar{w}_{i,2}+r_{i}+\beta,\dots,\deg\bar{w}_{i,q_{i}-2}+r_{i}+(q_{i}-2)\beta\right\} .
+\]
 
 \end_inset
 
  Then 
-\begin_inset Formula \begin{eqnarray*}
+\begin_inset Formula 
+\begin{eqnarray*}
 \deg w_{i}+s_{i} & = & \deg w_{i}-r_{i}-\alpha-\beta(q_{i}-1)\\
  & = & \max\left\{ \deg\bar{w}_{i,0}-r_{i}-\alpha-\beta(q_{i}-1),~\deg\bar{w}_{i,1}-\alpha-\beta(q_{i}-1),~\dots,\right.\\
  &  & \left.~~~~~~~~~~~~~~\dots,\deg\bar{w}_{i,q_{i}-2}-\alpha-\beta\right\} \\
- & \le & \max\left\{ \deg\bar{w}_{i,0}-\alpha-\beta,\deg\bar{w}_{i,1}-\alpha-\beta,\dots,\deg\bar{w}_{i,q_{i}-2}-\alpha-\beta\right\} ,\end{eqnarray*}
+ & \le & \max\left\{ \deg\bar{w}_{i,0}-\alpha-\beta,\deg\bar{w}_{i,1}-\alpha-\beta,\dots,\deg\bar{w}_{i,q_{i}-2}-\alpha-\beta\right\} ,
+\end{eqnarray*}
 
 \end_inset
 
@@ -1651,21 +1747,23 @@ Since any column
 
  from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:degreeCorrespondence"
 
 \end_inset
 
  and 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:degEwLessEqDegw"
 
 \end_inset
 
 , we get 
-\begin_inset Formula \[
-\deg_{\bar{s}}\bar{\mathbf{p}}^{[2]}=\deg_{\vec{s}}\mathbf{E}\bar{\mathbf{p}}\le\deg_{\bar{s}}\bar{\mathbf{p}}.\]
+\begin_inset Formula 
+\[
+\deg_{\bar{s}}\bar{\mathbf{p}}^{[2]}=\deg_{\vec{s}}\mathbf{E}\bar{\mathbf{p}}\le\deg_{\bar{s}}\bar{\mathbf{p}}.
+\]
 
 \end_inset
 
@@ -1765,8 +1863,10 @@ Any
 \end_inset
 
  to the first form 
-\begin_inset Formula \[
-\mathbf{w}^{[1]}=\bar{\mathbf{w}}+\mathbf{A}\mathbf{u}^{[1]}=\mathbf{B}\mathbf{E}\bar{\mathbf{w}},\]
+\begin_inset Formula 
+\[
+\mathbf{w}^{[1]}=\bar{\mathbf{w}}+\mathbf{A}\mathbf{u}^{[1]}=\mathbf{B}\mathbf{E}\bar{\mathbf{w}},
+\]
 
 \end_inset
 
@@ -1780,8 +1880,10 @@ Any
 
 .
  That is, 
-\begin_inset Formula \[
-\bar{\mathbf{w}}=\mathbf{w}^{[1]}-\mathbf{A}\mathbf{u}^{[1]}=\mathbf{B}\mathbf{E}\bar{\mathbf{w}}-\mathbf{A}\mathbf{u}^{[1]}=\mathbf{B}\mathbf{P}\mathbf{v}-\mathbf{A}\mathbf{u}^{[1]}=\left[\mathbf{B}\mathbf{P},\mathbf{A}\right][\mathbf{v},-\mathbf{u}^{[1]}]^{T}.\]
+\begin_inset Formula 
+\[
+\bar{\mathbf{w}}=\mathbf{w}^{[1]}-\mathbf{A}\mathbf{u}^{[1]}=\mathbf{B}\mathbf{E}\bar{\mathbf{w}}-\mathbf{A}\mathbf{u}^{[1]}=\mathbf{B}\mathbf{P}\mathbf{v}-\mathbf{A}\mathbf{u}^{[1]}=\left[\mathbf{B}\mathbf{P},\mathbf{A}\right][\mathbf{v},-\mathbf{u}^{[1]}]^{T}.
+\]
 
 \end_inset
 
@@ -1861,7 +1963,7 @@ We know that if
 
  by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:degEwLessEqDegw"
 
 \end_inset
@@ -1878,7 +1980,7 @@ reference "lem:degEwLessEqDegw"
 .
  Now apply the same procedure as in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:PtoBPA"
 
 \end_inset
@@ -2061,7 +2163,7 @@ Suppose
 
  by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:degreeCorrespondence"
 
 \end_inset
@@ -2197,14 +2299,14 @@ We want to show that
 
  by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:EPgeneration"
 
 \end_inset
 
 , and from 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:degreeCorrespondence"
 
 \end_inset
@@ -2335,7 +2437,7 @@ th column of
 
  by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:PtoBPA"
 
 \end_inset
@@ -2421,7 +2523,7 @@ In order to reach a contradiction we just need to show that
 .
  By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:P2Degree"
 
 \end_inset
@@ -2462,7 +2564,7 @@ reference "cor:P2Degree"
 
  by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "lem:degreeCorrespondence"
 
 \end_inset
@@ -2519,7 +2621,7 @@ Achieving Efficient Computation
 
 \begin_layout Standard
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:correctHighDegreeElements"
 
 \end_inset
@@ -2805,7 +2907,7 @@ Thus, these zero entries do not need to be considered in the remaining problem
 \begin_layout Example
 Let us return to 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:unbalancedShift"
 
 \end_inset
@@ -2837,7 +2939,7 @@ reference "exm:unbalancedShift"
 
 -basis must be zero by 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:zeroHighShiftEntries"
 
 \end_inset
@@ -2861,7 +2963,7 @@ reference "thm:zeroHighShiftEntries"
 
  given in 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "exm:unbalancedShift"
 
 \end_inset
@@ -2938,7 +3040,7 @@ reference "con:unbalancedCondition"
 .
  By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:zeroHighShiftEntries"
 
 \end_inset
@@ -3039,7 +3141,7 @@ We give the following constructive proof.
 .
  
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -3059,7 +3161,7 @@ reference "alg:mab"
 .
  By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:correctHighDegreeElements"
 
 \end_inset
@@ -3079,7 +3181,7 @@ reference "thm:correctHighDegreeElements"
 .
  By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "cor:numberBasisElements"
 
 \end_inset
@@ -3095,7 +3197,7 @@ reference "cor:numberBasisElements"
 .
  By 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "thm:zeroHighShiftEntries"
 
 \end_inset
@@ -3146,8 +3248,10 @@ For the second iteration, we set
 
 .
  Since 
-\begin_inset Formula \[
-\alpha_{2}=2m\sigma/n_{2}\ge-2\sum_{i=1}^{n}s_{i}/n_{2}\ge-2\sum_{i=1}^{n_{2}}s_{i}^{\left(2\right)}/n_{2},\]
+\begin_inset Formula 
+\[
+\alpha_{2}=2m\sigma/n_{2}\ge-2\sum_{i=1}^{n}s_{i}/n_{2}\ge-2\sum_{i=1}^{n_{2}}s_{i}^{\left(2\right)}/n_{2},
+\]
 
 \end_inset
 
@@ -3170,7 +3274,7 @@ For the second iteration, we set
 -basis.
  Again, this can be done using 
 \begin_inset CommandInset ref
-LatexCommand prettyref
+LatexCommand formatted
 reference "alg:mab"
 
 \end_inset
@@ -3215,14 +3319,18 @@ reference "alg:mab"
 \end_inset
 
 -basis can be computed with a cost of 
-\begin_inset Formula \[
-O\left(n_{i}^{\omega}\bar{\M}\left(d_{i}\right)\log\sigma\right)\subset O\left(\left(2^{-i}n\right)^{\omega}\bar{\M}\left(2^{i}d\right)\log\sigma\right)\subset O\left(2^{-i}n^{\omega}\bar{\M}(d)\log\sigma\right).\]
+\begin_inset Formula 
+\[
+O\left(n_{i}^{\omega}\bar{\M}\left(d_{i}\right)\log\sigma\right)\subset O\left(\left(2^{-i}n\right)^{\omega}\bar{\M}\left(2^{i}d\right)\log\sigma\right)\subset O\left(2^{-i}n^{\omega}\bar{\M}(d)\log\sigma\right).
+\]
 
 \end_inset
 
  Since 
-\begin_inset Formula \[
-\alpha_{i}=2m\sigma/n_{i}\ge-2\sum_{i=1}^{n}s_{i}/n_{i}\ge-2\sum_{i=1}^{n_{i}}s_{i}^{\left(i\right)}/n_{i},\]
+\begin_inset Formula 
+\[
+\alpha_{i}=2m\sigma/n_{i}\ge-2\sum_{i=1}^{n}s_{i}/n_{i}\ge-2\sum_{i=1}^{n_{i}}s_{i}^{\left(i\right)}/n_{i},
+\]
 
 \end_inset
 
@@ -3266,8 +3374,10 @@ O\left(n_{i}^{\omega}\bar{\M}\left(d_{i}\right)\log\sigma\right)\subset O\left(\
 \end_inset
 
  iterations, so the overall cost is 
-\begin_inset Formula \[
-O\left(\sum_{i=1}^{\log(n/m)}\left(2^{-i}n^{\omega}\bar{\M}(d)\log\sigma\right)\right)=O\left(n^{\omega}\bar{\M}(d)\log\sigma\sum_{i=1}^{\log(n/m)}2^{-i}\right)\subset O\left(n^{\omega}\bar{\M}(d)\log\sigma\right)\]
+\begin_inset Formula 
+\[
+O\left(\sum_{i=1}^{\log(n/m)}\left(2^{-i}n^{\omega}\bar{\M}(d)\log\sigma\right)\right)=O\left(n^{\omega}\bar{\M}(d)\log\sigma\sum_{i=1}^{\log(n/m)}2^{-i}\right)\subset O\left(n^{\omega}\bar{\M}(d)\log\sigma\right)
+\]
 
 \end_inset
 
