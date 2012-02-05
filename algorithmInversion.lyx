@@ -95,7 +95,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-\begin_inset Formula $\inv(\mathbf{F})$
+\begin_inset Formula $\inv(\mathbf{F},\vec{s})$
 \end_inset
 
 
@@ -125,7 +125,16 @@ status open
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
+; 
+\begin_inset Formula $\vec{s}$
+\end_inset
 
+ is initially set to the column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ It keeps track of the degrees.
 \end_layout
 
 \end_inset
@@ -138,18 +147,22 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{A},\mathbf{B}$
+\begin_inset Formula $\mathcal{A}=\left[\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil }\right],\mathbf{B}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
  such that 
-\begin_inset Formula $\mathbf{A}\mathbf{B}^{-1}=\mathbf{F}^{-1}$
+\begin_inset Formula $\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}=\mathbf{F}^{-1}$
 \end_inset
 
  if 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- is nonsingular, or 0,0 if 
+ is nonsingular, or fail if 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -160,6 +173,10 @@ status open
 
 
 \end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Flex STATE
@@ -174,6 +191,11 @@ column degrees of
 \end_inset
 
 ;
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -210,6 +232,39 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+if 
+\series default
+
+\begin_inset Formula $\mathbf{F}=0$
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ fail 
+\series bold
+endif
+\series default
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Flex IF
 status open
 
@@ -230,25 +285,63 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
+fail; //
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is singular
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
 status open
 
 \begin_layout Plain Layout
 
+\series bold
+if 
+\series default
 
-\backslash
-RETURN
+\begin_inset Formula $n=1$
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ 
+\series bold
+return
+\series default
+ 
+\begin_inset Formula $\left\{ 1,\mathbf{F}\right\} $
+\end_inset
+
+; 
+\series bold
+endif
+\series default
+;
 \end_layout
 
 \end_inset
 
- 0,0;
-\end_layout
-
-\end_inset
-
 
 \end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Flex IF
@@ -295,6 +388,11 @@ RETURN
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
@@ -321,6 +419,10 @@ status open
 
 
 \end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Flex IF
@@ -357,23 +459,59 @@ status collapsed
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
+ fail; //
+\begin_inset Formula $\mathbf{F}$
+\end_inset
 
-\begin_layout Plain Layout
-
-
-\backslash
-RETURN
+ is singular
 \end_layout
 
 \end_inset
 
- 0,0; //
-\begin_inset Formula $\mathbf{F}$
+
+\end_layout
+
 \end_inset
 
- is nonsingular
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+if 
+\series default
+
+\begin_inset Formula $\columnDimension(\mathbf{N}_{1})\ne\left\lfloor n\right\rfloor $
+\end_inset
+
+ 
+\begin_inset Flex OR
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $\columnDimension(\mathbf{N}_{2})\ne\left\lceil n\right\rceil $
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ fail; 
+\series bold
+endif
+\series default
+;
 \end_layout
 
 \end_inset
@@ -413,18 +551,30 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{G}_{1},\mathbf{H}_{1}:=\inv(\mathbf{R}_{1})$
+\begin_inset Formula $\left\{ \mathcal{A}^{(1)},\mathbf{H}_{1}\right\} :=\inv(\mathbf{R}_{1},\deg_{\vec{s}}\mathbf{N}_{2})$
 \end_inset
 
 ; 
-\begin_inset Formula $\mathbf{G}_{2},$
-\end_inset
-
-
-\begin_inset Formula $\mathbf{H}_{2}:=\inv(\mathbf{R}_{2})$
+\begin_inset Formula $\left\{ \mathcal{A}^{(2)},\mathbf{H}_{2}\right\} :=\inv(\mathbf{R}_{2},\deg_{\vec{s}}\mathbf{N}_{1})$
 \end_inset
 
 ;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathcal{A}:=\left[\left[\mathbf{N}_{2},\mathbf{N}_{1}\right],\diag(\mathcal{A}_{1}^{(1)},\mathcal{A}_{1}^{(2)}),\dots,\diag(\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(1)},\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(2)})\right]$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -444,24 +594,12 @@ name "line:multiplyNG"
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
 
-\begin_layout Plain Layout
-
-
-\backslash
-RETURN
-\end_layout
-
-\end_inset
-
+\series bold
+return
+\series default
  
-\begin_inset Formula $[\mathbf{N}_{2}\mathbf{G}_{1},\mathbf{N}_{1}\mathbf{G}_{2}]$
-\end_inset
-
-,
-\begin_inset Formula $\diag\left([\mathbf{H}_{1},\mathbf{H}_{2}]\right)$
+\begin_inset Formula $\left\{ \mathcal{A},\diag\left([\mathbf{H}_{1},\mathbf{H}_{2}]\right)\right\} $
 \end_inset
 
 ;

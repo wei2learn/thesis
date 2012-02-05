@@ -106,6 +106,19 @@ key "jeannerod-villard:05"
 \end_inset
 
  using new results from this thesis.
+ In fact, our result is slightly more general.
+ If 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the minimum of the sum of the column degrees and the sum of the of the
+ row degrees of the input matrix, then the inverse can be computed with
+ 
+\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right).$
+\end_inset
+
+ In the following, we assume without loss of generality that the sum of
+ the column degrees is the minimum.
 \end_layout
 
 \begin_layout Standard
@@ -125,7 +138,7 @@ reference "alg:matrixInverse"
 
 \end_inset
 
- is just an recursive version of the algorithm from 
+ is an recursive version of the algorithm from 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "jeannerod-villard:05"
@@ -146,16 +159,55 @@ reference "line:multiplyFN"
 
 \end_inset
 
- and 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "line:multiplyNG"
-
+ with the new algorithms from this thesis.
+ The algorithm also returns a list of matrices 
+\begin_inset Formula $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}$
 \end_inset
 
- with the new algorithms from this thesis.
- Let us first look at the cost of these operations, since they dominate
- the cost of 
+ satisfying 
+\begin_inset Formula $\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}=\mathbf{F}^{-1}$
+\end_inset
+
+, instead of just two matrices 
+\begin_inset Formula $\mathbf{A},\mathbf{B}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{A}\mathbf{B}^{-1}=\mathbf{F}^{-1}$
+\end_inset
+
+.
+ We can then compute the product 
+\begin_inset Formula $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right)$
+\end_inset
+
+.
+ It is interesting to note that the output 
+\begin_inset Formula $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}$
+\end_inset
+
+ takes only 
+\begin_inset Formula $O(n\xi)$
+\end_inset
+
+ space, but the product 
+\begin_inset Formula $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ takes 
+\begin_inset Formula $O(n^{2}\xi)$
+\end_inset
+
+ space.
+\end_layout
+
+\begin_layout Standard
+Let us first look at the cost of the nullspace basis computation and matrix
+ multiplications, since they dominate the cost of 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "alg:matrixInverse"
@@ -178,20 +230,12 @@ reference "line:nullspaceBasisComputation"
 \begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
 \end_inset
 
-, where 
-\begin_inset Formula $\xi$
-\end_inset
-
- is the sum of the column degrees of the input matrix 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
 .
 \end_layout
 
 \begin_layout Proof
 Just use the earlier nullspace basis algorithm with the shift set to the
- column degrees.
+ column degrees of the input matrix.
 \end_layout
 
 \begin_layout Lemma
@@ -252,23 +296,655 @@ reference "fastmultiply"
  can be applied.
 \end_layout
 
-\begin_layout Lemma
-The multiplications 
-\begin_inset Formula $\mathbf{N}_{2}\mathbf{G}_{1},\mathbf{N}_{1}\mathbf{G}_{2}$
-\end_inset
-
- at 
+\begin_layout Theorem
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "line:multiplyNG"
+reference "alg:matrixInverse"
 
 \end_inset
 
  cost 
-\begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ to compute an inverse for a 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the minimum of the sum of the column degrees and the sum of the row
+ degrees of the input matrix.
+\end_layout
+
+\begin_layout Proof
+If the sum of the row degrees is smaller, we can just transpose the matrix.
+ Let the cost be 
+\begin_inset Formula $g(n,\xi)$
 \end_inset
 
 .
+ Then we have the following recursion:
+\begin_inset Formula 
+\begin{eqnarray*}
+g(n,\xi) & \in & O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi)\\
+ & \in & O^{\sim}(n^{\omega-1}\xi)+2g(\left\lceil n/2\right\rceil ,\xi)\\
+ & \in & O^{\sim}(n^{\omega-1}\xi).
+\end{eqnarray*}
+
+\end_inset
+
+ Note that always round up 
+\begin_inset Formula $n/2$
+\end_inset
+
+ to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left\lceil n/2\right\rceil $
+\end_inset
+
+ is no worse than assuming 
+\begin_inset Formula $n$
+\end_inset
+
+ is a power of 
+\begin_inset Formula $2$
+\end_inset
+
+.
+ In other words, the entries in the sequence 
+\begin_inset Formula $\left[\left\lceil n/2\right\rceil ,\left\lceil n/4\right\rceil ,\dots,1\right]$
+\end_inset
+
+ is no larger than the corresponding entries in the sequence 
+\begin_inset Formula $\left[\left\lceil n'/2\right\rceil ,\left\lceil n'/4\right\rceil ,\dots,1\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $n'=2^{\left\lceil \log_{2}n\right\rceil }$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Lemma
+The multiplications 
+\begin_inset Formula $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ can be done with a cost of 
+\begin_inset Formula $O^{\sim}(n^{2}\xi)$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Proof
+Note that 
+\begin_inset Formula $\mathbf{A}_{i}$
+\end_inset
+
+ for 
+\begin_inset Formula $i\le\log n$
+\end_inset
+
+ has 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ blocks on the diagonal.
+ Each block of 
+\begin_inset Formula $\mathbf{A}_{i}$
+\end_inset
+
+ is used to compute two corresponding blocks of 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+.
+ Let us first look at 
+\begin_inset Formula $\mathbf{A}_{1}=\left[\mathbf{N}_{2},\mathbf{N}_{1}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula 
+\[
+\mathbf{A}_{2}=\begin{bmatrix}\mathbf{N}'_{2} & \mathbf{N}'_{1}\\
+ &  & \mathbf{M}'_{2} & \mathbf{M}'_{1}
+\end{bmatrix},
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{N}'_{1},$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{N}'_{2}$
+\end_inset
+
+ are the nullspace bases of the submatrices 
+\begin_inset Formula $\mathbf{F}'_{1},$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{F}'_{2}$
+\end_inset
+
+ contained in 
+\begin_inset Formula 
+\[
+\mathbf{R}_{1}=\begin{bmatrix}\mathbf{F}'_{1}\\
+\mathbf{F}'_{2}
+\end{bmatrix}=\mathbf{F}_{1}\mathbf{N}_{2}.
+\]
+
+\end_inset
+
+ When multiplying 
+\begin_inset Formula $\mathbf{A}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}_{2}$
+\end_inset
+
+, the submatrix 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{A}_{1}$
+\end_inset
+
+ is multiplied with the block 
+\begin_inset Formula $\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{A}_{2}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+ be the list of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+, where 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is list of the column degrees of the input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\sum\vec{s}'\le\sum\vec{s}=\xi$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:boundOnDegreesOfFA"
+
+\end_inset
+
+, we know the column degrees of 
+\begin_inset Formula $\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$
+\end_inset
+
+ are bounded component-wise by the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+, hence the sum of the column degrees of 
+\begin_inset Formula $\mathbf{R}_{1}$
+\end_inset
+
+ is also bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ It follows that the sum of 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}'_{1}$
+\end_inset
+
+ and that of 
+\begin_inset Formula $\mathbf{N}'_{2}$
+\end_inset
+
+ are each bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ We can therefore use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:boundOnDegreesOfFA"
+
+\end_inset
+
+, the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of the product 
+\begin_inset Formula $\mathbf{N}_{2}\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+ are bounded by the 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+, hence the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of each column block in 
+\begin_inset Formula $\mathbf{N}_{2}\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]=\left[\mathbf{N}_{2}\mathbf{N}'_{2},\mathbf{N}_{2}\mathbf{N}'_{1}\right]$
+\end_inset
+
+ is still bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ The multiplication involving 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+ and the second block of 
+\begin_inset Formula $\mathbf{A}_{2}$
+\end_inset
+
+ is done in the same way as the multiplication 
+\begin_inset Formula $\mathbf{N}_{2}\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+, hence the multiplication 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}$
+\end_inset
+
+ cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+, with the sum of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of each of the four column blocks in 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}=\left[\mathbf{N}_{2}\mathbf{N}'_{2},\mathbf{N}_{2}\mathbf{N}'_{1},\mathbf{N}_{1}\mathbf{M}'_{2},\mathbf{N}_{1}\mathbf{M}'_{1}\right]$
+\end_inset
+
+ bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Next, we multiply 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{3}$
+\end_inset
+
+.
+ The matrix 
+\begin_inset Formula $\mathbf{A}_{3}$
+\end_inset
+
+ now has four blocks on the diagonal.
+ Consider 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{N}'_{2}$
+\end_inset
+
+ , the first column block of 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}$
+\end_inset
+
+, multiplied with the first block 
+\begin_inset Formula $\left[\mathbf{N}"_{2},\mathbf{N}"_{1}\right]$
+\end_inset
+
+ on the diagonal of 
+\begin_inset Formula $\mathbf{A}_{3}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}"$
+\end_inset
+
+ be the 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}'_{2}$
+\end_inset
+
+, which bound the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{N}'_{2}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\sum\vec{s}"\le\sum\vec{s}'\le\sum\vec{s}=\xi$
+\end_inset
+
+.
+ Following the same reasoning as before, the sum of the 
+\begin_inset Formula $\vec{s}"$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}"_{2}$
+\end_inset
+
+ is still bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ We can therefore again use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{N}'_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}"_{2}$
+\end_inset
+
+.
+ The multiplication of the remaining blocks are done in the same way.
+ The product 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}\mathbf{A}_{3}$
+\end_inset
+
+ now has 8 column blocks, with the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of each column block bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Repeating this process, we multiply 
+\begin_inset Formula $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+ at step 
+\begin_inset Formula $i$
+\end_inset
+
+ for 
+\begin_inset Formula $i$
+\end_inset
+
+ from 1 to 
+\begin_inset Formula $\left\lfloor \log n\right\rfloor $
+\end_inset
+
+.
+ Each of the 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ column blocks of 
+\begin_inset Formula $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $n\times O(n/2^{i})$
+\end_inset
+
+.
+ Each of the 
+\begin_inset Formula $O(2^{i})$
+\end_inset
+
+ column blocks on the diagonal of 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $O(n/2^{i})\times O(n/2^{i})$
+\end_inset
+
+.
+ (Big 
+\begin_inset Formula $O$
+\end_inset
+
+ notation is used here because 
+\begin_inset Formula $n/2^{i}$
+\end_inset
+
+ may not be an integer.) Let 
+\begin_inset Formula $\vec{u}_{j}$
+\end_inset
+
+ be the shift used to compute the 
+\begin_inset Formula $j$
+\end_inset
+
+th in 
+\begin_inset Formula $\mathbf{A}_{j+1}$
+\end_inset
+
+, then as before, the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of the 
+\begin_inset Formula $j$
+\end_inset
+
+th column block in 
+\begin_inset Formula $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\vec{u}_{j}$
+\end_inset
+
+, with 
+\begin_inset Formula $\sum\vec{u}_{j}\le\xi$
+\end_inset
+
+.
+ The sum of the 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees of the 
+\begin_inset Formula $j$
+\end_inset
+
+th block in 
+\begin_inset Formula $\mathbf{A}_{j+1}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $2\xi$
+\end_inset
+
+.
+ (Each of the left half and the right half has the sum bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.) Therefore, multiplying multiply 
+\begin_inset Formula $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+ cost 
+\begin_inset Formula $O^{\sim}\left(2^{j}2^{j}\left(n/2^{j}\right)^{\omega-1}\xi\right)$
+\end_inset
+
+.
+ Take 
+\begin_inset Formula $\omega=3,$
+\end_inset
+
+ we get 
+\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right)$
+\end_inset
+
+ as desired.
+\end_layout
+
+\begin_layout Remark
+Again, it is interesting to note that 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:matrixInverse"
+
+\end_inset
+
+ cost only 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ to compute the inverse and representing the inverse with 
+\begin_inset Formula $O\left(n\xi\log n\right)$
+\end_inset
+
+ space.
+ It is possible that this representation is useful in some applications.
+ For example, if we wish to multiply another low degree matrix 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ by 
+\begin_inset Formula $\mathbf{F}^{-1}$
+\end_inset
+
+, representing 
+\begin_inset Formula $\mathbf{F}^{-1}=\mathbf{A}\mathbf{B}^{-1}$
+\end_inset
+
+ requires us to multiply 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ with a high degree matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+, which can be more expensive than the multiplication using the representation
+ 
+\begin_inset Formula $\mathbf{F}^{-1}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{H}\mathbf{F}^{-1}=\mathbf{H}\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}$
+\end_inset
+
+, which is less expensive.
+ It may be interesting to look for other applications where this smaller
+ representation is useful.
 \end_layout
 
 \begin_layout Subsection
