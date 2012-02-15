@@ -1294,8 +1294,48 @@ Acknowledgements
 \end_layout
 
 \begin_layout Standard
+Thanks to my supervisor George Labahn for the patience and the support that
+ made this work possible.
+ Also thanks to Arne Storjohann for the inspiration that made the first
+ major result of this thesis possible, and for teaching me how to give good
+ presentations.
+ In 2006, I was lost and losing confidence.
+ Arne's work opened the door to my work on order basis computation, which
+ also helped to restore my confidence.
+\end_layout
+
+\begin_layout Standard
+Thanks to my committee members, including George, Arne, and Mark for reading
+ this thesis.
+\end_layout
+
+\begin_layout Standard
+Thanks to all my friends in Waterloo, especially my long-term roommate Zhirong,
+ my resourceful labmate Reinhold, and my close friends Wei Li and Jun Chen,
+ for many fun conversations and memorable activities.
+ 
+\end_layout
+
+\begin_layout Standard
+This has been a difficult but rewarding process for myself.
+ But to others and especially my family, my school work would just seem
+ endless.
+ After presenting the work on order basis computation three years ago, I
+ declared that it would be over within a year.
+ But it took me three more years to finish the work on nullspace basis computati
+on.
+ My family has patiently waited and waited.
+ My parents never lost confidence in my research work but were worried about
+ my family.
+ My wife Jin has been working for 7 years.
+ My daughter Tianyi is now 4 years old.
+ Only me looked stuck at school and was not going anywhere.
+ Thanks to my family for so many years of patience and trust.
+\end_layout
+
+\begin_layout Standard
 \noindent
-I would like to thank my supervisor George 
+ 
 \begin_inset Newpage newpage
 \end_inset
 
@@ -1311,7 +1351,7 @@ Dedication
 
 \begin_layout Standard
 \noindent
-To my father, mother, wife, and daughter.
+To my father, mother, wife, daughter, and sister.
  
 \begin_inset Newpage newpage
 \end_inset
