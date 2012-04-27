@@ -795,6 +795,62 @@ reference "lem:boundOnDegreesOfFA"
 \end_layout
 
 \begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+
+\end_inset
+
+ specializes to the following well-known results in the case of uniform
+ shift:
+\end_layout
+
+\begin_layout Corollary
+Given 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with degree 
+\begin_inset Formula $d$
+\end_inset
+
+ .
+ The sum of the column degree of its minimal nullspace basis is bounded
+ by 
+\begin_inset Formula $md$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+
+\end_inset
+
+ and the definition of shifted column degrees we have 
+\begin_inset Formula 
+\[
+nd\ge\sum\cdeg_{\left[d,\dots d\right]}\mathbf{N}\ge(n-m)d+\sum\cdeg\mathbf{N},
+\]
+
+\end_inset
+
+ which gives 
+\begin_inset Formula 
+\[
+\sum\cdeg\mathbf{N}\le nd-(n-m)d=md.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Comment
 status collapsed
 
@@ -1309,7 +1365,7 @@ name "thm:dimensionOfPartialNullspaceBasisBasedOnOrder"
 \begin_inset Formula $\mathbf{P}_{2}$
 \end_inset
 
- is less than 
+ is bounded by 
 \begin_inset Formula $\frac{\ell m}{(\ell-1)}.$
 \end_inset
 
@@ -4817,7 +4873,7 @@ reference "line:orderBasis"
 \end_inset
 
  costs 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil ms/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)$
 \end_inset
 
  using the algorithm from 
@@ -5135,7 +5191,7 @@ reference "alg:minimalNullspaceBasis"
 \end_inset
 
  costs 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil ms/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)$
 \end_inset
 
 .
@@ -5144,7 +5200,7 @@ reference "alg:minimalNullspaceBasis"
 
 \begin_layout Proof
 After the initial order basis computation, which costs 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil ms/n\right\rceil \right),$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right),$
 \end_inset
 
  and the multiplication of 
@@ -5192,7 +5248,7 @@ reference "thm:costLowColDimension"
 
 .
  The overall cost is therefore dominated by the cost 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil ms/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)$
 \end_inset
 
  of the initial order basis computation.
@@ -5218,7 +5274,7 @@ If the input matrix
 \end_inset
 
  can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil md/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}md\right)$
 \end_inset
 
 .
@@ -5243,6 +5299,10 @@ reference "thm:costOfMinimalNullspaceBasisWithUniformShift"
 
 .
  
+\end_layout
+
+\begin_layout Section
+Nonuniform row degrees or shifted row degrees
 \end_layout
 
 \end_body

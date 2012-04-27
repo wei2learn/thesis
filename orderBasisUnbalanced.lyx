@@ -5,6 +5,10 @@
 \textclass report
 \options amsthm,seceqn,secthm
 \use_default_options false
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
@@ -98,7 +102,7 @@ reference "alg:mab"
 \end_inset
 
  is balanced.
- When the 
+ When 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -172,11 +176,167 @@ reference "lem:size"
 \end_inset
 
  which gives hope for efficient computation.
+ In the following, we look at two special cases of unbalanced shift.
+ In the first case where the input shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\sum_{i=1}^{n}(\vec{s}_{i}-\min(\vec{s}))\in O(m\sigma)$
+\end_inset
+
+, the sum of the column degrees of a 
+\begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)$
+\end_inset
+
+-basis is still in 
+\begin_inset Formula $O(m\sigma)$
+\end_inset
+
+, which allows us to use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:mab"
+
+\end_inset
+
+ to compute a 
+\begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)$
+\end_inset
+
+-basis efficiently as in the balanced case.
+ The second case where 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\in O(m\sigma)$
+\end_inset
+
+ is more complicated and is the main focus of this section.
+\end_layout
+
+\begin_layout Subsection
+First unbalanced case
 \end_layout
 
 \begin_layout Standard
-In this section, we describe an algorithm for an important special case
- of unbalanced shift -- when the input shift 
+We first consider the case where the input shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula 
+\[
+\sum_{i=1}^{n}(\vec{s}_{i}-\min(\vec{s}))\in O(m\sigma).
+\]
+
+\end_inset
+
+As before, we may use the equivalent condition
+\begin_inset Formula 
+\begin{equation}
+\vec{s}\ge0\mbox{ and }\sum_{i}^{n}\vec{s}_{i}\in O(m\sigma),\label{con:unbalanced1}
+\end{equation}
+
+\end_inset
+
+which can always be obtained from the previous condition by using 
+\begin_inset Formula $\vec{s}-\min\vec{s}$
+\end_inset
+
+ as the new shift.
+ Note that translating every entry of the shift by the same constant does
+ not change the problem.
+ In this case, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:mab"
+
+\end_inset
+
+ works efficiently as before.
+\end_layout
+
+\begin_layout Lemma
+If the shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ satisfies condition 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "con:unbalanced1"
+
+\end_inset
+
+, then a 
+\begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)$
+\end_inset
+
+-basis can be computed with 
+\begin_inset Formula $O\left(n^{\omega}\bar{\M}(d)\log\sigma)\right)=O\left(n^{\omega}d\log d\log\log d\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+ field operations.
+ 
+\end_layout
+
+\begin_layout Standard
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:size"
+
+\end_inset
+
+, we know that the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of any 
+\begin_inset Formula $\left(\mathbf{F},\mathbf{\sigma},\vec{s}\right)$
+\end_inset
+
+-basis is 
+\begin_inset Formula $\vec{t}=\sum\vec{s}+m\sigma\in O(m\sigma)$
+\end_inset
+
+, and since the entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ are non-negative, the sum of the column degrees is less than 
+\begin_inset Formula $\sum\vec{t}$
+\end_inset
+
+.
+ So the sum of the column degrees of any 
+\begin_inset Formula $\left(\mathbf{F},\mathbf{\sigma},\vec{s}\right)$
+\end_inset
+
+-basis is also in 
+\begin_inset Formula $O(m\sigma)$
+\end_inset
+
+.
+ Now the same analysis from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:complexity"
+
+\end_inset
+
+ applies.
+\end_layout
+
+\begin_layout Subsection
+Second unbalanced case
+\end_layout
+
+\begin_layout Standard
+We now look at another important case of unbalanced shift -- when the input
+ shift 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -188,7 +348,7 @@ In this section, we describe an algorithm for an important special case
 
 \end_inset
 
- For simpler presentation, we use the equivalent condition 
+ For simplicity, we use the equivalent condition 
 \begin_inset Formula 
 \begin{equation}
 \vec{s}\le0\mbox{ and }\sum_{i}-\vec{s}_{i}\le m\sigma,\label{con:unbalancedCondition}
@@ -201,8 +361,7 @@ In this section, we describe an algorithm for an important special case
 \end_inset
 
  as the new shift.
- Note that translating every entry of the shift by the same constant does
- not change the problem.
+ 
 \end_layout
 
 \begin_layout Standard

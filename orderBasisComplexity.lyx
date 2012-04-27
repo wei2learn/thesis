@@ -290,7 +290,7 @@ reference "alg:mab"
 \begin_inset Formula $O\left(n^{\omega}\bar{\M}(d)\log\sigma)\right)=O\left(n^{\omega}d\log d\log\log d\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
 \end_inset
 
- field operations.
+  field operations.
  
 \end_layout
 

@@ -156,6 +156,9 @@ plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis
 \DeclareMathOperator{\coeff}{coeff}
 \DeclareMathOperator{\lcoeff}{lcoeff}
 \DeclareMathOperator{\inv}{inverse}
+\DeclareMathOperator{\rev}{rev}
+\DeclareMathOperator{\colRev}{colRev}
+\DeclareMathOperator{\rowRev}{rowRev}
 \def\mab{\qopname\relax n{OrderBasis}}
 \def\mnbr{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
 \def\mmab{\qopname\relax n{FastBasis}}
@@ -1294,48 +1297,48 @@ Acknowledgements
 \end_layout
 
 \begin_layout Standard
-Thanks to my supervisor George Labahn for the patience and the support that
- made this work possible.
- Also thanks to Arne Storjohann for the inspiration that made the first
- major result of this thesis possible, and for teaching me how to give good
- presentations.
- In 2006, I was lost and losing confidence.
+Thanks to my supervisor George Labahn for providing me with the opportunity
+ to explore in this exciting field, and for his patience and the longtime
+ support that made this work possible.
+ Also thanks to Arne Storjohann, whose accomplishments and magical abilities
+ have always amazed me and influenced my work.
+ When I was lost and was losing confidence several years ago.
  Arne's work opened the door to my work on order basis computation, which
- also helped to restore my confidence.
+ also helped me to restore my confidence.
 \end_layout
 
 \begin_layout Standard
-Thanks to my committee members, including George, Arne, and Mark for reading
- this thesis.
+Thanks to my committee members, George, Arne, and Mark for reading this
+ thesis.
 \end_layout
 
 \begin_layout Standard
-Thanks to all my friends in Waterloo, especially my long-term roommate Zhirong,
- my resourceful labmate Reinhold, and my close friends Wei Li and Jun Chen,
- for many fun conversations and memorable activities.
+Thanks to all my friends in Waterloo, especially my longtime roommate Zhirong,
+ my resourceful academic brother Reinhold, and my close friends Wei Li and
+ Jun Chen, for many fun conversations and memorable activities.
  
 \end_layout
 
 \begin_layout Standard
-This has been a difficult but rewarding process for myself.
- But to others and especially my family, my school work would just seem
- endless.
- After presenting the work on order basis computation three years ago, I
- declared that it would be over within a year.
+This has been a rewarding adventure for myself.
+ But to others and especially my family, my school work just seemed endless.
+ After presenting the work on order basis computation years ago, I declared
+ that it would be over very quickly.
  But it took me three more years to finish the work on nullspace basis computati
 on.
- My family has patiently waited and waited.
- My parents never lost confidence in my research work but were worried about
- my family.
- My wife Jin has been working for 7 years.
- My daughter Tianyi is now 4 years old.
- Only me looked stuck at school and was not going anywhere.
- Thanks to my family for so many years of patience and trust.
+ My wife has been working and solely supporting the family for many years.
+ My daughter is now a big girl who knows daddy is always in a mysterious
+ place called Waterloo.
+ My parents always had confidence in my abilities to do research but became
+ worried about my family life.
+ But I always looked stuck and was not going anywhere.
+ Thanks to my parents, my wife, and my daughter for so many years of patience
+ and trust.
+ I owe everything to you.
 \end_layout
 
 \begin_layout Standard
 \noindent
- 
 \begin_inset Newpage newpage
 \end_inset
 

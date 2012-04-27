@@ -1129,7 +1129,7 @@ key "BeLa94,Giorgi2003"
 .
  
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Consider the degree of pivot entries in the iterative order basis computation
@@ -1210,8 +1210,8 @@ As a result, the average degree of the entries of the output matrix can
 
 \begin_layout Standard
 Let us now look at the average column degree of the output.
- In the first part of this paper, we assumed, without loss of generality,
- that 
+ In the first part of our discussion on order basis computation, we assume,
+ without loss of generality, that 
 \begin_inset Formula $\min\left(\vec{s}\right)=0$
 \end_inset
 
@@ -1398,7 +1398,7 @@ sigma$.
 
 \begin_layout Standard
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In fact, if 
@@ -1538,6 +1538,16 @@ filename "orderBasisComputing.lyx"
 \begin_inset CommandInset include
 LatexCommand input
 filename "orderBasisComplexity.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "orderBasisUnbalancedCase1.lyx"
 
 \end_inset
 

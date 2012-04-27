@@ -147,6 +147,10 @@ We have been assuming
 .
 \end_layout
 
+\begin_layout Subsection
+Balanced Case
+\end_layout
+
 \begin_layout Standard
 First note that in this case, using 
 \begin_inset CommandInset ref
