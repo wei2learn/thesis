@@ -1,0 +1,2629 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass report
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Minimal Unimodular Completion
+\end_layout
+
+\begin_layout Standard
+Given an matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $n>m$
+\end_inset
+
+, let us call the product of the nonzero entries of its smith normal form
+ the 
+\emph on
+generalized determinant
+\emph default
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Suppose 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is full-rank with column degrees bounded by the entries of a shift 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}_{\ge0}^{n}$
+\end_inset
+
+.
+ We consider the problem of finding a matrix 
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{(n-m)\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $\left(-\vec{s}\right)$
+\end_inset
+
+-minimal rows such that 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\end_inset
+
+ has the same determinant as the generalized determinant of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ In the special case where the generalized determinant of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is 
+\begin_inset Formula $1$
+\end_inset
+
+, the problem specializes to the standard unimodular completion problem,
+ where 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\end_inset
+
+ is unimodular.
+ Note that the 
+\begin_inset Formula $\left(-\vec{s}\right)$
+\end_inset
+
+ shift is chosen to make the degrees consistent with the degrees of the
+ input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Example
+If 
+\begin_inset Formula $\mathbf{F}=\left[1,0\right]$
+\end_inset
+
+, 
+\begin_inset Formula $\vec{s}=\left[0,0\right]$
+\end_inset
+
+.
+ Then the generalized determinant of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ A 
+\begin_inset Formula $\left(-\vec{s}\right)$
+\end_inset
+
+-minimal unimodular completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is then 
+\begin_inset Formula $\mathbf{G}=\left[0,1\right]$
+\end_inset
+
+.
+ A unimodular completion that is not minimal is 
+\begin_inset Formula $\left[x^{9},1\right]$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{F}=\left[x,x^{2}\right]$
+\end_inset
+
+, then a 
+\begin_inset Formula $\left(-\vec{s}\right)$
+\end_inset
+
+-minimal completion that maintains the generalized determinant is again
+ 
+\begin_inset Formula $\left[0,1\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Such 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ exists if and only if 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is relatively column prime.
+ To see this, notice that if 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is not relatively column prime, then we can always factor out a nonunimodular
+ matrix from 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\end_inset
+
+ for any 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ is a left factor of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, then 
+\begin_inset Formula $\diag\left(\left[\mathbf{H},I\right]\right)$
+\end_inset
+
+ is always a factor of 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\end_inset
+
+.
+ On the other hand, if 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is relatively column prime, we show in this subsection how 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ can be computed to make 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\end_inset
+
+ unimodular.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Before discussing the actual matrix completion, let us look at the operations
+ that reverses the coefficients of a polynomial, the coefficients of the
+ polynomial entries of a vector, or the coefficients of the polynomial entries
+ of a polynomial matrix.
+ These operations are needed in the computation of our matrix completion.
+\end_layout
+
+\begin_layout Section
+Reversing polynomial coefficients
+\end_layout
+
+\begin_layout Standard
+First let us look at the operation that reverse the coefficients of a polynomial.
+\end_layout
+
+\begin_layout Definition
+For a polynomial 
+\begin_inset Formula $p=p_{0}+p_{1}x+\dots+p_{u}x^{u}\in\mathbb{K}\left[x\right]$
+\end_inset
+
+ with degree bounded by 
+\begin_inset Formula $u$
+\end_inset
+
+, we define the operation 
+\begin_inset Formula 
+\[
+\rev(p,u)=\left(p(x^{-1})\right)x^{u}=p_{u}+p_{u-1}x+\cdots+p_{1}x^{u-1}+p_{0}x^{u}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We now extend this definition to column vectors and row vectors with shifted
+ degrees.
+\end_layout
+
+\begin_layout Definition
+Let 
+\begin_inset Formula $\vec{u}=\left[u_{1},\dots u_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ be a degree shift, and a column vector 
+\begin_inset Formula $\mathbf{a}\in\mathbb{K}\left[x\right]^{n\times1}$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degree bounded by 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ We define
+\begin_inset Formula 
+\[
+\colRev(\mathbf{a},\vec{u},v)=x^{-\vec{u}}\left(\mathbf{a}(x^{-1})\right)x^{v}=\begin{bmatrix}x^{-u_{1}}\\
+ & \ddots\\
+ &  & x^{-u_{n}}
+\end{bmatrix}\left(\mathbf{a}(x^{-1})\right)x^{v}=\begin{bmatrix}\rev(p,v-u_{1})\\
+\vdots\\
+\rev(p,v-u_{n})
+\end{bmatrix}.
+\]
+
+\end_inset
+
+Similarly for a row vector 
+\begin_inset Formula $\mathbf{b}\in\mathbb{K}\left[x\right]^{1\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-row degree bounded by 
+\begin_inset Formula $v$
+\end_inset
+
+, where 
+\begin_inset Formula $\vec{u}=\left[u_{1},\dots u_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ is a degree shift, we define
+\begin_inset Formula 
+\[
+\rowRev(\mathbf{b},\vec{u},v)=\colRev(\mathbf{b}^{T},\vec{u},v)^{T}=x^{v}\left(\mathbf{b}(x^{-1})\right)x^{-\vec{u}}=x^{v}\left(\mathbf{b}(x^{-1})\right)\begin{bmatrix}x^{-u_{1}}\\
+ & \ddots\\
+ &  & x^{-u_{n}}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Example
+If 
+\begin_inset Formula $\mathbf{f}=\left[10+x,5+x+2x^{2}\right]$
+\end_inset
+
+, 
+\begin_inset Formula $\vec{u}=\left[-1,-2\right]$
+\end_inset
+
+, and 
+\begin_inset Formula $v=0$
+\end_inset
+
+, then 
+\begin_inset Formula 
+\[
+\rowRev(\mathbf{f},\vec{u},v)=x^{0}\left[10+x^{-1},5+x^{-1}+2x^{-2}\right]\begin{bmatrix}x\\
+ & x^{2}
+\end{bmatrix}=\left[10x+1,5x^{2}+x+2\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can extend the reverse operation further to polynomial matrices.
+\end_layout
+
+\begin_layout Definition
+Let 
+\begin_inset Formula $\vec{u}=\left[u_{1},\dots u_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ be a degree shift.
+ Let 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees bounded component-wise by 
+\begin_inset Formula $\vec{v}=\left[v_{1},\dots,v_{k}\right]$
+\end_inset
+
+, we define 
+\begin_inset Formula 
+\[
+\colRev(\mathbf{A},\vec{u},\vec{v})=x^{-\vec{u}}\left(\mathbf{A}(1/x)\right)x^{\vec{v}}=\begin{bmatrix}x^{-u_{1}}\\
+ & \ddots\\
+ &  & x^{-u_{n}}
+\end{bmatrix}\left(\mathbf{A}(1/x)\right)\begin{bmatrix}x^{v_{1}}\\
+ & \ddots\\
+ &  & x^{v_{k}}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+ Similarly, for 
+\begin_inset Formula $\vec{u}=\left[u_{1},\dots,u_{n}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{k\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees bounded component-wise by 
+\begin_inset Formula $\vec{v}=\left[v_{1},\dots,v_{n}\right]$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+\rowRev(\mathbf{B},\vec{u},\vec{v})=\colRev(\mathbf{B}^{T},\vec{u},\vec{v})^{T}=x^{\vec{v}}\left(\mathbf{B}(1/x)\right)x^{-\vec{u}}=\begin{bmatrix}x^{v_{1}}\\
+ & \ddots\\
+ &  & x^{v_{k}}
+\end{bmatrix}\left(\mathbf{B}(1/x)\right)\begin{bmatrix}x^{-u_{1}}\\
+ & \ddots\\
+ &  & x^{-u_{n}}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Again, we assume a shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ bounds the column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ component-wise with 
+\begin_inset Formula $\sum\vec{s}=\xi$
+\end_inset
+
+.
+ First, we compute a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal nullspace basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ We then reverse the coefficients of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ based on its 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees as follows: To reverse the coefficients of column 
+\begin_inset Formula $\mathbf{n}$
+\end_inset
+
+ that has 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees bounded by 
+\begin_inset Formula $t$
+\end_inset
+
+, let
+\begin_inset Formula 
+\[
+\reverse(\mathbf{n},\vec{s},t)=x^{-\vec{s}}\left(\mathbf{n}(1/x)\right)x^{t}=\begin{bmatrix}x^{-s_{1}}\\
+ & \ddots\\
+ &  & x^{-s_{n}}
+\end{bmatrix}\left(\mathbf{n}(1/x)\right)x^{t}.
+\]
+
+\end_inset
+
+ I.e., for the 
+\begin_inset Formula $i$
+\end_inset
+
+th entry 
+\begin_inset Formula $\mathbf{n}_{i}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{n}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{n}_{i}=p_{0}+p_{1}x+\dots+p_{t-s_{i}}x^{t-s_{i}}$
+\end_inset
+
+, the reversed 
+\begin_inset Formula $\mathbf{n}$
+\end_inset
+
+ becomes 
+\begin_inset Formula $\reverse(\mathbf{n},\vec{s},t)=p_{t-s_{i}}+p_{t-s_{i}-1}x+\cdots+p_{1}x^{t-s_{i}-1}+p_{0}x^{t-s_{i}}.$
+\end_inset
+
+ Each column of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is reversed in this way to get a new matrix 
+\begin_inset Formula $\bar{\mathbf{N}}$
+\end_inset
+
+.
+ That is, for matrix 
+\begin_inset Formula $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees bounded component-wise by 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+, we define 
+\begin_inset Formula 
+\[
+\reverse(\mathbf{N},\vec{s},\vec{t})=x^{-\vec{s}}\left(\mathbf{N}(1/x)\right)x^{\vec{t}}=\begin{bmatrix}x^{-s_{1}}\\
+ & \ddots\\
+ &  & x^{-s_{n}}
+\end{bmatrix}\left(\mathbf{N}(1/x)\right)\begin{bmatrix}x^{t_{1}}\\
+ & \ddots\\
+ &  & x^{t_{k}}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+We then compute a 
+\begin_inset Formula $\left(\bar{\mathbf{N}}^{T},\sigma,-\vec{s}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\bar{\mathbf{P}}'$
+\end_inset
+
+ with 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ big enough to contain a complete nullspace basis 
+\begin_inset Formula $\bar{\mathbf{F}}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\bar{\mathbf{N}}^{T}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F'}$
+\end_inset
+
+ be the matrices 
+\begin_inset Formula $\bar{\mathbf{P}}'$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\bar{F}'}$
+\end_inset
+
+ with coefficients reversed based on their 
+\begin_inset Formula $(-\vec{s})$
+\end_inset
+
+-column degrees respectively.
+ Then it is not difficult to see that 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+ is a nullspace basis of 
+\begin_inset Formula $\mathbf{N}'$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is useful to note that the degrees remain bounded after the reverse operation
+s.
+\end_layout
+
+\begin_layout Lemma
+If 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ has 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees bounded by the corresponding entries of 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+, then 
+\begin_inset Formula $\colRev(\mathbf{A},\vec{u},\vec{v})$
+\end_inset
+
+ also has 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees bounded by the corresponding entries of 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+As one would expect, applying two reverse operations gives back the original
+ input.
+\end_layout
+
+\begin_layout Lemma
+The following equalities holds:
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{eqnarray*}
+\rev\left(\rev(p,u),u\right) & = & p\\
+\colRev\left(\colRev(\mathbf{a},\vec{u},v),\vec{u},v\right) & = & \mathbf{a}\\
+\rowRev\left(\rowRev(\mathbf{b},\vec{u},v),\vec{u},v\right) & = & \mathbf{b}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\colRev\left(\colRev(\mathbf{A},\vec{u},\vec{v}),\vec{u},\vec{v}\right) & = & \mathbf{A}\\
+\rowRev\left(\rowRev(\mathbf{B},\vec{u},\vec{v}),\vec{u},\vec{v}\right) & = & \mathbf{B}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let us look at a degree bound on the product of a row vector and a column
+ vector, based on their shifted degrees, when opposite shifts are used.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:vectorProductBound"
+
+\end_inset
+
+If 
+\begin_inset Formula $\mathbf{a}\in\mathbb{K}\left[x\right]^{1\times n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}^{T}$
+\end_inset
+
+ has 
+\begin_inset Formula $\left(-\vec{u}\right)$
+\end_inset
+
+-column degree bounded by 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ (or equivalently, 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+ has 
+\begin_inset Formula $\left(-\vec{u}\right)$
+\end_inset
+
+-row degree bounded by 
+\begin_inset Formula $\alpha$
+\end_inset
+
+) and 
+\begin_inset Formula $\mathbf{b}\in\mathbb{K}\left[x\right]^{n\times1}$
+\end_inset
+
+ has 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degree bounded by 
+\begin_inset Formula $\beta$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{a}\mathbf{b}$
+\end_inset
+
+ has degree bounded by 
+\begin_inset Formula $\alpha+\beta$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Since 
+\begin_inset Formula $\mathbf{a}x^{-\vec{u}}$
+\end_inset
+
+ has degree bounded by 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $x^{\vec{u}}\mathbf{b}$
+\end_inset
+
+ has degree bounded by 
+\begin_inset Formula $\beta$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{a}x^{-\vec{u}}x^{\vec{u}}\mathbf{b}=\mathbf{a}\mathbf{b}$
+\end_inset
+
+ has degree bounded by 
+\begin_inset Formula $\alpha+\beta$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The following lemma shows that the reverse operation and the multiplication
+ are commutative when we use opposite shifts.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:reverseProduct"
+
+\end_inset
+
+If 
+\begin_inset Formula $\mathbf{a}\in\mathbb{K}\left[x\right]^{1\times n}$
+\end_inset
+
+ has 
+\begin_inset Formula $\left(-\vec{u}\right)$
+\end_inset
+
+-row degree bounded by 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{b}\in\mathbb{K}\left[x\right]^{n\times1}$
+\end_inset
+
+ has 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degree bounded by 
+\begin_inset Formula $\beta$
+\end_inset
+
+, then 
+\begin_inset Formula 
+\[
+\revRow(\mathbf{a},-\vec{u},\alpha)\cdot\revCol(\mathbf{b},\vec{u},\beta)=\rev(\mathbf{a}\mathbf{b},\alpha+\beta).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset space \space{}
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \revRow(\mathbf{a},-\vec{u},\alpha)\cdot\revCol(\mathbf{b},\vec{u},\beta)\\
+ & = & x^{\alpha}\left(\mathbf{a}(1/x)\right)x^{\vec{u}}x^{-\vec{u}}\left(\mathbf{b}(1/x)\right)x^{\beta}\\
+ & = & \left(\mathbf{a}(1/x)\right)x^{\vec{u}}x^{-\vec{u}}\left(\mathbf{b}(1/x)\right)x^{\alpha+\beta}\\
+ & = & \left(\mathbf{a}(1/x)\right)\left(\mathbf{b}(1/x)\right)x^{\alpha+\beta}\\
+ & = & \left(\left(\mathbf{a}\mathbf{b}\right)(1/x)\right)x^{\alpha+\beta}\\
+ & = & \rev(\mathbf{a}\mathbf{b},\alpha+\beta)
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Lemma
+If 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ has 
+\begin_inset Formula $\left(-\vec{s}\right)$
+\end_inset
+
+-row degree bounded component-wise by 
+\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{m}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ has 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree bounded component-wise by 
+\begin_inset Formula $\vec{b}=[b_{1},\dots,b_{m}]$
+\end_inset
+
+, then 
+\begin_inset Formula 
+\[
+\reverse(\mathbf{F},-\vec{s},\vec{a})\cdot\reverse(\mathbf{G},\vec{s},\vec{b})=\reverse(\mathbf{F}\mathbf{G},\vec{c}),
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula 
+\[
+\vec{c}=\begin{bmatrix}a_{1}+b_{1} & a & \cdots & a_{1}+b_{k}\\
+\\
+\\
+\end{bmatrix}\in\mathbb{Z}^{m\times k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+sd
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\reverse(\mathbf{n},\vec{s},t)\cdot\reverse(\mathbf{g},\vec{s},b)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Unimodular completion
+\end_layout
+
+\begin_layout Standard
+In this section, we look at how a unimodular completion can be done using
+ a combination of nullspace basis computation, order basis computation,
+ and reverse operation.
+ First, we have the following natural relationship between nullspace basis
+ and reverse operation.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:reverseNullspaceBasis"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $(-\vec{s})$
+\end_inset
+
+-row degrees bounded component-wise by 
+\begin_inset Formula $\vec{a}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{F}^{r}=\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)$
+\end_inset
+
+.
+ Then a matrix 
+\begin_inset Formula $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{b}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left[\mathbf{F},\vec{s}\right]$
+\end_inset
+
+-basis 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+if and only if 
+\begin_inset Formula $\mathbf{N}^{r}=\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left[\mathbf{F}^{r},\vec{s}\right]$
+\end_inset
+
+-basis
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+ 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal nullspace basis of 
+\begin_inset Formula $\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+If 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is a nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, then we know from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:reverseProduct"
+
+\end_inset
+
+ that 
+\begin_inset Formula $\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)\cdot\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)=0$
+\end_inset
+
+, so 
+\begin_inset Formula $\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)$
+\end_inset
+
+ is a nullspace basis of 
+\begin_inset Formula $\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)$
+\end_inset
+
+.
+ Suppose 
+\begin_inset Formula $\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)$
+\end_inset
+
+ is not 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal and we have another nullspace basis 
+\begin_inset Formula $\mathbf{M}$
+\end_inset
+
+ of 
+\begin_inset Formula $\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{c}$
+\end_inset
+
+ that has some entry lower than the corresponding entry in 
+\begin_inset Formula $\vec{b}$
+\end_inset
+
+, then 
+\begin_inset Formula $\revCol\left(\mathbf{M},\vec{s},\vec{c}\right)$
+\end_inset
+
+ is also a nullspace of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ with lower 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees than 
+\begin_inset Formula $\vec{b}$
+\end_inset
+
+, contradicting the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimality of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\shape up
+Now let us look at how an order basis can lead to a unimodular matrix.
+ 
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:reverseOrderBasisToUnimodular"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots s_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ be a degree shift.
+ Any 
+\begin_inset Formula $\left(\mathbf{F},\vec{s},\sigma\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ with 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{P}=\vec{t}=\left[t_{1},\dots,t_{k}\right]$
+\end_inset
+
+ has 
+\begin_inset Formula $\det\left(\mathbf{P}\right)=x^{\sum\vec{t}-\sum\vec{s}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\det\left(\colRev(\mathbf{P},\vec{s},\vec{t})\right)=1$
+\end_inset
+
+.
+ In other words, 
+\begin_inset Formula $\colRev(\mathbf{P},\vec{s},\vec{t})$
+\end_inset
+
+ is unimodular.
+\end_layout
+
+\begin_layout Proof
+To see that 
+\begin_inset Formula $\det\left(\mathbf{P}\right)=x^{\sum\vec{t}-\sum\vec{s}}$
+\end_inset
+
+, note that an identity matrix is an 
+\begin_inset Formula $\left(\mathbf{F},\vec{s},0\right)$
+\end_inset
+
+-basis, which has 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ and determinant 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ Then the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree is only increased by multiplying some column of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ by 
+\begin_inset Formula $x$
+\end_inset
+
+.
+ The second property 
+\begin_inset Formula $\det\left(\colRev(\mathbf{P},\vec{s},\vec{t})\right)=1$
+\end_inset
+
+ follows from the definition 
+\begin_inset Formula 
+\[
+\colRev(\mathbf{P},\vec{s},\vec{t})=\begin{bmatrix}x^{-s_{1}}\\
+ & \ddots\\
+ &  & x^{-s_{n}}
+\end{bmatrix}\left(\mathbf{P}(1/x)\right)\begin{bmatrix}x^{t_{1}}\\
+ & \ddots\\
+ &  & x^{t_{k}}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:reverseOrderBasisToUnimodular"
+
+\end_inset
+
+ suggests that a unimodular completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be computed by embedding 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ in a reversed order basis, or equivalently, embedding a reversed 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ in an order basis.
+ The next question is therefore how to embed a matrix in an order basis.
+ Recall that nullspace bases can be embedded in order bases.
+ Therefore, if we can make the reversed 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ a nullspace basis of some matrix 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, then there is an order basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ that contains the reversed 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ A natural choice for 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is a nullspace basis of the reversed 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+Given 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ and a degree shift 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+ with 
+\begin_inset Formula $\rdeg_{\vec{u}}\mathbf{A}=\vec{v}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{P}=\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]$
+\end_inset
+
+ be a 
+\begin_inset Formula $\left(\mathbf{A}^{T},-\vec{u},\vec{v}+\left[1,\dots,1\right]\right)$
+\end_inset
+
+-basis, where 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ consists of all columns 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ with 
+\begin_inset Formula $\cdeg_{-\vec{u}}\mathbf{p}\le0$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{N}^{T}\mathbf{p}=0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+Then 
+\begin_inset Formula $\mathbf{A}\mathbf{P}_{1}=0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+dsfsdf
+\end_layout
+
+\begin_layout Lemma
+Let 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ be a shift that bound the column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ be a 
+\begin_inset Formula $[\mathbf{F},\vec{s}]$
+\end_inset
+
+-basis with 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{N}=\vec{b}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{P}=\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]$
+\end_inset
+
+ be a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s},\vec{b}+\left[1,\dots,1\right]\right)$
+\end_inset
+
+-basis, where 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ consists of all columns 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ with 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{p}\le0$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{N}^{T}\mathbf{p}=0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+Then 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ is a 
+\begin_inset Formula $[\mathbf{N}^{T},-\vec{s}]$
+\end_inset
+
+-basis.
+ 
+\end_layout
+
+\begin_layout Proof
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+We know that 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{F}^{T}\le0$
+\end_inset
+
+ from 
+\begin_inset Formula $\cdeg\mathbf{F}\le\vec{s}$
+\end_inset
+
+.
+ In addition, if 
+\begin_inset Formula $r$
+\end_inset
+
+ is the rank of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, then the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of any 
+\begin_inset Formula $[\mathbf{N}^{T},-\vec{s}]$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ are bounded by the 
+\begin_inset Formula $r$
+\end_inset
+
+ largest 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{F}^{T}$
+\end_inset
+
+, due to the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimality of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and the fact that
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, both with rank 
+\begin_inset Formula $r$
+\end_inset
+
+, are in the left nullspace of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Therefore we also have 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{A}\le0$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+From 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{P}\le0$
+\end_inset
+
+ we get 
+\begin_inset Formula $\cdeg\mathbf{P}_{1}^{T}\le\vec{s}$
+\end_inset
+
+, hence 
+\begin_inset Formula $\cdeg\mathbf{P}_{1}^{T}\mathbf{N}\le\cdeg_{\vec{s}}\mathbf{N}$
+\end_inset
+
+ by .
+ Now for each column 
+\begin_inset Formula $\mathbf{n}_{i}$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ and its 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree 
+\begin_inset Formula $b_{i}$
+\end_inset
+
+, we have 
+\begin_inset Formula 
+\[
+\rdeg\mathbf{n}_{i}^{T}\mathbf{P}_{1}=\cdeg\mathbf{P}_{1}^{T}\mathbf{n}_{i}\le\cdeg_{\vec{s}}\mathbf{n}_{i}=b_{i},
+\]
+
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{n}_{i}^{T}\mathbf{P}_{1}\equiv0\mod x^{b_{i}+1}$
+\end_inset
+
+, hence 
+\begin_inset Formula $\mathbf{N}^{T}\mathbf{P}_{1}=0$
+\end_inset
+
+, implying that 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ is a nulls
+\end_layout
+
+\begin_layout Proof
+any 
+\begin_inset Formula $[\mathbf{N}^{T},-\vec{s}]$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ has column dimension 
+\begin_inset Formula $r$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{A}$
+\end_inset
+
+ is bounded by the 
+\begin_inset Formula $r$
+\end_inset
+
+ largest 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{F}^{T}$
+\end_inset
+
+ due to the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-minimality of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{F}^{T}\le0$
+\end_inset
+
+ since the column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $\mathbf{B}=\mathbf{A}_{1}^{T}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ is a left 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-minimal nullspace of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is also in the left nullspace of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ and has the same rank as 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, we have 
+\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{B}\le\rdeg_{-\vec{s}}\mathbf{F}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+Since both 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ are in the left nullspace of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ and they have the same rank, we know 
+\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{B}\le\rdeg_{-\vec{s}}\mathbf{F}$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Lemma
+Let 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ be a 
+\begin_inset Formula $\left(\mathbf{F},\infty,\vec{s}\right)$
+\end_inset
+
+-basis with 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{N}=\vec{b}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{N}^{rt}=\left(\colRev(\mathbf{N},\vec{s},\vec{b})\right)^{T}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{G}^{rt}=\left[\mathbf{G}_{1}^{rt},\mathbf{G}_{2}^{rt}\right]$
+\end_inset
+
+ be a 
+\begin_inset Formula $\left(\mathbf{N}^{rt},-\vec{s},\vec{b}+\left[1,\dots,1\right]\right)$
+\end_inset
+
+-basis, where 
+\begin_inset Formula $\mathbf{G}_{1}^{rt}$
+\end_inset
+
+ consists of all columns 
+\begin_inset Formula $\mathbf{g}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{G}^{rt}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{N}^{rt}\mathbf{g}=0$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{G}_{1}^{rt}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{N}^{rt},\infty,-\vec{s}\right)$
+\end_inset
+
+-basis.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $\bar{\mathbf{F}}=\rowRev(\mathbf{F},-\vec{s},0)$
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:reverseNullspaceBasis"
+
+\end_inset
+
+ we know that 
+\begin_inset Formula $\bar{\mathbf{N}}^{T}$
+\end_inset
+
+ is a 
+\begin_inset Formula $(\bar{\mathbf{F}},\infty,\vec{s})$
+\end_inset
+
+-basis, and any 
+\begin_inset Formula $\left(\bar{\mathbf{N}},\infty,-\vec{s}\right)$
+\end_inset
+
+-basis would have have the same rank as 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+ and has 
+\begin_inset Formula $(-\vec{s})$
+\end_inset
+
+-column degrees bounded by 
+\begin_inset Formula $\rdeg_{-\vec{s}}\bar{\mathbf{F}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+In addition, 
+\begin_inset Formula $\bar{\mathbf{G}}_{1}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\bar{\mathbf{N}},\infty,-\vec{s}\right)$
+\end_inset
+
+-basis and has the same rank as 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+, hence 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+ is generated by 
+\begin_inset Formula $\bar{\mathbf{G}}_{1}^{T}$
+\end_inset
+
+ with 
+\begin_inset Formula $\rdeg_{-\vec{s}}\bar{\mathbf{F}}\ge\rdeg_{-\vec{s}}\bar{\mathbf{G}}^{T}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Since 
+\begin_inset Formula $\bar{\mathbf{G}}_{1}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\bar{\mathbf{N}},\infty,-\vec{s}\right)$
+\end_inset
+
+-basis
+\end_layout
+
+\begin_layout Lemma
+Let 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ be a 
+\begin_inset Formula $\left(\mathbf{F},\infty,\vec{s}\right)$
+\end_inset
+
+-basis with 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{N}=\vec{b}$
+\end_inset
+
+, and 
+\begin_inset Formula $\bar{\mathbf{N}}=\left(\colRev(\mathbf{N},\vec{s},\vec{b})\right)^{T}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\bar{\mathbf{P}}=\left[\bar{\mathbf{P}}_{1},\bar{\mathbf{P}}_{2}\right]$
+\end_inset
+
+ be a 
+\begin_inset Formula $\left(\bar{\mathbf{N}},-\vec{s},\vec{b}+\left[1,\dots,1\right]\right)$
+\end_inset
+
+-basis, where 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+ consists of all columns 
+\begin_inset Formula $\bar{\mathbf{p}}$
+\end_inset
+
+ of 
+\begin_inset Formula $\bar{\mathbf{P}}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\bar{\mathbf{N}}\bar{\mathbf{p}}=0$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\cdeg_{-\vec{s}}\bar{\mathbf{P}}_{2}=\vec{u}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\left(\colRev(\bar{\mathbf{P}}_{2},-\vec{s},\vec{u})\right)^{T}$
+\end_inset
+
+ is a 
+\begin_inset Formula $(-\vec{s})$
+\end_inset
+
+-minimal unimodular completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+Note that 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ are unimodularly equivalent, 
+\begin_inset Formula $\left(\colRev(\bar{\mathbf{P}},-\vec{s},\cdeg_{-\vec{s}}\bar{\mathbf{P}})\right)^{T}$
+\end_inset
+
+ is unimodular, and 
+\begin_inset Formula $\bar{\mathbf{P}}_{2}$
+\end_inset
+
+ is 
+\begin_inset Formula $\left(-\vec{s}\right)$
+\end_inset
+
+-minimal and .
+\end_layout
+
+\begin_layout Standard
+
+\shape up
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Lemma
+Let 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ be a minimal nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{G}\mathbf{N}$
+\end_inset
+
+ is unimodular, then 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\end_inset
+
+ is unimodular.
+\end_layout
+
+\begin_layout Proof
+We have 
+\begin_inset Formula 
+\[
+\begin{bmatrix}\mathbf{F}\\
+\mathbf{G}
+\end{bmatrix}\begin{bmatrix}\mathbf{M} & \mathbf{N}\end{bmatrix}=\begin{bmatrix}\mathbf{F}\mathbf{M} & 0\\
+* & \mathbf{G}\mathbf{N}
+\end{bmatrix},
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{M}$
+\end_inset
+
+ is a matrix that makes 
+\begin_inset Formula $\left[\mathbf{M},\mathbf{N}\right]$
+\end_inset
+
+ unimodular.
+ Then 
+\begin_inset Formula $\mathbf{F}\mathbf{M}$
+\end_inset
+
+ is a unimodular GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ It follows that 
+\begin_inset Formula $\mathbf{GN}$
+\end_inset
+
+ is unimodular if and only if the matrix on the right side is unimodular
+ if and only if 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\end_inset
+
+ is unimodular.
+\end_layout
+
+\begin_layout Plain Layout
+Our task now is to compute 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ from 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ that makes 
+\begin_inset Formula $\mathbf{G}\mathbf{N}$
+\end_inset
+
+ unimodular.
+\end_layout
+
+\begin_layout Lemma
+Let 
+\shape up
+
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To compute a unimodular completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ with column degrees bounded component-wise by 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ (or equivalently, 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees bounded by 0), let us first compute a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal nullspace basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{b}$
+\end_inset
+
+ be the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\bar{\mathbf{N}}=\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)^{T}$
+\end_inset
+
+.
+ We then compute a 
+\begin_inset Formula $\left(\bar{\mathbf{N}},-\vec{s},\vec{b}+1\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\bar{\mathbf{P}}$
+\end_inset
+
+, which would contain a complete nullspace basis 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+ of 
+\begin_inset Formula $\bar{\mathbf{N}}$
+\end_inset
+
+ since the row degrees of 
+\begin_inset Formula $\bar{\mathbf{N}}\bar{\mathbf{F}}$
+\end_inset
+
+ are bounded by the corresponding entries of 
+\begin_inset Formula $\vec{b}$
+\end_inset
+
+ and 
+\begin_inset Formula $\order(\bar{\mathbf{N}},\bar{\mathbf{P}})$
+\end_inset
+
+ is greater than 
+\begin_inset Formula $\vec{b}$
+\end_inset
+
+ component-wise .
+ Note that the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\bar{\mathbf{P}}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\left[1,\dots,1\right]$
+\end_inset
+
+ since the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\bar{\mathbf{F}}^{T}$
+\end_inset
+
+ are bounded by that of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which are bounded by 0.
+\end_layout
+
+\begin_layout Lemma
+Given 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $\cdeg\mathbf{F}\le\vec{s}$
+\end_inset
+
+ (or equivalently, 
+\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{F}\le0$
+\end_inset
+
+).
+ If 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{F},\infty,\vec{s}\right)$
+\end_inset
+
+-basis with 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{N}=\vec{b}$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+We can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:umab"
+
+\end_inset
+
+ for computing a 
+\begin_inset Formula $\left(\bar{\mathbf{N}},-\vec{s},\max\left(\vec{b}\right)+1\right)$
+\end_inset
+
+-basis, which costs 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $d=k\xi/n$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We know the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\bar{\mathbf{N}}$
+\end_inset
+
+ (same as the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+) is bounded by 
+\begin_inset Formula $\xi=\sum\vec{s}$
+\end_inset
+
+.
+ So at most 
+\begin_inset Formula $k/c$
+\end_inset
+
+ rows of 
+\begin_inset Formula $\bar{\mathbf{N}}$
+\end_inset
+
+ have 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees greater than or equal to 
+\begin_inset Formula $c\xi/k$
+\end_inset
+
+ for any 
+\begin_inset Formula $c\ge1$
+\end_inset
+
+.
+ We assume without loss of generality that the rows of 
+\begin_inset Formula $\bar{\mathbf{N}}$
+\end_inset
+
+ are arranged in decreasing 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees.
+ We divide 
+\begin_inset Formula $\bar{\mathbf{N}}$
+\end_inset
+
+ into 
+\begin_inset Formula $\log k$
+\end_inset
+
+ row blocks according to the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees of its rows.
+ Let 
+\begin_inset Formula 
+\[
+\bar{\mathbf{N}}=\left[\bar{\mathbf{N}}_{1}^{T},\bar{\mathbf{N}}_{2}^{T},\cdots,\bar{\mathbf{N}}_{\log k-1}^{T},\bar{\mathbf{N}}_{\log k}^{T}\right]^{T}
+\]
+
+\end_inset
+
+ with 
+\begin_inset Formula $\bar{\mathbf{N}}_{\log k},\bar{\mathbf{N}}_{\log k},\cdots,\bar{\mathbf{N}}_{2},\bar{\mathbf{N}}_{1}$
+\end_inset
+
+ having 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees in the range 
+\begin_inset Formula $\left[0,2\xi/k\right],(2\xi/k,4\xi/k],(4\xi/k,8\xi/k],...,(\xi/4,\xi/2],(\xi/2,\xi].$
+\end_inset
+
+ Let 
+\begin_inset Formula $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
+\end_inset
+
+ with the same dimension as the row dimension of 
+\begin_inset Formula $\bar{\mathbf{N}}_{i}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{\sigma}=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]$
+\end_inset
+
+ be the order in the order basis computation.
+ For simplicity, instead of using 
+\begin_inset Formula $\bar{\mathbf{N}}$
+\end_inset
+
+ as the input matrix, we use 
+\begin_inset Formula 
+\begin{eqnarray*}
+\hat{\mathbf{N}} & =\begin{bmatrix}\hat{\mathbf{N}}_{1}\\
+\vdots\\
+\hat{\mathbf{N}}_{\log k}
+\end{bmatrix}= & x^{\vec{\sigma}-\vec{b}-1}\begin{bmatrix}\bar{\mathbf{N}}_{1}\\
+\vdots\\
+\bar{\mathbf{N}}_{\log k}
+\end{bmatrix}=x^{\vec{\sigma}-\vec{b}-1}\bar{\mathbf{N}}
+\end{eqnarray*}
+
+\end_inset
+
+ instead, so that a 
+\begin_inset Formula $\left(\hat{\mathbf{N}},-\vec{s},\vec{\sigma}\right)$
+\end_inset
+
+-basis is a 
+\begin_inset Formula $\left(\bar{\mathbf{N}},-\vec{s},\vec{b}+1\right)$
+\end_inset
+
+-basis.
+\end_layout
+
+\begin_layout Standard
+We now do a series of order basis computation to compute a 
+\begin_inset Formula $\left(\hat{\mathbf{N}},-\vec{s},\vec{\sigma}\right)$
+\end_inset
+
+-basis.
+\end_layout
+
+\begin_layout Standard
+First we compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{1},-\vec{s},\vec{\sigma}_{1}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+, which can be computed using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:umab"
+
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $d=\xi/n$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\vec{t}=-\cdeg_{-\vec{s}}\bar{\mathbf{P}}_{1}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $-\vec{s}\le-\vec{t}\le\left[1,\dots1\right]$
+\end_inset
+
+ component-wise.
+ We then compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{2}\bar{\mathbf{P}}_{1},-\vec{t},\vec{\sigma}_{2}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\bar{\mathbf{P}}_{2}$
+\end_inset
+
+.
+ To compute the product 
+\begin_inset Formula $\hat{\mathbf{N}}_{2}\bar{\mathbf{P}}_{1}$
+\end_inset
+
+, since the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\hat{\mathbf{N}}_{2}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\xi/2$
+\end_inset
+
+ and the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\left[1,\dots,1\right]$
+\end_inset
+
+, we can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}^{T}$
+\end_inset
+
+, which has column degrees bounded by 
+\begin_inset Formula $\vec{s}+\left[1,\dots,1\right]$
+\end_inset
+
+, and 
+\begin_inset Formula $\hat{\mathbf{N}}_{2}^{T}$
+\end_inset
+
+ with the sum of its 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+.
+ Now we can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:umab"
+
+\end_inset
+
+ to compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{2}\bar{\mathbf{P}}_{1},-\vec{t},\vec{\sigma}_{2}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\bar{\mathbf{P}}_{2}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+, since the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+are bounded by that of 
+\begin_inset Formula $\bar{\mathbf{P}}$
+\end_inset
+
+ (since the columns of 
+\begin_inset Formula $\bar{\mathbf{P}}$
+\end_inset
+
+ are generated by 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+), which in turn are bounded by
+\begin_inset Formula $\left[1,\dots,1\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+we just need to ensure that 
+\begin_inset Formula $\sum_{i}-\cdeg_{-\vec{s}}\bar{\mathbf{P}}_{1}\in O(m_{2}\xi/2)$
+\end_inset
+
+, where 
+\begin_inset Formula $m_{2}$
+\end_inset
+
+ is the row dimension of 
+\begin_inset Formula $\bar{\mathbf{N}}_{2}$
+\end_inset
+
+, and we know it is no more than 2.
+ So we just need to check that 
+\begin_inset Formula $\sum-\cdeg_{-\vec{s}}\bar{\mathbf{P}}_{1}\in O(m_{2}\xi/2)=O(\xi)$
+\end_inset
+
+.
+ We know that 
+\begin_inset Formula $\cdeg_{-\vec{s}}\bar{\mathbf{P}}_{1}$
+\end_inset
+
+ is 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\sum-\vec{s}=\sum-\cdeg_{-\vec{s}}I\le\sum\cdeg_{-\vec{s}}\bar{\mathbf{P}}_{1}$
+\end_inset
+
+.
+ We also know that 
+\begin_inset Formula $\sum\cdeg_{-\vec{s}}\bar{\mathbf{P}}_{1}\le\left[1,\dots,1\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\vec{u}=-\cdeg_{-\vec{t}}\bar{\mathbf{P}}_{2}$
+\end_inset
+
+, which also equals 
+\begin_inset Formula $-\cdeg_{-\vec{s}}\bar{\mathbf{P}}_{1}\bar{\mathbf{P}}_{2}$
+\end_inset
+
+.
+ Note again that 
+\begin_inset Formula $-\vec{s}\le-\vec{t}\le-\vec{u}\le\left[1,\dots1\right]$
+\end_inset
+
+ component-wise.
+ To multiply 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{\mathbf{P}}_{2}$
+\end_inset
+
+, note that the sum of the row degrees of 
+\begin_inset Formula $\bar{\mathbf{P}}_{2}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $\xi+n$
+\end_inset
+
+, since 
+\begin_inset Formula $\sum\vec{t}\le\sum\vec{s}\le\xi$
+\end_inset
+
+.
+ Also, 
+\begin_inset Formula $\cdeg_{-\vec{s}}\bar{\mathbf{P}}_{1}=-\vec{t}$
+\end_inset
+
+ implies 
+\begin_inset Formula $\cdeg\left(x^{-\vec{s}}\bar{\mathbf{P}}_{1}x^{\vec{t}}\right)=0$
+\end_inset
+
+, i.e., the 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+-row degrees 
+\begin_inset Formula $\rdeg_{\vec{t}}\bar{\mathbf{P}}\le\vec{s}$
+\end_inset
+
+.
+ Therefore, we can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ again to multiply 
+\begin_inset Formula $\bar{\mathbf{P}}_{2}^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}^{T}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This process can be repeated until a 
+\begin_inset Formula $\left(\hat{\mathbf{N}},-\vec{s},\vec{\sigma}\right)$
+\end_inset
+
+-basis is computed.
+ 
+\begin_inset Formula 
+\[
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+sum of the row degrees of 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $\xi+n$
+\end_inset
+
+.
+ The column degrees of 
+\begin_inset Formula $\bar{\mathbf{N}}_{2}\bar{\mathbf{P}}_{1}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\xi+1$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
