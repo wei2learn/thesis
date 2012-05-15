@@ -77,7 +77,28 @@ Given an matrix
 \begin_inset Formula $n>m$
 \end_inset
 
-, let us call the product of the nonzero entries of its smith normal form
+ and its column degrees bounded by the entries of a vector 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, we consider the problem of finding a matrix 
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{(n-m)\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $\left(-\vec{s}\right)$
+\end_inset
+
+-minimal rows such that 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\end_inset
+
+ is unimodular.
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+let us call the product of the nonzero entries of its smith normal form
  the 
 \emph on
 generalized determinant
@@ -89,7 +110,7 @@ generalized determinant
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Suppose 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
@@ -195,70 +216,173 @@ If
 .
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-Such 
-\begin_inset Formula $\mathbf{G}$
 \end_inset
 
- exists if and only if 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- is relatively column prime.
- To see this, notice that if 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- is not relatively column prime, then we can always factor out a nonunimodular
- matrix from 
-\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
-\end_inset
-
- for any 
-\begin_inset Formula $\mathbf{G}$
+ This is actually not possible for some input matrices, such as 
+\begin_inset Formula $\mathbf{F}=\left[0,x\right]$
 \end_inset
 
 .
- If 
-\begin_inset Formula $\mathbf{H}$
+ But such unimodular completion always exists if the identity matrix 
+\begin_inset Formula $I_{m}$
 \end_inset
 
- is a left factor of 
+ is a GCD of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
-, then 
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:unimodularCompletionCondition"
+
+\end_inset
+
+A unimodular completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ exists if and only if the identity matrix 
+\begin_inset Formula $I_{m}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+If 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is not relatively column prime, let 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ be a left factor of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then 
 \begin_inset Formula $\diag\left(\left[\mathbf{H},I\right]\right)$
 \end_inset
 
  is always a factor of 
-\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{B}^{T}\right]^{T}$
 \end_inset
 
-.
+ for any matrix 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, making the matrix 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{B}^{T}\right]^{T}$
+\end_inset
+
+ nonunimodular.
  On the other hand, if 
+\begin_inset Formula $I_{m}$
+\end_inset
+
+ is a GCD of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- is relatively column prime, we show in this subsection how 
+, then 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[I_{m},0\right]$
+\end_inset
+
+ for some unimodular matrices 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ Therefore, the matrix 
+\begin_inset Formula 
+\[
+\mathbf{U}^{-1}=\begin{bmatrix}\mathbf{F}\\
+\mathbf{G}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ is also unimodular, where the matrix 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
- can be computed to make 
-\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+ consists the bottom 
+\begin_inset Formula $n-m$
 \end_inset
 
- unimodular.
- 
+ rows of 
+\begin_inset Formula $\mathbf{U}^{-1}$
+\end_inset
+
+.
 \end_layout
 
+\begin_layout Standard
+Since a unimodular completion is only possible for input matrices with an
+ identity matrix GCD, we assume for simplicity this is the case with our
+ input matrix 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
+.
+ For other matrices with non-trivial GCDs, we will see later that our method
+ computes a matrix completion for a row basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
 
+ with its GCD factor removed.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularCompletionCondition"
+
+\end_inset
+
+ shows that a unimodular completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be obtained from the unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ that transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to its GCDs.
+ However, we may not be able to compute this 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ efficiently since it can have large degree, as 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ contains a nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ that may have degree 
+\begin_inset Formula $\sum\vec{s}$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -975,15 +1099,15 @@ name "lem:reverseNullspaceBasis"
 \end_inset
 
 Let 
-\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
+\begin_inset Formula $\vec{u}\in\mathbb{Z}^{n}$
 \end_inset
 
 , 
-\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
  with 
-\begin_inset Formula $(-\vec{s})$
+\begin_inset Formula $(-\vec{u})$
 \end_inset
 
 -row degrees bounded component-wise by 
@@ -991,7 +1115,7 @@ Let
 \end_inset
 
 , and 
-\begin_inset Formula $\mathbf{F}^{r}=\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)$
+\begin_inset Formula $\mathbf{A}^{r}=\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)$
 \end_inset
 
 .
@@ -1000,7 +1124,7 @@ Let
 \end_inset
 
  with 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
 -column degrees 
@@ -1008,19 +1132,19 @@ Let
 \end_inset
 
  is a 
-\begin_inset Formula $\left[\mathbf{F},\vec{s}\right]$
+\begin_inset Formula $(\mathbf{A},\vec{u})$
 \end_inset
 
--basis 
+-nullspace basis 
 \begin_inset Note Comment
 status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
 -minimal nullspace basis of 
-\begin_inset Formula $\mathbf{F}$
+\begin_inset Formula $\mathbf{A}$
 \end_inset
 
  
@@ -1029,24 +1153,24 @@ status collapsed
 \end_inset
 
 if and only if 
-\begin_inset Formula $\mathbf{N}^{r}=\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)$
+\begin_inset Formula $\mathbf{N}^{r}=\revCol\left(\mathbf{N},\vec{u},\vec{b}\right)$
 \end_inset
 
  is a 
-\begin_inset Formula $\left[\mathbf{F}^{r},\vec{s}\right]$
+\begin_inset Formula $(\mathbf{A}^{r},\vec{u})$
 \end_inset
 
--basis
+-nullspace basis
 \begin_inset Note Comment
 status collapsed
 
 \begin_layout Plain Layout
  
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
 -minimal nullspace basis of 
-\begin_inset Formula $\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)$
+\begin_inset Formula $\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)$
 \end_inset
 
 
@@ -1063,7 +1187,7 @@ If
 \end_inset
 
  is a nullspace basis of 
-\begin_inset Formula $\mathbf{F}$
+\begin_inset Formula $\mathbf{A}$
 \end_inset
 
 , then we know from 
@@ -1074,24 +1198,24 @@ reference "lem:reverseProduct"
 \end_inset
 
  that 
-\begin_inset Formula $\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)\cdot\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)=0$
+\begin_inset Formula $\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)\cdot\revCol\left(\mathbf{N},\vec{u},\vec{b}\right)=0$
 \end_inset
 
 , so 
-\begin_inset Formula $\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)$
+\begin_inset Formula $\revCol\left(\mathbf{N},\vec{u},\vec{b}\right)$
 \end_inset
 
  is a nullspace basis of 
-\begin_inset Formula $\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)$
+\begin_inset Formula $\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)$
 \end_inset
 
 .
  Suppose 
-\begin_inset Formula $\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)$
+\begin_inset Formula $\revCol\left(\mathbf{N},\vec{u},\vec{b}\right)$
 \end_inset
 
  is not 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
 -minimal and we have another nullspace basis 
@@ -1099,11 +1223,11 @@ reference "lem:reverseProduct"
 \end_inset
 
  of 
-\begin_inset Formula $\revRow\left(\mathbf{F},-\vec{s},\vec{a}\right)$
+\begin_inset Formula $\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)$
 \end_inset
 
  with 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
 -column degrees 
@@ -1115,15 +1239,15 @@ reference "lem:reverseProduct"
 \end_inset
 
 , then 
-\begin_inset Formula $\revCol\left(\mathbf{M},\vec{s},\vec{c}\right)$
+\begin_inset Formula $\revCol\left(\mathbf{M},\vec{u},\vec{c}\right)$
 \end_inset
 
  is also a nullspace of 
-\begin_inset Formula $\mathbf{F}$
+\begin_inset Formula $\mathbf{A}$
 \end_inset
 
  with lower 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
 -column degrees than 
@@ -1131,7 +1255,7 @@ reference "lem:reverseProduct"
 \end_inset
 
 , contradicting the 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
 -minimality of 
@@ -1156,12 +1280,12 @@ name "lem:reverseOrderBasisToUnimodular"
 \end_inset
 
 Let 
-\begin_inset Formula $\vec{s}=\left[s_{1},\dots s_{n}\right]\in\mathbb{Z}^{n}$
+\begin_inset Formula $\vec{u}=\left[u_{1},\dots u_{n}\right]\in\mathbb{Z}^{n}$
 \end_inset
 
  be a degree shift.
  Any 
-\begin_inset Formula $\left(\mathbf{F},\vec{s},\sigma\right)$
+\begin_inset Formula $\left(\mathbf{A},\sigma,\vec{u}\right)$
 \end_inset
 
 -basis 
@@ -1169,20 +1293,20 @@ Let
 \end_inset
 
  with 
-\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{P}=\vec{t}=\left[t_{1},\dots,t_{k}\right]$
+\begin_inset Formula $\cdeg_{\vec{u}}\mathbf{P}=\vec{v}=\left[v_{1},\dots,v_{k}\right]$
 \end_inset
 
  has 
-\begin_inset Formula $\det\left(\mathbf{P}\right)=x^{\sum\vec{t}-\sum\vec{s}}$
+\begin_inset Formula $\det\left(\mathbf{P}\right)=x^{\sum\vec{v}-\sum\vec{u}}$
 \end_inset
 
  and 
-\begin_inset Formula $\det\left(\colRev(\mathbf{P},\vec{s},\vec{t})\right)=1$
+\begin_inset Formula $\det\left(\colRev(\mathbf{P},\vec{u},\vec{v})\right)=1$
 \end_inset
 
 .
  In other words, 
-\begin_inset Formula $\colRev(\mathbf{P},\vec{s},\vec{t})$
+\begin_inset Formula $\colRev(\mathbf{P},\vec{u},\vec{v})$
 \end_inset
 
  is unimodular.
@@ -1190,19 +1314,19 @@ Let
 
 \begin_layout Proof
 To see that 
-\begin_inset Formula $\det\left(\mathbf{P}\right)=x^{\sum\vec{t}-\sum\vec{s}}$
+\begin_inset Formula $\det\left(\mathbf{P}\right)=x^{\sum\vec{v}-\sum\vec{u}}$
 \end_inset
 
 , note that an identity matrix is an 
-\begin_inset Formula $\left(\mathbf{F},\vec{s},0\right)$
+\begin_inset Formula $\left(\mathbf{A},0,\vec{u}\right)$
 \end_inset
 
 -basis, which has 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
 -column degrees 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
  and determinant 
@@ -1211,7 +1335,7 @@ To see that
 
 .
  Then the 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{u}$
 \end_inset
 
 -column degree is only increased by multiplying some column of 
@@ -1224,18 +1348,18 @@ To see that
 
 .
  The second property 
-\begin_inset Formula $\det\left(\colRev(\mathbf{P},\vec{s},\vec{t})\right)=1$
+\begin_inset Formula $\det\left(\colRev(\mathbf{P},\vec{u},\vec{v})\right)=1$
 \end_inset
 
  follows from the definition 
 \begin_inset Formula 
 \[
-\colRev(\mathbf{P},\vec{s},\vec{t})=\begin{bmatrix}x^{-s_{1}}\\
+\colRev(\mathbf{P},\vec{u},\vec{v})=\begin{bmatrix}x^{-u_{1}}\\
  & \ddots\\
- &  & x^{-s_{n}}
-\end{bmatrix}\left(\mathbf{P}(1/x)\right)\begin{bmatrix}x^{t_{1}}\\
+ &  & x^{-u_{n}}
+\end{bmatrix}\left(\mathbf{P}(1/x)\right)\begin{bmatrix}x^{v_{1}}\\
  & \ddots\\
- &  & x^{t_{k}}
+ &  & x^{v_{k}}
 \end{bmatrix}.
 \]
 
@@ -1271,11 +1395,11 @@ reference "lem:reverseOrderBasisToUnimodular"
 \end_inset
 
  a nullspace basis of some matrix 
-\begin_inset Formula $\mathbf{N}$
+\begin_inset Formula $\mathbf{M}$
 \end_inset
 
 , then there is an order basis of 
-\begin_inset Formula $\mathbf{N}$
+\begin_inset Formula $\mathbf{M}$
 \end_inset
 
  that contains the reversed 
@@ -1284,7 +1408,7 @@ reference "lem:reverseOrderBasisToUnimodular"
 
 .
  A natural choice for 
-\begin_inset Formula $\mathbf{N}$
+\begin_inset Formula $\mathbf{M}$
 \end_inset
 
  is a nullspace basis of the reversed 
@@ -1292,10 +1416,26 @@ reference "lem:reverseOrderBasisToUnimodular"
 \end_inset
 
 .
+ But first, let us look at a relationship between order bases and nullspace
+ bases more closely.
+ The following is an extension of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderBasisContainsNullspaceBasis"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Lemma
-Given 
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:orderbasisContainsNullspacebasisGeneralized"
+
+\end_inset
+
+Given a matrix 
 \begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
@@ -1312,74 +1452,189 @@ Given
 \begin_inset Formula $\mathbf{P}=\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]$
 \end_inset
 
- be a 
-\begin_inset Formula $\left(\mathbf{A}^{T},-\vec{u},\vec{v}+\left[1,\dots,1\right]\right)$
+ be any 
+\begin_inset Formula $\left(\mathbf{A}^{T},\vec{v}+\left[1,\dots,1\right],-\vec{u}\right)$
 \end_inset
 
--basis, where 
+-basis and 
+\begin_inset Formula $\mathbf{N}=\left[\mathbf{N}_{1},\mathbf{N}_{2}\right]$
+\end_inset
+
+ be any 
+\begin_inset Formula $(\mathbf{A}^{T},-\vec{u})$
+\end_inset
+
+-nullspace basis, where 
 \begin_inset Formula $\mathbf{P}_{1}$
 \end_inset
 
- consists of all columns 
-\begin_inset Formula $\mathbf{p}$
+ and 
+\begin_inset Formula $\mathbf{N}_{1}$
 \end_inset
 
- with 
-\begin_inset Formula $\cdeg_{-\vec{u}}\mathbf{p}\le0$
-\end_inset
-
-.
- 
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-of 
+ contain all columns from 
 \begin_inset Formula $\mathbf{P}$
 \end_inset
 
- satisfying 
-\begin_inset Formula $\mathbf{N}^{T}\mathbf{p}=0$
+ and 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, respectively, whose 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees are no more than 
+\begin_inset Formula $0$
 \end_inset
 
 .
- 
+ Then 
+\begin_inset Formula $\left[\mathbf{P}_{1},\mathbf{N}_{2}\right]$
+\end_inset
+
+ is an 
+\begin_inset Formula $(\mathbf{A}^{T},-\vec{u})$
+\end_inset
+
+-nullspace basis, and 
+\begin_inset Formula $\left[\mathbf{N}_{1},\mathbf{P}_{2}\right]$
+\end_inset
+
+ is an 
+\begin_inset Formula $\left(\mathbf{A}^{T},\vec{v}+\left[1,\dots,1\right],-\vec{u}\right)$
+\end_inset
+
+-basis.
 \end_layout
 
+\begin_layout Proof
+We know 
+\begin_inset Formula $\cdeg\mathbf{P}_{1}^{T}\le\vec{u}$
 \end_inset
 
-Then 
-\begin_inset Formula $\mathbf{A}\mathbf{P}_{1}=0$
+ from 
+\begin_inset Formula $\cdeg_{-\vec{u}}\mathbf{P}_{1}\le0$
+\end_inset
+
+, hence 
+\begin_inset Formula $\cdeg\mathbf{P}_{1}^{T}\mathbf{A}\le\cdeg_{\vec{u}}\mathbf{A}$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:boundOnDegreesOfFA"
+
 \end_inset
 
 .
- 
+ Now for each column 
+\begin_inset Formula $\mathbf{a}_{i}$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and its 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degree 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, we have 
+\begin_inset Formula 
+\[
+\rdeg\mathbf{a}_{i}^{T}\mathbf{P}_{1}=\cdeg\mathbf{P}_{1}^{T}\mathbf{a}_{i}\le\cdeg_{\vec{u}}\mathbf{a}_{i}=v_{i},
+\]
+
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}_{i}^{T}\mathbf{P}_{1}\equiv0\mod x^{v_{i}+1}$
+\end_inset
+
+, hence 
+\begin_inset Formula $\mathbf{A}^{T}\mathbf{P}_{1}=0$
+\end_inset
+
+.
+ The result then follows the same reasoning as in the proof of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderBasisContainsNullspaceBasis"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-dsfsdf
-\end_layout
+Now with the help of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderbasisContainsNullspacebasisGeneralized"
 
-\begin_layout Lemma
-Let 
-\begin_inset Formula $\vec{s}$
 \end_inset
 
- be a shift that bound the column degrees of 
+, let us get back to our problem of embedding the reversed 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ in an order basis of a nullspace basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
 .
- Let 
-\begin_inset Formula $\mathbf{N}$
+ In fact, we just need to use a special case of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderbasisContainsNullspacebasisGeneralized"
+
+\end_inset
+
+, where all the elements of the nullspace basis have shifted degrees bounded
+ by 
+\begin_inset Formula $0$
+\end_inset
+
+, making the partial nullspace basis a complete nullspace basis
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+, which follows from our requirement of using a shift 
+\begin_inset Formula $\vec{s}\ge\cdeg\mathbf{F}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:embedingFInOrderBasis"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{M}$
 \end_inset
 
  be a 
-\begin_inset Formula $[\mathbf{F},\vec{s}]$
+\begin_inset Formula $(\mathbf{F},\vec{s})$
 \end_inset
 
--basis with 
-\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{N}=\vec{b}$
+-nullspace basis with 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{M}=\vec{b}$
 \end_inset
 
 .
@@ -1388,7 +1643,7 @@ Let
 \end_inset
 
  be a 
-\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s},\vec{b}+\left[1,\dots,1\right]\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},-\vec{s},\vec{b}+\left[1,\dots,1\right]\right)$
 \end_inset
 
 -basis, where 
@@ -1428,254 +1683,269 @@ Then
 \end_inset
 
  is a 
-\begin_inset Formula $[\mathbf{N}^{T},-\vec{s}]$
+\begin_inset Formula $(\mathbf{M}^{T},-\vec{s})$
 \end_inset
 
--basis.
+-nullspace basis.
  
 \end_layout
 
 \begin_layout Proof
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-We know that 
-\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{F}^{T}\le0$
+Let the rank of 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
- from 
+ be 
+\begin_inset Formula $r$
+\end_inset
+
+, which is also the column dimension of any 
+\begin_inset Formula $(\mathbf{M}^{T},-\vec{s})$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Since both 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ are in the left nullspace of 
+\begin_inset Formula $\mathbf{M}$
+\end_inset
+
+, we know 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is generated by 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+, and the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ are bounded by the corresponding 
+\begin_inset Formula $r$
+\end_inset
+
+ largest 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which are in turn bounded by 
+\begin_inset Formula $0$
+\end_inset
+
+ since 
 \begin_inset Formula $\cdeg\mathbf{F}\le\vec{s}$
 \end_inset
 
 .
- In addition, if 
-\begin_inset Formula $r$
+ Therefore, any 
+\begin_inset Formula $(\mathbf{M}^{T},-\vec{s})$
 \end_inset
 
- is the rank of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-, then the 
-\begin_inset Formula $-\vec{s}$
-\end_inset
-
--column degrees of any 
-\begin_inset Formula $[\mathbf{N}^{T},-\vec{s}]$
-\end_inset
-
--basis 
-\begin_inset Formula $\mathbf{A}$
-\end_inset
-
- are bounded by the 
-\begin_inset Formula $r$
-\end_inset
-
- largest 
-\begin_inset Formula $-\vec{s}$
-\end_inset
-
--column degrees of 
-\begin_inset Formula $\mathbf{F}^{T}$
-\end_inset
-
-, due to the 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--minimality of 
-\begin_inset Formula $\mathbf{A}$
-\end_inset
-
- and the fact that
-\begin_inset Formula $\mathbf{A}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-, both with rank 
-\begin_inset Formula $r$
-\end_inset
-
-, are in the left nullspace of 
+-nullspace basis 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
+ satisfies 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{N}\le0$
+\end_inset
+
 .
- Therefore we also have 
-\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{A}\le0$
+ The result now follows from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderbasisContainsNullspacebasisGeneralized"
+
 \end_inset
 
 .
 \end_layout
 
-\end_inset
-
-From 
-\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{P}\le0$
-\end_inset
-
- we get 
-\begin_inset Formula $\cdeg\mathbf{P}_{1}^{T}\le\vec{s}$
-\end_inset
-
-, hence 
-\begin_inset Formula $\cdeg\mathbf{P}_{1}^{T}\mathbf{N}\le\cdeg_{\vec{s}}\mathbf{N}$
-\end_inset
-
- by .
- Now for each column 
-\begin_inset Formula $\mathbf{n}_{i}$
-\end_inset
-
- in 
-\begin_inset Formula $\mathbf{N}$
-\end_inset
-
- and its 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column degree 
-\begin_inset Formula $b_{i}$
-\end_inset
-
-, we have 
-\begin_inset Formula 
-\[
-\rdeg\mathbf{n}_{i}^{T}\mathbf{P}_{1}=\cdeg\mathbf{P}_{1}^{T}\mathbf{n}_{i}\le\cdeg_{\vec{s}}\mathbf{n}_{i}=b_{i},
-\]
+\begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:embedingFInOrderBasis"
 
 \end_inset
 
- and 
-\begin_inset Formula $\mathbf{n}_{i}^{T}\mathbf{P}_{1}\equiv0\mod x^{b_{i}+1}$
+ allows us to embed 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
-, hence 
-\begin_inset Formula $\mathbf{N}^{T}\mathbf{P}_{1}=0$
+ in an order basis.
+ But we need to embed the reversed 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
-, implying that 
+ in an order basis, which would then embed 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ in an unimodular matrix.
+ This can be easily done by adding in a reverse operation.
+ We actually have two choices here.
+ We can either reverse the coefficients of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, or we can reverse the coefficients of a nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+Let 
+\begin_inset Formula $\mathbf{F}^{r}=\revRow\left(\mathbf{F},-\vec{s},0\right)$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{M}$
+\end_inset
+
+ be a 
+\begin_inset Formula $(\mathbf{F}^{r},\vec{s})$
+\end_inset
+
+-nullspace basis with 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{M}=\vec{b}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{P}=\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]$
+\end_inset
+
+ be a 
+\begin_inset Formula $\left(\mathbf{M}^{T},-\vec{s},\vec{b}+\left[1,\dots,1\right]\right)$
+\end_inset
+
+-basis, where 
 \begin_inset Formula $\mathbf{P}_{1}$
 \end_inset
 
- is a nulls
-\end_layout
-
-\begin_layout Proof
-any 
-\begin_inset Formula $[\mathbf{N}^{T},-\vec{s}]$
+ consists of all columns 
+\begin_inset Formula $\mathbf{p}$
 \end_inset
 
--basis 
-\begin_inset Formula $\mathbf{A}$
-\end_inset
-
- has column dimension 
-\begin_inset Formula $r$
-\end_inset
-
- and 
-\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{A}$
-\end_inset
-
- is bounded by the 
-\begin_inset Formula $r$
-\end_inset
-
- largest 
-\begin_inset Formula $-\vec{s}$
-\end_inset
-
--column degrees of 
-\begin_inset Formula $\mathbf{F}^{T}$
-\end_inset
-
- due to the 
-\begin_inset Formula $-\vec{s}$
-\end_inset
-
--minimality of 
-\begin_inset Formula $\mathbf{A}$
+ with 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{p}\le0$
 \end_inset
 
 .
- 
-\end_layout
-
-\begin_layout Proof
-\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{F}^{T}\le0$
+ Let 
+\begin_inset Formula $\mathbf{P}_{2}^{r}=\revCol\left(\mathbf{P}_{2},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{2}\right)$
 \end_inset
 
- since the column degrees of 
-\begin_inset Formula $\mathbf{F}$
+.
+ Then 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{P}_{2}^{r}\right]$
 \end_inset
 
- 
+ is a unimodular matrix.
 \end_layout
 
 \begin_layout Proof
 Let 
-\begin_inset Formula $\mathbf{B}=\mathbf{A}_{1}^{T}$
+\begin_inset Formula $\mathbf{P}_{1}^{r}=\revCol\left(\mathbf{P}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{1}\right)$
 \end_inset
 
 .
- Note that 
-\begin_inset Formula $\mathbf{B}$
+ We know from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:reverseOrderBasisToUnimodular"
+
 \end_inset
 
- is a left 
-\begin_inset Formula $-\vec{s}$
+
+\begin_inset Formula $\left[\mathbf{P}_{1}^{r},\mathbf{P}_{2}^{r}\right]$
 \end_inset
 
--minimal nullspace of 
-\begin_inset Formula $\mathbf{N}$
+ is unimodular.
+ Also, from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularCompletionCondition"
+
+\end_inset
+
+ there exists a unimodular matrix 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\left(\mathbf{P}_{1}^{r}\right)^{T}\mathbf{V}=\left[I,0\right]$
 \end_inset
 
 .
- Since 
-\begin_inset Formula $\mathbf{F}$
+ From our assumption, we also have 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[I,0\right]$
 \end_inset
 
- is also in the left nullspace of 
-\begin_inset Formula $\mathbf{N}$
-\end_inset
-
- and has the same rank as 
-\begin_inset Formula $\mathbf{B}$
-\end_inset
-
-, we have 
-\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{B}\le\rdeg_{-\vec{s}}\mathbf{F}$
+ for some unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
 \end_inset
 
 .
- 
-\end_layout
+ Therefore, the matrices 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
 
-\begin_layout Proof
-Since both 
-\begin_inset Formula $\mathbf{B}$
+\begin_inset Formula $\mathbf{P}_{1}^{r}$
 \end_inset
 
  and 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- are in the left nullspace of 
-\begin_inset Formula $\mathbf{N}$
+ are unimodularly equivalent, which makes 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{P}_{2}^{r}\right]$
 \end_inset
 
- and they have the same rank, we know 
-\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{B}\le\rdeg_{-\vec{s}}\mathbf{F}$
-\end_inset
-
-, 
+ unimodular.
 \end_layout
 
 \begin_layout Lemma

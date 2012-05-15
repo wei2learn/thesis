@@ -1,0 +1,524 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass report
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Matrix GCD, column reduction, Popov form
+\end_layout
+
+\begin_layout Standard
+In this Chapter, we consider the problem of computing a matrix GCD.
+ An efficient way of computing matrix GCD immediately leads to efficient
+ computations of column reduced form, and Popov form.
+ First let us recall the definition of matrix GCD.
+\end_layout
+
+\begin_layout Definition
+Given 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+.
+ A 
+\emph on
+column GCD
+\emph default
+ or 
+\emph on
+a left GCD
+\emph default
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is any full column rank 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]
+\]
+
+\end_inset
+
+ with a unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is unimodular, we say 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is 
+\emph on
+relatively column prime
+\emph default
+.
+ The 
+\emph on
+row GCD
+\emph default
+ or 
+\emph on
+right GCD
+\emph default
+, and 
+\emph on
+relatively row prime
+\emph default
+ are defined in the same way.
+\end_layout
+
+\begin_layout Standard
+Note that this specializes to polynomial GCD when 
+\begin_inset Formula $m=1$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+For simplicity, let us assume 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $n>m$
+\end_inset
+
+ has full row rank, which can be achieved by determining its rank and then
+ use compression
+\begin_inset CommandInset citation
+LatexCommand citep
+key "storjohann-villard:2005"
+
+\end_inset
+
+.
+ To column reduce 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, let us first compute a right minimal nullspace basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then if we compute a left minimal nullspace basis 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, we know that 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is a right factor of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ That is, 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+ for some 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times m}$
+\end_inset
+
+.
+ Now we claim that 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+Given 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $n>m$
+\end_inset
+
+ and has full row rank.
+ Let 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ be a right minimal nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ be a left minimal nullspace basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+ for some 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times m}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+To see that 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is a right factor of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, notice that the rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ are in the left nullspace of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ and therefore generated by the nullspace basis 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+.
+ It remains to show that 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Consider unimodularly transforming 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to its GCD.
+ 
+\begin_inset Formula 
+\begin{eqnarray}
+\mathbf{F}\mathbf{U} & = & \mathbf{T}\mathbf{G}\mathbf{U}\nonumber \\
+ & = & \mathbf{T}\mathbf{G}\left[\mathbf{N},\mathbf{M}\right]=\left[0,\mathbf{TGM}\right],\label{eq:columnReduction}
+\end{eqnarray}
+
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ is an unimodular matrix that contains the nullspace basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ and the remaining columns in 
+\begin_inset Formula $\mathbf{M}$
+\end_inset
+
+.
+ To show that 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, we just need to show that 
+\begin_inset Formula $\mathbf{H}=\mathbf{GM}$
+\end_inset
+
+ is unimodular.
+ From Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:columnReduction"
+
+\end_inset
+
+, we get 
+\begin_inset Formula $\mathbf{G}\mathbf{U}=\left[0,\mathbf{H}\right]$
+\end_inset
+
+, or 
+\begin_inset Formula $\mathbf{G}=\mathbf{H}\left[0,I\right]\mathbf{U}^{-1}$
+\end_inset
+
+ after rearranging.
+ Hence 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is generated by 
+\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
+\end_inset
+
+.
+ But since 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is a minimal nullspace basis, then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
+\end_inset
+
+ must also be a minimal nullspace basis and 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ must be unimodular.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is a part of a unimodular matrix.
+ Can add rows to 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ to complete a unimodular matrix.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We know that the right factor 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be computed efficiently using our nullspace basis algorithm.
+ But We still need to compute a left factor 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ from 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ This can be done by computing a left 
+\begin_inset Formula $\left[0,\dots,0,d,\dots,d\right]$
+\end_inset
+
+-minimal nullspace basis 
+\begin_inset Formula $\left[\mathbf{T}',V\right]$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{G}^{T},\mathbf{F}^{T}\right]^{T}$
+\end_inset
+
+, where 
+\begin_inset Formula $d$
+\end_inset
+
+ is the degree of 
+\begin_inset Formula $\mathbf{F},$
+\end_inset
+
+ 
+\begin_inset Formula $V$
+\end_inset
+
+ is a unimodular matrix and 
+\begin_inset Formula $\mathbf{T}'$
+\end_inset
+
+ is the first 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix.
+ Note that 
+\begin_inset Formula $\left[\mathbf{T}',V\right]$
+\end_inset
+
+ has 
+\begin_inset Formula $m$
+\end_inset
+
+ rows since the rank of 
+\begin_inset Formula $\left[\mathbf{G}^{T},\mathbf{F}^{T}\right]^{T}$
+\end_inset
+
+ is 
+\begin_inset Formula $m$
+\end_inset
+
+.
+ Also note that since 
+\begin_inset Formula $\left[\mathbf{T},I\right]$
+\end_inset
+
+ is a left nullspace basis with 
+\begin_inset Formula $\left[0,\dots,0,d,\dots,d\right]$
+\end_inset
+
+-row degrees bounded by 
+\begin_inset Formula $d$
+\end_inset
+
+, the 
+\begin_inset Formula $\left[0,\dots,0,d,\dots,d\right]$
+\end_inset
+
+-minimal nullspace basis 
+\begin_inset Formula $\left[\mathbf{T}',V\right]$
+\end_inset
+
+ must also has its 
+\begin_inset Formula $\left[0,\dots,0,d,\dots,d\right]$
+\end_inset
+
+-row degrees bounded by 
+\begin_inset Formula $d$
+\end_inset
+
+, hence the degree of 
+\begin_inset Formula $V$
+\end_inset
+
+ must be 0.
+ We can then easily compute 
+\begin_inset Formula $\mathbf{T}=\mathbf{T}'V^{-1}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_body
+\end_document
