@@ -65,14 +65,20 @@ theorems-chap
 \begin_body
 
 \begin_layout Chapter
-Matrix GCD, column reduction, Popov form
+Matrix GCD, factorization, column reduction, Popov form
 \end_layout
 
 \begin_layout Standard
-In this Chapter, we consider the problem of computing a matrix GCD.
+In this Chapter, we consider the problem of computing a matrix GCD of an
+ input matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+.
  An efficient way of computing matrix GCD immediately leads to efficient
  computations of column reduced form, and Popov form.
  First let us recall the definition of matrix GCD.
+ We compute 
 \end_layout
 
 \begin_layout Definition

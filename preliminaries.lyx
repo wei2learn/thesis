@@ -195,6 +195,335 @@ key "vonzurgathen"
 \end_layout
 
 \begin_layout Section
+Shifted Degrees
+\end_layout
+
+\begin_layout Lemma
+A matrix
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ has 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees bounded by 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+ if and only if its 
+\begin_inset Formula $-\vec{v}$
+\end_inset
+
+-row degrees are bounded by 
+\begin_inset Formula $-\vec{u}$
+\end_inset
+
+.
+ In addition, for a matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+, it has a full-rank leading 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column coefficient matrix if and only if it has a full-rank leading 
+\begin_inset Formula $-\vec{v}$
+\end_inset
+
+-row coefficient matrix.
+\end_layout
+
+\begin_layout Proof
+The lemma follows from the fact 
+\begin_inset Formula $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$
+\end_inset
+
+ has degree bounded by 0 (Note that the negative degrees are define here
+ by setting
+\begin_inset Formula $\deg x^{-d}=-d$
+\end_inset
+
+ for 
+\begin_inset Formula $d\in\mathbb{Z}_{>0}$
+\end_inset
+
+.
+ If one wishes to avoid this negative degrees, one can simply shift the
+ degrees up by multiplying the matrix by 
+\begin_inset Formula $x^{a}$
+\end_inset
+
+ for some large 
+\begin_inset Formula $a$
+\end_inset
+
+).
+ Note the symmetry between the shifted row degrees and the shifted column
+ degrees.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:productDegreeBound"
+
+\end_inset
+
+If the 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ are bounded by the corresponding entries of an integer list 
+\begin_inset Formula $\vec{v}\in\mathbb{Z}^{n}$
+\end_inset
+
+, and the 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\vec{w}\in\mathbb{Z}^{k}$
+\end_inset
+
+, then the 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{A}\mathbf{B}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\vec{w}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+Note that 
+\begin_inset Formula $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$
+\end_inset
+
+ and 
+\begin_inset Formula $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ have degrees bounded by 0.
+ Therefore 
+\begin_inset Formula $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ also has degree bounded by 0, or equivalently, 
+\begin_inset Formula $\cdeg_{\vec{u}}\mathbf{A}\mathbf{B}\le\vec{w}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:productDegreeBoundWithRowDegrees"
+
+\end_inset
+
+If the 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ are bounded by the corresponding entries of an integer list 
+\begin_inset Formula $\vec{v}\in\mathbb{Z}^{n}$
+\end_inset
+
+, and the 
+\begin_inset Formula $-\vec{u}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\vec{w}\in\mathbb{Z}^{k}$
+\end_inset
+
+, then the 
+\begin_inset Formula $-\vec{v}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{A}\mathbf{B}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\vec{w}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+Note that 
+\begin_inset Formula $x^{-\vec{v}}\mathbf{A}x^{\vec{u}}$
+\end_inset
+
+ and 
+\begin_inset Formula $x^{-\vec{u}}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ have degrees bounded by 0.
+ Therefore, 
+\begin_inset Formula $x^{-\vec{v}}\mathbf{A}x^{\vec{u}}x^{-\vec{u}}\mathbf{B}^{-\vec{w}}=x^{-\vec{v}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ also has degree bounded by 0, or equivalently, 
+\begin_inset Formula $\cdeg_{-\vec{v}}\mathbf{A}\mathbf{B}\le\vec{w}$
+\end_inset
+
+.
+ Alternatively, this also follows from the fact 
+\begin_inset Formula $\cdeg_{-\vec{v}}\mathbf{A}\le-\vec{u}$
+\end_inset
+
+ from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:productDegreeBound"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The following lemma is known as the predictable-degree property
+\begin_inset CommandInset citation
+LatexCommand citep
+key "kailath:1980"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:predictableDegree"
+
+\end_inset
+
+If 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is a full-rank 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column reduced matrix with 
+\begin_inset Formula $\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$
+\end_inset
+
+, then 
+\begin_inset Formula $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $\cdeg_{\vec{u}}\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column reduced means the leading column coefficient matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$
+\end_inset
+
+ has linearly independent columns.
+ Now the leading coefficient matrix 
+\begin_inset Formula $B$
+\end_inset
+
+ of 
+\begin_inset Formula $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ has no zero column if and only if the leading column coefficient matrix
+ 
+\begin_inset Formula $AB$
+\end_inset
+
+ of 
+\begin_inset Formula $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ has no zero column, in other words, 
+\begin_inset Formula $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $\left[0,\dots,0\right]$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $\left[0,\dots,0\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
 Order Basis
 \end_layout
 
@@ -1099,7 +1428,7 @@ Note that the module
 
 \begin_layout Standard
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Minimal nullspace bases can be directly computed via order basis computation.
