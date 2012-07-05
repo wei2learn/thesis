@@ -199,6 +199,12 @@ Shifted Degrees
 \end_layout
 
 \begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:columnDegreesRowDegreesSymmetry"
+
+\end_inset
+
 A matrix
 \begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
