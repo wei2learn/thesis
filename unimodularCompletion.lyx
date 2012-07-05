@@ -65,7 +65,13 @@ theorems-chap
 \begin_body
 
 \begin_layout Chapter
-Minimal Unimodular Completion
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Unimodular-Completion"
+
+\end_inset
+
+Unimodular Completion
 \end_layout
 
 \begin_layout Standard
@@ -85,11 +91,21 @@ Given an matrix
 \begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{(n-m)\times n}$
 \end_inset
 
- with 
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+with 
 \begin_inset Formula $\left(-\vec{s}\right)$
 \end_inset
 
--minimal rows such that 
+-minimal rows 
+\end_layout
+
+\end_inset
+
+such that 
 \begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
 \end_inset
 
@@ -222,29 +238,117 @@ If
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
 \end_inset
 
-, where 
+ field operations, where 
 \begin_inset Formula $\xi=\sum\vec{s}$
 \end_inset
 
 .
+ 
 \end_layout
 
 \begin_layout Standard
-It is actually not possible to find a unimodular completion for some input
- matrices, such as 
+First, we need to check the existence of unimodular completion for a given
+ matrix.
+ In fact, an unimodular completion does not exist for some input matrices,
+ as in the case of 
 \begin_inset Formula $\mathbf{F}=\left[0,x\right]$
 \end_inset
 
 .
- But such unimodular completion always exists if the identity matrix 
-\begin_inset Formula $I_{m}$
-\end_inset
+ So we need to know what type of input matrices admit an unimodular completion.
+ But this requires us to first define matrix GCD.
+\end_layout
 
- is a GCD of 
-\begin_inset Formula $\mathbf{F}$
+\begin_layout Definition
+Given 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
 .
+ A 
+\emph on
+column GCD
+\emph default
+ or 
+\emph on
+a left GCD
+\emph default
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is any full column rank 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]
+\]
+
+\end_inset
+
+ with a unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+If 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is unimodular, we say 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is 
+\emph on
+relatively column prime
+\emph default
+.
+ 
+\end_layout
+
+\end_inset
+
+The 
+\emph on
+row GCD
+\emph default
+ or 
+\emph on
+right GCD
+\emph default
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+, and 
+\emph on
+relatively row prime
+\emph default
+ are
+\end_layout
+
+\end_inset
+
+ is defined in the same way.
+\end_layout
+
+\begin_layout Standard
+Note that this specializes to polynomial GCD when 
+\begin_inset Formula $m=1$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Lemma
@@ -342,6 +446,24 @@ If
 .
 \end_layout
 
+\begin_layout Remark
+If 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has an identity matrix GCD, some authors say that 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is 
+\emph on
+relatively prime
+\emph default
+.
+ But this term is ambiguous when the GCDs are not square, for this reason
+ we avoid this term.
+\end_layout
+
 \begin_layout Standard
 Since a unimodular completion is only possible for input matrices with an
  identity matrix GCD, we assume for simplicity this is the case with our
@@ -350,7 +472,7 @@ Since a unimodular completion is only possible for input matrices with an
 \end_inset
 
 .
- For other matrices with non-trivial GCDs, we will see later that our method
+ For other matrices without identity GCDs, we will see later that our method
  computes a matrix completion for a row basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
@@ -359,6 +481,7 @@ Since a unimodular completion is only possible for input matrices with an
 \end_layout
 
 \begin_layout Standard
+The proof of 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:unimodularCompletionCondition"
@@ -382,7 +505,7 @@ reference "lem:unimodularCompletionCondition"
 \begin_inset Formula $\mathbf{U}$
 \end_inset
 
- efficiently since it can have large degree, as 
+ efficiently since its degree might be too large, as 
 \begin_inset Formula $\mathbf{U}$
 \end_inset
 
