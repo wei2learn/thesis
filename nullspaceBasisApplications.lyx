@@ -936,11 +936,11 @@ reference "alg:matrixInverse"
 
 , which can be more expensive than the multiplication using the representation
  
-\begin_inset Formula $\mathbf{F}^{-1}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}$
+\begin_inset Formula $\mathbf{F}^{-1}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$
 \end_inset
 
 , then 
-\begin_inset Formula $\mathbf{H}\mathbf{F}^{-1}=\mathbf{H}\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}$
+\begin_inset Formula $\mathbf{H}\mathbf{F}^{-1}=\mathbf{H}\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$
 \end_inset
 
 , which is less expensive.

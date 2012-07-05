@@ -74,82 +74,13 @@ In this Chapter, we consider the problem of computing a matrix GCD of an
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
+ with column degrees bounded by a shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
 .
  An efficient way of computing matrix GCD immediately leads to efficient
  computations of column reduced form, and Popov form.
- First let us recall the definition of matrix GCD.
- We compute 
-\end_layout
-
-\begin_layout Definition
-Given 
-\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
-.
- A 
-\emph on
-column GCD
-\emph default
- or 
-\emph on
-a left GCD
-\emph default
- of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- is any full column rank 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- satisfying 
-\begin_inset Formula 
-\[
-\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]
-\]
-
-\end_inset
-
- with a unimodular matrix 
-\begin_inset Formula $\mathbf{U}$
-\end_inset
-
-.
- If 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- is unimodular, we say 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- is 
-\emph on
-relatively column prime
-\emph default
-.
- The 
-\emph on
-row GCD
-\emph default
- or 
-\emph on
-right GCD
-\emph default
-, and 
-\emph on
-relatively row prime
-\emph default
- are defined in the same way.
-\end_layout
-
-\begin_layout Standard
-Note that this specializes to polynomial GCD when 
-\begin_inset Formula $m=1$
-\end_inset
-
-.
  
 \end_layout
 
@@ -171,11 +102,16 @@ key "storjohann-villard:2005"
 \end_inset
 
 .
- To column reduce 
+ To compute a GCD of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
-, let us first compute a right minimal nullspace basis 
+, we use the following procedure.
+ Let us first compute a right 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal nullspace basis 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -184,7 +120,11 @@ key "storjohann-villard:2005"
 \end_inset
 
 .
- Then if we compute a left minimal nullspace basis 
+ Then if we compute a left 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-minimal nullspace basis 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -235,7 +175,11 @@ Given
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
- be a right minimal nullspace basis of 
+ be a right 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal nullspace basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -243,7 +187,11 @@ Given
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
- be a left minimal nullspace basis of 
+ be a left 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-minimal nullspace basis of 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -421,7 +369,15 @@ We know that the right factor
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- can be computed efficiently using our nullspace basis algorithm.
+ can be computed efficiently using our nullspace basis algorithm and from
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Unimodular-Completion"
+
+\end_inset
+
+.
  But We still need to compute a left factor 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
@@ -435,7 +391,102 @@ We know that the right factor
 \end_inset
 
 .
- This can be done by computing a left 
+ 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\vec{t}=-\rdeg_{-\vec{s}}\mathbf{G}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+ is bounded by the largest entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, with 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+ being the largest when 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ has the lowest possible degrees, as in an identity matrix.
+ Then from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:predictableDegree"
+
+\end_inset
+
+ the factor 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+ has column degrees bounded by 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{t}'=\left[0,\dots,0,\vec{t}\right]$
+\end_inset
+
+.
+ We can then compute a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
+\end_inset
+
+-basis, which would contain a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\left[V,\bar{\mathbf{T}}^{T}\right]^{T}$
+\end_inset
+
+, with a unimodular matrix 
+\begin_inset Formula $V$
+\end_inset
+
+ and a GCD 
+\begin_inset Formula $\bar{\mathbf{T}}=\mathbf{T}V$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Then 
+\begin_inset Formula $\rdeg_{-\vec{s}}\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}\le\left[0,\dots,0,-\vec{t}\right]$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+This can be done by computing a left 
 \begin_inset Formula $\left[0,\dots,0,d,\dots,d\right]$
 \end_inset
 
@@ -463,7 +514,7 @@ We know that the right factor
 \begin_inset Formula $\mathbf{T}'$
 \end_inset
 
- is the first 
+ is a 
 \begin_inset Formula $m\times m$
 \end_inset
 
@@ -524,6 +575,11 @@ We know that the right factor
 
 .
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
