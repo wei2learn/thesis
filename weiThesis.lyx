@@ -1492,6 +1492,16 @@ filename "matrixGCD.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
+filename "determinant.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
 filename "conclusion.lyx"
 
 \end_inset
