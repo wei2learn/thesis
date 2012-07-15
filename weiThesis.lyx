@@ -143,6 +143,7 @@ plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis
 
 \def\diag{\mbox{diag}}
 \def\cdeg{\qopname\relax n{cdeg}}
+\def\rdeg{\qopname\relax n{rdeg}}
 %\keycomment{\{\{}{\}\}}
 \def\MM{\qopname\relax n{MM}}
 \def\M{\qopname\relax n{M}}
@@ -1433,6 +1434,16 @@ doublespacing
 LatexCommand input
 preview true
 filename "mainIntroduction.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "shiftedDegrees.lyx"
 
 \end_inset
 

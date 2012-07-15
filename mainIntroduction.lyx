@@ -69,14 +69,314 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In this thesis, we present efficient algorithms for the computation of a
- shifted order basis of a matrix of univariate power series over a field,
- and the computation of a shifted minimal nullspace basis of a matrix of
- univariate polynomials over a field.
- Both are fundamental problems that have many applications in polynomial
- matrix computations.
- In this chapter, we give a brief introduction to order basis and nullspace
+In this thesis, we present efficient algorithms for a number of problems
+ involving matrices of univariate power series or polynomials over a field.
+ The first problem we consider is the computation of order bases, which
+ can be viewed as the most fundamental among all the problems considered
+ in this thesis, since order basis computation is used by the algorithms
+ for all other problems.
+ The second problem, minimal nullspace basis computation, provides another
+ essential tool used by the algorithms for the remaining problems, including
+ the computation of matrix inverse, determinant, matrix GCD, and unimodular
+ completion.
+ The algorithm for nullspace basis computation also immediately allows us
+ to solve linear systems.
+ 
+\end_layout
+
+\begin_layout Standard
+One key idea that enables the efficient computation of all the problems
+ in this thesis is the use of shifted degrees.
+ Closely examination of the shifted degrees reveals new structures of the
+ problems in this thesis, leading to better understanding of the problems,
+ and allowing the development of simple and efficient algorithms.
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+In this chapter, we give a brief introduction to order basis and nullspace
  basis.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Shifted Degrees
+\end_layout
+
+\begin_layout Standard
+For a column vector 
+\begin_inset Formula $\mathbf{p}=\left[p_{1},\dots,p_{n}\right]^{T}$
+\end_inset
+
+ of univariate polynomials over a field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+, its column degree is just the maximum of the degrees of the entries of
+ 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+, that is, 
+\begin_inset Formula 
+\[
+\cdeg\mathbf{p}=\max_{1\le i\le n}\deg p_{i}.
+\]
+
+\end_inset
+
+The 
+\emph on
+shifted column degree
+\emph default
+ generalizes this standard column degree by taking the maximum after shifting
+ the degrees by a given integer vector that is known as a 
+\emph on
+shift
+\emph default
+.
+ More specifically, the shifted column degree of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ with respect to a shift 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+, or the 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree
+\emph default
+ of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\cdeg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula 
+\[
+x^{\vec{s}}=\diag\left(\left[x^{s_{1}},x^{s_{2}},\dots,x^{s_{n}}\right]\right)=\begin{bmatrix}x^{s_{1}}\\
+ & x^{s_{2}}\\
+ &  & \ddots\\
+ &  &  & x^{s_{1}}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+ When 
+\begin_inset Formula $\vec{s}=\left[0,\dots,0\right]$
+\end_inset
+
+, the shifted column degree specializes to the standard column degree.
+ The shifted row degree of a row vector 
+\series bold
+
+\begin_inset Formula $\mathbf{q}$
+\end_inset
+
+ 
+\series default
+is defined in the same way.
+\begin_inset Formula 
+\[
+\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The shifted degrees have been used previously in polynomial matrix computations
+ and to generalize matrix normal forms 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BLV:jsc06"
+
+\end_inset
+
+.
+ The shifted column degree is equivalent to the notion of 
+\emph on
+defect
+\emph default
+ commonly used in the literature.
+ Our definition of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree is a special case of the 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+-degree from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BL1997"
+
+\end_inset
+
+, where in this case 
+\begin_inset Formula $\mathbf{H}=x^{\vec{s}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The shifted column degree of a column polynomial vector 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ with shift 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ is given by 
+\begin_inset Formula 
+\[
+\deg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}).
+\]
+
+\end_inset
+
+ We call this the 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree
+\emph default
+, or simply the 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-degree
+\emph default
+ of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+.
+ A shifted column degree defined this way is equivalent to the notion of
+ 
+\emph on
+defect
+\emph default
+ commonly used in the literature.
+ Our definition of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-degree is a special case of the 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+-degree from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BL1997"
+
+\end_inset
+
+, where in this case 
+\begin_inset Formula $\mathbf{H}=x^{\vec{s}}$
+\end_inset
+
+.
+ As in the uniform shift case, we say a matrix is 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced
+\emph default
+ or 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-reduced
+\emph default
+ if its 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-degrees cannot be decreased by unimodular column operations.
+ More precisely, if 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced and 
+\begin_inset Formula $[d_{1},\dots,d_{n}]$
+\end_inset
+
+ are the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-degrees of columns of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ sorted in nondecreasing order, then 
+\begin_inset Formula $[d_{1},\dots,d_{n}]$
+\end_inset
+
+ is lexicographically minimal among all matrices right equivalent to 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+.
+ Note that a matrix 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ is 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced if and only if 
+\begin_inset Formula $x^{\vec{s}}\cdot\mathbf{P}$
+\end_inset
+
+ is column reduced 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BLV:1999,BLV:jsc06"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -88,15 +388,6 @@ First, let us look at order basis.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-remove all soft O notation and always write logs explicitly? 
-\end_layout
-
-\end_inset
-
 Let 
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[\left[x\right]\right]^{m\times n}$
 \end_inset
@@ -182,59 +473,7 @@ ls
 \end_inset
 
  and had their order conditions related to these degree constraints.
- 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-%Pad
-\backslash
-'e also introduced the notion of a Pad
-\backslash
-'e
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-%table for the case $m=1,n=2$ which described all Pad
-\backslash
-'e approximants 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-%in terms of $2$ nearby approximants.
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-Additional order problems include vector and matrix versions of rational
+ Additional order problems include vector and matrix versions of rational
  approximation, partial realizations of matrix sequences and vector rational
  reconstruction just to name a few (cf.
  the references in 
@@ -413,8 +652,8 @@ key "BLV:1999,BLV:jsc06"
 \end_layout
 
 \begin_layout Standard
-In this thesis we present algorithms for the efficient computation of order
- basis.
+In this thesis we first present algorithms for the efficient computation
+ of order basis.
  Algorithms for fast computation of order basis include that of 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -584,7 +823,7 @@ key "La92"
 \end_inset
 
 .
- However, in other applications, such as those arising in matrix polynomial
+ However, in other applications, such as those arising in polynomial matrix
  arithmetic, one needs a complete basis which specifies all solutions of
  a given order, not just those within a particular degree bound (cf.
  
@@ -794,24 +1033,6 @@ Let
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-% why are these objects important (beyond the usual)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 Nullspaces of polynomial matrices appear in a large number of applications,
  being first used as an algebraic formalism in the area of control theory
  
@@ -822,7 +1043,7 @@ key "kucera:1979"
 \end_inset
 
 .
- For example, in linear system theory if a system is respresented by a transfer
+ For example, in linear system theory if a system is represented by a transfer
  function given in terms of a left coprime matrix fraction decomposition
  
 \begin_inset Formula $\mathbf{T}=\mathbf{D}_{\ell}^{-1}\mathbf{N}_{\ell}$

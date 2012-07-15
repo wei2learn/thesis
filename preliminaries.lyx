@@ -124,11 +124,115 @@ key "storjohann-villard:2005"
 \end_layout
 
 \begin_layout Section
+Notations
+\end_layout
+
+\begin_layout Description
+Comparing
+\begin_inset space ~
+\end_inset
+
+List For two lists 
+\begin_inset Formula $a=\left[a_{1},\dots,a_{n}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $b=\left[b_{1},\dots,b_{n}\right]$
+\end_inset
+
+, we write
+\begin_inset Formula 
+\[
+\begin{cases}
+a\ge b & \mbox{if }a_{i}\ge b_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+a\le b & \mbox{if }a_{i}\le b_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+a>b & \mbox{if }a\ge b\mbox{ and }a_{j}>b_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
+a<b & \mbox{if }a\le b\mbox{ and }a_{j}<b_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
+\end{cases}
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Description
+Comparing
+\begin_inset space ~
+\end_inset
+
+Unordered
+\begin_inset space ~
+\end_inset
+
+List For two lists 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+, let 
+\begin_inset Formula $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]$
+\end_inset
+
+ be the lists consists of the entries of 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+ but sorted in increasing order.
+ 
+\begin_inset Formula 
+\[
+\begin{cases}
+a\succeq b & \mbox{if }\bar{a}_{i}\ge\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+a\preceq b & \mbox{if }\bar{a}_{i}\le\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+a\succ b & \mbox{if }a\succeq b\mbox{ and }\bar{a}_{j}>\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
+a\prec b & \mbox{if }a\preceq b\mbox{ and }\bar{a}_{j}<\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Summation
+\begin_inset space ~
+\end_inset
+
+Notation For a list 
+\begin_inset Formula $a=\left[a_{1},\dots,a_{n}\right]$
+\end_inset
+
+, we write 
+\begin_inset Formula $\sum a$
+\end_inset
+
+ without index to denote the summation of all entries in 
+\begin_inset Formula $a$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
 Model of Computation
 \end_layout
 
 \begin_layout Standard
-The computational cost in this paper is analysed by bounding the number
+The computational cost in this paper is analyzed by bounding the number
  of arithmetic operations (additions, subtractions, multiplications, and
  divisions) in the coefficient field 
 \begin_inset Formula $\mathbb{K}$
@@ -196,6 +300,151 @@ key "vonzurgathen"
 
 \begin_layout Section
 Shifted Degrees
+\end_layout
+
+\begin_layout Standard
+For a column vector 
+\begin_inset Formula $\mathbf{p}=\left[p_{1},\dots,p_{n}\right]^{T}$
+\end_inset
+
+ of univariate polynomials over a field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+, its column degree is just the maximum of the degrees of the entries of
+ 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+, that is, 
+\begin_inset Formula 
+\[
+\cdeg\mathbf{p}=\max_{1\le i\le n}\deg p_{i}.
+\]
+
+\end_inset
+
+The 
+\emph on
+shifted column degree
+\emph default
+ generalizes this standard column degree by taking the maximum after shifting
+ the degrees by a given integer vector that is known as a 
+\emph on
+shift
+\emph default
+.
+ More specifically, the shifted column degree of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ with respect to a shift 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+, or the 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree
+\emph default
+ of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\cdeg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula 
+\[
+x^{\vec{s}}=\diag\left(\left[x^{s_{1}},x^{s_{2}},\dots,x^{s_{n}}\right]\right)=\begin{bmatrix}x^{s_{1}}\\
+ & x^{s_{2}}\\
+ &  & \ddots\\
+ &  &  & x^{s_{1}}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+ For a matrix 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+, 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{P}$
+\end_inset
+
+ is the list of its column degrees.
+ When 
+\begin_inset Formula $\vec{s}=\left[0,\dots,0\right]$
+\end_inset
+
+, the shifted column degree specializes to the standard column degree.
+ The shifted row degree of a row vector 
+\series bold
+
+\begin_inset Formula $\mathbf{q}$
+\end_inset
+
+ 
+\series default
+is defined in the same way.
+\begin_inset Formula 
+\[
+\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The shifted degrees have been used previously in polynomial matrix computations
+ and to generalize matrix normal forms 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BLV:jsc06"
+
+\end_inset
+
+.
+ The shifted column degree is equivalent to the notion of 
+\emph on
+defect
+\emph default
+ commonly used in the literature.
+ Our definition of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree is a special case of the 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+-degree from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BL1997"
+
+\end_inset
+
+, where in this case 
+\begin_inset Formula $\mathbf{H}=x^{\vec{s}}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Lemma
@@ -297,7 +546,19 @@ If the
 \begin_inset Formula $\vec{v}\in\mathbb{Z}^{n}$
 \end_inset
 
-, and the 
+, (or equivalently, the 
+\begin_inset Formula $-\vec{v}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $-\vec{u}$
+\end_inset
+
+) and the 
 \begin_inset Formula $\vec{v}$
 \end_inset
 
@@ -346,6 +607,75 @@ Note that
 .
  
 \end_layout
+
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:boundOnDegreesOfFA"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+ be a shift whose entries bound the corresponding column degrees of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+ Then for any polynomial matrix 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+, the column degrees of 
+\begin_inset Formula $\mathbf{A}\mathbf{B}$
+\end_inset
+
+ are bounded 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%component-wise 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+by the corresponding 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Just set the shift 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+ to 0 in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:productDegreeBound"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
 
 \begin_layout Lemma
 \begin_inset CommandInset label
@@ -427,8 +757,881 @@ reference "lem:productDegreeBound"
 .
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Unimodular Matrices and Unimodular Transformations
+\end_layout
+
 \begin_layout Standard
-The following lemma is known as the predictable-degree property
+A square matrix in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ is said to be 
+\emph on
+unimodular
+\emph default
+ if its determinant is in 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+.
+ A matrix in 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ is unimodular if and only if it has an inverse in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+.
+ Therefore, a unimodular transformation can be undone by multiplication
+ with another matrix.
+ This allows us to talk about unimodular equivalence.
+ Two matrices 
+\begin_inset Formula $\mathbf{A},\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ are said to be right unimodularly equivalent if 
+\begin_inset Formula $\mathbf{A}=\mathbf{B}\mathbf{U}$
+\end_inset
+
+ for some unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ This also means that the columns of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ generates the same set of vectors.
+ That is, if a vector 
+\begin_inset Formula $\mathbf{q}=\mathbf{A}\mathbf{p}$
+\end_inset
+
+ for some 
+\begin_inset Formula $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{q}=\mathbf{B}\mathbf{U}\mathbf{p}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Matrix GCD
+\end_layout
+
+\begin_layout Standard
+We can apply unimodular transformation to any matrix to obtain its matrix
+ GCD.
+\end_layout
+
+\begin_layout Definition
+Given 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+.
+ A 
+\emph on
+column GCD
+\emph default
+ or 
+\emph on
+a left GCD
+\emph default
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is any full column rank 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]
+\]
+
+\end_inset
+
+ with a unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+If 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is unimodular, we say 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is 
+\emph on
+relatively column prime
+\emph default
+.
+ 
+\end_layout
+
+\end_inset
+
+The 
+\emph on
+row GCD
+\emph default
+ or 
+\emph on
+right GCD
+\emph default
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+, and 
+\emph on
+relatively row prime
+\emph default
+ are
+\end_layout
+
+\end_inset
+
+ is defined in the same way.
+\end_layout
+
+\begin_layout Standard
+Note that this specializes to polynomial GCD when 
+\begin_inset Formula $m=1$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
+Minimality and Column Reducedness
+\end_layout
+
+\begin_layout Standard
+For many polynomial matrix computation problems, we would like the output
+ matrix to be not only easy to describe, but also convenient to use.
+ This usually means the output matrix has small column degrees or the more
+ general shifted column degrees comparing to other matrices that are right
+ unimodularly equivalent.
+ For example a matrix 
+\begin_inset Formula $\mathbf{A}=\left[x,x^{2},x^{2}\right]$
+\end_inset
+
+ with column degrees 
+\begin_inset Formula $\left[1,2,2\right]$
+\end_inset
+
+ can be unimodularly reduced to a matrix 
+\begin_inset Formula $\mathbf{B}=\left[x,x,x^{2}\right]$
+\end_inset
+
+ with column degrees 
+\begin_inset Formula $\left[1,1,2\right]$
+\end_inset
+
+, which is more desirable with lower degrees.
+ 
+\end_layout
+
+\begin_layout Standard
+To unimodularly reduce a matrix to one with lower column degrees, we can
+ look at its
+\emph on
+ leading column coefficient matrix
+\emph default
+, which is defined as follows.
+ 
+\end_layout
+
+\begin_layout Definition
+Given a matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+, the leading column coefficient matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\begin{align*}
+A & =\lcoeff\left(\mathbf{A}\right)\\
+ & =\left[\lcoeff\left(\mathbf{a}_{1}\right),\dots,\lcoeff\left(\mathbf{a}_{k}\right)\right]\\
+ & =\left[\coeff\left(\mathbf{a}_{1},\deg\left(\mathbf{a}_{1}\right)\right),\dots,\coeff\left(\mathbf{a}_{k},\deg\left(\mathbf{a}_{k}\right)\right)\right].
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then, the matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ can be unimodularly reduced to another matrix with lower column degrees
+ if 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ is not full-rank.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+In the following, we assume with out loss of generality that matrices have
+ columns arranged in increasing column degrees.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+Given a matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with no zero columns.
+ If 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ is not full-rank, then there is a unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\cdeg\left(\mathbf{A}\mathbf{U}\right)\prec\cdeg\mathbf{A}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We may assume the columns of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ are arranged in increasing column degrees.
+ Let the column degrees of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ be 
+\begin_inset Formula $\left[d_{1},\dots,d_{n}\right]$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $A=\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+.
+ Suppose the 
+\begin_inset Formula $i$
+\end_inset
+
+th column 
+\begin_inset Formula $A_{i}$
+\end_inset
+
+ of 
+\begin_inset Formula $A$
+\end_inset
+
+ is a linear combination of the first 
+\begin_inset Formula $i-1$
+\end_inset
+
+ columns.
+ That is, 
+\begin_inset Formula $A_{i}=A'a$
+\end_inset
+
+, where 
+\begin_inset Formula $A'$
+\end_inset
+
+ is the submatrix of 
+\begin_inset Formula $A$
+\end_inset
+
+ consists of the first 
+\begin_inset Formula $i-1$
+\end_inset
+
+ columns of 
+\begin_inset Formula $A$
+\end_inset
+
+, and 
+\begin_inset Formula $a=\left[a_{1},\dots,a_{i-1}\right]^{T}\in\mathbb{K}^{(i-1)\times1}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula 
+\[
+\mathbf{U}=\begin{bmatrix}1 &  &  &  & -a_{1}x^{d_{i}-d_{1}}\\
+ & 1 &  &  & -a_{2}x^{d_{i}-d_{2}}\\
+ &  & \ddots &  & \vdots\\
+ &  &  & 1 & -a_{i-1}x^{d_{i}-d_{i-1}}\\
+ &  &  &  & 1\\
+ &  &  &  &  & \ddots\\
+ &  &  &  &  &  & 1
+\end{bmatrix}.
+\]
+
+\end_inset
+
+Then 
+\begin_inset Formula $\mathbf{B}=\mathbf{A}\mathbf{U}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $\left[d_{1},\dots,d_{i-1},\bar{d}{}_{i},d_{i+1},\dots,d_{n}\right],$
+\end_inset
+
+ with 
+\begin_inset Formula $\bar{d}_{i}<d_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The leading column coefficient matrix can also help to determine the degree
+ of the matrix.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:fullRankLeadingCoefficientAndDegreeOfDetermant"
+
+\end_inset
+
+The degree of the determinant of a matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $\sum\cdeg\mathbf{A}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ is nonsingular, then 
+\begin_inset Formula $\deg\det\mathbf{A}=\sum\cdeg\mathbf{A}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+The determinant is the sum of products, with each product involving exactly
+ one entry from each column.
+ So the largest possible degree of each product is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\sum\cdeg\mathbf{A}$
+\end_inset
+
+.
+ For the second statement, note that the coefficient of 
+\begin_inset Formula $\det\mathbf{A}$
+\end_inset
+
+ corresponds to the largest possible degree 
+\begin_inset Formula $\sum\cdeg\mathbf{A}$
+\end_inset
+
+ is 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\det\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+.
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\end_layout
+
+\begin_layout Standard
+It is still not always possible to order two lists of integer degrees, as
+ in the case of matrices 
+\begin_inset Formula $\left[x,x^{2},x^{2}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\left[x,x,x^{3}\right]$
+\end_inset
+
+ with column degrees 
+\begin_inset Formula $\left[1,2,2\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\left[1,1,3\right]$
+\end_inset
+
+.
+ Fortunately, although the lists of column degrees of the set of unimodular
+ equivalent matrices are not well-ordered, there always exists some matrices
+ with the 
+\emph on
+minimal
+\emph default
+ column degrees, as shown below by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:matrixGCDlowerDegrees"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:minimalUnimodularEquivalentMatrix"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:matrixGCDlowerDegrees"
+
+\end_inset
+
+Given any two right unimodularly equivalent matrices 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, the matrix 
+\begin_inset Formula $\left[\mathbf{A},\mathbf{B}\right]$
+\end_inset
+
+ can be unimodularly reduced to 
+\begin_inset Formula $\left[0,\mathbf{C}\right]$
+\end_inset
+
+ with a matrix 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ that is unimodularly equivalent to both 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, and satisfies 
+\begin_inset Formula $\cdeg\mathbf{C}\preceq\cdeg\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg\mathbf{C}\preceq\cdeg\mathbf{B}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+If 
+\begin_inset Formula $r$
+\end_inset
+
+ is the rank 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, the column degrees of 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ are bounded by the 
+\begin_inset Formula $r$
+\end_inset
+
+ smallest linear independent columns of 
+\begin_inset Formula $\left[\mathbf{A},\mathbf{B}\right]$
+\end_inset
+
+, as higher degree columns can be reduced using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "cor:minimalUnimodularEquivalentMatrix"
+
+\end_inset
+
+Given a matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ and a shift 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
+\end_inset
+
+.
+ There exists a matrix 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ that is right unimodularly equivalent to 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg\mathbf{G}\preceq\cdeg(\mathbf{F}\mathbf{U})$
+\end_inset
+
+ for any unimodular 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Just repeatedly apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:matrixGCDlowerDegrees"
+
+\end_inset
+
+ to matrices that are right unimodularly equivalent to 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The existence of matrices with minimal column degrees allows us to define
+ 
+\emph on
+column reducedness.
+\end_layout
+
+\begin_layout Definition
+A matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ is said to be column reduced if 
+\begin_inset Formula $\cdeg\mathbf{A}\preceq\cdeg\mathbf{A}\mathbf{U}$
+\end_inset
+
+ for any unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Definition
+The leading column coefficient matrix provides useful test for the column
+ reducedness.
+ For a square matrix, it also provides 
+\end_layout
+
+\begin_layout Lemma
+A matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with no zero columns is column reduced if and only if 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ has full column rank.
+\end_layout
+
+\begin_layout Proof
+We just need to show that 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+the full-rank
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ implies a column reduced 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+, since the other direction is covered in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+.
+ Suppose 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ is full-rank but not column reduced.
+ Let 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ be a unimodularly equivalent column reduced matrix, which exists from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:minimalUnimodularEquivalentMatrix"
+
+\end_inset
+
+, then 
+\begin_inset Formula $\cdeg\mathbf{A}\succ\cdeg\mathbf{B}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ be the unimodular matrix satisfying 
+\begin_inset Formula $\mathbf{A}\mathbf{U}=\mathbf{B}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\bar{\mathbf{A}}$
+\end_inset
+
+ be a square matrix with 
+\begin_inset Formula $n$
+\end_inset
+
+ rows chosen from 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\cdeg\bar{\mathbf{A}}=\cdeg\mathbf{A}$
+\end_inset
+
+.
+ Then
+\begin_inset Formula $\bar{\mathbf{B}}=\bar{\mathbf{A}}\mathbf{U}$
+\end_inset
+
+ is a matrix consists of rows from 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ with the same indices.
+ It follows that 
+\begin_inset Formula $\deg\det\bar{\mathbf{A}}=\deg\det\bar{\mathbf{B}}$
+\end_inset
+
+.
+ But 
+\begin_inset Formula $\cdeg\bar{\mathbf{B}}\preceq\cdeg\mathbf{B}\prec\cdeg\mathbf{A}=\cdeg\bar{\mathbf{A}}$
+\end_inset
+
+, while from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:fullRankLeadingCoefficientAndDegreeOfDetermant"
+
+\end_inset
+
+ 
+\begin_inset Formula $\deg\det\bar{\mathbf{B}}\le\sum\cdeg\bar{\mathbf{B}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\deg\det\bar{\mathbf{A}}=\sum\cdeg\bar{\mathbf{A}}$
+\end_inset
+
+, which gives 
+\begin_inset Formula $\deg\det\bar{\mathbf{B}}<\deg\det\bar{\mathbf{A}}$
+\end_inset
+
+, a contradiction.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:productDegreeBound"
+
+\end_inset
+
+, when the matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column reduced, the bound becomes an equality, which then gives following
+ lemma, which can be viewed as a stronger version of the predictable-degree
+ property
 \begin_inset CommandInset citation
 LatexCommand citep
 key "kailath:1980"
