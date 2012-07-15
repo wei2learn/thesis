@@ -1166,7 +1166,7 @@ name "lem:fullRankLeadingCoefficientAndDegreeOfDetermant"
 \end_inset
 
 The degree of the determinant of a matrix 
-\begin_inset Formula $\mathbf{A}$
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
  is bounded by 
@@ -1180,6 +1180,24 @@ The degree of the determinant of a matrix
 
  is nonsingular, then 
 \begin_inset Formula $\deg\det\mathbf{A}=\sum\cdeg\mathbf{A}$
+\end_inset
+
+.
+ More generally, for any shift 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
+\end_inset
+
+, 
+\begin_inset Formula $\deg\det\mathbf{A}\le\sum\cdeg_{\vec{s}}\mathbf{A}-\sum\vec{s}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\lcoeff\left(x^{\vec{s}}\mathbf{A}\right)$
+\end_inset
+
+ is nonsingular, then 
+\begin_inset Formula $\deg\det\mathbf{A}=\sum\cdeg_{\vec{s}}\mathbf{A}-\sum\vec{s}$
 \end_inset
 
 .
@@ -1242,7 +1260,12 @@ The determinant is the sum of products, with each product involving exactly
 \uwave off
 \noun off
 \color none
- 
+ The more general results with shift can be shown by considering the the
+ determinant of 
+\begin_inset Formula $x^{\vec{s}}\mathbf{A}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1331,6 +1354,40 @@ Given any two right unimodularly equivalent matrices
 \end_inset
 
 .
+ More generally, with a shift 
+\begin_inset Formula $\vec{s},$
+\end_inset
+
+ the matrix 
+\begin_inset Formula $\left[\mathbf{A},\mathbf{B}\right]$
+\end_inset
+
+ can be unimodularly reduced to 
+\begin_inset Formula $\left[0,\mathbf{D}\right]$
+\end_inset
+
+ with a matrix 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ that is unimodularly equivalent to both 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, and satisfies 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{D}\preceq\cdeg_{\vec{s}}\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{D}\preceq\cdeg_{\vec{s}}\mathbf{B}$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Proof
@@ -1366,6 +1423,11 @@ reference "lem:columnOperationToReduceDegree"
 \end_inset
 
 .
+ For the more general result with shift, we can again multiply 
+\begin_inset Formula $x^{\vec{s}}$
+\end_inset
+
+ to the matrices.
 \end_layout
 
 \begin_layout Corollary
@@ -1401,6 +1463,27 @@ Given a matrix
 \end_inset
 
 .
+ More generally, with a shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, there exists a matrix 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ that is right unimodularly equivalent to 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{G}\preceq\cdeg_{\vec{s}}(\mathbf{F}\mathbf{U})$
+\end_inset
+
+ for any unimodular 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Proof
@@ -1440,13 +1523,32 @@ A matrix
 \end_inset
 
 .
- 
+ More generally, for a shift 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
+\end_inset
+
+, a matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ is said to be 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced if 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{A}\preceq\cdeg_{\vec{s}}\mathbf{A}\mathbf{U}$
+\end_inset
+
+ for any unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Definition
 The leading column coefficient matrix provides useful test for the column
  reducedness.
- For a square matrix, it also provides 
 \end_layout
 
 \begin_layout Lemma
