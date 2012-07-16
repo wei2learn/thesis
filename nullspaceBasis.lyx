@@ -144,7 +144,7 @@ Minimal nullspace bases can be directly computed via order basis computation.
 \end_inset
 
 -basis would cost 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil m^{2}d/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}m^{2}d\right)$
 \end_inset
 
  using the algorithm from 
@@ -198,12 +198,6 @@ filename "nullspaceBasisComputing.lyx"
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "nullspaceBasisApplications.lyx"
-
-\end_inset
-
 
 \end_layout
 

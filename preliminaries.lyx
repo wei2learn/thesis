@@ -303,6 +303,16 @@ Shifted Degrees
 \end_layout
 
 \begin_layout Standard
+In this section, we look at some properties of shifted degrees, which may
+ help in understanding their usefulness in efficient computation of polynomial
+ matrix prolems.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 For a column vector 
 \begin_inset Formula $\mathbf{p}=\left[p_{1},\dots,p_{n}\right]^{T}$
 \end_inset
@@ -357,7 +367,7 @@ shift
  is
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula 
 \[
 \cdeg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
@@ -410,7 +420,7 @@ is defined in the same way.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The shifted degrees have been used previously in polynomial matrix computations
  and to generalize matrix normal forms 
 \begin_inset CommandInset citation
@@ -445,6 +455,11 @@ key "BL1997"
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Lemma
@@ -949,9 +964,9 @@ Minimality and Column Reducedness
 \begin_layout Standard
 For many polynomial matrix computation problems, we would like the output
  matrix to be not only easy to describe, but also convenient to use.
- This usually means the output matrix has small column degrees or the more
- general shifted column degrees comparing to other matrices that are right
- unimodularly equivalent.
+ This usually means the column degrees or the more general shifted column
+ degrees are small comparing to other matrices that are right unimodularly
+ equivalent.
  For example a matrix 
 \begin_inset Formula $\mathbf{A}=\left[x,x^{2},x^{2}\right]$
 \end_inset
@@ -1514,7 +1529,11 @@ A matrix
 \begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- is said to be column reduced if 
+ is said to be 
+\emph on
+column reduced
+\emph default
+ if 
 \begin_inset Formula $\cdeg\mathbf{A}\preceq\cdeg\mathbf{A}\mathbf{U}$
 \end_inset
 
@@ -1535,7 +1554,11 @@ A matrix
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--column reduced if 
+
+\emph on
+-column reduced
+\emph default
+ if 
 \begin_inset Formula $\cdeg_{\vec{s}}\mathbf{A}\preceq\cdeg_{\vec{s}}\mathbf{A}\mathbf{U}$
 \end_inset
 
@@ -1973,8 +1996,18 @@ An order basis for
 \end_inset
 
 .
- In this thesis we compute those order bases having a type of minimality
- degree condition (also referred to as a reduced order basis in 
+ In this thesis we compute those order bases having 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+a type of minimality degree condition
+\end_layout
+
+\end_inset
+
+minimal or shifted minimal degrees (also referred to as a reduced order
+ basis in 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "BL1997"
@@ -1982,6 +2015,10 @@ key "BL1997"
 \end_inset
 
 ).
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
  While minimality is often given in terms of the degrees alone it is sometimes
  important to consider this in terms of shifted degrees 
 \begin_inset CommandInset citation
@@ -1993,7 +2030,16 @@ key "BLV:jsc06"
 .
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 The shifted column degree of a column polynomial vector 
 \begin_inset Formula $\mathbf{p}$
 \end_inset
@@ -2129,6 +2175,11 @@ key "BLV:1999,BLV:jsc06"
 .
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 An 
 \emph on
@@ -2213,7 +2264,7 @@ A polynomial matrix
 \end_inset
 
  of order 
-\begin_inset Formula $\sigma$
+\begin_inset Formula $\vec{\sigma}$
 \end_inset
 
  and shift 
@@ -2221,7 +2272,7 @@ A polynomial matrix
 \end_inset
 
 , denoted by 
-\begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$
 \end_inset
 
 -basis, if the following properties hold: 
@@ -2249,7 +2300,7 @@ A polynomial matrix
 \end_inset
 
  has order 
-\begin_inset Formula $\left(\mathbf{F},\sigma\right)$
+\begin_inset Formula $\left(\mathbf{F},\vec{\sigma}\right)$
 \end_inset
 
  (or equivalently, each column of 
@@ -2257,7 +2308,7 @@ A polynomial matrix
 \end_inset
 
  is in 
-\begin_inset Formula $\left\langle (\mathbf{F},\sigma)\right\rangle $
+\begin_inset Formula $\left\langle (\mathbf{F},\vec{\sigma})\right\rangle $
 \end_inset
 
 ).
@@ -2266,7 +2317,7 @@ A polynomial matrix
 
 \begin_layout Enumerate
 Any 
-\begin_inset Formula $\mathbf{q}\in\left\langle \left(\mathbf{F},\sigma\right)\right\rangle $
+\begin_inset Formula $\mathbf{q}\in\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
 \end_inset
 
  can be expressed as a linear combination of the columns of 
@@ -2305,6 +2356,10 @@ Note that the module
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Although we allow different orders for each row in this definition, we focus
  on order basis computation problems having uniform order.
  However special cases of non-uniform order problems are still needed in
@@ -2345,6 +2400,11 @@ key "storjohann-villard:2005"
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

@@ -263,14 +263,14 @@ If the shift
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- satisfies condition 
+ satisfies condition (
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "con:unbalanced1"
 
 \end_inset
 
-, then a 
+), then a 
 \begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)$
 \end_inset
 
@@ -411,14 +411,14 @@ Unfortunately, the bases computed this way are not minimal and hence do
 \end_layout
 
 \begin_layout Standard
-Condition 
+Condition (
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "con:unbalancedCondition"
 
 \end_inset
 
- essentially allows us to locate the potential high degree rows that need
+) essentially allows us to locate the potential high degree rows that need
  to be balanced.
  In more general cases, we may not know in advance which are the high degree
  rows that need to be balanced, so our approach given in this section does
@@ -445,14 +445,14 @@ We now describe the transformation for balancing the high degree rows of
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- satisfies the conditions 
+ satisfies the conditions (
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "con:unbalancedCondition"
 
 \end_inset
 
-.
+).
  Let 
 \begin_inset Formula $\alpha,\beta\in\mathbb{Z}_{>0}$
 \end_inset
@@ -2072,7 +2072,7 @@ Any
 
 \begin_layout Standard
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Lemma
 If 
@@ -3146,14 +3146,14 @@ If the shift
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- satisfies condition 
+ satisfies condition (
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "con:unbalancedCondition"
 
 \end_inset
 
- and 
+) and 
 \begin_inset Formula $c$
 \end_inset
 
@@ -3177,14 +3177,14 @@ Since
 \begin_inset Formula $d=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$
 \end_inset
 
- under condition 
+ under condition (
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "con:unbalancedCondition"
 
 \end_inset
 
-, there cannot be more than 
+), there cannot be more than 
 \begin_inset Formula $n/c$
 \end_inset
 
@@ -3268,14 +3268,14 @@ If the shift
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- satisfies condition 
+ satisfies condition (
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "con:unbalancedCondition"
 
 \end_inset
 
-, then a 
+), then a 
 \begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)$
 \end_inset
 
@@ -3551,14 +3551,14 @@ filename "algorithm2.lyx"
 
 \end_inset
 
- Finally, we remark that when the condition 
+ Finally, we remark that when the condition (
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "con:unbalancedCondition"
 
 \end_inset
 
- is relaxed to 
+) is relaxed to 
 \begin_inset Formula $\sum_{i=1}^{n}-s_{i}\in O\left(m\sigma\right)$
 \end_inset
 

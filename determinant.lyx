@@ -65,6 +65,12 @@ theorems-chap
 \begin_body
 
 \begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:determinant"
+
+\end_inset
+
 Diagonal Entries of Hermite Normal Form and Determinant
 \end_layout
 

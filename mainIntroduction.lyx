@@ -81,10 +81,16 @@ In this thesis, we present efficient algorithms for a number of problems
  completion.
  The algorithm for nullspace basis computation also immediately allows us
  to solve linear systems.
+ The algorithm for matrix GCD also immediately allows us to compute column
+ reduced forms and Popov normal forms for matrices of any dimension.
  
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 One key idea that enables the efficient computation of all the problems
  in this thesis is the use of shifted degrees.
  Closely examination of the shifted degrees reveals new structures of the
@@ -103,288 +109,13 @@ In this chapter, we give a brief introduction to order basis and nullspace
 
 \end_layout
 
-\begin_layout Section
-Shifted Degrees
-\end_layout
-
-\begin_layout Standard
-For a column vector 
-\begin_inset Formula $\mathbf{p}=\left[p_{1},\dots,p_{n}\right]^{T}$
-\end_inset
-
- of univariate polynomials over a field 
-\begin_inset Formula $\mathbb{K}$
-\end_inset
-
-, its column degree is just the maximum of the degrees of the entries of
- 
-\begin_inset Formula $\mathbf{p}$
-\end_inset
-
-, that is, 
-\begin_inset Formula 
-\[
-\cdeg\mathbf{p}=\max_{1\le i\le n}\deg p_{i}.
-\]
-
-\end_inset
-
-The 
-\emph on
-shifted column degree
-\emph default
- generalizes this standard column degree by taking the maximum after shifting
- the degrees by a given integer vector that is known as a 
-\emph on
-shift
-\emph default
-.
- More specifically, the shifted column degree of 
-\begin_inset Formula $\mathbf{p}$
-\end_inset
-
- with respect to a shift 
-\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$
-\end_inset
-
-, or the 
-\emph on
-
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column degree
-\emph default
- of 
-\begin_inset Formula $\mathbf{p}$
-\end_inset
-
- is
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\cdeg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
-\]
-
-\end_inset
-
- where 
-\begin_inset Formula 
-\[
-x^{\vec{s}}=\diag\left(\left[x^{s_{1}},x^{s_{2}},\dots,x^{s_{n}}\right]\right)=\begin{bmatrix}x^{s_{1}}\\
- & x^{s_{2}}\\
- &  & \ddots\\
- &  &  & x^{s_{1}}
-\end{bmatrix}.
-\]
-
-\end_inset
-
- When 
-\begin_inset Formula $\vec{s}=\left[0,\dots,0\right]$
-\end_inset
-
-, the shifted column degree specializes to the standard column degree.
- The shifted row degree of a row vector 
-\series bold
-
-\begin_inset Formula $\mathbf{q}$
-\end_inset
-
- 
-\series default
-is defined in the same way.
-\begin_inset Formula 
-\[
-\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
-\]
-
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-The shifted degrees have been used previously in polynomial matrix computations
- and to generalize matrix normal forms 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "BLV:jsc06"
-
-\end_inset
-
-.
- The shifted column degree is equivalent to the notion of 
-\emph on
-defect
-\emph default
- commonly used in the literature.
- Our definition of 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column degree is a special case of the 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
-
--degree from 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "BL1997"
-
-\end_inset
-
-, where in this case 
-\begin_inset Formula $\mathbf{H}=x^{\vec{s}}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The shifted column degree of a column polynomial vector 
-\begin_inset Formula $\mathbf{p}$
-\end_inset
-
- with shift 
-\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$
-\end_inset
-
- is given by 
-\begin_inset Formula 
-\[
-\deg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}).
-\]
-
-\end_inset
-
- We call this the 
-\emph on
-
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column degree
-\emph default
-, or simply the 
-\emph on
-
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--degree
-\emph default
- of 
-\begin_inset Formula $\mathbf{p}$
-\end_inset
-
-.
- A shifted column degree defined this way is equivalent to the notion of
- 
-\emph on
-defect
-\emph default
- commonly used in the literature.
- Our definition of 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--degree is a special case of the 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
-
--degree from 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "BL1997"
-
-\end_inset
-
-, where in this case 
-\begin_inset Formula $\mathbf{H}=x^{\vec{s}}$
-\end_inset
-
-.
- As in the uniform shift case, we say a matrix is 
-\emph on
-
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column reduced
-\emph default
- or 
-\emph on
-
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--reduced
-\emph default
- if its 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--degrees cannot be decreased by unimodular column operations.
- More precisely, if 
-\begin_inset Formula $\mathbf{P}$
-\end_inset
-
- is a 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column reduced and 
-\begin_inset Formula $[d_{1},\dots,d_{n}]$
-\end_inset
-
- are the 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--degrees of columns of 
-\begin_inset Formula $\mathbf{P}$
-\end_inset
-
- sorted in nondecreasing order, then 
-\begin_inset Formula $[d_{1},\dots,d_{n}]$
-\end_inset
-
- is lexicographically minimal among all matrices right equivalent to 
-\begin_inset Formula $\mathbf{P}$
-\end_inset
-
-.
- Note that a matrix 
-\begin_inset Formula $\mathbf{P}$
-\end_inset
-
- is 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column reduced if and only if 
-\begin_inset Formula $x^{\vec{s}}\cdot\mathbf{P}$
-\end_inset
-
- is column reduced 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "BLV:1999,BLV:jsc06"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Order Basis
-\end_layout
-
-\begin_layout Standard
-First, let us look at order basis.
+Let us first look at order bases and nullspace bases in more detail.
 \end_layout
 
 \begin_layout Standard
@@ -634,7 +365,12 @@ key "Giorgi2003,storjohann-villard:2005"
 \end_inset
 
 .
- In our case we also allow the minimal degree property to include a shift
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+In our case we also allow the minimal degree property to include a shift
  
 \begin_inset Formula $\vec{s}$
 \end_inset
@@ -651,349 +387,18 @@ key "BLV:1999,BLV:jsc06"
 .
 \end_layout
 
-\begin_layout Standard
-In this thesis we first present algorithms for the efficient computation
- of order basis.
- Algorithms for fast computation of order basis include that of 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "BeLa94"
-
 \end_inset
 
- which converts the matrix problem into a vector problem of higher order
- (which they called the Power Hermite-Padé problem).
- Their divide and conquer algorithm has complexity of 
-\begin_inset Formula $O^{\sim}(n^{2}m\sigma+nm^{2}\sigma)$
-\end_inset
 
- field operations.
- As usual, the soft-
-\begin_inset Formula $O$
-\end_inset
-
- notation 
-\begin_inset Formula $O^{\sim}$
-\end_inset
-
- is simply Big-
-\begin_inset Formula $O$
-\end_inset
-
- with polylogarithmic factors 
-\begin_inset Formula $(\log(nm\sigma))^{O(1)}$
-\end_inset
-
- omitted.
- By working more directly on the input 
-\begin_inset Formula $m\times n$
-\end_inset
-
- input matrix, 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Giorgi2003"
-
-\end_inset
-
- give a divide and conquer method with cost 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\sigma\right)$
-\end_inset
-
- arithmetic operations.
- Their method is very efficient if 
-\begin_inset Formula $m$
-\end_inset
-
- is close to the size of 
-\begin_inset Formula $n$
-\end_inset
-
- but can be improved if 
-\begin_inset Formula $m$
-\end_inset
-
- is small.
 \end_layout
 
 \begin_layout Standard
-In a novel construction, 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Storjohann:2006"
-
-\end_inset
-
- effectively reverses the approach of Beckermann and Labahn.
- Namely, rather than convert a high dimension matrix order problem into
- a lower dimension vector problem of higher order, Storjohann converts a
- low dimension problem to a high dimension problem with lower order.
- For example, computing an order basis for a 
-\begin_inset Formula $1\times n$
-\end_inset
-
- vector input 
-\begin_inset Formula $\mathbf{f}$
-\end_inset
-
- and order 
-\begin_inset Formula $\sigma$
-\end_inset
-
- can be converted to a problem of order basis computation with an 
-\begin_inset Formula $O\left(n\right)\times O\left(n\right)$
-\end_inset
-
- input matrix and an order 
-\begin_inset Formula $O\left(\left\lceil \sigma/n\right\rceil \right)$
-\end_inset
-
-.
- Combining this conversion with the method of Giorgi et al.
- can then be used effectively for problems with small row dimensions to
- achieve a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil m\sigma/n\right\rceil \right)$
-\end_inset
-
-.
+Nullspace bases are closely related to order bases.
 \end_layout
 
 \begin_layout Standard
-However, while order bases of the original problem can have degree up to
- 
-\begin_inset Formula $\sigma$
-\end_inset
-
-, the nature of Storjohann's conversion limits the degree of an order basis
- of the converted problem to 
-\begin_inset Formula $O\left(\left\lceil m\sigma/n\right\rceil \right)$
-\end_inset
-
- in order to be computationally efficient.
- In other words, this approach does not in general compute a complete order
- basis.
- Rather, in order to achieve efficiency, it only computes a partial order
- basis containing basis elements with degrees within 
-\begin_inset Formula $O\left(\left\lceil m\sigma/n\right\rceil \right)$
-\end_inset
-
-, referred to by Storjohann as a 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-em
-\end_layout
-
-\end_inset
-
- minbasis
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-.
- Fast methods for computing a minbasis are particularly useful for certain
- problems, for example, in the case of inversion of structured block matrices
- where one needs only precisely the minbasis 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "La92"
-
-\end_inset
-
-.
- However, in other applications, such as those arising in polynomial matrix
- arithmetic, one needs a complete basis which specifies all solutions of
- a given order, not just those within a particular degree bound (cf.
- 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "BL1997"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:OrderBasis"
-
-\end_inset
-
- we present two algorithms which compute an entire order basis with a cost
- of 
-\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
-\end_inset
-
- field operations.
- This work extends the previous results first reported in 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "za2009"
-
-\end_inset
-
-.
- The two algorithms differ depending on the nature of the degree shift required
- for the reduced order basis.
- In the first case we use a transformation that can be considered as an
- extension of Storjohann's transformation.
- This new transformation provides a way to extend the results from one transform
-ed problem to another transformed problem of a higher degree.
- This enables us to use an idea from the null space basis algorithm found
- in 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "storjohann-villard:2005"
-
-\end_inset
-
- in order to achieve efficient computation.
- At each iteration, basis elements within a specified degree bound are computed
- via a Storjohann transformed problem.
- Then the partial result is used to simplify the next Storjohann transformed
- problem of a higher degree, allowing basis elements within a higher degree
- bound to be computed efficiently.
- This is repeated until all basis elements are computed.
-\end_layout
-
-\begin_layout Standard
-In order to compute an order basis efficiently, the first algorithm requires
- that the degree shifts are balanced.
- In the case where the shift is not balanced, the row degrees of the basis
- can also become unbalanced in addition to the unbalanced column degrees.
- We give a second algorithm that balances the high degree rows and uses
- 
-\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
-\end_inset
-
- field operations when the shift 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
- is unbalanced but satisfies the condition 
-\begin_inset Formula $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma$
-\end_inset
-
-.
- This condition essentially allows us to locate the high degree unbalanced
- rows that need to be balanced.
- 
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-In fact, every problem with any unbalanced shift can be reformulated to
- a problem with a shift satisfying this condition if the degrees of the
- resulting order basis is known.
- 
-\end_layout
-
-\end_inset
-
- The algorithm converts a problem of unbalanced shift to one with balanced
- shift, based on a second idea from 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Storjohann:2006"
-
-\end_inset
-
-.
- Then the first algorithm is used to efficiently compute the elements of
- an order basis whose shifted degrees exceed a specified parameter.
- The problem is then reduced to one where we remove the computed elements.
- This results in a new problem with smaller dimension and higher degree.
- The same process is repeated again on this new problem in order to compute
- the elements with the next highest shifted degrees.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-The remaining paper is structured as follows.
- Basic definitions and properties of order bases are given in the next section.
- 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:transform"
-
-\end_inset
-
- provides an extension to Storjohann's transformation to allow higher degree
- basis elements to be computed.
- Based on this new transformation, 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:Order-Basis-Computation"
-
-\end_inset
-
- establishes a link between two Storjohann transformed problems of different
- degrees, from which an recursive method and then an iterative algorithm
- are derived.
- The time complexity is analyzed in the next section.
- After this, 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:Unbalanced-Shift"
-
-\end_inset
-
- describes an algorithm which handles problems with a type of unbalanced
- shift.
- This is followed by a conclusion along with a description for topics for
- future research.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Nullspace Basis
-\end_layout
-
-\begin_layout Standard
-We now look at nullspace basis.
- 
-\end_layout
-
-\begin_layout Standard
-Let 
+For a matrix of polynomials 
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
- be a matrix of polynomials over a field 
-\begin_inset Formula $\mathbb{K}$
 \end_inset
 
  with rank 
@@ -1038,7 +443,7 @@ Nullspaces of polynomial matrices appear in a large number of applications,
  
 \begin_inset CommandInset citation
 LatexCommand citep
-key "kucera:1979"
+key "Kucera:1979"
 
 \end_inset
 
@@ -1255,7 +660,12 @@ reference "rightfactor"
 ) finds a matrix fraction while a minimal nullspace basis finds such a fraction
  in reduced form having a minimal column degree denominator (needed for
  example in minimal partial realization problems).
- In some cases, for example when using nullspace bases for column reduction,
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In some cases, for example when using nullspace bases for column reduction,
  as in 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -1376,7 +786,7 @@ mathbf{F}$ does
 
 
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1427,7 +837,7 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status collapsed
 
@@ -1445,6 +855,744 @@ status collapsed
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Shifted Degrees
+\end_layout
+
+\begin_layout Standard
+The standard way to measure the size of a matrix is to use its dimension
+ and its degree.
+ A major complication in many polynomial matrix computation problems is
+ that the degrees of the intermediate results or the output can be much
+ larger than the input.
+ This seems to prevent the problems to be computed efficiently, since the
+ size of the intermediate results and the size of the output provides lower
+ bounds on the computational cost of any algorithm.
+ One may wonder why the size of the intermediate problems or the size of
+ the output is much larger than the size of the input.
+ It turns out that the degree is just not the best way to measure the size
+ in all the problem we consider in this thesis.
+ Instead of the degree, we use the sum of the shifted degrees to measure
+ the size of polynomial matrices.
+ As we will see that the shifted degree is in fact the more natural choice,
+ and the sizes of the output and the intermediate results are indeed bounded
+ by the size as the input for all these problems.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The use of shifted degrees helps us to discover new structures of the problems
+ that allows simple and efficient algorithms to be developed.
+\end_layout
+
+\end_inset
+
+ Closely examination of the shifted degrees reveals new structures of the
+ problems in this thesis, leading to better understanding of the problems,
+ and allowing the development of simple and efficient algorithms.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Although the degree is simple and seems natural, 
+\end_layout
+
+\begin_layout Plain Layout
+In such cases, one may wonder why the extra space is needed if we are just
+ transforming the original input and not creating extra information to store.
+ One possibilities is that the output contains some redundant information
+ that makes it easier to use in someway.
+ Another possibility is that the measurement is flawed, which turns out
+ to be the case for all the problems we consider in this thesis.
+ By using a better criterion to measure the sizes, we will see that the
+ sizes of the output and the intermediate results are indeed bounded by
+ the size as the input for all these problems.
+ The importance of the criterion for measuring the sizes cannot be understated,
+ as it provides clean, elegant structures to the previous messy problems
+ and guides us efficiently to the output.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In this thesis, we use the sum of the shifted degrees to measure the size
+ of polynomial matrices.
+ We introduce the shifted column degrees in this section.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For a column vector 
+\begin_inset Formula $\mathbf{p}=\left[p_{1},\dots,p_{n}\right]^{T}$
+\end_inset
+
+ of univariate polynomials over a field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+, its column degree is just the maximum of the degrees of the entries of
+ 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+, that is, 
+\begin_inset Formula 
+\[
+\cdeg\mathbf{p}=\max_{1\le i\le n}\deg p_{i}.
+\]
+
+\end_inset
+
+The 
+\emph on
+shifted column degree
+\emph default
+ generalizes this standard column degree by taking the maximum after shifting
+ the degrees by a given integer vector that is known as a 
+\emph on
+shift
+\emph default
+.
+ More specifically, the shifted column degree of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ with respect to a shift 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+, or the 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree
+\emph default
+ of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ is
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\cdeg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula 
+\[
+x^{\vec{s}}=\diag\left(\left[x^{s_{1}},x^{s_{2}},\dots,x^{s_{n}}\right]\right)=\begin{bmatrix}x^{s_{1}}\\
+ & x^{s_{2}}\\
+ &  & \ddots\\
+ &  &  & x^{s_{1}}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+For a matrix 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+, we use 
+\begin_inset Formula $\cdeg\mathbf{P}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{P}$
+\end_inset
+
+ to denote respectively the list of its column degrees and the list of its
+ shifted 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees.
+ When 
+\begin_inset Formula $\vec{s}=\left[0,\dots,0\right]$
+\end_inset
+
+, the shifted column degree specializes to the standard column degree.
+ The shifted row degree of a row vector 
+\series bold
+
+\begin_inset Formula $\mathbf{q}$
+\end_inset
+
+ 
+\series default
+is defined in the same way.
+\begin_inset Formula 
+\[
+\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The shifted degrees have been used previously in polynomial matrix computations
+ and to generalize matrix normal forms 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BLV:jsc06"
+
+\end_inset
+
+.
+ The shifted column degree is equivalent to the notion of 
+\emph on
+defect
+\emph default
+ commonly used in the literature.
+ Our definition of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree is a special case of the 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+-degree from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BL1997"
+
+\end_inset
+
+, where in this case 
+\begin_inset Formula $\mathbf{H}=x^{\vec{s}}$
+\end_inset
+
+.
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+The shifted column degree of a column polynomial vector 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ with shift 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ is given by 
+\begin_inset Formula 
+\[
+\deg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}).
+\]
+
+\end_inset
+
+ We call this the 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree
+\emph default
+, or simply the 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-degree
+\emph default
+ of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+.
+ A shifted column degree defined this way is equivalent to the notion of
+ 
+\emph on
+defect
+\emph default
+ commonly used in the literature.
+ Our definition of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-degree is a special case of the 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+-degree from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BL1997"
+
+\end_inset
+
+, where in this case 
+\begin_inset Formula $\mathbf{H}=x^{\vec{s}}$
+\end_inset
+
+.
+ As in the uniform shift case, we say a matrix is 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced
+\emph default
+ or 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-reduced
+\emph default
+ if its 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-degrees cannot be decreased by unimodular column operations.
+ More precisely, if 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced and 
+\begin_inset Formula $[d_{1},\dots,d_{n}]$
+\end_inset
+
+ are the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-degrees of columns of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ sorted in nondecreasing order, then 
+\begin_inset Formula $[d_{1},\dots,d_{n}]$
+\end_inset
+
+ is lexicographically minimal among all matrices right equivalent to 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+.
+ Note that a matrix 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ is 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced if and only if 
+\begin_inset Formula $x^{\vec{s}}\cdot\mathbf{P}$
+\end_inset
+
+ is column reduced 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BLV:1999,BLV:jsc06"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Section
+Order Basis Computation
+\end_layout
+
+\begin_layout Standard
+The first problem considered in this thesis is the efficient computation
+ of order basis.
+ Algorithms for fast computation of order basis include that of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "BeLa94"
+
+\end_inset
+
+ which converts the matrix problem into a vector problem of higher order
+ (which they called the Power Hermite-Padé problem).
+ Their divide and conquer algorithm has complexity of 
+\begin_inset Formula $O^{\sim}(n^{2}m\sigma+nm^{2}\sigma)$
+\end_inset
+
+ field operations.
+ As usual, the soft-
+\begin_inset Formula $O$
+\end_inset
+
+ notation 
+\begin_inset Formula $O^{\sim}$
+\end_inset
+
+ is simply Big-
+\begin_inset Formula $O$
+\end_inset
+
+ with polylogarithmic factors 
+\begin_inset Formula $(\log(nm\sigma))^{O(1)}$
+\end_inset
+
+ omitted.
+ By working more directly on the input 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ input matrix, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Giorgi2003"
+
+\end_inset
+
+ give a divide and conquer method with cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}\sigma\right)$
+\end_inset
+
+ arithmetic operations.
+ Their method is very efficient if 
+\begin_inset Formula $m$
+\end_inset
+
+ is close to the size of 
+\begin_inset Formula $n$
+\end_inset
+
+ but can be improved if 
+\begin_inset Formula $m$
+\end_inset
+
+ is small.
+\end_layout
+
+\begin_layout Standard
+In a novel construction, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Storjohann:2006"
+
+\end_inset
+
+ effectively reverses the approach of Beckermann and Labahn.
+ Namely, rather than convert a high dimension matrix order problem into
+ a lower dimension vector problem of higher order, Storjohann converts a
+ low dimension problem to a high dimension problem with lower order.
+ For example, computing an order basis for a 
+\begin_inset Formula $1\times n$
+\end_inset
+
+ vector input 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ and order 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ can be converted to a problem of order basis computation with an 
+\begin_inset Formula $O\left(n\right)\times O\left(n\right)$
+\end_inset
+
+ input matrix and an order 
+\begin_inset Formula $O\left(\left\lceil \sigma/n\right\rceil \right)$
+\end_inset
+
+.
+ Combining this conversion with the method of Giorgi et al.
+ can then be used effectively for problems with small row dimensions to
+ achieve a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil m\sigma/n\right\rceil \right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+However, while order bases of the original problem can have degree up to
+ 
+\begin_inset Formula $\sigma$
+\end_inset
+
+, the nature of Storjohann's conversion limits the degree of an order basis
+ of the converted problem to 
+\begin_inset Formula $O\left(\left\lceil m\sigma/n\right\rceil \right)$
+\end_inset
+
+ in order to be computationally efficient.
+ In other words, this approach does not in general compute a complete order
+ basis.
+ Rather, in order to achieve efficiency, it only computes a partial order
+ basis containing basis elements with degrees within 
+\begin_inset Formula $O\left(\left\lceil m\sigma/n\right\rceil \right)$
+\end_inset
+
+, referred to by Storjohann as a 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ minbasis
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+.
+ Fast methods for computing a minbasis are particularly useful for certain
+ problems, for example, in the case of inversion of structured block matrices
+ where one needs only precisely the minbasis 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "La92"
+
+\end_inset
+
+.
+ However, in other applications, such as those arising in polynomial matrix
+ arithmetic, one needs a complete basis which specifies all solutions of
+ a given order, not just those within a particular degree bound (cf.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "BL1997"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:OrderBasis"
+
+\end_inset
+
+ we present algorithms which compute an entire order basis with a cost of
+ 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
+\end_inset
+
+ field operations when 
+\begin_inset Formula $n\in O\left(m\sigma\right)$
+\end_inset
+
+.
+ The algorithms differ depending on the nature of the degree shift required
+ for the reduced order basis.
+ In the first case we use a transformation that can be considered as an
+ extension of Storjohann's transformation.
+ This new transformation provides a way to extend the results from one transform
+ed problem to another transformed problem of a higher degree.
+ This enables us to use an idea from the null space basis algorithm found
+ in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "storjohann-villard:2005"
+
+\end_inset
+
+ in order to achieve efficient computation.
+ At each iteration, basis elements within a specified degree bound are computed
+ via a Storjohann transformed problem.
+ Then the partial result is used to simplify the next Storjohann transformed
+ problem of a higher degree, allowing basis elements within a higher degree
+ bound to be computed efficiently.
+ This is repeated until all basis elements are computed.
+\end_layout
+
+\begin_layout Standard
+In order to compute an order basis efficiently, the first algorithm requires
+ that the degree shifts are balanced.
+ In the case where the shift is not balanced, the row degrees of the basis
+ can also become unbalanced in addition to the unbalanced column degrees.
+ We give a second algorithm that balances the high degree rows and uses
+ 
+\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+\end_inset
+
+ field operations when the shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is unbalanced but satisfies the condition 
+\begin_inset Formula $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma$
+\end_inset
+
+.
+ This condition essentially allows us to locate the high degree unbalanced
+ rows that need to be balanced.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+In fact, every problem with any unbalanced shift can be reformulated to
+ a problem with a shift satisfying this condition if the degrees of the
+ resulting order basis is known.
+ 
+\end_layout
+
+\end_inset
+
+ The algorithm converts a problem of unbalanced shift to one with balanced
+ shift, based on a second idea from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Storjohann:2006"
+
+\end_inset
+
+.
+ Then the first algorithm is used to efficiently compute the elements of
+ an order basis whose shifted degrees exceed a specified parameter.
+ The problem is then reduced to one where we remove the computed elements.
+ This results in a new problem with smaller dimension and higher degree.
+ The same process is repeated again on this new problem in order to compute
+ the elements with the next highest shifted degrees.
+\end_layout
+
+\begin_layout Standard
+At the end of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:OrderBasis"
+
+\end_inset
+
+, we discuss how the assumption of 
+\begin_inset Formula $n\in O\left(m\sigma\right)$
+\end_inset
+
+ can be removed while an order basis can still be computed with a cost of
+ 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
+\end_inset
+
+ field operations when the shifts are balanced.
+\end_layout
+
+\begin_layout Standard
+Some results on order basis computation have appeared in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "za2009,ZL2012"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+The remaining paper is structured as follows.
+ Basic definitions and properties of order bases are given in the next section.
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:transform"
+
+\end_inset
+
+ provides an extension to Storjohann's transformation to allow higher degree
+ basis elements to be computed.
+ Based on this new transformation, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Order-Basis-Computation"
+
+\end_inset
+
+ establishes a link between two Storjohann transformed problems of different
+ degrees, from which an recursive method and then an iterative algorithm
+ are derived.
+ The time complexity is analyzed in the next section.
+ After this, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Unbalanced-Shift"
+
+\end_inset
+
+ describes an algorithm which handles problems with a type of unbalanced
+ shift.
+ This is followed by a conclusion along with a description for topics for
+ future research.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Nullspace Basis Computation
+\end_layout
+
 \begin_layout Standard
 We are interested in fast computation of minimal nullspace bases and shifted
  minimal nullspace bases in exact environments.
@@ -1456,7 +1604,7 @@ We are interested in fast computation of minimal nullspace bases and shifted
  In this case a minimal nullspace basis is determined from the computation
  of the Kronecker canonical form, with efficient algorithms given by 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "beelen:1988,varga:1994,Oara:1997"
 
 \end_inset
@@ -1525,7 +1673,7 @@ reference "chap:NullspaceBasis"
 
  we present a deterministic algorithm for computing a minimal nullspace
  basis with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil md/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}md\right)$
 \end_inset
 
  field operations in 
@@ -1566,7 +1714,12 @@ reference "chap:NullspaceBasis"
 \end_inset
 
 .
- The computational cost in this paper is analyzed by bounding the number
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The computational cost in this paper is analyzed by bounding the number
  of arithmetic operations in the coefficient field 
 \begin_inset Formula $\mathbb{K}$
 \end_inset
@@ -1603,6 +1756,11 @@ key "vonzurgathen"
 
  for more details and reference about the cost of polynomial multiplication
  and matrix multiplication.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1668,6 +1826,17 @@ key "za2009"
 \end_layout
 
 \begin_layout Standard
+Some results on nullspace basis computation have appeared in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "za2012"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Comment
 status collapsed
 
@@ -1717,9 +1886,8 @@ Overview
 \end_layout
 
 \begin_layout Standard
-The remainder of this paper is structured as follows.
- Basic definitions and properties of order bases and nullspace bases are
- given in the next Chapter.
+The remainder of this thesis is structured as follows.
+ Basic definitions and properties are given in the next Chapter.
  The details of our order basis computation can be found in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1736,8 +1904,49 @@ reference "chap:NullspaceBasis"
 \end_inset
 
 .
-  The paper ends with a conclusion and topics for future research.
+  
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Matrix-inverse"
+
+\end_inset
+
+ discusses the algorithm for computing matrix inverse.
+ Unimodular completion is then discussed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Unimodular-Completion"
+
+\end_inset
+
+.
+ Then we look at matrix GCD in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Matrix-GCD"
+
+\end_inset
+
+ and determinant computation in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:determinant"
+
+\end_inset
+
+.
  
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+The paper ends with a conclusion and topics for future research.
+ 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

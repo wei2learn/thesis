@@ -720,7 +720,7 @@ Let
 \begin_inset Formula $\rowRev(\mathbf{B},\vec{u},\vec{v})=\colRev(\mathbf{B},-\vec{v},-\vec{u})$
 \end_inset
 
-?
+.
 \end_layout
 
 \begin_layout Standard

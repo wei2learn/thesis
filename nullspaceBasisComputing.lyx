@@ -284,7 +284,7 @@ Let
 \end_inset
 
 , we improve this later to 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil ms/n\right\rceil \right)=O^{\sim}\left(n^{\omega}\left\lceil \rho/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)=O^{\sim}\left(n^{\omega-1}\rho\right)$
 \end_inset
 
 .
@@ -1504,13 +1504,13 @@ key "Giorgi2003"
 \end_inset
 
  is balanced, then we can compute this with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil \rho/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\rho\right)$
 \end_inset
 
  using the algorithm from 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "za2009"
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:OrderBasis"
 
 \end_inset
 
@@ -5121,13 +5121,13 @@ reference "line:orderBasis"
 \end_inset
 
  costs 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil ms/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)$
 \end_inset
 
  using the algorithm from 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "za2009"
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:OrderBasis"
 
 \end_inset
 
@@ -5447,7 +5447,7 @@ reference "alg:minimalNullspaceBasis"
 \end_inset
 
  costs 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil ms/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)$
 \end_inset
 
 .
@@ -5456,7 +5456,7 @@ reference "alg:minimalNullspaceBasis"
 
 \begin_layout Proof
 After the initial order basis computation, which costs 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil ms/n\right\rceil \right),$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right),$
 \end_inset
 
  and the multiplication of 
@@ -5504,7 +5504,7 @@ reference "thm:costLowColDimension"
 
 .
  The overall cost is therefore dominated by the cost 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil ms/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)$
 \end_inset
 
  of the initial order basis computation.
@@ -5530,7 +5530,7 @@ If the input matrix
 \end_inset
 
  can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil md/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}md\right)$
 \end_inset
 
 .
@@ -5555,10 +5555,6 @@ reference "thm:costOfMinimalNullspaceBasisWithUniformShift"
 
 .
  
-\end_layout
-
-\begin_layout Section
-Nonuniform row degrees or shifted row degrees
 \end_layout
 
 \end_body

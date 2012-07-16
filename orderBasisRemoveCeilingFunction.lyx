@@ -755,6 +755,17 @@ When
 
 .
  
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Should easily work for the second unbalanced case as well.
+ But need to write it out.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

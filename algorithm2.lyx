@@ -160,14 +160,14 @@ status collapsed
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- satisfies condition 
+ satisfies condition (
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "con:unbalancedCondition"
 
 \end_inset
 
-.
+).
 \end_layout
 
 \begin_layout Algorithm

@@ -919,22 +919,19 @@ Abstract
 
 \begin_layout Standard
 \noindent
-In this thesis, we present efficient deterministic algorithms for the computatio
-n of a shifted order basis of a matrix of univariate power series over a
- field, and the computation of a shifted minimal nullspace basis of a matrix
- of univariate polynomials over a field.
- Both are fundamental problems that have many applications in polynomial
- matrix computations.
- Computing these bases without shifts are special cases of computing with
- shifts handled by our algorithms.
- In fact, one major contribution of this thesis is to illustrate the usefulness
- of working with shifts, which helps us to keep track of the degrees throughout
- the computations and to reveal new useful properties and structures that
- enables efficient computation of these bases.
+In this thesis, we present efficient deterministic algorithms for polynomial
+ matrix computation problems, including the computation of order basis,
+ minimal nullspace basis, matrix inverse, unimodular completion, matrix
+ GCD, and determinant.
+ The algorithm for nullspace basis computation also immediately allows us
+ to solve linear systems.
+ The algorithm for matrix GCD also immediately allows us to compute column
+ reduced forms and Popov normal forms for matrices of any dimension.
+ 
 \end_layout
 
 \begin_layout Standard
-We first give two algorithms for computing a shifted order basis of an 
+We first give algorithms for computing a shifted order basis of an 
 \begin_inset Formula $m\times n$
 \end_inset
 
@@ -956,7 +953,7 @@ We first give two algorithms for computing a shifted order basis of an
 \end_inset
 
  the first algorithm determines an order basis with a cost of 
-\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
 \end_inset
 
  field operations in 
@@ -1057,6 +1054,11 @@ status collapsed
 
 \end_inset
 
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
 This extends earlier work of Storjohann which only determines a subset of
  an order basis that is within a specified degree bound 
 \begin_inset Formula $\delta$
@@ -1071,6 +1073,10 @@ This extends earlier work of Storjohann which only determines a subset of
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
  While the first algorithm addresses the case when the column degrees of
  a complete order basis are unbalanced given a balanced input shift, it
  is not efficient in the case when an unbalanced shift results in the row
@@ -1222,7 +1228,7 @@ We then present an algorithm for the computation of a minimal nullspace
 \end_inset
 
  input matrix with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil md/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}md\right)$
 \end_inset
 
  field operations in 
@@ -1283,7 +1289,110 @@ Here the soft-
 \end_layout
 
 \begin_layout Standard
+Order basis computation and nullspace basis computation are then applied
+ to the remaining problems.
+ An algorithm for computing the inverse of an matrix in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ is then given with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right)$
+\end_inset
+
+ field operations, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the sum of column or row degrees of the input matrix.
+ The inverse represented alternatively by a product of 
+\begin_inset Formula $\left\lceil \log n\right\rceil $
+\end_inset
+
+ matrices cost only 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ to compute.
+ Next, an algorithm is presented for computing an unimodular completion
+ of an input matrix in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+, 
+\begin_inset Formula $m<n$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the sum of column degrees of the input matrix.
+ We then discuss the computation of a matrix GCD of an input matrix in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\xi\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the sum of column degrees of the input matrix.
+ Then an algorithm for computing the determinant of an input matrix in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ is given, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the sum of column or row degrees of the input matrix.
+\end_layout
+
+\begin_layout Standard
+For all these problems, our algorithms are not only essentially optimal,
+ but they also solve more general versions of these problems than previously
+ algorithms.
+ More specifically, the computational costs are stated with the the sum
+ of the column degrees of the input matrix, which is more precise and tighter
+ than using just degrees.
+ In addition, the shifted minimal bases computed by our algorithms are more
+ general than the standard minimal bases.
+\end_layout
+
+\begin_layout Standard
 \noindent
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+the computation of a shifted order basis of a matrix of univariate power
+ series over a field, and the computation of a shifted minimal nullspace
+ basis of a matrix of univariate polynomials over a field.
+ Both are fundamental problems that have many applications in polynomial
+ matrix computations.
+ Computing these bases without shifts are special cases of computing with
+ shifts handled by our algorithms.
+ In fact, one major contribution of this thesis is to illustrate the usefulness
+ of working with shifts, which helps us to keep track of the degrees throughout
+ the computations and to reveal new useful properties and structures that
+ enables efficient computation of these bases.
+\end_layout
+
+\end_inset
+
+
 \begin_inset Newpage newpage
 \end_inset
 
@@ -1298,9 +1407,14 @@ Acknowledgements
 \end_layout
 
 \begin_layout Standard
-Thanks to my supervisor George Labahn for providing me with the opportunity
- to explore in this exciting field, and for his patience and the longtime
- support that made this work possible.
+Thanks 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+to my supervisor George Labahn for providing me with the opportunity to
+ explore in this exciting field, and for his patience and the longtime support
+ that made this work possible.
  Also thanks to Arne Storjohann, whose accomplishments and magical abilities
  have always amazed me and influenced my work.
  When I was lost and was losing confidence several years ago.
@@ -1308,19 +1422,19 @@ Thanks to my supervisor George Labahn for providing me with the opportunity
  also helped me to restore my confidence.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Thanks to my committee members, George, Arne, and Mark for reading this
  thesis.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Thanks to all my friends in Waterloo, especially my longtime roommate Zhirong,
  my resourceful academic brother Reinhold, and my close friends Wei Li and
  Jun Chen, for many fun conversations and memorable activities.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This has been a rewarding adventure for myself.
  But to others and especially my family, my school work just seemed endless.
  After presenting the work on order basis computation years ago, I declared
@@ -1336,6 +1450,11 @@ on.
  Thanks to my parents, my wife, and my daughter for so many years of patience
  and trust.
  I owe everything to you.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1355,7 +1474,17 @@ Dedication
 
 \begin_layout Standard
 \noindent
-To my father, mother, wife, daughter, and sister.
+To 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+my father, mother, wife, daughter, and sister.
+\end_layout
+
+\end_inset
+
  
 \begin_inset Newpage newpage
 \end_inset
@@ -1441,9 +1570,18 @@ filename "mainIntroduction.lyx"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand input
 filename "shiftedDegrees.lyx"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -1483,6 +1621,16 @@ filename "nullspaceBasis.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
+filename "nullspaceBasisApplications.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
 filename "unimodularCompletion.lyx"
 
 \end_inset
@@ -1511,6 +1659,10 @@ filename "determinant.lyx"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand input
 filename "conclusion.lyx"
@@ -1518,6 +1670,11 @@ filename "conclusion.lyx"
 \end_inset
 
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

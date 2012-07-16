@@ -64,11 +64,18 @@ theorems-chap
 
 \begin_body
 
-\begin_layout Section
-Applications
-\end_layout
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Matrix-inverse"
 
-\begin_layout Standard
+\end_inset
+
+Matrix inverse
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 We describe several applications of nullspace basis.
 \end_layout
 
@@ -76,12 +83,13 @@ We describe several applications of nullspace basis.
 Linear System Solving
 \end_layout
 
-\begin_layout Subsection
-Matrix inverse
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-In this section, we consider the problem of computing the inverse of a 
+In this Chapter, we consider the problem of computing the inverse of a 
 \begin_inset Formula $n\times n$
 \end_inset
 
@@ -946,7 +954,8 @@ reference "alg:matrixInverse"
 , which is less expensive.
  It may be interesting to look for other applications where this smaller
  representation is useful.
-\end_layout
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Subsection
 Determinant
@@ -1051,6 +1060,11 @@ If
 
  respectively.
  Then 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
