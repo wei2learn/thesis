@@ -1,0 +1,633 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass report
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:hermite"
+
+\end_inset
+
+ Hermite Normal Form
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:determinant"
+
+\end_inset
+
+, we have shown how the diagonal entries of the Hermite normal form of an
+ input matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ can be computed efficiently.
+ In this Chapter, we consider the problem of computing the complete Hermite
+ normal form 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For simplicity, we assume 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is already column reduced and has degree 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]$
+\end_inset
+
+ be the degrees of the diagonal entries of the Hermite form 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+, and 
+\begin_inset Formula $\vec{u}=\left[\max\vec{s},\dots,\max\vec{s}\right]$
+\end_inset
+
+ with 
+\begin_inset Formula $n$
+\end_inset
+
+ entries.
+ One way to compute the Hermite form of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is to compute a 
+\begin_inset Formula $\left[-\vec{u},-\vec{s}\right]$
+\end_inset
+
+-minimal nullspace basis 
+\begin_inset Formula $\left[\mathbf{U}^{T},\mathbf{G}^{T}\right]^{T}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{F},I\right]$
+\end_inset
+
+.
+ The Hermite form can then be obtained from 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+.
+ The main difficulty here is that 
+\begin_inset Formula $\max\vec{s}$
+\end_inset
+
+ can be very large.
+ So the existing algorithms would be efficient if applied directly.
+ However, since we know the row degrees of 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+, we can expand each of the high degree rows of 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ to multiple rows with lower degrees, as in the computation of order basis
+ with unbalanced shift from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Unbalanced-Shift"
+
+\end_inset
+
+, and attempt to compute alternative matrix 
+\begin_inset Formula $\mathbf{H}'$
+\end_inset
+
+ with lower degrees but a higher row dimension that is still in 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+ Our task here is in fact easier than 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Unbalanced-Shift"
+
+\end_inset
+
+ as we already know the exact row degrees of 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For each entry 
+\begin_inset Formula $s_{i}$
+\end_inset
+
+ of the shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, let 
+\begin_inset Formula $q_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ be the quotient and remainder of 
+\begin_inset Formula $s_{i}$
+\end_inset
+
+ divided 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ Then, we expand the 
+\begin_inset Formula $i$
+\end_inset
+
+th column 
+\begin_inset Formula $e_{i}$
+\end_inset
+
+ of the identity matrix 
+\begin_inset Formula $I$
+\end_inset
+
+ in 
+\begin_inset Formula $[\mathbf{F},I]$
+\end_inset
+
+ and shift 
+\begin_inset Formula $s_{i}$
+\end_inset
+
+ to
+\begin_inset Formula 
+\[
+\tilde{\mathbf{E}}^{(i)}=\left[e_{i},x^{s_{i}-q_{i}d}e_{i},\dots,x^{s_{i}-d}e_{i}\right]\mbox{ and }\tilde{s}_{i}=\left[r_{i},d,\dots,d,\right],
+\]
+
+\end_inset
+
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\tilde{\mathbf{E}}^{(i)}=\left[e_{i},x^{d}e_{i},\dots,x^{q_{i}d}e_{i},x^{q_{i}d+r_{i}}e_{i}\right]\mbox{ and }\tilde{s}_{i}=\left[d,\dots,d,r_{i}\right],
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ where 
+\begin_inset Formula $\tilde{s}_{i}$
+\end_inset
+
+ has with 
+\begin_inset Formula $q_{i}+1$
+\end_inset
+
+ entries in each case.
+ Then for the transformed problem, the shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ becomes 
+\begin_inset Formula $\bar{s}=[\tilde{s}_{1},\dots,\tilde{s}_{n}]\in\mathbb{Z}_{\le0}^{\bar{n}}$
+\end_inset
+
+, and the identity matrix becomes
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathbf{E} & = & [\tilde{\mathbf{E}},\dots,\tilde{\mathbf{E}}^{\left(n\right)}]\\
+ & = & \left[\begin{array}{ccccc|ccc|ccccccc}
+1 & x^{s_{1}-q_{1}d} & \cdots & x^{s_{1}-2d} & x^{s_{1}-d} &  &  & \\
+\hline  &  &  &  &  & \ddots &  & \\
+ &  &  &  &  &  & \  & \ddots\\
+\hline  &  &  &  &  &  &  &  & 1 & x^{s_{n}-q_{n}d} & \cdots & x^{s_{n}-2d} & x^{s_{n}-d}
+\end{array}\right]_{n\times\bar{n}},
+\end{eqnarray*}
+
+\end_inset
+
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathbf{E} & = & [\tilde{\mathbf{E}},\dots,\tilde{\mathbf{E}}^{\left(n\right)}]\\
+ & = & \left[\begin{array}{ccccc|ccc|ccccccc}
+1 & x^{d} & \cdots & x^{q_{1}d} & x^{r_{1}+q_{1}d} &  &  & \\
+\hline  &  &  &  &  & \ddots &  & \\
+ &  &  &  &  &  & \  & \ddots\\
+\hline  &  &  &  &  &  &  &  & 1 & x^{d} & \cdots & x^{q_{n}d} & x^{r_{n}+q_{n}d}
+\end{array}\right]_{n\times\bar{n}},
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+with the new column dimension 
+\begin_inset Formula $\bar{n}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\bar{n}=n+\sum_{i=1}^{n}q_{i}$
+\end_inset
+
+.
+ We can now compute a 
+\begin_inset Formula $\left[-\vec{u},-\bar{s}\right]$
+\end_inset
+
+-minimal nullspace basis of 
+\begin_inset Formula $\left[\mathbf{F},\mathbf{E}\right]$
+\end_inset
+
+.
+ However, the degree of 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ and the shift 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+ is still too big.
+ To lower these, we can reduce 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ against 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ in a similar way as done by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "GS2011,G2011"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\mathbf{R}=\mathbf{E}-\mathbf{F}\mathbf{Q}$
+\end_inset
+
+ for some polynomial matrix 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ has degree less than 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ That is, 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ is the remainder of 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ divide by 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Now if 
+\begin_inset Formula $\left[\mathbf{A}^{T},\mathbf{B}^{T}\right]$
+\end_inset
+
+ is a nullspace basis of 
+\begin_inset Formula $\left[\mathbf{F},\mathbf{E}\right]$
+\end_inset
+
+, that is, if 
+\begin_inset Formula 
+\[
+\left[\mathbf{F},\mathbf{E}\right]\begin{bmatrix}\mathbf{A}\\
+\mathbf{B}
+\end{bmatrix}=0,
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+then 
+\begin_inset Formula 
+\[
+\left[\mathbf{F},\mathbf{R}\right]\begin{bmatrix}\mathbf{A}-\mathbf{Q}\mathbf{B}\\
+\mathbf{B}
+\end{bmatrix}=\left[\mathbf{F},\mathbf{E}-\mathbf{F}\mathbf{Q}\right]\begin{bmatrix}\mathbf{A}-\mathbf{Q}\mathbf{B}\\
+\mathbf{B}
+\end{bmatrix}=0.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that the degree of 
+\begin_inset Formula $\mathbf{A}-\mathbf{Q}\mathbf{B}$
+\end_inset
+
+ is now also less than 
+\begin_inset Formula $d$
+\end_inset
+
+, since the degree of 
+\begin_inset Formula $\mathbf{R}\mathbf{B}$
+\end_inset
+
+ is less than 
+\begin_inset Formula $d$
+\end_inset
+
+, and the column reduced matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has degree 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ We can therefore use a new shift 
+\begin_inset Formula $\bar{u}=\left[d,\dots,d\right]$
+\end_inset
+
+, and compute a 
+\begin_inset Formula $\left[-\bar{u},-\bar{s}\right]$
+\end_inset
+
+-minimal nullspace basis of 
+\begin_inset Formula $\left[\mathbf{F},\mathbf{R}\right]$
+\end_inset
+
+, which can now be done efficiently.
+\end_layout
+
+\begin_layout Standard
+A big question remaining, however, is how to efficiently compute 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ from 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ For this, we use the series expansion of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+inverse of 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula 
+\[
+\mathbf{F}^{r}=\colRev(\mathbf{F},0,d)=\left(\mathbf{F}(1/x)\right)x^{d}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let its inverse 
+\begin_inset Formula $\mathbf{F}^{ri}=F_{0}+F_{1}x+F_{2}x^{2}+\dots$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{F}^{ri}=\mathbf{F}_{0}+\mathbf{F}_{1}x^{d}+\mathbf{F}_{2}x^{2d}+\dots+\mathbf{F}_{k}x^{kd}+\mathbf{F}_{k+1}x^{\left(k+1\right)d}+\dots.$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Then 
+\begin_inset Formula $I=\mathbf{F}^{r}\left(\mathbf{F}^{ri}\mod x^{k}\right)+x^{k}\mathbf{C}$
+\end_inset
+
+.
+ Note that since the first term must have degree less than 
+\begin_inset Formula $k+d$
+\end_inset
+
+, the degree of 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ must be less than 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ In fact, if we reverse the coefficients, we have 
+\begin_inset Formula 
+\[
+\colRev\left(I,0,k+d-1\right)=\colRev(\mathbf{F}^{r},0,d)\cdot\left(*\right)+\colRev\left(x^{kd}\mathbf{C},0,k+d-1\right),
+\]
+
+\end_inset
+
+ that is, 
+\begin_inset Formula 
+\[
+x^{k+d-1}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r},
+\]
+
+\end_inset
+
+ which gives us 
+\begin_inset Formula $\mathbf{C}^{r}$
+\end_inset
+
+ as the remainder of 
+\begin_inset Formula $x^{k+d-1}I$
+\end_inset
+
+ divide by 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ This shows that the series expansion of 
+\begin_inset Formula $\mathbf{F}^{ri}$
+\end_inset
+
+ allows us to compute the remainder of 
+\begin_inset Formula $x^{h}I$
+\end_inset
+
+ divided by 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ for any 
+\begin_inset Formula $h$
+\end_inset
+
+.
+ Similarly, the 
+\begin_inset Formula $i$
+\end_inset
+
+th column of 
+\begin_inset Formula $\mathbf{F}^{ri}$
+\end_inset
+
+, or equivalently 
+\begin_inset Formula $\mathbf{F}^{ri}e_{i}$
+\end_inset
+
+ allows us to compute the remainder of 
+\begin_inset Formula $x^{h}e_{i}$
+\end_inset
+
+ divided by 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_body
+\end_document

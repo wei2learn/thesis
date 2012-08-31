@@ -77,8 +77,8 @@ In this thesis, we present efficient algorithms for a number of problems
  for all other problems.
  The second problem, minimal nullspace basis computation, provides another
  essential tool used by the algorithms for the remaining problems, including
- the computation of matrix inverse, determinant, matrix GCD, and unimodular
- completion.
+ the computation of matrix inverse, determinant, matrix GCD, unimodular
+ completion, and Hermite normal form.
  The algorithm for nullspace basis computation also immediately allows us
  to solve linear systems.
  The algorithm for matrix GCD also immediately allows us to compute column
@@ -88,7 +88,7 @@ In this thesis, we present efficient algorithms for a number of problems
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 One key idea that enables the efficient computation of all the problems

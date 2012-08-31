@@ -922,7 +922,7 @@ Abstract
 In this thesis, we present efficient deterministic algorithms for polynomial
  matrix computation problems, including the computation of order basis,
  minimal nullspace basis, matrix inverse, unimodular completion, matrix
- GCD, and determinant.
+ GCD, determinant, and Hermite normal form.
  The algorithm for nullspace basis computation also immediately allows us
  to solve linear systems.
  The algorithm for matrix GCD also immediately allows us to compute column
@@ -1361,8 +1361,8 @@ Order basis computation and nullspace basis computation are then applied
 
 \begin_layout Standard
 For all these problems, our algorithms are not only essentially optimal,
- but they also solve more general versions of these problems than previously
- algorithms.
+ but in most cases they also solve more general versions of these problems
+ than previously algorithms.
  More specifically, the computational costs are stated with the the sum
  of the column degrees of the input matrix, which is more precise and tighter
  than using just degrees.
@@ -1652,6 +1652,16 @@ filename "matrixGCD.lyx"
 \begin_inset CommandInset include
 LatexCommand input
 filename "determinant.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "hermiteForm.lyx"
 
 \end_inset
 
