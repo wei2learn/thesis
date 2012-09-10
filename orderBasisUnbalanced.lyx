@@ -65,14 +65,14 @@ theorems-chap
 
 \begin_body
 
-\begin_layout Section
+\begin_layout Chapter
 Unbalanced Shifts
 \end_layout
 
 \begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Unbalanced-Shift"
+name "chap:Unbalanced-Shift"
 
 \end_inset
 
@@ -82,7 +82,7 @@ name "sec:Unbalanced-Shift"
 \begin_layout Standard
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "sec:removeCeilingFunction"
+reference "thm:orderBasisCostCeilingRemoved"
 
 \end_inset
 
@@ -216,7 +216,7 @@ reference "alg:mab"
  is more complicated and is the main focus of this section.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 First unbalanced case
 \end_layout
 
@@ -330,7 +330,7 @@ reference "sec:complexity"
  applies.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Second unbalanced case
 \end_layout
 

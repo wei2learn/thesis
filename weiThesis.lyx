@@ -78,7 +78,6 @@
 % allows easy specifying of the page layout
 \usepackage{geometry}
 
-
 \usepackage{nomencl}
 
 \usepackage{amstext}
@@ -493,7 +492,7 @@ vspace*{2.0cm}
 
 \begin_layout Plain Layout
 
-        Waterloo, Ontario, Canada, 2011 
+        Waterloo, Ontario, Canada, 2012 
 \backslash
 
 \backslash
@@ -521,7 +520,7 @@ vspace*{1.0cm}
 \backslash
 copyright
 \backslash
- Wei Zhou 2011 
+ Wei Zhou 2012 
 \backslash
 
 \backslash
@@ -932,6 +931,10 @@ In this thesis, we present efficient deterministic algorithms for polynomial
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 We first give algorithms for computing a shifted order basis of an 
 \begin_inset Formula $m\times n$
 \end_inset
@@ -1209,7 +1212,7 @@ This extends the earlier work by the authors from ISSAC'09.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We then present an algorithm for the computation of a minimal nullspace
  basis of an 
 \begin_inset Formula $m\times n$
@@ -1289,7 +1292,7 @@ Here the soft-
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Order basis computation and nullspace basis computation are then applied
  to the remaining problems.
  An algorithm for computing the inverse of an matrix in 
@@ -1360,10 +1363,15 @@ Order basis computation and nullspace basis computation are then applied
  is the sum of column or row degrees of the input matrix.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 For all these problems, our algorithms are not only essentially optimal,
  but in most cases they also solve more general versions of these problems
- than previously algorithms.
+ than previous algorithms.
  More specifically, the computational costs are stated with the the sum
  of the column degrees of the input matrix, which is more precise and tighter
  than using just degrees.
@@ -1670,6 +1678,10 @@ filename "hermiteForm.lyx"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand input
 filename "rank.lyx"
@@ -1679,7 +1691,7 @@ filename "rank.lyx"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand input
 filename "rankSensitive.lyx"
@@ -1689,11 +1701,12 @@ filename "rankSensitive.lyx"
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
+\end_inset
 
-\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
 filename "conclusion.lyx"
@@ -1701,11 +1714,6 @@ filename "conclusion.lyx"
 \end_inset
 
  
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard

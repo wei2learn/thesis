@@ -896,9 +896,9 @@ unimodular
 \end_inset
 
 .
- Therefore, a unimodular transformation can be undone by multiplication
- with another matrix.
- This allows us to talk about unimodular equivalence.
+ Therefore, a unimodular transformation can be undone by the multiplication
+ with the inverse transformation matrix.
+ This allows us to talk about unimodular equivalence of the polynomial matrices.
  Two matrices 
 \begin_inset Formula $\mathbf{A},\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
@@ -934,13 +934,14 @@ unimodular
 \end_inset
 
 .
-\end_layout
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Section
 Matrix GCD
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We can apply unimodular transformation to any matrix to obtain its matrix
  GCD.
 \end_layout
@@ -1028,13 +1029,18 @@ relatively row prime
  is defined in the same way.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Note that this specializes to polynomial GCD when 
 \begin_inset Formula $m=1$
 \end_inset
 
 .
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

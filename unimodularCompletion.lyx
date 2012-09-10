@@ -2742,6 +2742,30 @@ reference "lem:generalNullspaceBasisDegreeBound"
  in the reverse direction.
 \end_layout
 
+\begin_layout Standard
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:nullspaceBasisInOrderBasis"
+
+\end_inset
+
+, we know that any 
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\end_inset
+
+-basis contains a 
+\begin_inset Formula $\left(\mathbf{M}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis whose 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees bounded by 0.
+\begin_inset Note Note
+status collapsed
+
 \begin_layout Lemma
 \begin_inset CommandInset label
 LatexCommand label
@@ -2863,6 +2887,15 @@ reference "lem:orderBasisContainsNullspaceBasis"
 -nullspace basis.
 \end_layout
 
+\end_inset
+
+ The following lemma shows that the remaining part of the 
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\end_inset
+
+-basis has degrees bounded by 1.
+\end_layout
+
 \begin_layout Lemma
 \begin_inset CommandInset label
 LatexCommand label
@@ -2908,14 +2941,7 @@ Let
 \end_layout
 
 \begin_layout Proof
-From 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:nullspaceBasisOrderBasisContainsNullspaceBasis"
-
-\end_inset
-
-, 
+We already know that 
 \begin_inset Formula $\mathbf{P}$
 \end_inset
 
@@ -3238,7 +3264,12 @@ We are now ready to look at the computation of a
 \end_inset
 
 -basis.
- Since 
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Since 
 \begin_inset Formula $\sum\cdeg_{\vec{s}}\mathbf{M}=\sum\vec{b}\le\sum\vec{s}\le\xi$
 \end_inset
 
@@ -3268,6 +3299,18 @@ We are now ready to look at the computation of a
 
  is the row dimension of 
 \begin_inset Formula $\mathbf{M}^{T}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ We follow the same process as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:computeRightFactor"
+
 \end_inset
 
 .
@@ -4702,6 +4745,18 @@ reference "thm:multiplyUnbalancedMatrices"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Theorem
+A unimodular completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ field operations.
 \end_layout
 
 \end_body

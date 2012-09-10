@@ -622,7 +622,7 @@ status collapsed
 
 \end_layout
 
-\begin_layout Proof
+\begin_layout Standard
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:matrixGCD"
@@ -1530,7 +1530,11 @@ Let
 \begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis.
+-nullspace basis whose 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees are bounded by 0.
  Let 
 \begin_inset Formula $\mathbf{Q}_{1}$
 \end_inset
@@ -1552,7 +1556,11 @@ Let
 \begin_inset Formula $\mathbf{Q}_{2}$
 \end_inset
 
-.
+ whose 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees are bounded by 0.
  The product 
 \begin_inset Formula $\mathbf{Q}_{1}\mathbf{Q}_{2}$
 \end_inset
@@ -1573,7 +1581,11 @@ To see that a
 \begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis, we just need to show that 
+-nullspace basis whose 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees are bounded by 0, we just need to show that 
 \begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{\bar{Q}}_{1}\le0$
 \end_inset
 
@@ -1654,7 +1666,11 @@ As before, to see that a
 \begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},-\vec{s}_{2}\right)$
 \end_inset
 
--nullspace basis, we just need to show 
+-nullspace basis whose 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees are bounded by 0, we just need to show 
 \begin_inset Formula $\rdeg_{-\vec{s}_{2}}\hat{\mathbf{Q}}_{2}\le0$
 \end_inset
 
@@ -1733,7 +1749,41 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \end_layout
 
 \begin_layout Standard
-We assume without loss of generality that the rows of 
+Let 
+\begin_inset Formula $k$
+\end_inset
+
+ be the column dimension of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\sum\cdeg_{\vec{s}}\mathbf{N}=\sum\vec{b}\le\sum\vec{s}\le\xi$
+\end_inset
+
+, at most 
+\begin_inset Formula $k/c$
+\end_inset
+
+ columns of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ have 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees greater than or equal to 
+\begin_inset Formula $c\xi/k$
+\end_inset
+
+ for any 
+\begin_inset Formula $c\ge1$
+\end_inset
+
+.
+ We assume without loss of generality that the rows of 
 \begin_inset Formula $\mathbf{N}^{T}$
 \end_inset
 
@@ -2364,6 +2414,12 @@ reference "lem:predictableDegree"
 \end_layout
 
 \begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:GCDDegreeBoundByInputDegrees"
+
+\end_inset
+
 Let 
 \begin_inset Formula $\vec{t}=-\rdeg_{-\vec{s}}\mathbf{G}$
 \end_inset
@@ -2610,7 +2666,11 @@ Any
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--nullspace basis.
+-nullspace basis whose 
+\begin_inset Formula $-\vec{t}'$
+\end_inset
+
+-row degrees are bounded by 0.
 \end_layout
 
 \begin_layout Proof
@@ -2639,7 +2699,7 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 .
 \end_layout
 
-\begin_layout Proof
+\begin_layout Standard
 Now to compute 
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
 \end_inset
@@ -2663,7 +2723,7 @@ reference "sec:computeRightFactor"
  
 \end_layout
 
-\begin_layout Proof
+\begin_layout Standard
 With a 
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
 \end_inset
@@ -2687,6 +2747,12 @@ With a
 \end_layout
 
 \begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:GCDCost1"
+
+\end_inset
+
 A GCD 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
@@ -2696,7 +2762,7 @@ A GCD
 \end_inset
 
  can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
 \end_inset
 
 .
@@ -2797,6 +2863,179 @@ This can be done by computing a left
 .
  
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+A Simple Improvement
+\end_layout
+
+\begin_layout Standard
+When the input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has column dimension much larger 
+\begin_inset Formula $n$
+\end_inset
+
+ than the row dimension 
+\begin_inset Formula $m$
+\end_inset
+
+, we can separate 
+\begin_inset Formula $\mathbf{F}=\left[\mathbf{F}_{1},\mathbf{F}_{2},\dots,\mathbf{F}_{n/m}\right]$
+\end_inset
+
+ to 
+\begin_inset Formula $n/m$
+\end_inset
+
+ blocks, each with dimension 
+\begin_inset Formula $m\times m$
+\end_inset
+
+, assuming without loss of generality 
+\begin_inset Formula $n$
+\end_inset
+
+ is a multiple of 
+\begin_inset Formula $m$
+\end_inset
+
+, and the columns are arranged in increasing degrees.
+ We then do a series of GCD computations.
+ First we compute a GCD 
+\begin_inset Formula $\mathbf{T}_{1}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{F}_{1},\mathbf{F}_{2}\right]$
+\end_inset
+
+.
+ Then compute a GCD 
+\begin_inset Formula $\mathbf{T}_{2}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{T}_{1},\mathbf{F}_{3}\right]$
+\end_inset
+
+.
+ Repeating this process, at step 
+\begin_inset Formula $i$
+\end_inset
+
+, we compute a GCD 
+\begin_inset Formula $\mathbf{T}_{i}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{T}_{i-1},\mathbf{F}_{i+1}\right]$
+\end_inset
+
+, until 
+\begin_inset Formula $i=n/m-1$
+\end_inset
+
+, when a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is computed.
+\end_layout
+
+\begin_layout Lemma
+At step 
+\begin_inset Formula $i$
+\end_inset
+
+, computing a GCD 
+\begin_inset Formula $\mathbf{T}_{i}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{T}_{i-1},\mathbf{F}_{i+1}\right]$
+\end_inset
+
+ costs 
+\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\left(\sum\cdeg\mathbf{F}_{i}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:GCDDegreeBoundByInputDegrees"
+
+\end_inset
+
+, the GCD 
+\begin_inset Formula $\mathbf{T}_{i-1}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{F}_{1},\dots,\mathbf{F}_{i}\right]$
+\end_inset
+
+ has column degrees bounded by the largest column degrees of 
+\begin_inset Formula $\mathbf{F}_{i}$
+\end_inset
+
+, hence 
+\begin_inset Formula $\sum\cdeg\mathbf{T}_{i-1}\le\sum\cdeg\mathbf{F}_{i}$
+\end_inset
+
+.
+ The lemma then follows by combining this with the result that a GCD 
+\begin_inset Formula $\mathbf{T}_{i}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{T}_{i-1},\mathbf{F}_{i+1}\right]$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\left(\sum\cdeg\mathbf{T}_{i-1}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)$
+\end_inset
+
+ from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:GCDCost1"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Theorem
+A GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\xi\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Summing up the cost of all the GCD computations, 
+\begin_inset Formula 
+\begin{eqnarray*}
+ &  & \sum_{i=1}^{n/m-1}O^{\sim}\left(m^{\omega-1}\left(\sum\cdeg\mathbf{F}_{i}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)\\
+ & \subset & O^{\sim}\left(m^{\omega-1}\left(2\sum\cdeg\mathbf{F}\right)\right)\\
+ & = & O^{\sim}\left(m^{\omega-1}\xi\right)
+\end{eqnarray*}
 
 \end_inset
 

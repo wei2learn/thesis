@@ -733,6 +733,12 @@ reference "thm:balancedCost"
 \end_layout
 
 \begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:orderBasisCostCeilingRemoved"
+
+\end_inset
+
 When 
 \begin_inset Formula $m\sigma\in o(n)$
 \end_inset
@@ -756,7 +762,7 @@ When
 .
  
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Should easily work for the second unbalanced case as well.
