@@ -160,6 +160,7 @@ plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis
 \DeclareMathOperator{\rev}{rev}
 \DeclareMathOperator{\colRev}{colRev}
 \DeclareMathOperator{\rowRev}{rowRev}
+\DeclareMathOperator{\unimodularCompletion}{unimodularCompletion}
 \def\mab{\qopname\relax n{OrderBasis}}
 \def\mnbr{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
 \def\mmab{\qopname\relax n{FastBasis}}
@@ -1631,7 +1632,7 @@ filename "nullspaceBasisApplications.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "unimodularCompletion.lyx"
+filename "matrixGCD.lyx"
 
 \end_inset
 
@@ -1641,7 +1642,7 @@ filename "unimodularCompletion.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "matrixGCD.lyx"
+filename "unimodularCompletion.lyx"
 
 \end_inset
 
@@ -1662,6 +1663,26 @@ filename "determinant.lyx"
 \begin_inset CommandInset include
 LatexCommand input
 filename "hermiteForm.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "rank.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "rankSensitive.lyx"
 
 \end_inset
 

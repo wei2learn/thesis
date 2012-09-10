@@ -132,22 +132,22 @@ Comparing
 \begin_inset space ~
 \end_inset
 
-List For two lists 
-\begin_inset Formula $a=\left[a_{1},\dots,a_{n}\right]$
+Lists For two lists 
+\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
 \end_inset
 
  and 
-\begin_inset Formula $b=\left[b_{1},\dots,b_{n}\right]$
+\begin_inset Formula $\vec{b}=\left[b_{1},\dots,b_{n}\right]\in\mathbb{Z}^{n}$
 \end_inset
 
 , we write
 \begin_inset Formula 
 \[
 \begin{cases}
-a\ge b & \mbox{if }a_{i}\ge b_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
-a\le b & \mbox{if }a_{i}\le b_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
-a>b & \mbox{if }a\ge b\mbox{ and }a_{j}>b_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
-a<b & \mbox{if }a\le b\mbox{ and }a_{j}<b_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
+\vec{a}\ge\vec{b} & \mbox{if }a_{i}\ge b_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+\vec{a}\le\vec{b} & \mbox{if }a_{i}\le b_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+\vec{a}>\vec{b} & \mbox{if }\vec{a}\ge\vec{b}\mbox{ and }a_{j}>b_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
+\vec{a}<\vec{b} & \mbox{if }\vec{a}\le\vec{b}\mbox{ and }a_{j}<b_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
 \end{cases}
 \]
 
@@ -165,28 +165,28 @@ Unordered
 \begin_inset space ~
 \end_inset
 
-List For two lists 
-\begin_inset Formula $a$
+Lists For two lists 
+\begin_inset Formula $\vec{a}\in\mathbb{Z}^{n}$
 \end_inset
 
  and 
-\begin_inset Formula $b$
+\begin_inset Formula $\vec{b}\in\mathbb{Z}^{n}$
 \end_inset
 
 , let 
-\begin_inset Formula $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]$
+\begin_inset Formula $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]\in\mathbb{Z}^{n}$
 \end_inset
 
  and 
-\begin_inset Formula $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]$
+\begin_inset Formula $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]\in\mathbb{Z}^{n}$
 \end_inset
 
  be the lists consists of the entries of 
-\begin_inset Formula $a$
+\begin_inset Formula $\vec{a}$
 \end_inset
 
  and 
-\begin_inset Formula $b$
+\begin_inset Formula $\vec{b}$
 \end_inset
 
  but sorted in increasing order.
@@ -194,10 +194,10 @@ List For two lists
 \begin_inset Formula 
 \[
 \begin{cases}
-a\succeq b & \mbox{if }\bar{a}_{i}\ge\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
-a\preceq b & \mbox{if }\bar{a}_{i}\le\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
-a\succ b & \mbox{if }a\succeq b\mbox{ and }\bar{a}_{j}>\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
-a\prec b & \mbox{if }a\preceq b\mbox{ and }\bar{a}_{j}<\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
+\vec{a}\succeq\vec{b} & \mbox{if }\bar{a}_{i}\ge\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+a\preceq\vec{b} & \mbox{if }\bar{a}_{i}\le\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+\vec{a}\succ\vec{b} & \mbox{if }\vec{a}\succeq\vec{b}\mbox{ and }\bar{a}_{j}>\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
+\vec{a}\prec\vec{b} & \mbox{if }\vec{a}\preceq\vec{b}\mbox{ and }\bar{a}_{j}<\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
 \end{cases}
 \]
 
@@ -212,11 +212,11 @@ Summation
 \end_inset
 
 Notation For a list 
-\begin_inset Formula $a=\left[a_{1},\dots,a_{n}\right]$
+\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
 \end_inset
 
 , we write 
-\begin_inset Formula $\sum a$
+\begin_inset Formula $\sum\vec{a}$
 \end_inset
 
  without index to denote the summation of all entries in 
@@ -225,6 +225,86 @@ Notation For a list
 
 .
  
+\end_layout
+
+\begin_layout Description
+Uniformly
+\begin_inset space ~
+\end_inset
+
+Shift
+\begin_inset space ~
+\end_inset
+
+a
+\begin_inset space ~
+\end_inset
+
+List For a list 
+\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $c\in\mathbb{Z}$
+\end_inset
+
+, we write 
+\begin_inset Formula $\vec{a}+c$
+\end_inset
+
+ to denote 
+\begin_inset Formula $\vec{a}+\left[c,\dots,c\right]=\left[a_{1}+c,\dots,a_{n}+c\right]$
+\end_inset
+
+, and similarly for 
+\begin_inset Formula $=$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+Compare
+\begin_inset space ~
+\end_inset
+
+a
+\begin_inset space ~
+\end_inset
+
+List
+\begin_inset space ~
+\end_inset
+
+with
+\begin_inset space ~
+\end_inset
+
+a
+\begin_inset space ~
+\end_inset
+
+Integer For a list 
+\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $c\in\mathbb{Z}$
+\end_inset
+
+, we write 
+\begin_inset Formula $\vec{a}<c$
+\end_inset
+
+ to denote 
+\begin_inset Formula $\vec{a}<\left[c,\dots,c\right]$
+\end_inset
+
+, and similarly for 
+\begin_inset Formula $>,\le,\ge,=$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section

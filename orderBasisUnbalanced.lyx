@@ -147,7 +147,7 @@ reference "alg:mab"
  as stated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:size"
+reference "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 
 \end_inset
 
@@ -159,7 +159,7 @@ reference "lem:size"
  Recall that 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:size"
+reference "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 
 \end_inset
 
@@ -236,7 +236,7 @@ We first consider the case where the input shift
 As before, we may use the equivalent condition
 \begin_inset Formula 
 \begin{equation}
-\vec{s}\ge0\mbox{ and }\sum_{i}^{n}\vec{s}_{i}\in O(m\sigma),\label{con:unbalanced1}
+\vec{s}\ge0\mbox{ and }\sum\vec{s}\in O(m\sigma),\label{con:unbalanced1}
 \end{equation}
 
 \end_inset
@@ -286,7 +286,7 @@ reference "con:unbalanced1"
 From 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:size"
+reference "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 
 \end_inset
 
@@ -351,7 +351,7 @@ We now look at another important case of unbalanced shift -- when the input
  For simplicity, we use the equivalent condition 
 \begin_inset Formula 
 \begin{equation}
-\vec{s}\le0\mbox{ and }\sum_{i}-\vec{s}_{i}\le m\sigma,\label{con:unbalancedCondition}
+\vec{s}\le0\mbox{ and }-\sum\vec{s}\le m\sigma,\label{con:unbalancedCondition}
 \end{equation}
 
 \end_inset

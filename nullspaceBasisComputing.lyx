@@ -356,14 +356,28 @@ reference "lem:boundOnShiftedDegrees"
 
 \end_inset
 
- Here, and in the rest of this paper, we use the summation notation 
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Here, and in the rest of this thesis, we use the summation notation 
 \begin_inset Formula $\sum$
 \end_inset
 
  without index to denote the summation over all elements of the list.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 The following lemma gives a bound on the 
 \begin_inset Formula $\vec{s}$
 \end_inset
@@ -375,68 +389,9 @@ The following lemma gives a bound on the
 -bases.
 \end_layout
 
-\begin_layout Lemma
-\begin_inset CommandInset label
-LatexCommand label
-name "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
-
 \end_inset
 
-The sum of the 
-\begin_inset Formula $\vec{s}$
-\end_inset
 
--column degrees of an 
-\begin_inset Formula $(\mathbf{F},\sigma,\vec{s})$
-\end_inset
-
--basis 
-\begin_inset Formula $\mathbf{P}$
-\end_inset
-
- is at most 
-\begin_inset Formula $\xi+r\sigma$
-\end_inset
-
-, where 
-\begin_inset Formula $r$
-\end_inset
-
- is the rank of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Proof
-The sum of the 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column degrees is 
-\begin_inset Formula $\xi$
-\end_inset
-
- at order 0, since the identity matrix is a 
-\begin_inset Formula $\left(\mathbf{F},0,\vec{s}\right)$
-\end_inset
-
--basis.
- This sum increases by at most 
-\begin_inset Formula $r$
-\end_inset
-
- for each order increase, as can be seen from the iterative computation
- of order bases in 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "BeLa94,Giorgi2003"
-
-\end_inset
-
-.
- 
 \end_layout
 
 \begin_layout Standard

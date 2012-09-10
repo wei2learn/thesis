@@ -86,11 +86,229 @@ In this Chapter, we consider the problem of computing a matrix GCD of an
 
 .
  An efficient way of computing matrix GCD immediately leads to efficient
- computations of column reduced form, and Popov form.
+ computations of column reduced forms and Popov forms of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Note that the existing algorithms from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Giorgi2003"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "GSSV2012"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "SS2011"
+
+\end_inset
+
+ require that the input matrices to be square nonsingular or full-column
+ rank.
+\end_layout
+
+\begin_layout Standard
+As a generalization of polynomial GCDs, a matrix GCLD 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+ is a 
+\emph on
+greatest
+\emph default
+ common left divisor of the input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ As in the dimension 1 polynomial case, it is the greatest in the sense
+ that the remaining factor 
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{r\times n}$
+\end_inset
+
+ satisfying 
+\series bold
+
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+ 
+\series default
+has no other left factors except for the unimodular ones, and this just
+ requires 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ to be full column rank.
+\end_layout
+
+\begin_layout Definition
+Given 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+.
+ A 
+\emph on
+GCLD (also called column GCD
+\emph default
+ or 
+\emph on
+a left GCD)
+\emph default
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is any full column rank 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\left[\mathbf{T},0\right]
+\]
+
+\end_inset
+
+ with a unimodular matrix 
+\begin_inset Formula $\mathbf{U}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+If 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is unimodular, we say 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is 
+\emph on
+relatively column prime
+\emph default
+.
+ 
+\end_layout
+
+\end_inset
+
+The 
+\emph on
+GCRD (also called right GCD or row GCD)
+\emph default
+ or 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+, and 
+\emph on
+relatively row prime
+\emph default
+ are
+\end_layout
+
+\end_inset
+
+ is defined in the same way.
+\end_layout
+
+\begin_layout Standard
+Note that the term column GCD means that the GCD is a factor of the columns,
+ while left GCD means that a GCD is a left factor.
+ Also note that this specializes to polynomial GCD when 
+\begin_inset Formula $m=1$
+\end_inset
+
+.
  
 \end_layout
 
 \begin_layout Standard
+GCLD is closely related to column reduced form.
+ The non-zero columns of a column reduced form is also a GCLD, but a GCLD
+ does not need to be column reduced and can have degree arbitrarily large.
+\end_layout
+
+\begin_layout Standard
+We always work with GCLDs in this thesis, and therefore matrix GCDs in this
+ thesis are always GCLDs.
+\end_layout
+
+\begin_layout Remark
+A matrix GCD is commonly defined using two polynomial matrices 
+\begin_inset Formula $\mathbf{F}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}_{2}$
+\end_inset
+
+, with 
+\begin_inset Formula $\mathbf{F}_{1}$
+\end_inset
+
+ required to be square nonsingular.
+ A GCD of 
+\begin_inset Formula $\mathbf{F}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}_{2}$
+\end_inset
+
+ in this definition is then the same as a GCD of 
+\begin_inset Formula $\mathbf{F}=\left[\mathbf{F}_{1},\mathbf{F}_{2}\right]$
+\end_inset
+
+ in our definition.
+ We believe that this common definition is unnecessarily complicated with
+ the separation of two matrices and unnecessarily restrictive with the requireme
+nt of a square nonsingular matrix.
+ Our definition is simpler, more general and works for matrices of any dimension
+s.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The GCD computation algorithm we present in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Matrix-GCD"
+
+\end_inset
+
+ also works for our more general definition.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 For simplicity, let us assume 
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
@@ -108,12 +326,17 @@ key "storjohann-villard:2005"
 \end_inset
 
 .
- To compute a GCD of 
+ 
+\end_layout
+
+\end_inset
+
+To compute a GCD of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
 , we use the following procedure.
- Let us first compute a right 
+ We first compute a right 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -126,7 +349,7 @@ key "storjohann-villard:2005"
 \end_inset
 
 .
- Then if we compute a left 
+ Then we compute a left 
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
@@ -138,7 +361,7 @@ key "storjohann-villard:2005"
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
-, we know that 
+, this matrix 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -152,15 +375,15 @@ key "storjohann-villard:2005"
 \end_inset
 
  for some 
-\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times m}$
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
 \end_inset
 
 .
- Now we claim that 
+ Then we can compute the left factor 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
- is a GCD of 
+, which is in fact a GCD of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -168,6 +391,12 @@ key "storjohann-villard:2005"
 \end_layout
 
 \begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:matrixGCD"
+
+\end_inset
+
 Given 
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
@@ -176,7 +405,17 @@ Given
 \begin_inset Formula $n>m$
 \end_inset
 
- and has full row rank.
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+ and has full row rank
+\end_layout
+
+\end_inset
+
+.
  Let 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
@@ -190,7 +429,7 @@ Given
 \end_inset
 
 , and 
-\begin_inset Formula $\mathbf{G}$
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{r\times n}$
 \end_inset
 
  be a left 
@@ -207,7 +446,7 @@ Given
 \end_inset
 
  for some 
-\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times m}$
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
 \end_inset
 
  and 
@@ -282,6 +521,15 @@ Consider unimodularly transforming
 \end_inset
 
 .
+ Note that 
+\begin_inset Formula $\mathbf{TGM}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
  To show that 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
@@ -315,7 +563,7 @@ reference "eq:columnReduction"
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
- is generated by the rows of  
+ is generated by the rows of 
 \begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
 \end_inset
 
@@ -324,7 +572,11 @@ reference "eq:columnReduction"
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
- is a minimal nullspace basis, then 
+ is a nullspace basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, and its right factor 
 \family roman
 \series medium
 \shape up
@@ -340,7 +592,11 @@ reference "eq:columnReduction"
 \begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
 \end_inset
 
- must also be a minimal nullspace basis and 
+ must also be a nullspace basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, hence 
 \begin_inset Formula $\mathbf{H}$
 \end_inset
 
@@ -366,106 +622,388 @@ status collapsed
 
 \end_layout
 
-\begin_layout Standard
-We know that the right factor 
-\begin_inset Formula $\mathbf{G}$
+\begin_layout Proof
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:matrixGCD"
+
 \end_inset
 
- of 
+ outlines a procedure for computing a GCD of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- can be computed efficiently using our nullspace basis algorithm and from
- 
+ with three main steps.
+ The first step is to compute a 
+\begin_inset Formula $\left(\mathbf{F},\vec{s}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, which can be efficiently done using 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "chap:Unimodular-Completion"
+reference "alg:minimalNullspaceBasis"
 
 \end_inset
 
 .
- But We still need to compute a left factor 
+ But we still need to work on the second step of computing a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{G}^{T}$
+\end_inset
+
+ and the third step of computing the GCD 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
  from 
-\begin_inset Formula $\mathbf{G}$
-\end_inset
-
- and 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
-.
- 
-\end_layout
-
-\begin_layout Standard
-Let 
-\begin_inset Formula $\vec{t}=-\rdeg_{-\vec{s}}\mathbf{G}$
-\end_inset
-
-.
- Note that 
-\begin_inset Formula $\vec{t}$
-\end_inset
-
- is bounded by the largest entries of 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
-, with 
-\begin_inset Formula $\vec{t}$
-\end_inset
-
- being the largest when 
+ and 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
- has the lowest possible degrees, as in an identity matrix.
- Then from 
+.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:computeRightFactor"
+
+\end_inset
+
+Computing a Right Factor
+\end_layout
+
+\begin_layout Standard
+First let us look at the computation of a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{G}^{T}$
+\end_inset
+
+.
+ Comparing to the nullspace basis computation problem we have previous considere
+d, the difficulty here is that the input matrix 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ has nonuniform row degrees and negative shift.
+ However, we know that the size of the output nullspace basis 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is bounded by that of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which allows us to use order basis computation to compute a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis.
+ But first, let us look at a relationship between order bases and nullspace
+ bases more closely.
+ The following is an extension of 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:predictableDegree"
+reference "lem:orderBasisContainsNullspaceBasis"
 
 \end_inset
 
- the factor 
-\begin_inset Formula $\mathbf{T}$
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:orderbasisContainsNullspacebasisGeneralized"
+
 \end_inset
 
- satisfying 
-\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+Given a matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- has column degrees bounded by 
-\begin_inset Formula $\vec{t}$
+ and a degree shift 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+ with 
+\begin_inset Formula $\rdeg_{\vec{u}}\mathbf{A}\le\vec{v}$
+\end_inset
+
+, or equivalently, 
+\begin_inset Formula $\cdeg_{-\vec{v}}\mathbf{A}\le-\vec{u}$
 \end_inset
 
 .
  Let 
-\begin_inset Formula $\vec{t}'=\left[0,\dots,0,\vec{t}\right]$
+\begin_inset Formula $\mathbf{P}=\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]$
+\end_inset
+
+ be any 
+\begin_inset Formula $\left(\mathbf{A},\vec{v}+\left[1,\dots,1\right],-\vec{u}\right)$
+\end_inset
+
+-basis and 
+\begin_inset Formula $\mathbf{Q}=\left[\mathbf{Q}_{1},\mathbf{Q}_{2}\right]$
+\end_inset
+
+ be any 
+\begin_inset Formula $(\mathbf{A},-\vec{u})$
+\end_inset
+
+-nullspace basis, where 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{Q}_{1}$
+\end_inset
+
+ contain all columns from 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+, respectively, whose 
+\begin_inset Formula $-\vec{u}$
+\end_inset
+
+-column degrees are no more than 
+\begin_inset Formula $0$
 \end_inset
 
 .
- We can then compute a 
-\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
+ Then 
+\begin_inset Formula $\left[\mathbf{P}_{1},\mathbf{Q}_{2}\right]$
 \end_inset
 
--basis, which would contain a 
-\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+ is an 
+\begin_inset Formula $(\mathbf{A},-\vec{u})$
 \end_inset
 
--nullspace basis 
-\begin_inset Formula $\left[V,\bar{\mathbf{T}}^{T}\right]^{T}$
+-nullspace basis, and 
+\begin_inset Formula $\left[\mathbf{Q}_{1},\mathbf{P}_{2}\right]$
 \end_inset
 
-, with a unimodular matrix 
-\begin_inset Formula $V$
+ is an 
+\begin_inset Formula $\left(\mathbf{A},\vec{v}+\left[1,\dots,1\right],-\vec{u}\right)$
 \end_inset
 
- and a GCD 
-\begin_inset Formula $\bar{\mathbf{T}}=\mathbf{T}V$
+-basis.
+\end_layout
+
+\begin_layout Proof
+We know 
+\begin_inset Formula $\cdeg_{-\vec{v}}\mathbf{A}\mathbf{P}_{1}\le\cdeg_{-\vec{u}}\mathbf{P}_{1}\le0$
+\end_inset
+
+, or equivalently, 
+\begin_inset Formula $\rdeg\mathbf{A}\mathbf{P}_{1}\le\vec{v}$
+\end_inset
+
+, but it has order greater than 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+, hence 
+\begin_inset Formula $\mathbf{A}\mathbf{P}_{1}=0$
+\end_inset
+
+.
+ The result then follows the same reasoning as in the proof of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderBasisContainsNullspaceBasis"
+
+\end_inset
+
+.
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+We know 
+\begin_inset Formula $\cdeg\mathbf{P}_{1}^{T}\le\vec{u}$
+\end_inset
+
+ from 
+\begin_inset Formula $\cdeg_{-\vec{u}}\mathbf{P}_{1}\le0$
+\end_inset
+
+, hence 
+\begin_inset Formula $\cdeg\mathbf{P}_{1}^{T}\mathbf{A}^{T}\le\cdeg_{\vec{u}}\mathbf{A}^{T}$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:boundOnDegreesOfFA"
+
+\end_inset
+
+.
+ Now for each row 
+\begin_inset Formula $\mathbf{a}_{i}$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and its 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degree 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, we have 
+\begin_inset Formula 
+\[
+\rdeg\mathbf{a}_{i}\mathbf{P}_{1}=\cdeg\mathbf{P}_{1}^{T}\mathbf{a}_{i}^{T}\le\cdeg_{\vec{u}}\mathbf{a}_{i}^{T}=v_{i},
+\]
+
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}_{i}\mathbf{P}_{1}\equiv0\mod x^{v_{i}+1}$
+\end_inset
+
+, hence 
+\begin_inset Formula $\mathbf{A}\mathbf{P}_{1}=0$
+\end_inset
+
+.
+ The result then follows the same reasoning as in the proof of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderBasisContainsNullspaceBasis"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now with the help of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderbasisContainsNullspacebasisGeneralized"
+
+\end_inset
+
+, let us get back to our problem of computing a a 
+\begin_inset Formula $(\mathbf{F},\vec{s})$
+\end_inset
+
+-nullspace basis.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ embedding the reversed 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ in an order basis of a nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ In fact, we just need to use a special case of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderbasisContainsNullspacebasisGeneralized"
+
+\end_inset
+
+, where all the elements of the nullspace basis have shifted degrees bounded
+ by 
+\begin_inset Formula $0$
+\end_inset
+
+, making the partial nullspace basis a complete nullspace basis
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+, which follows from our requirement of using a shift 
+\begin_inset Formula $\vec{s}\ge\cdeg\mathbf{F}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:nullspaceBasisInOrderBasis"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ be a 
+\begin_inset Formula $(\mathbf{F},\vec{s})$
+\end_inset
+
+-nullspace basis with 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{N}=\vec{b}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{P}=\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]$
+\end_inset
+
+ be a 
+\begin_inset Formula $\left(\mathbf{N}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\end_inset
+
+-basis, where 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ consists of all columns 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ with 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{p}\le0$
 \end_inset
 
 .
@@ -474,8 +1012,12 @@ reference "lem:predictableDegree"
 status collapsed
 
 \begin_layout Plain Layout
-Then 
-\begin_inset Formula $\rdeg_{-\vec{s}}\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}\le\left[0,\dots,0,-\vec{t}\right]$
+of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{N}^{T}\mathbf{p}=0$
 \end_inset
 
 .
@@ -484,7 +1026,1680 @@ Then
 
 \end_inset
 
+Then 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
 
+ is a 
+\begin_inset Formula $(\mathbf{N}^{T},-\vec{s})$
+\end_inset
+
+-nullspace basis.
+ 
+\end_layout
+
+\begin_layout Proof
+Let the rank of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ be 
+\begin_inset Formula $r$
+\end_inset
+
+, which is also the column dimension of any 
+\begin_inset Formula $(\mathbf{N}^{T},-\vec{s})$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{G}^{T}$
+\end_inset
+
+.
+ Since both 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ are in the left nullspace of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, we know 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is generated by 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+, and the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ are bounded by the corresponding 
+\begin_inset Formula $r$
+\end_inset
+
+ largest 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which are in turn bounded by 
+\begin_inset Formula $0$
+\end_inset
+
+ since 
+\begin_inset Formula $\cdeg\mathbf{F}\le\vec{s}$
+\end_inset
+
+.
+ Therefore, any 
+\begin_inset Formula $(\mathbf{N}^{T},-\vec{s})$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{G}^{T}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{G}^{T}\le0$
+\end_inset
+
+.
+ The result now follows from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderbasisContainsNullspacebasisGeneralized"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:continueComputingNullspaceBasisByRows"
+
+\end_inset
+
+ to compute a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis by rows.
+ If we separate 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{N}=\left[\mathbf{N}_{1},\mathbf{N}_{2}\right]$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{b}_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $\vec{b}_{2}$
+\end_inset
+
+ respectively, and first compute a 
+\begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{Q}_{1}$
+\end_inset
+
+ with 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $-\vec{s}_{2}$
+\end_inset
+
+, and then compute a 
+\begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},-\vec{s}_{2}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{Q}_{2}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{Q}_{1}\mathbf{Q}_{2}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis.
+ To compute nullspace bases 
+\begin_inset Formula $\mathbf{Q}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{Q}_{2}$
+\end_inset
+
+, we can use order basis computation, but we need to make sure that the
+ order bases we compute do contain the the nullspace bases.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ We can use the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+ for the order in the order computation.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:orderBasisContainsNullspaceBasis-1"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\vec{b}=\cdeg_{\vec{s}}\mathbf{N}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{P}=\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]$
+\end_inset
+
+ be any 
+\begin_inset Formula $\left(\mathbf{N}^{T},\vec{b}+1,-\vec{s}\right)$
+\end_inset
+
+-basis, where 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ contains all columns from 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ whose 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees no more than 
+\begin_inset Formula $0$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ and 
+\begin_inset Formula $\mathbf{G}^{T}$
+\end_inset
+
+ be any 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-basis nullspace basis
+\end_layout
+
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $\mathbf{G}^{T}$
+\end_inset
+
+ be any 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis.
+ First note that 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has the same rank as 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ and is generated by the rows of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+, which is 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row reduced, hence 
+\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{G}\le\rdeg_{-\vec{s}}\mathbf{F}$
+\end_inset
+
+, and 
+\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{F}\le0$
+\end_inset
+
+ since 
+\begin_inset Formula $\cdeg\mathbf{F}\le\vec{s}$
+\end_inset
+
+.
+ This gives 
+\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{G}\le0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+Now the proof is similar to 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderBasisContainsNullspaceBasis"
+
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\cdeg_{-\vec{b}}\mathbf{N}^{T}\le-\vec{s}$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnDegreesRowDegreesSymmetry"
+
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:productDegreeBound"
+
+\end_inset
+
+, any column 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\cdeg_{-\vec{b}}\mathbf{N}^{T}\mathbf{p}\le\cdeg_{-\vec{s}}\mathbf{p}\le0$
+\end_inset
+
+, or equivalently, 
+\begin_inset Formula $\rdeg\mathbf{N}^{T}\mathbf{p}\le\vec{b}$
+\end_inset
+
+.
+ Combining this with the fact that 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ has order 
+\begin_inset Formula $\vec{b}+1$
+\end_inset
+
+ we get 
+\begin_inset Formula $\mathbf{N}^{T}\mathbf{p}=0$
+\end_inset
+
+.
+ Thus 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ is generated by 
+\begin_inset Formula $\mathbf{G}^{T}$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{P}_{1}=\mathbf{G}^{T}\mathbf{U}$
+\end_inset
+
+ for some polynomial matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ On the other hand, 
+\begin_inset Formula $\mathbf{G}^{T}$
+\end_inset
+
+ has order 
+\begin_inset Formula $\left(\mathbf{N}^{T},\vec{b}+1\right)$
+\end_inset
+
+ and 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+is therefore generated by 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+, i.e.
+ 
+\end_layout
+
+\end_inset
+
+ therefore satisfies 
+\begin_inset Formula $\mathbf{G}^{T}=\mathbf{P}_{1}\mathbf{V}$
+\end_inset
+
+ for some polynomial matrix 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+.
+ We now have 
+\begin_inset Formula $\mathbf{P}_{1}=\mathbf{P}_{1}\mathbf{V}\mathbf{U}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}^{T}=\mathbf{G}^{T}\mathbf{U}\mathbf{V}$
+\end_inset
+
+, implying both 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ are unimodular.
+ The result then follows from the unimodular equivalence of 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}^{T}$
+\end_inset
+
+ and the fact that they are 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column reduced.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%reducedness of .
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:nullspaceBasisOfSubsetOfRowsContainedInOrderBasis"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{N}=\left[\mathbf{N}_{1},\mathbf{N}_{2}\right]$
+\end_inset
+
+, with 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{b}_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $\vec{b}_{2}$
+\end_inset
+
+ respectively.
+ Then a 
+\begin_inset Formula $\left(\mathbf{N}_{1}^{T},\vec{b}_{1}+1,-\vec{s}\right)$
+\end_inset
+
+-basis contains a 
+\begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis.
+ Let 
+\begin_inset Formula $\mathbf{Q}_{1}$
+\end_inset
+
+ be this nullspace basis, and 
+\begin_inset Formula $-\vec{s}_{2}=\cdeg_{-\vec{s}}\mathbf{Q}_{1}$
+\end_inset
+
+.
+ Then a 
+\begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},\vec{b}_{2}+1,-\vec{s}_{2}\right)$
+\end_inset
+
+-basis contains a 
+\begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},-\vec{s}_{2}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{Q}_{2}$
+\end_inset
+
+.
+ The product 
+\begin_inset Formula $\mathbf{Q}_{1}\mathbf{Q}_{2}$
+\end_inset
+
+ is then a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis.
+\end_layout
+
+\begin_layout Proof
+To see that a 
+\begin_inset Formula $\left(\mathbf{N}_{1}^{T},\vec{b}_{1}+1,-\vec{s}\right)$
+\end_inset
+
+-basis contains a 
+\begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis, we just need to show that 
+\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{\bar{Q}}_{1}\le0$
+\end_inset
+
+ for any 
+\begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\mathbf{\bar{Q}}_{1}$
+\end_inset
+
+ and then apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderbasisContainsNullspacebasisGeneralized"
+
+\end_inset
+
+.
+ Note that there exists a polynomial matrix 
+\begin_inset Formula $\bar{\mathbf{Q}}_{2}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{\bar{Q}}_{1}\mathbf{\bar{Q}}_{2}=\bar{\mathbf{G}}$
+\end_inset
+
+ for any 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\bar{\mathbf{G}}$
+\end_inset
+
+, as 
+\begin_inset Formula $\bar{\mathbf{G}}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\mathbf{N}_{1}^{T}\bar{\mathbf{G}}=0$
+\end_inset
+
+ and is therefore generated by the 
+\begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\bar{\mathbf{Q}}_{1}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{\bar{Q}}_{1}\nleq0$
+\end_inset
+
+, then 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:predictableDegree"
+
+\end_inset
+
+ forces 
+\begin_inset Formula $\rdeg_{-\vec{s}}\left(\bar{\mathbf{Q}}_{1}\bar{\mathbf{Q}}_{2}\right)=\rdeg_{-\vec{s}}\bar{\mathbf{G}}\nleq0$
+\end_inset
+
+, a contradiction.
+ 
+\end_layout
+
+\begin_layout Proof
+As before, to see that a 
+\begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},\vec{b}_{2}+1,-\vec{s}_{2}\right)$
+\end_inset
+
+-basis contains a 
+\begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},-\vec{s}_{2}\right)$
+\end_inset
+
+-nullspace basis, we just need to show 
+\begin_inset Formula $\rdeg_{-\vec{s}_{2}}\hat{\mathbf{Q}}_{2}\le0$
+\end_inset
+
+ for any 
+\begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},-\vec{s}_{2}\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\hat{\mathbf{Q}}_{2}$
+\end_inset
+
+ and then apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderbasisContainsNullspacebasisGeneralized"
+
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\rdeg_{-\vec{b}_{2}}\mathbf{N}_{2}^{T}\mathbf{Q}_{1}\le-\vec{s}_{2}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\hat{\mathbf{G}}=\mathbf{Q}_{1}\hat{\mathbf{Q}}_{2}$
+\end_inset
+
+, a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis.
+ Note that 
+\begin_inset Formula $\rdeg_{-\vec{s}_{2}}\hat{\mathbf{Q}}_{2}=\rdeg_{-\vec{s}}\mathbf{Q}_{1}\hat{\mathbf{Q}}_{2}=\rdeg_{-\vec{s}}\hat{\mathbf{G}}\le0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Now that we can correctly compute a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis by rows with the help of order basis computation, we need
+ to look at how to do it efficiently.
+ One major difficulty is that the order, or equivalently, the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees are nonuniform and can have degree as large as 
+\begin_inset Formula $\xi=\sum\vec{s}$
+\end_inset
+
+.
+ To overcome this, we separate the rows of 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ to blocks according to their 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees, and then work with these blocks one by one consecutively using
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:continueComputingNullspaceBasisByRows"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+We assume without loss of generality that the rows of 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ are arranged in decreasing 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees.
+ We divide 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ into 
+\begin_inset Formula $\log k$
+\end_inset
+
+ row blocks according to the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees of its rows, or equivalently, divide 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ to blocks of columns according to the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees.
+ Let 
+\begin_inset Formula 
+\[
+\mathbf{N}=\left[\mathbf{N}_{1},\mathbf{N}_{2},\cdots,\mathbf{N}_{\log k-1},\mathbf{N}_{\log k}\right]
+\]
+
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{N}_{1},\mathbf{N}_{2},\cdots,\mathbf{N}_{\log k-1},\mathbf{N}_{\log k}$
+\end_inset
+
+ having 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees in the range 
+\begin_inset Formula $\left[0,2\xi/k\right],(2\xi/k,4\xi/k],(4\xi/k,8\xi/k],...,(\xi/4,\xi/2],(\xi/2,\xi].$
+\end_inset
+
+ Let 
+\begin_inset Formula $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
+\end_inset
+
+ with the same dimension as the row dimension of 
+\begin_inset Formula $\mathbf{N}_{i}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{\sigma}=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]$
+\end_inset
+
+ be the order in the order basis computation.
+\end_layout
+
+\begin_layout Standard
+To further simply our task, we also make the order of our problem in each
+ block uniform.
+ Instead of using 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ as the input matrix, we use 
+\begin_inset Formula 
+\begin{eqnarray*}
+\hat{\mathbf{N}} & =\begin{bmatrix}\hat{\mathbf{N}}_{1}\\
+\vdots\\
+\hat{\mathbf{N}}_{\log k}
+\end{bmatrix}= & x^{\vec{\sigma}-\vec{b}-1}\begin{bmatrix}\mathbf{N}_{1}^{T}\\
+\vdots\\
+\mathbf{N}_{\log k}^{T}
+\end{bmatrix}=x^{\vec{\sigma}-\vec{b}-1}\mathbf{N}^{T}
+\end{eqnarray*}
+
+\end_inset
+
+ instead, so that a 
+\begin_inset Formula $\left(\hat{\mathbf{N}},\vec{\sigma},-\vec{s}\right)$
+\end_inset
+
+-basis is a 
+\begin_inset Formula $\left(\mathbf{N}^{T},\vec{b}+1,-\vec{s}\right)$
+\end_inset
+
+-basis.
+\end_layout
+
+\begin_layout Standard
+We are now ready to compute a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis, which is done by a series of order basis computations
+ that computes a series of nullspace bases as follows.
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\vec{s}_{1}=\vec{s}$
+\end_inset
+
+.
+ First we compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{1},\vec{\sigma}_{1},-\vec{s}_{1}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}_{1}=\left[\mathbf{G}_{1},\mathbf{Q}_{1}\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{1},-\vec{s}_{1}\right)$
+\end_inset
+
+-nullspace basis
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+ with 
+\begin_inset Formula $\cdeg_{-\vec{s}_{1}}\mathbf{N}_{1}\le0$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ This computation can be done using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:umab"
+
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $d=\xi/n$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\tilde{\mathbf{G}}_{1}=\mathbf{G}_{1}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}_{2}=-\cdeg_{-\vec{s}}\mathbf{G}_{1}$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Note that 
+\begin_inset Formula $-\vec{s}_{1}\le-[\vec{s}_{2},\vec{t}_{2}]\le\left[0,\dots,0,1,\dots1\right]$
+\end_inset
+
+ component-wise, since 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ has lower order than any 
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ hence generates 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{P}_{1}\le\cdeg_{-\vec{s}}\mathbf{P}\le\left[0,\dots,0,1,\dots1\right]$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+ We then compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{2}\tilde{\mathbf{G}}_{1},\vec{\sigma}_{2},-\vec{s}_{2}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}_{2}=\left[\mathbf{G}_{2},\mathbf{Q}_{2}\right]$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{s}_{3}=-\cdeg_{-\vec{s}_{2}}\mathbf{G}_{2}$
+\end_inset
+
+ and .
+ Let 
+\begin_inset Formula $\tilde{\mathbf{G}}_{2}=\tilde{\mathbf{G}}_{1}\mathbf{G}_{2}$
+\end_inset
+
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+To compute the product 
+\begin_inset Formula $\hat{\mathbf{M}}_{2}\bar{\mathbf{P}}_{1}$
+\end_inset
+
+, since the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\hat{\mathbf{N}}_{2}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\xi/2$
+\end_inset
+
+ and the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\left[1,\dots,1\right]$
+\end_inset
+
+, we can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}^{T}$
+\end_inset
+
+, which has column degrees bounded by 
+\begin_inset Formula $\vec{s}+\left[1,\dots,1\right]$
+\end_inset
+
+, and 
+\begin_inset Formula $\hat{\mathbf{N}}_{2}^{T}$
+\end_inset
+
+ with the sum of its 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+.
+ Now we can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:umab"
+
+\end_inset
+
+ to compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{2}\bar{\mathbf{P}}_{1},-\vec{t},\vec{\sigma}_{2}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\bar{\mathbf{P}}_{2}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+, since the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+are bounded by that of 
+\begin_inset Formula $\bar{\mathbf{P}}$
+\end_inset
+
+ (since the columns of 
+\begin_inset Formula $\bar{\mathbf{P}}$
+\end_inset
+
+ are generated by 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+), which in turn are bounded by
+\begin_inset Formula $\left[1,\dots,1\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Let 
+\begin_inset Formula $\mathbf{R}_{1}=\left[\mathbf{N}_{1}\mathbf{Q}_{2},\mathbf{Q}_{1}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{R}_{1}^{r}=\revCol\left(\mathbf{R}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}_{1}\right)$
+\end_inset
+
+.
+ Then from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularComputationByRows"
+
+\end_inset
+
+ we know 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{R}_{1}^{r}\right]$
+\end_inset
+
+ is a unimodular matrix.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Continue this process, at step 
+\begin_inset Formula $i$
+\end_inset
+
+, we compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}_{i}=\left[\mathbf{G}_{i},\mathbf{Q}_{i}\right]$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\tilde{\mathbf{G}}_{i}=\prod_{j=1}^{i}\mathbf{G}_{i}=\tilde{\mathbf{G}}_{i-1}\mathbf{G}_{i}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\tilde{\mathbf{G}}_{\log k}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis.
+ 
+\end_layout
+
+\begin_layout Standard
+We still need to check the cost of the multiplications 
+\begin_inset Formula $\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\mathbf{G}}_{i-1}\mathbf{G}_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+The multiplications 
+\begin_inset Formula $\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1}$
+\end_inset
+
+ can be done with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+The dimension of 
+\begin_inset Formula $\hat{\mathbf{N}}_{i}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $2^{i-1}\times n$
+\end_inset
+
+ and 
+\begin_inset Formula $\sum\rdeg_{\vec{s}}\hat{\mathbf{N}}_{i}\le2^{i-1}\cdot\xi/2^{i-1}=\xi$
+\end_inset
+
+.
+ We also have 
+\begin_inset Formula $\cdeg_{-\vec{s}}\tilde{\mathbf{G}}_{i-1}\le0$
+\end_inset
+
+, or equivalently, 
+\begin_inset Formula $\rdeg\tilde{\mathbf{G}}_{i-1}\le\vec{s}$
+\end_inset
+
+.
+ We can now use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\tilde{\mathbf{G}}_{i-1}^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{\mathbf{N}}_{i}^{T}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)=O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+The multiplication 
+\begin_inset Formula $\tilde{\mathbf{G}}_{i-1}\mathbf{G}_{i}$
+\end_inset
+
+ can be done with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We know 
+\begin_inset Formula $\cdeg_{-\vec{s}}\tilde{\mathbf{G}}_{i-1}=-\vec{s}_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula $\cdeg_{-\vec{s}_{i}}\mathbf{G}_{i}=-\vec{s}_{i+1}\le0.$
+\end_inset
+
+ In other words, 
+\begin_inset Formula $\rdeg\mathbf{G}_{i}\le\vec{s}_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula $\rdeg_{\vec{s}_{i}}\tilde{\mathbf{G}}_{i-1}\le\vec{s}$
+\end_inset
+
+, hence we can again use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\mathbf{G}_{i}^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\mathbf{G}}_{i-1}^{T}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Theorem
+A right factor 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{TG}=\mathbf{F}$
+\end_inset
+
+ for a GCD 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)=O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Computing a GCD 
+\end_layout
+
+\begin_layout Standard
+With a right factor 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ computed, we are now ready to compute a GCD 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+.
+ To do so efficiently, the degree of 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ cannot be too big, which is indeed the case as shown by the following lemma.
+\end_layout
+
+\begin_layout Lemma
+The column degrees of 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ are bounded by the corresponding entries of 
+\begin_inset Formula $\vec{t}=-\rdeg_{-\vec{s}}\mathbf{G}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Since 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row reduced, and 
+\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{F}\le0$
+\end_inset
+
+, by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:predictableDegree"
+
+\end_inset
+
+ 
+\begin_inset Formula $\rdeg_{-\vec{t}}\mathbf{T}\le0$
+\end_inset
+
+, or equivalently, 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ has column degrees bounded by 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+Let 
+\begin_inset Formula $\vec{t}=-\rdeg_{-\vec{s}}\mathbf{G}$
+\end_inset
+
+, which has 
+\begin_inset Formula $r$
+\end_inset
+
+ entries.
+ Let 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+ be the list of the 
+\begin_inset Formula $r$
+\end_inset
+
+ largest entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\vec{t}\le\vec{s}'$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ be the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-row Popov form of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+, and the square matrix 
+\begin_inset Formula $\mathbf{G}"$
+\end_inset
+
+ be consists of only the columns of 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ that contains pivot entries, and has the rows permuted so the pivots are
+ in the diagonal.
+ Let 
+\begin_inset Formula $\vec{s}"$
+\end_inset
+
+ be the list of the entries in 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ that correspond to the columns of 
+\begin_inset Formula $\mathbf{G}"$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\rdeg_{-\vec{s}"}\mathbf{G}"=-\vec{t}"$
+\end_inset
+
+ is just a permutation of 
+\begin_inset Formula $-\vec{t}$
+\end_inset
+
+ with the same entries.
+ Note that 
+\begin_inset Formula $-\vec{t}"$
+\end_inset
+
+ is the sum of 
+\begin_inset Formula $-\vec{s}"$
+\end_inset
+
+ and the list of the diagonal pivot degrees, which are nonnegative.
+ Therefore, 
+\begin_inset Formula $-\vec{t}"\ge-\vec{s}"$
+\end_inset
+
+.
+ The result then follows as 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+ is a permutation of 
+\begin_inset Formula $\vec{t}"$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+ has the largest entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+With the bound on the column degrees of 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ determined, we are now ready to compute 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+.
+ This is done again using an order basis computation.
+\end_layout
+
+\begin_layout Lemma
+Let 
+\begin_inset Formula $\vec{t}'=\left[0,\dots,0,\vec{t}\right]\in\mathbb{Z}^{m+r}$
+\end_inset
+
+.
+ Any 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+\end_inset
+
+-nullspace basis has the form 
+\begin_inset Formula $\begin{bmatrix}V\\
+\bar{\mathbf{T}}
+\end{bmatrix}$
+\end_inset
+
+, where 
+\begin_inset Formula $V\in\mathbb{K}^{m\times m}$
+\end_inset
+
+ is a unimodular matrix and 
+\begin_inset Formula $\left(\bar{\mathbf{T}}V^{-1}\right)^{T}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+First, the matrix 
+\begin_inset Formula $\begin{bmatrix}I\\
+\mathbf{T}^{T}
+\end{bmatrix}$
+\end_inset
+
+ is a nullspace basis of 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]$
+\end_inset
+
+ and is unimodularly equivalent to any other nullspace basis.
+ Hence we must have 
+\begin_inset Formula $\begin{bmatrix}V\\
+\bar{\mathbf{T}}
+\end{bmatrix}=\begin{bmatrix}I\\
+\mathbf{T}^{T}
+\end{bmatrix}V$
+\end_inset
+
+, which gives 
+\begin_inset Formula $\mathbf{T}=\left(\bar{\mathbf{T}}V^{-1}\right)^{T}$
+\end_inset
+
+.
+ Also note that the shift 
+\begin_inset Formula $-\vec{t}'$
+\end_inset
+
+-minimality forces the unimodular matrix 
+\begin_inset Formula $V$
+\end_inset
+
+ in any 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+\end_inset
+
+-nullspace basis to be the same degree as 
+\begin_inset Formula $I$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ Finally, a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
+\end_inset
+
+-basis contain a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+\end_inset
+
+-nullspace basis because both 
+\begin_inset Formula $\mathbf{F}^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}^{T}\mathbf{T}^{T}$
+\end_inset
+
+ have row degrees bounded by 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To compute a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+\end_inset
+
+-nullspace basis, we can again use order basis computation.
+\end_layout
+
+\begin_layout Lemma
+Any 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
+\end_inset
+
+-basis contain a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+\end_inset
+
+-nullspace basis.
+\end_layout
+
+\begin_layout Proof
+As before, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:orderbasisContainsNullspacebasisGeneralized"
+
+\end_inset
+
+ can be used here.
+ We just need to show that a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+\end_inset
+
+-nullspace basis has 
+\begin_inset Formula $-\vec{t}'$
+\end_inset
+
+-row degrees no more than 0, which is true since 
+\begin_inset Formula $\rdeg_{-\vec{t}'}\begin{bmatrix}I\\
+\mathbf{T}^{T}
+\end{bmatrix}\le0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Now to compute 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
+\end_inset
+
+-basis efficiently, notice we have the same type of order basis computation
+ problem as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:computeRightFactor"
+
+\end_inset
+
+, and so 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:computeRightFactor"
+
+\end_inset
+
+ works as before.
+ 
+\end_layout
+
+\begin_layout Proof
+With a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
+\end_inset
+
+-basis computed, we now have a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+\end_inset
+
+-nullspace basis 
+\begin_inset Formula $\begin{bmatrix}V\\
+\bar{\mathbf{T}}
+\end{bmatrix}$
+\end_inset
+
+.
+ A GCD can now be easily computed by 
+\begin_inset Formula $\mathbf{T}=\left(\bar{\mathbf{T}}V^{-1}\right)^{T}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Theorem
+A GCD 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}d\right)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard

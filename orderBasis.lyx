@@ -1065,7 +1065,7 @@ s of all
 \begin_layout Lemma
 \begin_inset CommandInset label
 LatexCommand label
-name "lem:size"
+name "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 
 \end_inset
 
@@ -1083,7 +1083,7 @@ Let
 
 -basis.
  Then 
-\begin_inset Formula $\sum_{i}\left(\vec{t}_{i}-\vec{s}_{i}\right)~\le~m\sigma$
+\begin_inset Formula $\sum\vec{t}~\le~m\sigma+\sum\vec{s}$
 \end_inset
 
 
@@ -1134,6 +1134,46 @@ need to permute the columns to put the pivots on the diagonal.
 .
  
 \end_layout
+
+\begin_layout Proof
+The sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees is 
+\begin_inset Formula $\sum\vec{s}$
+\end_inset
+
+ at order 0, since the identity matrix is a 
+\begin_inset Formula $\left(\mathbf{F},0,\vec{s}\right)$
+\end_inset
+
+-basis.
+ This sum increases by at most 
+\begin_inset Formula $r$
+\end_inset
+
+ for each order increase, as can be seen from the iterative computation
+ of order bases in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BeLa94,Giorgi2003"
+
+\end_inset
+
+.
+ The second statement follows from the fact that the row degrees and the
+ 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of any 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-Popov form are represented by the pivot entries.
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Proof
 This can be shown by considering the sizes of the pivots in the iterative
@@ -1207,6 +1247,69 @@ key "BeLa94"
  
 \end_layout
 
+\begin_layout Lemma
+The sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of an 
+\begin_inset Formula $(\mathbf{F},\sigma,\vec{s})$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ is at most 
+\begin_inset Formula $r\sigma+\sum\vec{s}$
+\end_inset
+
+, where 
+\begin_inset Formula $r$
+\end_inset
+
+ is the rank of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+The sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees is 
+\begin_inset Formula $\sum\vec{s}$
+\end_inset
+
+ at order 0, since the identity matrix is a 
+\begin_inset Formula $\left(\mathbf{F},0,\vec{s}\right)$
+\end_inset
+
+-basis.
+ This sum increases by at most 
+\begin_inset Formula $r$
+\end_inset
+
+ for each order increase, as can be seen from the iterative computation
+ of order bases in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BeLa94,Giorgi2003"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Comment
 status collapsed
@@ -1247,13 +1350,13 @@ Let us now look at the average column degree of the output.
 \end_inset
 
  is uniform since then 
-\begin_inset Formula $\sum_{i}\vec{t}_{i}\le m\sigma$
+\begin_inset Formula $\sum\vec{t}\le m\sigma$
 \end_inset
 
  by 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:size"
+reference "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 
 \end_inset
 
@@ -1311,12 +1414,12 @@ By assuming
  In this case, 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:size"
+reference "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 
 \end_inset
 
  implies 
-\begin_inset Formula $\sum_{i}\left(\vec{t}_{i}\right)\le m\sigma+\sum_{i}\left(\vec{s}_{i}\right)\in O\left(m\sigma+nd\right)=O\left(m\sigma\right)$
+\begin_inset Formula $\sum\left(\vec{t}\right)\le m\sigma+\sum\left(\vec{s}\right)\in O\left(m\sigma+nd\right)=O\left(m\sigma\right)$
 \end_inset
 
 .

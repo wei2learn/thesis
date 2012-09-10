@@ -861,7 +861,7 @@ status collapsed
 \end_layout
 
 \begin_layout Section
-Shifted Degrees
+Shifted Degrees and Their Sums
 \end_layout
 
 \begin_layout Standard
@@ -873,15 +873,36 @@ The standard way to measure the size of a matrix is to use its dimension
  This seems to prevent the problems to be computed efficiently, since the
  size of the intermediate results and the size of the output provides lower
  bounds on the computational cost of any algorithm.
- One may wonder why the size of the intermediate problems or the size of
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+One may wonder why the size of the intermediate problems or the size of
  the output is much larger than the size of the input.
- It turns out that the degree is just not the best way to measure the size
- in all the problem we consider in this thesis.
- Instead of the degree, we use the sum of the shifted degrees to measure
+\end_layout
+
+\end_inset
+
+ But it turns out that the degree just may not be the best choice to be
+ used in these computations.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+way to measure the size in all the problem we consider in this thesis.
+ 
+\end_layout
+
+\end_inset
+
+Instead of the standard degrees, we use the more general shifted degrees
+ to guide the computations, and use the sum of the shifted degrees to measure
  the size of polynomial matrices.
- As we will see that the shifted degree is in fact the more natural choice,
- and the sizes of the output and the intermediate results are indeed bounded
- by the size as the input for all these problems.
+ We will see that the shifted degree is in fact a more natural choice, as
+ it guides the computation so that the sizes of the output and the intermediate
+ results are indeed bounded by the size as the input for all these problems.
  
 \begin_inset Note Note
 status collapsed

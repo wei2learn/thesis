@@ -5,6 +5,10 @@
 \textclass report
 \options amsthm,seceqn,secthm
 \use_default_options false
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
