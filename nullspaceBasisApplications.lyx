@@ -93,7 +93,7 @@ In this Chapter, we consider the problem of computing the inverse of a
 \begin_inset Formula $n\times n$
 \end_inset
 
- matrix with degree 
+ polynomial matrix with degree 
 \begin_inset Formula $d$
 \end_inset
 
@@ -105,28 +105,43 @@ key "jeannerod-villard:05"
 
 \end_inset
 
- gave an algorithm for this problem.
+ gave a deterministic algorithm for this problem that cost 
+\begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
+\end_inset
+
+ field operations.
  But their algorithm only works well on input matrices that are generic
  with dimension a power of 2.
- In the following, we show that their algorithm can be improved to handle
- any matrix with a cost of 
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "storjohann:2008"
+
+\end_inset
+
+ gave another algorithm with a similar cost.
+ But the algorithm is randomized Las Vegas.
+ In the following, we show that Jeannerod and Villard's algorithm can be
+ improved to handle any matrix with a cost of 
 \begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
 \end_inset
 
  using new results from this thesis.
- In fact, our result is slightly more general.
+ The algorithm given here is still deterministic.
+ In fact, an additional improvement of our algorithm is that it is more
+ general, as its computational cost is given in terms of the sum of the
+ column (or row) degrees.
  If 
 \begin_inset Formula $\xi$
 \end_inset
 
- is the minimum of the sum of the column degrees and the sum of the of the
- row degrees of the input matrix, then the inverse can be computed with
- 
+ is the minimum of the sum of the column degrees and the sum of the row
+ degrees of the input matrix, then the inverse can be computed with 
 \begin_inset Formula $O^{\sim}\left(n^{2}\xi\right).$
 \end_inset
 
  In the following, we assume without loss of generality that the sum of
- the column degrees is the minimum.
+ the column degrees is the minimum sum.
 \end_layout
 
 \begin_layout Standard
@@ -146,7 +161,7 @@ reference "alg:matrixInverse"
 
 \end_inset
 
- is an recursive version of the algorithm from 
+ is a recursive version of the algorithm from 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "jeannerod-villard:05"
@@ -534,7 +549,7 @@ reference "lem:boundOnDegreesOfFA"
 \end_inset
 
 , we know the column degrees of 
-\begin_inset Formula $\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$
+\begin_inset Formula $\mathbf{R}_{1}=\mathbf{F}_{1}\mathbf{N}_{2}$
 \end_inset
 
  are bounded component-wise by the 
@@ -911,7 +926,7 @@ reference "alg:matrixInverse"
 
 \end_inset
 
- cost only 
+ costs only 
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
 \end_inset
 

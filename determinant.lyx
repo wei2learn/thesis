@@ -75,8 +75,8 @@ Diagonal Entries of Hermite Normal Form and Determinant
 \end_layout
 
 \begin_layout Standard
-In this Chapter, we consider the problem of computing a determinant of an
- input matrix 
+In this Chapter, we consider the problem of computing a determinant of a
+ nonsingular input matrix 
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
@@ -90,6 +90,8 @@ In this Chapter, we consider the problem of computing a determinant of an
 \end_inset
 
  is a power of two.
+ But keep in mind that the method discussed in this chapter works for any
+ dimension.
  The computation is done by using the GCD and nullspace basis computation
  to compute the diagonal entries of the Hermite form of 
 \begin_inset Formula $\mathbf{F}$
@@ -100,18 +102,42 @@ In this Chapter, we consider the problem of computing a determinant of an
 
 \begin_layout Standard
 Consider unimodularly transforming 
-\begin_inset Formula $\mathbf{F}^{(1)}=\mathbf{F}$
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
  to 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{F}_{u}\\
+\mathbf{F}_{d}
+\end{bmatrix}\begin{bmatrix}\mathbf{U}_{l} & \mathbf{U}_{r}\end{bmatrix}=\mathbf{G}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+* & \mathbf{G}_{2}
+\end{bmatrix},\label{eq:step1HermiteDiagonal}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Formula 
 \begin{equation}
 \mathbf{F}\mathbf{U}=\mathbf{F}^{(1)}\mathbf{U}^{(1)}=\begin{bmatrix}\mathbf{F}_{0}^{(1)}\\
 \mathbf{F}_{1}^{(1)}
 \end{bmatrix}\begin{bmatrix}* & \mathbf{N}_{1}\end{bmatrix}=\mathbf{F}^{(2)}=\begin{bmatrix}\mathbf{F}_{0}^{(2)} & 0\\
 * & \mathbf{F}_{1}^{(2)}
-\end{bmatrix},\label{eq:step1HermiteDiagonal}
+\end{bmatrix},\label{eq:step1HermiteDiagonal-1}
 \end{equation}
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -120,7 +146,37 @@ where each block has dimension
 \end_inset
 
 .
- Note that the right half of 
+ Note that 
+\begin_inset Formula $\mathbf{F}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}_{d}$
+\end_inset
+
+ are both full-rank because 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is assumed to be nonsingular.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Also note that the matrix 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ is a GCLD or 
+\begin_inset Formula $\mathbf{F}_{u}$
+\end_inset
+
+, and the matrix 
+\begin_inset Formula $\mathbf{U}_{r}$
+\end_inset
+
+ on the right side of 
 \begin_inset Formula $\mathbf{U}$
 \end_inset
 
@@ -133,12 +189,119 @@ of
 \end_inset
 
 , which makes the top right block of 
-\begin_inset Formula $\mathbf{F}^{(2)}$
+\begin_inset Formula $\mathbf{G}$
 \end_inset
 
  zero.
- In fact, this nullspace basis can be replaced by any shifted minimal nullspace
- basis of 
+ 
+\end_layout
+
+\end_inset
+
+After this unimodular transformation, the matrix 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is now closer to the Hermite normal form of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ This procedure can then be applied recursively to 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+, until the matrices reaching dimension 1, which then give the diagonal
+ entries of the Hermite normal form of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Although this procedure correctly computes the diagonal entries of the Hermite
+ normal form of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, a major problem is that the degree of the unimodular 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ can be too large for 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ to be efficiently computed.
+ However, with the tools we have developed in the earlier chapters, we can
+ efficiently compute 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+ without computing 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Notice that the matrix 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ is just a GCLD of 
+\begin_inset Formula $\mathbf{F}_{u}$
+\end_inset
+
+, and can be efficiently computed using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:gcd"
+
+\end_inset
+
+.
+ To compute 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+, notice that the matrix 
+\begin_inset Formula $\mathbf{U}_{r}$
+\end_inset
+
+ on the right side of 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ is a nullspace basis
+\series bold
+ 
+\series default
+of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which makes the top right block of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ zero.
+ But 
+\end_layout
+
+\begin_layout Standard
+In fact, this nullspace basis can be replaced by any other nullspace basis
+ of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -152,7 +315,75 @@ name "lem:replaceNullspaceBasisMaintainsUnimodularity"
 
 \end_inset
 
-If 
+Let 
+\begin_inset Formula $\mathbf{U}=\left[\mathbf{U}_{l},\mathbf{U}_{r}\right]$
+\end_inset
+
+ be a unimodular matrix such that 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[\mathbf{F}\mathbf{U}_{l},\mathbf{F}\mathbf{U}_{r}\right]=\left[\mathbf{F}\mathbf{U}_{l},0\right]$
+\end_inset
+
+ so that 
+\begin_inset Formula $\mathbf{F}\mathbf{U}_{l}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}_{r}$
+\end_inset
+
+ is a nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then for any other nullspace basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, the matrix 
+\begin_inset Formula $\left[\mathbf{U}_{l},\mathbf{N}\right]$
+\end_inset
+
+ is also unimodular.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Lemma
+transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to a GCLD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, that is, if 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[\mathbf{T},0\right]$
+\end_inset
+
+ for a full rank matrix 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ contain 
+\end_layout
+
+\begin_layout Lemma
 \begin_inset Formula $\mathbf{F}\mathbf{U}=\mathbf{F}\left[\bar{\mathbf{N}},\mathbf{N}\right]=\left[\mathbf{G},0\right]$
 \end_inset
 
@@ -164,63 +395,150 @@ If
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
- is a left GCD of 
+ is a GCLD of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
-, then for any shifted minimal nullspace basis 
+, then for any other nullspace basis 
 \begin_inset Formula $\mathbf{N}'$
 \end_inset
 
-, the matrix
+, the matrix 
 \begin_inset Formula $\left[\bar{\mathbf{N}},\mathbf{N}'\right]$
 \end_inset
 
  is also unimodular.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Proof
 Let 
-\begin_inset Formula $\left[\mathbf{A}^{T},\mathbf{B}^{T}\right]^{T}=\mathbf{U}^{-1}$
+\begin_inset Formula $\mathbf{V}=\mathbf{U}^{-1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\begin{bmatrix}\mathbf{V}_{u}\\
+\mathbf{V}_{d}
+\end{bmatrix}=\mathbf{V}$
+\end_inset
+
+, where the row dimension of 
+\begin_inset Formula $\mathbf{V}_{u}$
+\end_inset
+
+ matches the column dimension of 
+\begin_inset Formula $\mathbf{U}_{l}$
 \end_inset
 
 .
- Then 
+ Then
 \begin_inset Formula 
 \[
-\begin{bmatrix}\mathbf{A}\\
-\mathbf{B}
-\end{bmatrix}\begin{bmatrix}\bar{\mathbf{N}} & \mathbf{N}'\end{bmatrix}=\begin{bmatrix}I & 0\\
-0 & \mathbf{B}\mathbf{N}'
+\mathbf{V}\left[\mathbf{U}_{l},\mathbf{N}\right]=\begin{bmatrix}\mathbf{V}_{u}\\
+\mathbf{V}_{d}
+\end{bmatrix}\begin{bmatrix}\mathbf{U}_{l}, & \mathbf{N}\end{bmatrix}=\begin{bmatrix}I & 0\\
+0 & \mathbf{A}
 \end{bmatrix}.
 \]
 
 \end_inset
 
  Note that 
-\begin_inset Formula $\mathbf{A}\mathbf{N}'=0$
+\begin_inset Formula $\mathbf{V}_{u}\mathbf{N}=0$
 \end_inset
 
  since 
-\begin_inset Formula $\mathbf{A}\mathbf{N}=\mathbf{A}\mathbf{N}'\mathbf{C}=0$
+\begin_inset Formula $\mathbf{V}_{u}\mathbf{U}_{r}=0$
 \end_inset
 
- for some nonsingular matrix 
+ and 
+\begin_inset Formula $\mathbf{V}_{u}\mathbf{N}=\mathbf{V}_{u}\mathbf{U}_{r}\mathbf{C}=0$
+\end_inset
+
+ for some unimodular matrix 
 \begin_inset Formula $\mathbf{C}$
 \end_inset
 
+, as the two nullspace bases 
+\begin_inset Formula $\mathbf{U}_{r}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ are unimodularly equivalent.
+ Also, since 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ has full column rank and is unimodularly transformed to 
+\begin_inset Formula $\mathbf{V}\mathbf{N}=\begin{bmatrix}0\\
+\mathbf{A}
+\end{bmatrix}$
+\end_inset
+
+ with a square part 
+\begin_inset Formula $\mathbf{A}=\mathbf{V}_{d}\mathbf{N}$
+\end_inset
+
+, the matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ must be nonsingular and hence is a GCRD of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
 .
- Also, the product 
-\begin_inset Formula $\mathbf{B}\mathbf{N}'$
+ In fact, 
+\begin_inset Formula $\mathbf{A}$
 \end_inset
 
- is a right GCD of 
+ must be unimodular.
+ If not, then 
+\begin_inset Formula $\mathbf{A}^{-1}$
+\end_inset
+
+ is not a polynomial matrix, hence there exists some column of 
+\begin_inset Formula $\mathbf{N}'=\mathbf{N}\mathbf{A}^{-1}$
+\end_inset
+
+ cannot be generated by 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, even though the columns of 
 \begin_inset Formula $\mathbf{N}'$
 \end_inset
 
- and must be unimodular.
- Otherwise, a nonunimodular right factor can be removed from 
-\begin_inset Formula $\mathbf{N}'$
+ are also in the nullspace of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, contradicting with the fact that 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is a nullspace basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+a nonunimodular right factor 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ can be removed from 
+\begin_inset Formula $\mathbf{N}$
 \end_inset
 
  to get a lower degree nullspace basis of 
@@ -228,10 +546,15 @@ Let
 \end_inset
 
 , contradicting with the minimality of 
-\begin_inset Formula $\mathbf{N}'$
+\begin_inset Formula $\mathbf{N}$
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -242,11 +565,11 @@ reference "lem:replaceNullspaceBasisMaintainsUnimodularity"
 \end_inset
 
  allows us to compute 
-\begin_inset Formula $\mathbf{F}_{0}^{(2)}$
+\begin_inset Formula $\mathbf{G}_{1}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{F}_{1}^{(2)}$
+\begin_inset Formula $\mathbf{G}_{2}$
 \end_inset
 
  from 
@@ -258,7 +581,7 @@ reference "eq:step1HermiteDiagonal"
 
 independently without computing the unimodular matrix.
  
-\begin_inset Formula $\mathbf{F}_{0}^{(2)}$
+\begin_inset Formula $\mathbf{G}_{1}$
 \end_inset
 
  can be computed using the method from 
@@ -280,11 +603,11 @@ reference "chap:NullspaceBasis"
 \end_inset
 
  of 
-\begin_inset Formula $\mathbf{F}_{0}^{(1)}$
+\begin_inset Formula $\mathbf{F}_{u}$
 \end_inset
 
 , which can then be used to compute 
-\begin_inset Formula $\mathbf{F}_{1}^{(2)}=\mathbf{F}_{1}^{(1)}\mathbf{N}_{1}$
+\begin_inset Formula $\mathbf{G}_{2}=\mathbf{F}_{d}\mathbf{N}_{1}$
 \end_inset
 
 .
@@ -292,11 +615,11 @@ reference "chap:NullspaceBasis"
 
 \begin_layout Standard
 After 
-\begin_inset Formula $\mathbf{F}_{0}^{(2)}$
+\begin_inset Formula $\mathbf{G}_{1}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{F}_{1}^{(2)}$
+\begin_inset Formula $\mathbf{G}_{2}$
 \end_inset
 
  are computed, we can repeat the same process on each of these two matrices,

@@ -95,7 +95,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-\begin_inset Formula $\unimodularCompletion(\mathbf{F},\vec{s})$
+\begin_inset Formula $\mnbr(\mathbf{M},\vec{s})$
 \end_inset
 
 
@@ -106,7 +106,7 @@ status open
 
 \begin_inset CommandInset label
 LatexCommand label
-name "alg:unimodularCompletion"
+name "alg:minimalNullspaceBasisReverse"
 
 \end_inset
 
@@ -122,23 +122,26 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\begin_inset Formula $\mathbf{M}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- with 
-\begin_inset Formula $I_{m}$
+ such that 
+\begin_inset Formula $\sum\rdeg_{\vec{s}}\mathbf{M}\le\sum\vec{s}$
 \end_inset
 
- as a GCD; 
+ and a 
+\begin_inset Formula $\left(\mathbf{M},-\vec{s}\right)$
+\end_inset
+
+-nullspace basis has row degrees bounded by 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- is initially set to the column degrees of 
-\begin_inset Formula $\mathbf{F}$
+ (equivalently, 
+\begin_inset Formula $-\vec{s}$
 \end_inset
 
-.
- It keeps track of the degrees.
+-column degrees bounded by 0).
 \end_layout
 
 \end_inset
@@ -151,56 +154,14 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{\left(n-m\right)\times n}$
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{n\times k}$
 \end_inset
 
- such that 
-\begin_inset Formula $\begin{bmatrix}\mathbf{F}\\
-\mathbf{G}
-\end{bmatrix}$
+, a 
+\begin_inset Formula $\left(\mathbf{M},-\vec{s}\right)$
 \end_inset
 
- is unimodular.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathbf{F}^{r}:=\revRow\left(\mathbf{F},-\vec{s},0\right)$
-\end_inset
-
-;
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathbf{M}:=\mnb(\mathbf{F}^{r},\vec{s})$
-\end_inset
-
-; 
-\begin_inset Formula $\vec{b}:=\cdeg_{\vec{s}}\mathbf{M}$
-\end_inset
-
-; 
-\begin_inset Formula $k:=n-m;$
-\end_inset
-
-
+-nullspace basis.
 \end_layout
 
 \end_inset
@@ -215,7 +176,7 @@ status open
 \begin_layout Plain Layout
 
 \series bold
-\begin_inset Formula $\left[\mathbf{M}_{1}^{T},\mathbf{M}_{2}^{T},\cdots,\mathbf{M}_{\log k-1}^{T},\mathbf{M}_{\log k}^{T}\right]:=\mathbf{M}$
+\begin_inset Formula $\left[\mathbf{M}_{1}^{T},\mathbf{M}_{2}^{T},\cdots,\mathbf{M}_{\log k-1}^{T},\mathbf{M}_{\log k}^{T}\right]:=\mathbf{M}^{T}$
 \end_inset
 
 
@@ -456,8 +417,12 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Flex STATE
+\begin_inset Note Note
 status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
 
 \begin_layout Plain Layout
 \begin_inset Formula $\mathbf{R}:=\left[\mathbf{R},\tilde{\mathbf{N}}_{i-1}\mathbf{Q}_{i}\right]$
@@ -476,12 +441,26 @@ status collapsed
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
 \begin_layout Plain Layout
 \begin_inset Flex STATE
 status open
 
 \begin_layout Plain Layout
 \begin_inset Formula $\mathbf{R}^{r}:=\revCol\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right);$
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
@@ -506,7 +485,7 @@ RETURN
 \end_inset
 
  
-\begin_inset Formula $\left(\mathbf{R}^{r}\right)^{T}$
+\begin_inset Formula $\tilde{\mathbf{N}_{i}}$
 \end_inset
 
  

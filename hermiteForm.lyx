@@ -136,7 +136,9 @@ For simplicity, we assume
 \end_inset
 
 -minimal nullspace basis 
-\begin_inset Formula $\left[\mathbf{U}^{T},\mathbf{G}^{T}\right]^{T}$
+\begin_inset Formula $\begin{bmatrix}\mathbf{U}\\
+\mathbf{G}
+\end{bmatrix}$
 \end_inset
 
  of 
@@ -154,7 +156,7 @@ For simplicity, we assume
 \end_inset
 
  can be very large.
- So the existing algorithms would be efficient if applied directly.
+ So the existing algorithms would be inefficient if applied directly.
  However, since we know the row degrees of 
 \begin_inset Formula $\mathbf{H}$
 \end_inset
@@ -167,11 +169,11 @@ For simplicity, we assume
  with unbalanced shift from 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "sec:Unbalanced-Shift"
+reference "chap:Unbalanced-Shift"
 
 \end_inset
 
-, and attempt to compute alternative matrix 
+, and attempt to compute an alternative matrix 
 \begin_inset Formula $\mathbf{H}'$
 \end_inset
 
@@ -179,11 +181,19 @@ reference "sec:Unbalanced-Shift"
 \begin_inset Formula $O(n)$
 \end_inset
 
+, such that 
+\begin_inset Formula $\mathbf{H}'$
+\end_inset
+
+ can be easily transformed to 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
 .
  Our task here is in fact easier than 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "sec:Unbalanced-Shift"
+reference "chap:Unbalanced-Shift"
 
 \end_inset
 
@@ -397,7 +407,9 @@ Let
 
 .
  Now if 
-\begin_inset Formula $\left[\mathbf{A}^{T},\mathbf{B}^{T}\right]$
+\begin_inset Formula $\begin{bmatrix}\mathbf{A}\\
+\mathbf{B}
+\end{bmatrix}$
 \end_inset
 
  is a nullspace basis of 

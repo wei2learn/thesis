@@ -160,8 +160,10 @@ plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis
 \DeclareMathOperator{\colRev}{colRev}
 \DeclareMathOperator{\rowRev}{rowRev}
 \DeclareMathOperator{\unimodularCompletion}{unimodularCompletion}
+\DeclareMathOperator{\hermiteDiagonal}{hermiteDiagonal}
+\DeclareMathOperator{\mnbr}{minimalNullspaceBasisReversed}
 \def\mab{\qopname\relax n{OrderBasis}}
-\def\mnbr{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
+\def\mnbrs{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
 \def\mmab{\qopname\relax n{FastBasis}}
 \def\umab{\qopname\relax n{UnbalancedFastBasis}}
 \def\mnb{\qopname\relax n{MinimalNullspaceBasis ~ }}
@@ -325,7 +327,7 @@ Huge
 
    {
 \backslash
-bf Order Basis and Nullspace Basis Computation}
+bf Order Basis and Kernel Basis Computation}
 \end_layout
 
 \begin_layout Plain Layout
@@ -921,11 +923,12 @@ Abstract
 \noindent
 In this thesis, we present efficient deterministic algorithms for polynomial
  matrix computation problems, including the computation of order basis,
- minimal nullspace basis, matrix inverse, unimodular completion, matrix
- GCD, determinant, and Hermite normal form.
- The algorithm for nullspace basis computation also immediately allows us
- to solve linear systems.
- The algorithm for matrix GCD also immediately allows us to compute column
+ minimal kernel basis, matrix inverse, unimodular completion, column basis,
+ matrix GCD, determinant, and Hermite normal form for matrices of univariate
+ polynomials over a field.
+ The algorithm for kernel basis computation also immediately allows us to
+ solve linear systems.
+ The algorithm for column basis also immediately allows us to compute column
  reduced forms and Popov normal forms for matrices of any dimension.
  
 \end_layout
@@ -1213,8 +1216,8 @@ This extends the earlier work by the authors from ISSAC'09.
 \end_layout
 
 \begin_layout Plain Layout
-We then present an algorithm for the computation of a minimal nullspace
- basis of an 
+We then present an algorithm for the computation of a minimal kernel basis
+ of an 
 \begin_inset Formula $m\times n$
 \end_inset
 
@@ -1227,7 +1230,7 @@ We then present an algorithm for the computation of a minimal nullspace
 \end_inset
 
 .
- This algorithm computes a minimal nullspace basis of a degree 
+ This algorithm computes a minimal kernel basis of a degree 
 \begin_inset Formula $d$
 \end_inset
 
@@ -1263,7 +1266,7 @@ Here the soft-
 \end_inset
 
  The same algorithm also works in the more general situation on computing
- a shifted minimal nullspace basis, with a given degree shift 
+ a shifted minimal kernel basis, with a given degree shift 
 \begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
 \end_inset
 
@@ -1284,7 +1287,7 @@ Here the soft-
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal right nullspace basis can be computed with a cost of 
+-minimal right kernel basis can be computed with a cost of 
 \begin_inset Formula $O^{\sim}(n^{\omega}\rho/m)$
 \end_inset
 
@@ -1293,8 +1296,8 @@ Here the soft-
 \end_layout
 
 \begin_layout Plain Layout
-Order basis computation and nullspace basis computation are then applied
- to the remaining problems.
+Order basis computation and kernel basis computation are then applied to
+ the remaining problems.
  An algorithm for computing the inverse of an matrix in 
 \begin_inset Formula $\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
@@ -1372,9 +1375,9 @@ Order basis computation and nullspace basis computation are then applied
 For all these problems, our algorithms are not only essentially optimal,
  but in most cases they also solve more general versions of these problems
  than previous algorithms.
- More specifically, the computational costs are stated with the the sum
- of the column degrees of the input matrix, which is more precise and tighter
- than using just degrees.
+ More specifically, the computational costs are stated with the sum of the
+ column degrees of the input matrix, which is more precise and tighter than
+ using just the degrees.
  In addition, the shifted minimal bases computed by our algorithms are more
  general than the standard minimal bases.
 \end_layout
@@ -1387,8 +1390,8 @@ status collapsed
 \begin_layout Plain Layout
 \noindent
 the computation of a shifted order basis of a matrix of univariate power
- series over a field, and the computation of a shifted minimal nullspace
- basis of a matrix of univariate polynomials over a field.
+ series over a field, and the computation of a shifted minimal kernel basis
+ of a matrix of univariate polynomials over a field.
  Both are fundamental problems that have many applications in polynomial
  matrix computations.
  Computing these bases without shifts are special cases of computing with
@@ -1412,7 +1415,7 @@ the computation of a shifted order basis of a matrix of univariate power
 \align center
 
 \series bold
-Acknowledgements
+Acknowledgments
 \end_layout
 
 \begin_layout Standard
@@ -1448,8 +1451,7 @@ This has been a rewarding adventure for myself.
  But to others and especially my family, my school work just seemed endless.
  After presenting the work on order basis computation years ago, I declared
  that it would be over very quickly.
- But it took me three more years to finish the work on nullspace basis computati
-on.
+ But it took me three more years to finish the work on kernel basis computation.
  My wife has been working and solely supporting the family for many years.
  My daughter is now a big girl who knows daddy is always in a mysterious
  place called Waterloo.

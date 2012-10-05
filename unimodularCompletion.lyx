@@ -106,7 +106,9 @@ with
 \end_inset
 
 such that 
-\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]^{T}$
+\begin_inset Formula $\begin{bmatrix}\mathbf{F}\\
+\mathbf{G}
+\end{bmatrix}$
 \end_inset
 
  is unimodular.
@@ -247,21 +249,67 @@ If
 \end_layout
 
 \begin_layout Standard
-First, we need to check the existence of unimodular completion for a given
- matrix.
- In fact, an unimodular completion does not exist for some input matrices,
+Unimodular completion also provides another way of computing a matrix GCD.
+ To compute a GCD of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+, we can compute a nullspace basis 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{C}^{T}$
+\end_inset
+
+ is a unimodular completion of 
+\begin_inset Formula $\mathbf{B}^{T}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{A}\mathbf{C}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+ Note that the nullspace basis computation and the multiplication 
+\begin_inset Formula $\mathbf{AC}$
+\end_inset
+
+ can be done efficiently using the algorithms from earlier chapters, while
+ an efficient way of computing unimodular completion is provided in this
+ chapter.
+\end_layout
+
+\begin_layout Standard
+Before discussing the computation of a unimodular completion, we need to
+ check the existence of unimodular completion for a given matrix.
+ In fact, a unimodular completion does not exist for some input matrices,
  as in the case of 
 \begin_inset Formula $\mathbf{F}=\left[0,x\right]$
 \end_inset
 
 .
- So we need to know what type of input matrices admit an unimodular completion.
- But this requires us to first define matrix GCD.
+ So we need to know what type of input matrices admit a unimodular completion.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ The following lemma provides a necessary and sufficient condition for the
+ existence of a unimodular completion.
 \end_layout
 
-\begin_layout Standard
-We are now ready to look at a necessary and sufficient condition for the
- existence of a unimodular completion.
+\end_inset
+
+
 \end_layout
 
 \begin_layout Lemma
@@ -324,7 +372,7 @@ If
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
-, then there exists an unimodular matrix 
+, then there exists a unimodular matrix 
 \begin_inset Formula $\mathbf{U}$
 \end_inset
 
@@ -341,7 +389,7 @@ If
 \begin_inset Formula 
 \[
 \mathbf{U}^{-1}=\begin{bmatrix}\mathbf{F}\\
-\mathbf{*}
+*
 \end{bmatrix},
 \]
 
@@ -365,7 +413,7 @@ If
 \begin_inset Formula $\mathbf{U}^{-1}$
 \end_inset
 
- is therefor an unimodular completion of the matrix 
+ is therefore a unimodular completion of the matrix 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -386,8 +434,23 @@ If
 relatively prime
 \emph default
 .
- But this term is ambiguous when the GCDs are not square, for this reason
- we avoid this term.
+ But a GCD can be non-square in our definition, which makes this term ambiguous.
+ For this reason we avoid this term.
+ Note that we get a non-square GCD when
+\series bold
+ 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+
+\series default
+ is not full row rank, such as when 
+\begin_inset Formula $\mathbf{F}=\begin{bmatrix}1\\
+0
+\end{bmatrix}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -397,7 +460,8 @@ Since a unimodular completion is only possible for input matrices with an
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
-, which also requires 
+.
+ This also requires 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -445,7 +509,7 @@ reference "lem:unimodularCompletionCondition"
 \end_inset
 
  that may have degree 
-\begin_inset Formula $\sum\vec{s}$
+\begin_inset Formula $\xi$
 \end_inset
 
 , while each of the remaining columns of 
@@ -453,7 +517,7 @@ reference "lem:unimodularCompletionCondition"
 \end_inset
 
  may also have degree 
-\begin_inset Formula $\sum\vec{s}$
+\begin_inset Formula $\xi$
 \end_inset
 
 .
@@ -473,7 +537,8 @@ Reversing polynomial coefficients
 \end_layout
 
 \begin_layout Standard
-First let us look at the operation that reverse the coefficients of a polynomial.
+First let us look at the operation that reverses the coefficients of a polynomia
+l.
 \end_layout
 
 \begin_layout Definition
@@ -846,8 +911,8 @@ We then compute a
 \end_layout
 
 \begin_layout Standard
-It is useful to note that the degrees remain bounded after the reverse operation
-s.
+It is useful to note that any degree bound remains the same after the reverse
+ operations.
 \end_layout
 
 \begin_layout Lemma
@@ -1008,7 +1073,7 @@ Since
 
 \begin_layout Standard
 The following lemma shows that the reverse operation and the multiplication
- are commutative when we use opposite shifts.
+ are commutative when we use the opposite shifts.
 \end_layout
 
 \begin_layout Lemma
@@ -1045,7 +1110,7 @@ If
 , then 
 \begin_inset Formula 
 \[
-\revRow(\mathbf{a},-\vec{u},\alpha)\cdot\revCol(\mathbf{b},\vec{u},\beta)=\rev(\mathbf{a}\mathbf{b},\alpha+\beta).
+\rowRev(\mathbf{a},-\vec{u},\alpha)\cdot\colRev(\mathbf{b},\vec{u},\beta)=\rev(\mathbf{a}\mathbf{b},\alpha+\beta).
 \]
 
 \end_inset
@@ -1072,7 +1137,7 @@ If
 
 \begin_inset Formula 
 \begin{eqnarray*}
- &  & \revRow(\mathbf{a},-\vec{u},\alpha)\cdot\revCol(\mathbf{b},\vec{u},\beta)\\
+ &  & \rowRev(\mathbf{a},-\vec{u},\alpha)\cdot\colRev(\mathbf{b},\vec{u},\beta)\\
  & = & x^{\alpha}\left(\mathbf{a}(1/x)\right)x^{\vec{u}}x^{-\vec{u}}\left(\mathbf{b}(1/x)\right)x^{\beta}\\
  & = & \left(\mathbf{a}(1/x)\right)x^{\vec{u}}x^{-\vec{u}}\left(\mathbf{b}(1/x)\right)x^{\alpha+\beta}\\
  & = & \left(\mathbf{a}(1/x)\right)\left(\mathbf{b}(1/x)\right)x^{\alpha+\beta}\\
@@ -1195,7 +1260,11 @@ If
 \end_inset
 
 , then 
-\begin_inset Formula $\colRev(\mathbf{A},\vec{u},\vec{v})\colRev(\mathbf{B},\vec{v},\vec{w})=\colRev(\mathbf{A}\mathbf{B},\vec{u},\vec{w})$
+\begin_inset Formula 
+\[
+\colRev(\mathbf{A},\vec{u},\vec{v})\colRev(\mathbf{B},\vec{v},\vec{w})=\colRev(\mathbf{A}\mathbf{B},\vec{u},\vec{w})
+\]
+
 \end_inset
 
  has 
@@ -1277,7 +1346,11 @@ If
 \end_inset
 
 , then 
-\begin_inset Formula $\rowRev(\mathbf{A},\vec{u},\vec{v})\colRev(\mathbf{B},-\vec{u},\vec{w})=\colRev(\mathbf{A}\mathbf{B},-\vec{v},\vec{w})$
+\begin_inset Formula 
+\[
+\rowRev(\mathbf{A},\vec{u},\vec{v})\colRev(\mathbf{B},-\vec{u},\vec{w})=\colRev(\mathbf{A}\mathbf{B},-\vec{v},\vec{w})
+\]
+
 \end_inset
 
 .
@@ -1286,8 +1359,8 @@ If
 \begin_layout Proof
 \begin_inset Formula 
 \begin{eqnarray*}
- &  & \rowRev(\mathbf{A},\vec{u},\vec{v})\colRev(\mathbf{B},-\vec{u},\cdeg_{-\vec{u}}\mathbf{B})\\
- & = & x^{\vec{v}}\left(\mathbf{A}(1/x)\right)x^{-\vec{u}}x^{\vec{u}}\left(\mathbf{B}(1/x)\right)x^{\cdeg_{-\vec{u}}\mathbf{B}}\\
+\\
+\rowRev(\mathbf{A},\vec{u},\vec{v})\colRev(\mathbf{B},-\vec{u},\cdeg_{-\vec{u}}\mathbf{B}) & = & x^{\vec{v}}\left(\mathbf{A}(1/x)\right)x^{-\vec{u}}x^{\vec{u}}\left(\mathbf{B}(1/x)\right)x^{\cdeg_{-\vec{u}}\mathbf{B}}\\
  & = & x^{\vec{v}}\left(\mathbf{A}(1/x)\right)\left(\mathbf{B}(1/x)\right)x^{\cdeg_{-\vec{u}}\mathbf{B}}\\
  & = & x^{\vec{v}}\left(\mathbf{A}\mathbf{B}(1/x)\right)x^{\cdeg_{-\vec{u}}\mathbf{B}}
 \end{eqnarray*}
@@ -1303,10 +1376,10 @@ Unimodular completion
 
 \begin_layout Standard
 In this section, we look at how a unimodular completion can be done using
- a combination of nullspace basis computation, order basis computation,
- and reverse operation.
- First, we have the following natural relationship between nullspace basis
- and reverse operation.
+ a combination of nullspace basis computations, order basis computations,
+ and reverse operations.
+ First, we have the following natural relationship between a nullspace basis
+ and the reverse operation.
 \end_layout
 
 \begin_layout Lemma
@@ -1333,7 +1406,7 @@ Let
 \end_inset
 
 , and 
-\begin_inset Formula $\mathbf{A}^{r}=\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)$
+\begin_inset Formula $\mathbf{A}^{r}=\rowRev\left(\mathbf{A},-\vec{u},\vec{a}\right)$
 \end_inset
 
 .
@@ -1371,7 +1444,7 @@ status collapsed
 \end_inset
 
 if and only if 
-\begin_inset Formula $\mathbf{N}^{r}=\revCol\left(\mathbf{N},\vec{u},\vec{b}\right)$
+\begin_inset Formula $\mathbf{N}^{r}=\colRev\left(\mathbf{N},\vec{u},\vec{b}\right)$
 \end_inset
 
  is a 
@@ -1388,7 +1461,7 @@ status collapsed
 \end_inset
 
 -minimal nullspace basis of 
-\begin_inset Formula $\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)$
+\begin_inset Formula $\rowRev\left(\mathbf{A},-\vec{u},\vec{a}\right)$
 \end_inset
 
 
@@ -1416,20 +1489,20 @@ reference "lem:reverseProduct"
 \end_inset
 
  that 
-\begin_inset Formula $\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)\cdot\revCol\left(\mathbf{N},\vec{u},\vec{b}\right)=0$
+\begin_inset Formula $\rowRev\left(\mathbf{A},-\vec{u},\vec{a}\right)\cdot\colRev\left(\mathbf{N},\vec{u},\vec{b}\right)=0$
 \end_inset
 
 , so 
-\begin_inset Formula $\revCol\left(\mathbf{N},\vec{u},\vec{b}\right)$
+\begin_inset Formula $\colRev\left(\mathbf{N},\vec{u},\vec{b}\right)$
 \end_inset
 
  is a nullspace basis of 
-\begin_inset Formula $\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)$
+\begin_inset Formula $\rowRev\left(\mathbf{A},-\vec{u},\vec{a}\right)$
 \end_inset
 
 .
  Suppose 
-\begin_inset Formula $\revCol\left(\mathbf{N},\vec{u},\vec{b}\right)$
+\begin_inset Formula $\colRev\left(\mathbf{N},\vec{u},\vec{b}\right)$
 \end_inset
 
  is not 
@@ -1441,7 +1514,7 @@ reference "lem:reverseProduct"
 \end_inset
 
  of 
-\begin_inset Formula $\revRow\left(\mathbf{A},-\vec{u},\vec{a}\right)$
+\begin_inset Formula $\rowRev\left(\mathbf{A},-\vec{u},\vec{a}\right)$
 \end_inset
 
  with 
@@ -1456,8 +1529,9 @@ reference "lem:reverseProduct"
 \begin_inset Formula $\vec{b}$
 \end_inset
 
-, then 
-\begin_inset Formula $\revCol\left(\mathbf{M},\vec{u},\vec{c}\right)$
+.
+ Then 
+\begin_inset Formula $\colRev\left(\mathbf{M},\vec{u},\vec{c}\right)$
 \end_inset
 
  is also a nullspace of 
@@ -1478,6 +1552,19 @@ reference "lem:reverseProduct"
 
 -minimality of 
 \begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The following lemma shows the unimodular equivalence between a matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ that has an identity matrix GCD, and a left nullspace basis of a right
+ nullspace basis of 
+\begin_inset Formula $\mathbf{A}$
 \end_inset
 
 .
@@ -1545,19 +1632,32 @@ Let
 \end_layout
 
 \begin_layout Proof
-Both 
-\begin_inset Formula $\mathbf{A}$
+Notice that a right nullspace basis 
+\begin_inset Formula $\mathbf{B}$
 \end_inset
 
- and 
+ of 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ gives a left nullspace basis 
 \begin_inset Formula $\mathbf{B}^{T}$
 \end_inset
 
- are in the left nullspace of 
+ of 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
-, so 
+.
+ Therefore, since 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is in the left nullspace of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, we have that 
 \begin_inset Formula $\mathbf{A}=\mathbf{Q}\mathbf{B}^{T}$
 \end_inset
 
@@ -1792,7 +1892,7 @@ name "lem:unimodularComputation"
 \end_inset
 
 Let 
-\begin_inset Formula $\mathbf{F}^{r}=\revRow\left(\mathbf{F},-\vec{s},0\right)$
+\begin_inset Formula $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$
 \end_inset
 
 .
@@ -1831,7 +1931,7 @@ Let
 
 .
  Let 
-\begin_inset Formula $\mathbf{P}_{2}^{r}=\revCol\left(\mathbf{P}_{2},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{2}\right)$
+\begin_inset Formula $\mathbf{P}_{2}^{r}=\colRev\left(\mathbf{P}_{2},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{2}\right)$
 \end_inset
 
 .
@@ -1844,7 +1944,7 @@ Let
 
 \begin_layout Proof
 Let 
-\begin_inset Formula $\mathbf{P}_{1}^{r}=\revCol\left(\mathbf{P}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{1}\right)$
+\begin_inset Formula $\mathbf{P}_{1}^{r}=\colRev\left(\mathbf{P}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{1}\right)$
 \end_inset
 
 .
@@ -1861,7 +1961,7 @@ reference "lem:reverseOrderBasisToUnimodular"
 
  is unimodular.
  Let 
-\begin_inset Formula $\mathbf{M}^{r}=\revCol\left(\mathbf{M},\vec{s},\vec{b}\right)$
+\begin_inset Formula $\mathbf{M}^{r}=\colRev\left(\mathbf{M},\vec{s},\vec{b}\right)$
 \end_inset
 
 .
@@ -1918,7 +2018,7 @@ reference "lem:unimodularComputation"
 
 \end_inset
 
- provides a way to correctly compute an unimodular completion of 
+ provides a way to correctly compute a unimodular completion of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -1940,7 +2040,7 @@ name "lem:unimodularComputationByRows"
 \end_inset
 
 Let 
-\begin_inset Formula $\mathbf{F}^{r}=\revRow\left(\mathbf{F},-\vec{s},0\right)$
+\begin_inset Formula $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$
 \end_inset
 
 .
@@ -2021,7 +2121,7 @@ Let
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{R}^{r}=\revCol\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right)$
+\begin_inset Formula $\mathbf{R}^{r}=\colRev\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right)$
 \end_inset
 
 .
@@ -2041,11 +2141,11 @@ reference "lem:reverseOrderBasisToUnimodular"
 \end_inset
 
  that 
-\begin_inset Formula $\mathbf{P}_{1}^{r}=\revCol\left(\mathbf{P}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{1}\right)$
+\begin_inset Formula $\mathbf{P}_{1}^{r}=\colRev\left(\mathbf{P}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{1}\right)$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{P}_{2}^{r}=\revCol\left(\mathbf{P}_{1},\vec{t},\cdeg_{\vec{t}}\mathbf{P}_{2}\right)$
+\begin_inset Formula $\mathbf{P}_{2}^{r}=\colRev\left(\mathbf{P}_{1},\vec{t},\cdeg_{\vec{t}}\mathbf{P}_{2}\right)$
 \end_inset
 
  are both unimodular, hence 
@@ -2121,13 +2221,6 @@ reference "lem:unimodularComputationByRows"
 \end_inset
 
 -minimal nullspace basis, as shown in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:nullspaceBasisOrderBasisContainsNullspaceBasis"
-
-\end_inset
-
- and 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:nullspaceOrderbasisDegree"
@@ -2751,7 +2844,7 @@ reference "lem:nullspaceBasisInOrderBasis"
 \end_inset
 
 , we know that any 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis contains a 
@@ -2774,7 +2867,7 @@ name "lem:nullspaceBasisOrderBasisContainsNullspaceBasis"
 \end_inset
 
 Let 
-\begin_inset Formula $\mathbf{F}^{r}=\revRow\left(\mathbf{F},-\vec{s},0\right)$
+\begin_inset Formula $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$
 \end_inset
 
  and 
@@ -2890,7 +2983,7 @@ reference "lem:orderBasisContainsNullspaceBasis"
 \end_inset
 
  The following lemma shows that the remaining part of the 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis has degrees bounded by 1.
@@ -2904,7 +2997,7 @@ name "lem:nullspaceOrderbasisDegree"
 \end_inset
 
 Let 
-\begin_inset Formula $\mathbf{F}^{r}=\revRow\left(\mathbf{F},-\vec{s},0\right)$
+\begin_inset Formula $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$
 \end_inset
 
  and 
@@ -2925,12 +3018,12 @@ Let
 \end_inset
 
  be a 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis.
  Then 
-\begin_inset Formula $\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$
+\begin_inset Formula $\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$
 \end_inset
 
  and 
@@ -3044,7 +3137,7 @@ status collapsed
 
 \begin_layout Lemma
 Let 
-\begin_inset Formula $\mathbf{F}^{r}=\revRow\left(\mathbf{F},-\vec{s},0\right)$
+\begin_inset Formula $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$
 \end_inset
 
  and 
@@ -3259,11 +3352,18 @@ We know that
 \end_layout
 
 \begin_layout Standard
-We are now ready to look at the computation of a 
+We are now ready to look at the algorithm for computing a 
 \begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
 \end_inset
 
--basis.
+-basis, given in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:unimodularCompletion"
+
+\end_inset
+
+.
  
 \begin_inset Note Note
 status collapsed
@@ -4063,7 +4163,7 @@ To compute a unimodular completion of
 
 .
  Let 
-\begin_inset Formula $\bar{\mathbf{N}}=\revCol\left(\mathbf{N},\vec{s},\vec{b}\right)^{T}$
+\begin_inset Formula $\bar{\mathbf{N}}=\colRev\left(\mathbf{N},\vec{s},\vec{b}\right)^{T}$
 \end_inset
 
 .
@@ -4452,7 +4552,7 @@ Let
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{R}_{1}^{r}=\revCol\left(\mathbf{R}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}_{1}\right)$
+\begin_inset Formula $\mathbf{R}_{1}^{r}=\colRev\left(\mathbf{R}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}_{1}\right)$
 \end_inset
 
 .
@@ -4493,7 +4593,8 @@ Continue this process, at step
 \begin_inset Formula $\tilde{\mathbf{N}}_{i}=\prod_{j=1}^{i}\mathbf{N}_{i}=\tilde{\mathbf{N}}_{i-1}\mathbf{N}_{i}$
 \end_inset
 
-, Note that 
+.
+ Note that 
 \begin_inset Formula $\tilde{\mathbf{N}}_{\log k}$
 \end_inset
 
@@ -4507,7 +4608,7 @@ Continue this process, at step
 \end_inset
 
 , and 
-\begin_inset Formula $\mathbf{R}^{r}=\revCol\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right)$
+\begin_inset Formula $\mathbf{R}^{r}=\colRev\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right)$
 \end_inset
 
 , then from 
