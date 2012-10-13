@@ -109,7 +109,8 @@ status open
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
- is nonsingular; 
+ is nonsingular.
+ 
 \begin_inset Note Note
 status collapsed
 
@@ -160,15 +161,17 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left[\mathbf{F}_{u}^{T},\mathbf{F}_{d}^{T}\right]:=\mathbf{F}^{T}$
+\begin_inset Formula $\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}:=\mathbf{F}$
 \end_inset
 
- with 
+, with 
 \begin_inset Formula $\mathbf{F}_{u}$
 \end_inset
 
  consists of the top 
-\begin_inset Formula $\left\lceil n\right\rceil $
+\begin_inset Formula $\left\lceil n/2\right\rceil $
 \end_inset
 
  rows of 
@@ -263,7 +266,7 @@ endif
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{G}_{1}:=\gcd(\mathbf{F}_{u})$
+\begin_inset Formula $\mathbf{G}_{1}:=\colBasis(\mathbf{F}_{u})$
 \end_inset
 
 ;

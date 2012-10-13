@@ -75,12 +75,12 @@ name "sec:Future-Research"
 \begin_layout Standard
 In this thesis, we have presented efficient deterministic algorithms for
  a number of polynomial matrix computation problems, including the computation
- of order basis, minimal nullspace basis, matrix inverse, unimodular completion,
- matrix GCD, determinant, and Hermite normal form.
+ of order basis, minimal nullspace basis, matrix inverse, column basis,
+ unimodular completion, determinant, and Hermite normal form.
  The algorithm for nullspace basis computation also immediately allows us
  to solve linear systems.
- The algorithm for matrix GCD also immediately allows us to compute column
- reduced forms and Popov normal forms for matrices of any dimension.
+ The algorithm for column basis also immediately allows us to compute matrix
+ GCD, column reduced forms and Popov normal forms for matrices of any dimension.
  
 \end_layout
 
@@ -467,6 +467,20 @@ Order basis computation and nullspace basis computation were then applied
 \end_inset
 
  to compute.
+ We then discussed the computation of a column basis of an input matrix
+ in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\xi\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the sum of column degrees of the input matrix.
  Next, an algorithm was presented for computing an unimodular completion
  of an input matrix in 
 \begin_inset Formula $\mathbb{K}\left[x\right]^{m\times n}$
@@ -478,20 +492,6 @@ Order basis computation and nullspace basis computation were then applied
 
  with a cost of 
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
-\end_inset
-
-, where 
-\begin_inset Formula $\xi$
-\end_inset
-
- is the sum of column degrees of the input matrix.
- We then discussed the computation of a matrix GCD of an input matrix in
- 
-\begin_inset Formula $\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
- with a cost of 
-\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\xi\right)$
 \end_inset
 
 , where 
@@ -512,6 +512,27 @@ Order basis computation and nullspace basis computation were then applied
 \end_inset
 
  is the sum of column or row degrees of the input matrix.
+ Then we looked at an algorithm for computing the Hermite normal form with
+ a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+.
+ Finally, we provided algorithms for rank-sensitive computations of the
+ rank and rank profile of an input matrix in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(mr^{\omega-2}\xi\right)$
+\end_inset
+
+, and then applied it to rank-sensitive computation of minimal kernel basis
+ with a cost of 
+\begin_inset Formula $O^{\sim}(nmr^{\omega-2}d+n^{\omega-1}rd)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard

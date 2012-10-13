@@ -86,7 +86,7 @@ status open
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal Nullspace Basis
+-minimal kernel Basis
 \end_layout
 
 \end_inset
@@ -140,7 +140,7 @@ A
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 

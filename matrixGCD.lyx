@@ -71,7 +71,7 @@ name "chap:Matrix-GCD"
 
 \end_inset
 
-Column Basis, Matrix GCD, factorization, column reduction, Popov form
+Column Basis
 \end_layout
 
 \begin_layout Standard
@@ -80,17 +80,21 @@ In this Chapter, we consider the problem of computing a column basis of
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- with column degrees bounded by a shift 
+ with 
+\begin_inset Formula $n\ge m$
+\end_inset
+
+ and column degrees bounded by a shift 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
 .
- An efficient way of computing column basis immediately leads to efficient
- computations of matrix GCD, column reduced forms and Popov forms of 
+ An efficient way of computing a column basis immediately leads to efficient
+ computations of matrix GCDs, column reduced forms and Popov forms of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
-.
+ with any dimension and rank.
  Note that the existing algorithms from 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -114,7 +118,19 @@ key "SS2011"
 
  for computing column reduced forms and Popov forms require that the input
  matrices to be square nonsingular or full-column rank.
- 
+ As in the previous chapters, 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ will always be our input matrix in this chapter, and 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ will be a shift with entries that bound the column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -136,23 +152,118 @@ Column basis is a generalization of polynomial GCDs.
 \end_inset
 
 .
- Equivalently, any matrix 
-\begin_inset Formula $\mathbf{F}$
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:minimality"
+
 \end_inset
 
- can be always unimodularly transformed to 
-\begin_inset Formula $\left[0,\mathbf{T}\right]$
+, we know any matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- for a full column rank matrix 
+ can be unimodularly transformed to its column basis, as it can be unimodularly
+ transformed to a column reduced form that contains a column basis.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+Any matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ can be unimodularly transformed to 
+\begin_inset Formula $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with a full rank matrix 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]$
+\end_inset
+
+ for some unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ Any such matrix 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
-, a column basis of 
+ is a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Proof
+This follows from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:minimality"
+
+\end_inset
+
+.
+ We can just repeatedly apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnReducedLeadingCoefficient"
+
+\end_inset
+
+, this eventually gives a column reduced form that contains a column basis.
+ The matrix 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ since its columns are linearly independent and the 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrix 
+\begin_inset Formula $\left[0,\mathbf{T}\right]$
+\end_inset
+
+ is unimodularly equivalent with 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, implying 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ each has columns that generate the same 
+\begin_inset Formula $\mathbb{F}\left[x\right]$
+\end_inset
+
+-module.
 \end_layout
 
 \begin_layout Standard
@@ -201,7 +312,8 @@ has no other full column rank left factors except for the unimodular ones,
 \end_inset
 
 
-\end_layout
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Definition
 Given 
@@ -294,7 +406,7 @@ relatively row prime
  is defined in the same way.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Note that the term column GCD means that the GCD is a factor of the columns,
  while left GCD means that the GCD is a left factor.
  Also note that this specializes to polynomial GCD when 
@@ -305,25 +417,10 @@ Note that the term column GCD means that the GCD is a factor of the columns,
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 GCLDs is closely related to column reduced form.
  The non-zero columns of a column reduced form is also a GCLD, but a GCLD
  does not need to be column reduced and can have degree arbitrarily large.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-We always work with GCLDs in this thesis, and therefore matrix GCDs in this
- thesis are always GCLDs.
- 
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Remark
@@ -359,18 +456,6 @@ A matrix GCLD is commonly defined using two polynomial matrices
  Our definition is simpler, more general and works for matrices of any dimension
 s.
  
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The GCD computation algorithm we present in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Matrix-GCD"
-
-\end_inset
-
- also works for our more general definition.
 \end_layout
 
 \end_inset
@@ -379,11 +464,18 @@ reference "chap:Matrix-GCD"
 \end_layout
 
 \begin_layout Standard
-Before discussing the computation of GCLD, it is useful to look at following
- relationship between GCLD, nullspace basis, and unimodular matrix.
+Before discussing the computation of column basis, it is useful to look
+ at following relationship between column basis, kernel basis, and unimodular
+ matrix.
 \end_layout
 
 \begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:unimodular_kernel_columnBasis"
+
+\end_inset
+
 Given 
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
@@ -393,11 +485,7 @@ Given
 \begin_inset Formula $\mathbf{U}$
 \end_inset
 
- is a unimodular matrix transforms 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- to give its GCLD, that is, 
+ is a unimodular matrix such that 
 \begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]$
 \end_inset
 
@@ -409,30 +497,195 @@ Given
 \begin_inset Formula $\mathbf{U}$
 \end_inset
 
- can be separated to two submatrices 
-\begin_inset Formula $\mathbf{U}=\left[\mathbf{N},\mathbf{M}\right]$
+ can be separated into two submatrices 
+\begin_inset Formula $\mathbf{U}=\left[\mathbf{U}_{L},\mathbf{U}_{R}\right]$
 \end_inset
 
 , where 
-\begin_inset Formula $\mathbf{N}$
+\begin_inset Formula $\mathbf{U}_{L}$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{F}\mathbf{M}=\mathbf{T}$
+\begin_inset Formula $\mathbf{F}\mathbf{U}_{R}=\mathbf{T}$
 \end_inset
 
- is a GCLD of 
+ is a column basis of 
 \begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ In addition, the kernel basis 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ can be replaced by any other kernel basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and still gives a unimodular matrix 
+\begin_inset Formula $\left[\mathbf{N},\mathbf{U}_{R}\right]$
+\end_inset
+
+, which can also be used to unimodularly transform 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to 
+\begin_inset Formula $\left[0,\mathbf{T}\right]$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+Note that 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+.
+ It remains to show that 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ is a kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\mathbf{F}\mathbf{U}_{L}=0$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ is generated by any kernel basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{U}_{L}=\mathbf{N}\mathbf{C}$
+\end_inset
+
+ for some polynomial matrix 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $r$
+\end_inset
+
+ be the rank of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which is also the column dimension of 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}_{R}$
+\end_inset
+
+.
+ Then both 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ has column dimension 
+\begin_inset Formula $n-r$
+\end_inset
+
+.
+ Hence 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ is a square 
+\begin_inset Formula $(n-r)\times(n-r)$
+\end_inset
+
+ matrix.
+ Now the unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ can be factored as 
+\begin_inset Formula 
+\[
+\mathbf{U}=\left[\mathbf{N}\mathbf{C},\mathbf{U}_{R}\right]=\left[\mathbf{N},\mathbf{U}_{R}\right]\begin{bmatrix}\mathbf{C}\\
+ & I
+\end{bmatrix},
+\]
+
+\end_inset
+
+ implying that both factors 
+\begin_inset Formula $\left[\mathbf{N},\mathbf{U}_{R}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\begin{bmatrix}\mathbf{C}\\
+ & I
+\end{bmatrix}$
+\end_inset
+
+ is unimodular.
+ Therefore, 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ is unimodular and 
+\begin_inset Formula $\mathbf{U}_{L}=\mathbf{N}\mathbf{C}$
+\end_inset
+
+ is also a kernel basis.
+ Notice that the unimodular matrix 
+\begin_inset Formula $\left[\mathbf{N},\mathbf{U}_{R}\right]$
+\end_inset
+
+ also transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to 
+\begin_inset Formula $\left[0,\mathbf{T}\right]$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Proof
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Note that the column dimension of 
 \begin_inset Formula $\mathbf{M}$
 \end_inset
@@ -455,7 +708,7 @@ Note that the column dimension of
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -528,43 +781,184 @@ Note that the column dimension of
 .
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-For simplicity, let us assume 
-\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- with 
-\begin_inset Formula $n>m$
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodular_kernel_columnBasis"
+
 \end_inset
 
- has full row rank, which can be achieved by determining its rank and then
- use compression
-\begin_inset CommandInset citation
-LatexCommand citep
-key "storjohann-villard:2005"
+ gives the following result for a unimodular matrix and its inverse.
+\end_layout
 
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "cor:unimodular_kernel_columnBasis2"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{U}=\left[\mathbf{U}_{L},\mathbf{U}_{R}\right]$
+\end_inset
+
+ be any unimodular matrix with columns separated arbitrarily to 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}_{R}$
 \end_inset
 
 .
- 
-\end_layout
+ Let its inverse 
+\begin_inset Formula $\mathbf{V}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{V}_{D}
+\end{bmatrix}$
+\end_inset
+
+, where the row dimension of 
+\begin_inset Formula $\mathbf{V}_{U}$
+\end_inset
+
+ matches the column dimension of 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+.
+ So we have 
+\begin_inset Formula 
+\[
+\mathbf{V}\mathbf{U}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{V}_{D}
+\end{bmatrix}\begin{bmatrix}\mathbf{U}_{L},\mathbf{U}_{R}\end{bmatrix}=\begin{bmatrix}\mathbf{V}_{U}\mathbf{U}_{L} & \mathbf{V}_{U}\mathbf{U}_{R}\\
+\mathbf{V}_{D}\mathbf{U}_{L} & \mathbf{V}_{D}\mathbf{U}_{R}
+\end{bmatrix}=\begin{bmatrix}I & 0\\
+0 & I
+\end{bmatrix}.
+\]
 
 \end_inset
 
-To compute a GCD of 
+Then 
+\begin_inset Formula $\mathbf{V}_{U}\mathbf{U}_{L}=I$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{V}_{U}$
+\end_inset
+
+ and a row basis of 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+, while 
+\begin_inset Formula $\mathbf{V}_{D}\mathbf{U}_{R}=I$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+ and a row basis of of 
+\begin_inset Formula $\mathbf{U}_{R}$
+\end_inset
+
+.
+ In addition, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ are kernel bases of each other, while 
+\begin_inset Formula $\mathbf{V}_{U}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}_{R}$
+\end_inset
+
+ are kernel bases of each other.
+\end_layout
+
+\begin_layout Proof
+This follows directly from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodular_kernel_columnBasis"
+
+\end_inset
+
+, by taking 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodular_kernel_columnBasis"
+
+\end_inset
+
+ to be 
+\begin_inset Formula $\mathbf{V}_{U}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{U}_{L}^{T}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{U}_{R}^{T}$
+\end_inset
+
+ here.
+\end_layout
+
+\begin_layout Standard
+To compute a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
 , we use the following procedure.
  We first compute a right 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis 
+-minimal
+\end_layout
+
+\end_inset
+
+ kernel basis 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -574,10 +968,19 @@ To compute a GCD of
 
 .
  Then we compute a left 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
--minimal nullspace basis 
+-minimal
+\end_layout
+
+\end_inset
+
+ kernel basis 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -585,7 +988,8 @@ To compute a GCD of
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
-, this matrix 
+.
+ This matrix 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -606,7 +1010,7 @@ To compute a GCD of
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
-, which is in fact a GCD of 
+, which is in fact a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -650,14 +1054,23 @@ status collapsed
 
 .
  Let 
-\begin_inset Formula $\mathbf{N}$
+\begin_inset Formula $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times(n-r)}$
 \end_inset
 
- be a right 
+ be any right 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel
+\end_layout
+
+\end_inset
+
+kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -665,12 +1078,29 @@ status collapsed
 \begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{r\times n}$
 \end_inset
 
- be a left 
+ be any left 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel
+\end_layout
+
+\end_inset
+
+kernel basis of 
 \begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, where 
+\begin_inset Formula $r$
+\end_inset
+
+ is the rank of 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
 .
@@ -686,11 +1116,839 @@ status collapsed
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
- is a GCD of 
+ is a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Proof
+Let the matrix 
+\begin_inset Formula $\mathbf{U}=\begin{bmatrix}\mathbf{U}_{L},\mathbf{U}_{R}\end{bmatrix}$
+\end_inset
+
+ from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:unimodular_kernel_columnBasis2"
+
+\end_inset
+
+ be a unimodular matrix that transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to a column basis 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ is any right kernel basis 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ From 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{B}\right]$
+\end_inset
+
+, we get
+\series bold
+ 
+\begin_inset Formula $\mathbf{F}=\left[0,\mathbf{B}\right]\mathbf{U}^{-1}=\mathbf{B}\left[0,I\right]\mathbf{V}=\mathbf{B}\mathbf{V}_{D}$
+\end_inset
+
+
+\series default
+.
+ Since 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+ is a left kernel basis of
+\series bold
+ 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+
+\series default
+, any other left kernel basis 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ is unimodularly equivalent to 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{V}_{D}=\mathbf{W}\mathbf{G}$
+\end_inset
+
+ for some unimodular matrix 
+\begin_inset Formula $\mathbf{W}$
+\end_inset
+
+.
+ Now 
+\begin_inset Formula $\mathbf{F}=\mathbf{B}\mathbf{W}\mathbf{G}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{BW}=\mathbf{T}$
+\end_inset
+
+ a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ since it is unimodularly equivalent to the column basis 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+For simplicity, let us assume 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $n>m$
+\end_inset
+
+ has full row rank, which can be achieved by determining its rank and then
+ use compression
+\begin_inset CommandInset citation
+LatexCommand citep
+key "storjohann-villard:2005"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Lemma
+A matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ has unimodular column basis if and only if 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is a left kernel basis of some matrix.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $\mathbf{U}=\left[\mathbf{U}_{L},\mathbf{U}_{R}\right]$
+\end_inset
+
+ be any unimodular matrix with columns separated arbitrarily to 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}_{R}$
+\end_inset
+
+.
+ Let its inverse 
+\begin_inset Formula $\mathbf{V}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{V}_{D}
+\end{bmatrix}$
+\end_inset
+
+, where the row dimension of 
+\begin_inset Formula $\mathbf{V}_{U}$
+\end_inset
+
+ matches the column dimension of 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula 
+\[
+\mathbf{V}\mathbf{U}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{V}_{D}
+\end{bmatrix}\begin{bmatrix}\mathbf{U}_{L},\mathbf{U}_{R}\end{bmatrix}=\begin{bmatrix}\mathbf{V}_{U}\mathbf{U}_{L} & \mathbf{V}_{U}\mathbf{U}_{R}\\
+\mathbf{V}_{D}\mathbf{U}_{L} & \mathbf{V}_{D}\mathbf{U}_{R}
+\end{bmatrix}=\begin{bmatrix}I & 0\\
+0 & I
+\end{bmatrix}.
+\]
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodular_kernel_columnBasis"
+
+\end_inset
+
+, we see that the column bases of 
+\begin_inset Formula $\mathbf{V}_{U}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+, and the row bases of 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ and
+\series bold
+ 
+\begin_inset Formula $\mathbf{U}_{R}$
+\end_inset
+
+
+\series default
+ are identity matrices.
+ In addition, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ are kernel bases of each other
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, and similarly for 
+\begin_inset Formula $\mathbf{V}_{U}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{U}_{R}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Now we can let 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ be a unimodular matrix that transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to a column basis 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, with any right kernel basis
+\series bold
+ 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ 
+\series default
+of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ From 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{B}\right]$
+\end_inset
+
+, we get
+\series bold
+ 
+\begin_inset Formula $\mathbf{F}=\left[0,\mathbf{B}\right]\mathbf{U}^{-1}=\mathbf{B}\left[0,I\right]\mathbf{V}=\mathbf{B}\mathbf{V}_{D}$
+\end_inset
+
+
+\series default
+.
+ Since 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+ is a left kernel basis of
+\series bold
+ 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+
+\series default
+, any other left kernel basis 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ is unimodularly equivalent to 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{V}_{D}=\mathbf{W}\mathbf{G}$
+\end_inset
+
+ for some unimodular matrix 
+\begin_inset Formula $\mathbf{W}$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $\mathbf{F}=\mathbf{B}\mathbf{W}\mathbf{G}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{BW}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+and 
+\begin_inset Formula $\mathbf{V}_{D}\mathbf{U}=\left[0,I\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, we get 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{V}_{D}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Note that 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is a left kernel basis of some matrix if and only if it is a left kernel
+ basis of a right kernel basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+, the unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ that transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to a column basis 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be separated to 
+\begin_inset Formula $\mathbf{U}=\left[\mathbf{N},\mathbf{U}_{R}\right]$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{F}\mathbf{U}_{R}\right]=\left[0,\mathbf{T}\right]$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, we have 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+ for some matrix 
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{r\times n}$
+\end_inset
+
+.
+ Now 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\mathbf{T}\mathbf{G}\mathbf{U}=\mathbf{T}\left[0,\mathbf{G}\mathbf{U}_{R}\right]=\mathbf{T}\left[0,I\right]$
+\end_inset
+
+.
+ Hence 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ has a identity column basis.
+\end_layout
+
+\begin_layout Proof
+Now there exists a matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ such that 
+\begin_inset Formula 
+\[
+\begin{bmatrix}\mathbf{A}\\
+\mathbf{F}
+\end{bmatrix}\left[\mathbf{N},\mathbf{U}_{R}\right]=\begin{bmatrix}I\\
+ & \mathbf{T}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+If 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has a unimodular column basis, then 
+\begin_inset Formula $\mathbf{F}\left[\mathbf{N},\mathbf{U}_{R}\right]=\left[0,\mathbf{T}\right]$
+\end_inset
+
+, then there is a matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ such that 
+\begin_inset Formula 
+\[
+\begin{bmatrix}\mathbf{A}\\
+\mathbf{F}
+\end{bmatrix}\left[\mathbf{N},\mathbf{U}_{R}\right]=\begin{bmatrix}I\\
+ & \mathbf{T}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ since 
+\begin_inset Formula $\left[\mathbf{N},\mathbf{U}_{R}\right]$
+\end_inset
+
+ is unimodular.
+\end_layout
+
+\begin_layout Proof
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+, the unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ that transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be separated to 
+\begin_inset Formula $\mathbf{U}=\left[\mathbf{N},\mathbf{U}_{R}\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is any right kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Similarly, the unimodular matrix 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ that transforms 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ to a column basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ can be separated to 
+\begin_inset Formula $\mathbf{V}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{G}
+\end{bmatrix}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is any left kernel basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Now the product 
+\begin_inset Formula 
+\[
+\mathbf{V}\mathbf{U}=\begin{bmatrix}\mathbf{V}_{U}\mathbf{N} & \mathbf{V}_{U}\mathbf{U}_{R}\\
+0 & \mathbf{G}\mathbf{U}_{R}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ is unimodular, hence the block 
+\begin_inset Formula $\mathbf{G}\mathbf{U}_{R}$
+\end_inset
+
+ is also unimodular.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{G}\mathbf{U}_{R}$
+\end_inset
+
+ is also a column basis of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+, and 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ be any left kernel basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Then the unimodular matrix 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ that transforms 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ to 
+\end_layout
+
+\begin_layout Proof
+Then from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{F}\left[\mathbf{N},\mathbf{U}_{R}\right]=\left[0,\mathbf{T}\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $\left[\mathbf{N},\mathbf{U}_{R}\right]$
+\end_inset
+
+ is a unimodular matrix and 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $\mathbf{U}=\begin{bmatrix}\mathbf{N},\mathbf{U}_{R}\end{bmatrix}$
+\end_inset
+
+ be a unimodular matrix that transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to give a column basis as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodular_kernel_columnBasis"
+
+\end_inset
+
+.
+ Similarly, let 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ be a unimodular matrix that transforms 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ to a row basis 
+\begin_inset Formula $\mathbf{W}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ That is, 
+\begin_inset Formula $\mathbf{V}\mathbf{N}=\begin{bmatrix}\mathbf{W}\\
+0
+\end{bmatrix}$
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodular_kernel_columnBasis"
+
+\end_inset
+
+, we know 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ can be separated to 
+\begin_inset Formula $\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{G}
+\end{bmatrix}$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is any left kernel basis of 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+.
+ Since the rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ are in the left kernel of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, they are generated by the rows of the left kernel basis 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+.
+ In other words, 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+ for some 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\mathbf{T}\mathbf{G}\mathbf{U}=\left[0,\mathbf{T}\mathbf{G}\mathbf{U}_{R}\right]$
+\end_inset
+
+.
+ To see that Now the product of two unimodular matrices 
+\begin_inset Formula 
+\[
+\mathbf{V}\mathbf{U}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{G}
+\end{bmatrix}\begin{bmatrix}\mathbf{N},\mathbf{U}_{R}\end{bmatrix}=\begin{bmatrix}\mathbf{V}_{U}\mathbf{N} & \mathbf{V}_{U}\mathbf{U}_{R}\\
+0 & \mathbf{G}\mathbf{U}_{R}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ is again unimodular.
+ Therefore, 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\mathbf{T}\mathbf{G}\mathbf{U}=\left[0,\mathbf{T}\mathbf{G}\mathbf{U}_{R}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula $\mathbf{T}=\mathbf{F}\mathbf{U}_{R}=\mathbf{A}\mathbf{G}\mathbf{U}_{R}$
+\end_inset
+
+.
+ 
+\begin_inset Formula 
+\[
+\mathbf{V}\mathbf{U}_{L}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{V}_{D}
+\end{bmatrix}\mathbf{U}_{L}=\begin{bmatrix}\mathbf{V}_{U}\mathbf{U}_{L}\\
+0
+\end{bmatrix},
+\]
+
+\end_inset
+
+ Where 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is separated to 
+\begin_inset Formula $\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{V}_{L}
+\end{bmatrix}$
+\end_inset
+
+ and where 
+\end_layout
+
+\begin_layout Proof
+Let its inverse 
+\begin_inset Formula $\mathbf{U}^{-1}=\mathbf{V}$
+\end_inset
+
+ be separated to 
+\begin_inset Formula $\mathbf{V}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{V}_{D}
+\end{bmatrix}$
+\end_inset
+
+, such that 
+\begin_inset Formula 
+\[
+\mathbf{V}\mathbf{U}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{V}_{D}
+\end{bmatrix}\begin{bmatrix}\mathbf{U}_{L},\mathbf{U}_{R}\end{bmatrix}=\begin{bmatrix}\mathbf{V}_{U}\mathbf{U}_{L} & \mathbf{V}_{U}\mathbf{U}_{R}\\
+\mathbf{V}_{D}\mathbf{U}_{L} & \mathbf{V}_{D}\mathbf{U}_{R}
+\end{bmatrix}=\begin{bmatrix}\mathbf{V}_{U}\mathbf{U}_{L} & 0\\
+0 & \mathbf{V}_{D}\mathbf{U}_{R}
+\end{bmatrix}=I.
+\]
+
+\end_inset
+
+From 
+\begin_inset Formula $\mathbf{F}\mathbf{U}_{L}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Proof
@@ -706,11 +1964,11 @@ To see that
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- are in the left nullspace of 
+ are in the left kernel of 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
- and therefore generated by the nullspace basis 
+ and therefore generated by the kernel basis 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -719,7 +1977,7 @@ To see that
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
- is a GCD of 
+ is a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -727,39 +1985,43 @@ To see that
 \end_layout
 
 \begin_layout Proof
-Consider unimodularly transforming 
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+, the unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ that transforms 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- to its GCD.
- 
+ to a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be separated to 
+\begin_inset Formula $\mathbf{U}=\left[\mathbf{N},\mathbf{U}_{R}\right]$
+\end_inset
+
+.
+ Then 
 \begin_inset Formula 
 \begin{eqnarray}
-\mathbf{F}\mathbf{U} & =\nonumber \\
- & = & \mathbf{T}\mathbf{G}\mathbf{U}\\
- & = & \mathbf{T}\mathbf{G}\left[\mathbf{N},\mathbf{M}\right]=\left[0,\mathbf{TGM}\right],\label{eq:columnReduction}
+\mathbf{F}\mathbf{U} & = & \mathbf{T}\mathbf{G}\left[\mathbf{N},\mathbf{U}_{R}\right]=\left[0,\mathbf{T}\mathbf{G}\mathbf{U}_{R}\right],\label{eq:columnReduction}
 \end{eqnarray}
 
 \end_inset
 
- where 
-\begin_inset Formula $\mathbf{U}$
+where that 
+\begin_inset Formula $\mathbf{TG}\mathbf{U}_{R}$
 \end_inset
 
- is a unimodular matrix that contains the nullspace basis 
-\begin_inset Formula $\mathbf{N}$
-\end_inset
-
- and the remaining columns in 
-\begin_inset Formula $\mathbf{M}$
-\end_inset
-
-.
- Note that 
-\begin_inset Formula $\mathbf{TGM}$
-\end_inset
-
- is a GCD of 
+ is a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -768,12 +2030,12 @@ Consider unimodularly transforming
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
- is a GCD of 
+ is a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
 , we just need to show that 
-\begin_inset Formula $\mathbf{H}=\mathbf{GM}$
+\begin_inset Formula $\mathbf{H}=\mathbf{G}\mathbf{U}_{R}\in\mathbb{K}\left[x\right]^{r\times r}$
 \end_inset
 
  is unimodular.
@@ -789,28 +2051,55 @@ reference "eq:columnReduction"
 \end_inset
 
 , or 
-\begin_inset Formula $\mathbf{G}=\mathbf{H}\left[0,I\right]\mathbf{U}^{-1}$
+\begin_inset Formula $\mathbf{G}=\mathbf{H}\left[0,I_{r}\right]\mathbf{U}^{-1}=\mathbf{H}\mathbf{V}_{D}$
 \end_inset
 
- after rearranging.
- Hence 
+ after rearranging, where 
+\begin_inset Formula $\mathbf{V}_{d}=\left[0,I_{r}\right]\mathbf{U}^{-1}$
+\end_inset
+
+ is the submatrix of 
+\begin_inset Formula $\mathbf{U}^{-1}$
+\end_inset
+
+ consists of its 
+\begin_inset Formula $r$
+\end_inset
+
+ bottom rows.
+ Since the kernel basis 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
- is generated by the rows of 
-\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
-\end_inset
-
-.
- But since 
-\begin_inset Formula $\mathbf{G}$
-\end_inset
-
- is a nullspace basis of 
+ of 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
-, and its right factor 
+ is unimodularly equivalent to 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+ is also a left kernel basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, it only remains to show that 
+\begin_inset Formula $\mathbf{V}_{D}$
+\end_inset
+
+ is also a left kernel basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+So it only remains to show that 
 \family roman
 \series medium
 \shape up
@@ -826,7 +2115,161 @@ reference "eq:columnReduction"
 \begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
 \end_inset
 
- must also be a nullspace basis of 
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ is a left kernel basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Note 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+that 
+\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
+\end_inset
+
+ consists of the bottom rows of a unimodular matrix and is therefore full-rank.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ Since the column basis 
+\begin_inset Formula $\mathbf{T}\mathbf{G}\mathbf{U}_{R}=\mathbf{T}\mathbf{H}$
+\end_inset
+
+ is full-rank, 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ must be nonsingular.
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+Now 
+\begin_inset Formula $\mathbf{G}\mathbf{N}=\mathbf{H}\left[0,I\right]\mathbf{U}^{-1}\mathbf{N}=0$
+\end_inset
+
+ implies 
+\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}\mathbf{N}=0$
+\end_inset
+
+, that is, the rows of 
+\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
+\end_inset
+
+ are in the left kernel of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ As a right factor of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+, 
+\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
+\end_inset
+
+ generates the rows of the left kernel basis 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ and therefore generates the left kernel of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Putting these together we have shown that 
+\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+and the rows of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ are generated by the rows of 
+\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
+\end_inset
+
+.
+ But since 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is a left kernel basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, its full-rank right factor 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left[0,I\right]\mathbf{U}^{-1}$
+\end_inset
+
+ must also be a left kernel basis of 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -856,6 +2299,11 @@ status collapsed
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -863,7 +2311,7 @@ reference "lem:matrixGCD"
 
 \end_inset
 
- outlines a procedure for computing a GCD of 
+ outlines a procedure for computing a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -872,27 +2320,27 @@ reference "lem:matrixGCD"
 \begin_inset Formula $\left(\mathbf{F},\vec{s}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
 , which can be efficiently done using 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasis"
+reference "alg:minimalNullspaceBasisWithRankProfile"
 
 \end_inset
 
 .
- But we still need to work on the second step of computing a 
+ However, we still need to work on the second step of computing a 
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{G}^{T}$
 \end_inset
 
- and the third step of computing the GCD 
+ and the third step of computing the column basis 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
@@ -905,6 +2353,16 @@ reference "alg:minimalNullspaceBasis"
 \end_inset
 
 .
+ Note that while 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:matrixGCD"
+
+\end_inset
+
+ does not require the bases computed to be minimal, working with minimal
+ bases keeps the degrees well-managed and helps to make the computation
+ efficient.
 \end_layout
 
 \begin_layout Section
@@ -922,7 +2380,7 @@ Let us now look at the computation of a
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{G}^{T}$
 \end_inset
 
@@ -930,7 +2388,7 @@ Let us now look at the computation of a
  For this problem, 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasis"
+reference "alg:minimalNullspaceBasisWithRankProfile"
 
 \end_inset
 
@@ -943,7 +2401,7 @@ reference "alg:minimalNullspaceBasis"
 \begin_inset Formula $\left(\mathbf{F},\vec{s}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -986,7 +2444,7 @@ It is therefore reasonable to expect that the new problem can be computed
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis.
+-kernel basis.
  
 \end_layout
 
@@ -999,8 +2457,8 @@ reference "lem:orderBasisContainsNullspaceBasis"
 
 \end_inset
 
-, which provides a relationship between order bases and nullspace bases,
- to accommodate our situation here.
+, which provides a relationship between order bases and kernel bases, to
+ accommodate our situation here.
 \end_layout
 
 \begin_layout Lemma
@@ -1043,7 +2501,7 @@ Given a matrix
 \begin_inset Formula $(\mathbf{A},-\vec{u})$
 \end_inset
 
--nullspace basis, where 
+-kernel basis, where 
 \begin_inset Formula $\mathbf{P}_{1}$
 \end_inset
 
@@ -1076,7 +2534,7 @@ Given a matrix
 \begin_inset Formula $(\mathbf{A},-\vec{u})$
 \end_inset
 
--nullspace basis, and 
+-kernel basis, and 
 \begin_inset Formula $\left[\mathbf{Q}_{1},\mathbf{P}_{2}\right]$
 \end_inset
 
@@ -1193,21 +2651,21 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 
 \end_inset
 
-, let us get back to our problem of computing a a 
+, let us get back to our problem of computing a 
 \begin_inset Formula $(\mathbf{F},\vec{s})$
 \end_inset
 
--nullspace basis.
+-kernel basis.
  
 \begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
- embedding the reversed 
+embedding the reversed 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- in an order basis of a nullspace basis of 
+ in an order basis of a kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -1223,12 +2681,12 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 
 \end_inset
 
-, where all the elements of the nullspace basis have shifted degrees bounded
+, where all the elements of the kernel basis have shifted degrees bounded
  by 
 \begin_inset Formula $0$
 \end_inset
 
-, making the partial nullspace basis a complete nullspace basis
+, making the partial kernel basis a complete kernel basis
 \begin_inset Note Comment
 status collapsed
 
@@ -1260,7 +2718,7 @@ Let
 \begin_inset Formula $(\mathbf{F},\vec{s})$
 \end_inset
 
--nullspace basis with 
+-kernel basis with 
 \begin_inset Formula $\cdeg_{\vec{s}}\mathbf{N}=\vec{b}$
 \end_inset
 
@@ -1313,7 +2771,7 @@ Then
 \begin_inset Formula $(\mathbf{N}^{T},-\vec{s})$
 \end_inset
 
--nullspace basis.
+-kernel basis.
  
 \end_layout
 
@@ -1330,7 +2788,7 @@ Let the rank of
 \begin_inset Formula $(\mathbf{N}^{T},-\vec{s})$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{G}^{T}$
 \end_inset
 
@@ -1343,7 +2801,7 @@ Let the rank of
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
- are in the left nullspace of 
+ are in the left kernel of 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -1388,7 +2846,7 @@ Let the rank of
 \begin_inset Formula $(\mathbf{N}^{T},-\vec{s})$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{G}^{T}$
 \end_inset
 
@@ -1419,7 +2877,7 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis by rows.
+-kernel basis by rows.
  If we separate 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
@@ -1444,7 +2902,7 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{Q}_{1}$
 \end_inset
 
@@ -1460,7 +2918,7 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},-\vec{s}_{2}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{Q}_{2}$
 \end_inset
 
@@ -1472,8 +2930,8 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis.
- To compute nullspace bases 
+-kernel basis.
+ To compute kernel bases 
 \begin_inset Formula $\mathbf{Q}_{1}$
 \end_inset
 
@@ -1481,8 +2939,9 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \begin_inset Formula $\mathbf{Q}_{2}$
 \end_inset
 
-, we can use order basis computation, but we need to make sure that the
- order bases we compute do contain the the nullspace bases.
+, we can use order basis computation.
+ However, we need to make sure that the order bases we compute do contain
+ these kernel bases.
 \begin_inset Note Note
 status collapsed
 
@@ -1549,7 +3008,7 @@ Let
 status collapsed
 
 \begin_layout Plain Layout
- and 
+and 
 \begin_inset Formula $\mathbf{G}^{T}$
 \end_inset
 
@@ -1557,7 +3016,7 @@ status collapsed
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--basis nullspace basis
+-basis kernel basis
 \end_layout
 
 \end_inset
@@ -1571,7 +3030,7 @@ status collapsed
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis.
+-kernel basis.
 \end_layout
 
 \begin_layout Proof
@@ -1583,7 +3042,7 @@ Let
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis.
+-kernel basis.
  First note that 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
@@ -1809,7 +3268,7 @@ Let
 \begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis whose 
+-kernel basis whose 
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
@@ -1818,7 +3277,7 @@ Let
 \begin_inset Formula $\mathbf{Q}_{1}$
 \end_inset
 
- be this nullspace basis, and 
+ be this kernel basis, and 
 \begin_inset Formula $-\vec{s}_{2}=\cdeg_{-\vec{s}}\mathbf{Q}_{1}$
 \end_inset
 
@@ -1831,7 +3290,7 @@ Let
 \begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},-\vec{s}_{2}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{Q}_{2}$
 \end_inset
 
@@ -1848,7 +3307,7 @@ Let
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis.
+-kernel basis.
 \end_layout
 
 \begin_layout Proof
@@ -1860,7 +3319,7 @@ To see that a
 \begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis whose 
+-kernel basis whose 
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
@@ -1872,7 +3331,7 @@ To see that a
 \begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\mathbf{\bar{Q}}_{1}$
 \end_inset
 
@@ -1896,7 +3355,7 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\bar{\mathbf{G}}$
 \end_inset
 
@@ -1912,7 +3371,7 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 \begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\bar{\mathbf{Q}}_{1}$
 \end_inset
 
@@ -1945,7 +3404,7 @@ As before, to see that a
 \begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},-\vec{s}_{2}\right)$
 \end_inset
 
--nullspace basis whose 
+-kernel basis whose 
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
@@ -1957,7 +3416,7 @@ As before, to see that a
 \begin_inset Formula $\left(\mathbf{N}_{2}^{T}\mathbf{Q}_{1},-\vec{s}_{2}\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\hat{\mathbf{Q}}_{2}$
 \end_inset
 
@@ -1982,7 +3441,7 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis.
+-kernel basis.
  Note that 
 \begin_inset Formula $\rdeg_{-\vec{s}_{2}}\hat{\mathbf{Q}}_{2}=\rdeg_{-\vec{s}}\mathbf{Q}_{1}\hat{\mathbf{Q}}_{2}=\rdeg_{-\vec{s}}\hat{\mathbf{G}}\le0$
 \end_inset
@@ -1996,7 +3455,7 @@ Now that we can correctly compute a
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis by rows with the help of order basis computation, we need
+-kernel basis by rows with the help of order basis computation, we need
  to look at how to do it efficiently.
  One major difficulty is that the order, or equivalently, the 
 \begin_inset Formula $\vec{s}$
@@ -2011,7 +3470,7 @@ Now that we can correctly compute a
 \begin_inset Formula $\mathbf{N}^{T}$
 \end_inset
 
- to blocks according to their 
+ into blocks according to their 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -2110,7 +3569,7 @@ Let
 
 \end_inset
 
- with 
+with 
 \begin_inset Formula $\mathbf{N}_{1},\mathbf{N}_{2},\cdots,\mathbf{N}_{\log k-1},\mathbf{N}_{\log k}$
 \end_inset
 
@@ -2119,7 +3578,47 @@ Let
 \end_inset
 
 -column degrees in the range 
-\begin_inset Formula $\left[0,2\xi/k\right],(2\xi/k,4\xi/k],(4\xi/k,8\xi/k],...,(\xi/4,\xi/2],(\xi/2,\xi].$
+\begin_inset Formula $\left[0,2\xi/k\right]$
+\end_inset
+
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $(2\xi/k,4\xi/k],$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $(4\xi/k,8\xi/k],\ ...,$
+\end_inset
+
+ 
+\begin_inset Formula $(\xi/4,\xi/2],$
+\end_inset
+
+ 
+\begin_inset Formula $(\xi/2,\xi].$
 \end_inset
 
  Let 
@@ -2141,7 +3640,7 @@ Let
 \begin_layout Standard
 To further simply our task, we also make the order of our problem in each
  block uniform.
- Instead of using 
+ Rather than of using 
 \begin_inset Formula $\mathbf{N}^{T}$
 \end_inset
 
@@ -2175,8 +3674,8 @@ We are now ready to compute a
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis, which is done by a series of order basis computations
- that computes a series of nullspace bases as follows.
+-kernel basis, which is done by a series of order basis computations that
+ computes a series of kernel bases as follows.
 \end_layout
 
 \begin_layout Standard
@@ -2201,7 +3700,7 @@ Let
 \begin_inset Formula $\left(\hat{\mathbf{N}}_{1},-\vec{s}_{1}\right)$
 \end_inset
 
--nullspace basis
+-kernel basis
 \begin_inset Note Comment
 status collapsed
 
@@ -2294,11 +3793,12 @@ Note that
 \begin_inset Formula $\vec{s}_{3}=-\cdeg_{-\vec{s}_{2}}\mathbf{G}_{2}$
 \end_inset
 
- and .
+.
  Let 
 \begin_inset Formula $\tilde{\mathbf{G}}_{2}=\tilde{\mathbf{G}}_{1}\mathbf{G}_{2}$
 \end_inset
 
+.
  
 \begin_inset Note Note
 status collapsed
@@ -2456,11 +3956,11 @@ reference "lem:unimodularComputationByRows"
 \end_layout
 
 \begin_layout Standard
-Continue this process, at step 
+Continuing this process, at step 
 \begin_inset Formula $i$
 \end_inset
 
-, we compute an 
+ we compute an 
 \begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
 \end_inset
 
@@ -2482,7 +3982,7 @@ Continue this process, at step
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis.
+-kernel basis.
  
 \end_layout
 
@@ -2491,7 +3991,7 @@ This process of computing a
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--nullspace basis gives 
+-kernel basis gives 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "alg:minimalNullspaceBasisReverse"
@@ -2630,7 +4130,7 @@ A right factor
 \begin_inset Formula $\mathbf{TG}=\mathbf{F}$
 \end_inset
 
- for a GCD 
+ for a column basis 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
@@ -2642,7 +4142,7 @@ A right factor
 \end_layout
 
 \begin_layout Section
-Computing a GCD 
+Computing a Column Basis
 \end_layout
 
 \begin_layout Standard
@@ -2654,7 +4154,7 @@ With a right factor
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- computed, we are now ready to compute a GCD 
+ computed, we are now ready to compute a column basis 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
@@ -2671,6 +4171,12 @@ With a right factor
 \end_layout
 
 \begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:colBasisdegreeBoundByRdegOfRightFactor"
+
+\end_inset
+
 The column degrees of 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
@@ -2720,7 +4226,7 @@ reference "lem:predictableDegree"
 \begin_layout Lemma
 \begin_inset CommandInset label
 LatexCommand label
-name "lem:GCDDegreeBoundByInputDegrees"
+name "lem:colBasisDegreeBoundByInputDegrees"
 
 \end_inset
 
@@ -2728,11 +4234,22 @@ Let
 \begin_inset Formula $\vec{t}=-\rdeg_{-\vec{s}}\mathbf{G}$
 \end_inset
 
-, which has 
+, a vector with 
 \begin_inset Formula $r$
 \end_inset
 
- entries.
+ entries and bounds 
+\begin_inset Formula $\cdeg\mathbf{T}$
+\end_inset
+
+ from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:colBasisdegreeBoundByRdegOfRightFactor"
+
+\end_inset
+
+.
  Let 
 \begin_inset Formula $\vec{s}'$
 \end_inset
@@ -2802,7 +4319,7 @@ Let
 \end_inset
 
  with the same entries.
- Note that 
+ Note that by the definition of shifted row degree, 
 \begin_inset Formula $-\vec{t}"$
 \end_inset
 
@@ -2858,7 +4375,7 @@ Let
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--nullspace basis has the form 
+-kernel basis has the form 
 \begin_inset Formula $\begin{bmatrix}V\\
 \bar{\mathbf{T}}
 \end{bmatrix}$
@@ -2872,7 +4389,7 @@ Let
 \begin_inset Formula $\left(\bar{\mathbf{T}}V^{-1}\right)^{T}$
 \end_inset
 
- is a GCD of 
+ is a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -2886,11 +4403,11 @@ First, the matrix
 \end{bmatrix}$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]$
 \end_inset
 
- and is unimodularly equivalent to any other nullspace basis.
+ and is unimodularly equivalent to any other kernel basis.
  Hence we must have 
 \begin_inset Formula $\begin{bmatrix}V\\
 \bar{\mathbf{T}}
@@ -2904,7 +4421,7 @@ First, the matrix
 \end_inset
 
 .
- Also note that the shift 
+ Also note that the 
 \begin_inset Formula $-\vec{t}'$
 \end_inset
 
@@ -2916,7 +4433,7 @@ First, the matrix
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--nullspace basis to be the same degree as 
+-kernel basis to be the same degree as 
 \begin_inset Formula $I$
 \end_inset
 
@@ -2925,7 +4442,7 @@ First, the matrix
 status collapsed
 
 \begin_layout Plain Layout
- Finally, a 
+Finally, a 
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
 \end_inset
 
@@ -2933,7 +4450,7 @@ status collapsed
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--nullspace basis because both 
+-kernel basis because both 
 \begin_inset Formula $\mathbf{F}^{T}$
 \end_inset
 
@@ -2958,7 +4475,7 @@ To compute a
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--nullspace basis, we can again use order basis computation.
+-kernel basis, we can again use order basis computation.
 \end_layout
 
 \begin_layout Lemma
@@ -2970,7 +4487,7 @@ Any
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--nullspace basis whose 
+-kernel basis whose 
 \begin_inset Formula $-\vec{t}'$
 \end_inset
 
@@ -2990,7 +4507,7 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--nullspace basis has 
+-kernel basis has 
 \begin_inset Formula $-\vec{t}'$
 \end_inset
 
@@ -3021,8 +4538,8 @@ a
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--nullspace basis efficiently, notice we have the same type of problem as
- in 
+-kernel basis efficiently, notice we have the same type of problem as in
+ 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "sec:computeRightFactor"
@@ -3041,14 +4558,13 @@ reference "alg:minimalNullspaceBasisReverse"
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--nullspace basis 
+-kernel basis 
 \begin_inset Formula $\begin{bmatrix}V\\
 \bar{\mathbf{T}}
 \end{bmatrix}$
 \end_inset
 
-.
- A GCLD can now be easily computed by 
+ computed, a column basis can now be easily computed by 
 \begin_inset Formula $\mathbf{T}=\left(\bar{\mathbf{T}}V^{-1}\right)^{T}$
 \end_inset
 
@@ -3056,10 +4572,11 @@ reference "alg:minimalNullspaceBasisReverse"
 \end_layout
 
 \begin_layout Standard
-We now have a complete algorithm for computing a GCLD, given in 
+We now have a complete algorithm for computing a column basis, given in
+ 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:gcd"
+reference "alg:colBasis"
 
 \end_inset
 
@@ -3069,7 +4586,8 @@ reference "alg:gcd"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "algorithmGCD.lyx"
+preview true
+filename "algorithmColumnBasis.lyx"
 
 \end_inset
 
@@ -3079,11 +4597,11 @@ filename "algorithmGCD.lyx"
 \begin_layout Theorem
 \begin_inset CommandInset label
 LatexCommand label
-name "thm:GCDCost1"
+name "thm:columnBasisCost1"
 
 \end_inset
 
-A GCD 
+A column basis 
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
@@ -3107,7 +4625,7 @@ This can be done by computing a left
 \begin_inset Formula $\left[0,\dots,0,d,\dots,d\right]$
 \end_inset
 
--minimal nullspace basis 
+-minimal kernel basis 
 \begin_inset Formula $\left[\mathbf{T}',V\right]$
 \end_inset
 
@@ -3157,7 +4675,7 @@ This can be done by computing a left
 \begin_inset Formula $\left[\mathbf{T},I\right]$
 \end_inset
 
- is a left nullspace basis with 
+ is a left kernel basis with 
 \begin_inset Formula $\left[0,\dots,0,d,\dots,d\right]$
 \end_inset
 
@@ -3169,7 +4687,7 @@ This can be done by computing a left
 \begin_inset Formula $\left[0,\dots,0,d,\dots,d\right]$
 \end_inset
 
--minimal nullspace basis 
+-minimal kernel basis 
 \begin_inset Formula $\left[\mathbf{T}',V\right]$
 \end_inset
 
@@ -3200,6 +4718,12 @@ This can be done by computing a left
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:successiveColBasisComputation"
+
+\end_inset
+
 A Simple Improvement
 \end_layout
 
@@ -3237,8 +4761,8 @@ When the input matrix
 \end_inset
 
 , and the columns are arranged in increasing degrees.
- We then do a series of GCD computations.
- First we compute a GCD 
+ We then do a series of column basis computations.
+ First we compute a column basis 
 \begin_inset Formula $\mathbf{T}_{1}$
 \end_inset
 
@@ -3247,7 +4771,7 @@ When the input matrix
 \end_inset
 
 .
- Then compute a GCD 
+ Then compute a column basis 
 \begin_inset Formula $\mathbf{T}_{2}$
 \end_inset
 
@@ -3260,7 +4784,7 @@ When the input matrix
 \begin_inset Formula $i$
 \end_inset
 
-, we compute a GCD 
+, we compute a column basis 
 \begin_inset Formula $\mathbf{T}_{i}$
 \end_inset
 
@@ -3272,7 +4796,7 @@ When the input matrix
 \begin_inset Formula $i=n/m-1$
 \end_inset
 
-, when a GCD of 
+, when a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -3284,7 +4808,7 @@ At step
 \begin_inset Formula $i$
 \end_inset
 
-, computing a GCD 
+, computing a column basis 
 \begin_inset Formula $\mathbf{T}_{i}$
 \end_inset
 
@@ -3292,22 +4816,22 @@ At step
 \begin_inset Formula $\left[\mathbf{T}_{i-1},\mathbf{F}_{i+1}\right]$
 \end_inset
 
- costs 
+ can be done with a cost of 
 \begin_inset Formula $O^{\sim}\left(m^{\omega-1}\left(\sum\cdeg\mathbf{F}_{i}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)$
 \end_inset
 
-.
+ field operations.
 \end_layout
 
 \begin_layout Proof
 From 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:GCDDegreeBoundByInputDegrees"
+reference "lem:colBasisDegreeBoundByInputDegrees"
 
 \end_inset
 
-, the GCD 
+, the column basis 
 \begin_inset Formula $\mathbf{T}_{i-1}$
 \end_inset
 
@@ -3324,7 +4848,8 @@ reference "lem:GCDDegreeBoundByInputDegrees"
 \end_inset
 
 .
- The lemma then follows by combining this with the result that a GCD 
+ The lemma then follows by combining this with the result that a column
+ basis 
 \begin_inset Formula $\mathbf{T}_{i}$
 \end_inset
 
@@ -3339,7 +4864,7 @@ reference "lem:GCDDegreeBoundByInputDegrees"
  from 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:GCDCost1"
+reference "thm:columnBasisCost1"
 
 \end_inset
 
@@ -3347,7 +4872,13 @@ reference "thm:GCDCost1"
 \end_layout
 
 \begin_layout Theorem
-A GCD of 
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:finalCollBasisCost"
+
+\end_inset
+
+A column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -3359,7 +4890,7 @@ A GCD of
 \end_layout
 
 \begin_layout Proof
-Summing up the cost of all the GCD computations, 
+Summing up the cost of all the column basis computations, 
 \begin_inset Formula 
 \begin{eqnarray*}
  &  & \sum_{i=1}^{n/m-1}O^{\sim}\left(m^{\omega-1}\left(\sum\cdeg\mathbf{F}_{i}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)\\
@@ -3370,6 +4901,26 @@ Summing up the cost of all the GCD computations,
 \end_inset
 
 
+\end_layout
+
+\begin_layout Remark
+In this section, the computational efficiency is improved by reducing the
+ original problem to about 
+\begin_inset Formula $n/m$
+\end_inset
+
+ subproblems whose column dimensions are close to the row dimension 
+\begin_inset Formula $m$
+\end_inset
+
+.
+ This is done by successive column basis computations.
+ Note that we can also reduce the column dimension by using successive order
+ basis computations, and only do a column basis computation at the very
+ last step.
+ The computational complexity of using order basis computation to reduce
+ the column dimension would remain the same, but in practice it maybe more
+ efficient since order basis computations are simpler.
 \end_layout
 
 \end_body

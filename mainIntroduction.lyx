@@ -77,12 +77,12 @@ In this thesis, we present efficient algorithms for a number of problems
  for all other problems.
  The second problem, minimal kernel basis computation, provides another
  essential tool used by the algorithms for the remaining problems, including
- the computation of matrix inverse, determinant, matrix GCD, unimodular
+ the computation of matrix inverse, determinant, column basis, unimodular
  completion, and Hermite normal form.
  The algorithm for kernel basis computation also immediately allows us to
  solve linear systems.
- The algorithm for matrix GCD also immediately allows us to compute column
- reduced forms and Popov normal forms for matrices of any dimension.
+ The algorithm for column basis also immediately allows us to compute matrix
+ GCDs, column reduced forms and Popov normal forms for matrices of any dimension.
  
 \end_layout
 
@@ -1987,6 +1987,14 @@ reference "chap:Matrix-inverse"
 \end_inset
 
  discusses the algorithm for computing matrix inverse.
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Matrix-GCD"
+
+\end_inset
+
+ discusses the computation of column bases.
  Unimodular completion is then discussed in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1995,17 +2003,24 @@ reference "chap:Unimodular-Completion"
 \end_inset
 
 .
- Then we look at matrix GCD in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Matrix-GCD"
-
-\end_inset
-
- and determinant computation in 
+ Then we look at determinant computation in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:determinant"
+
+\end_inset
+
+, Hermite normal form computation in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:hermite"
+
+\end_inset
+
+, and rank profile and rank-sensitive computations in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:rankSensitive"
 
 \end_inset
 

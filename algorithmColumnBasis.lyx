@@ -95,7 +95,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-\begin_inset Formula $\gcd(\mathbf{F})$
+\begin_inset Formula $\colBasis(\mathbf{F})$
 \end_inset
 
 
@@ -106,7 +106,7 @@ status open
 
 \begin_inset CommandInset label
 LatexCommand label
-name "alg:gcd"
+name "alg:colBasis"
 
 \end_inset
 
@@ -138,7 +138,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-a GCLD of 
+a column basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 

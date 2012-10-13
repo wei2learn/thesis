@@ -85,14 +85,24 @@ In this Chapter, we consider the problem of computing a determinant of a
 \end_inset
 
 .
- For simplicity, let us assume the dimension 
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+For simplicity, let us assume the dimension 
 \begin_inset Formula $n$
 \end_inset
 
  is a power of two.
  But keep in mind that the method discussed in this chapter works for any
  dimension.
- The computation is done by using the GCD and nullspace basis computation
+ 
+\end_layout
+
+\end_inset
+
+The computation is done by using the column basis and kernel basis computation
  to compute the diagonal entries of the Hermite form of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
@@ -108,9 +118,7 @@ Consider unimodularly transforming
  to 
 \begin_inset Formula 
 \begin{equation}
-\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{F}_{u}\\
-\mathbf{F}_{d}
-\end{bmatrix}\begin{bmatrix}\mathbf{U}_{l} & \mathbf{U}_{r}\end{bmatrix}=\mathbf{G}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+\mathbf{F}\mathbf{U}=\mathbf{G}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
 * & \mathbf{G}_{2}
 \end{bmatrix},\label{eq:step1HermiteDiagonal}
 \end{equation}
@@ -141,27 +149,9 @@ status collapsed
 
 \end_inset
 
-where each block has dimension 
-\begin_inset Formula $n/2$
-\end_inset
-
-.
- Note that 
-\begin_inset Formula $\mathbf{F}_{u}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{F}_{d}$
-\end_inset
-
- are both full-rank because 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- is assumed to be nonsingular.
  
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Also note that the matrix 
@@ -180,7 +170,7 @@ Also note that the matrix
 \begin_inset Formula $\mathbf{U}$
 \end_inset
 
- is a nullspace basis
+ is a kernel basis
 \series bold
  
 \series default
@@ -198,11 +188,12 @@ of
 
 \end_inset
 
-After this unimodular transformation, the matrix 
+After this unimodular transformation, which eliminated the top right block
+ of 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
- is now closer to the Hermite normal form of 
+ , the matrix is now closer to the Hermite normal form of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -215,7 +206,7 @@ After this unimodular transformation, the matrix
 \begin_inset Formula $\mathbf{G}_{2}$
 \end_inset
 
-, until the matrices reaching dimension 1, which then give the diagonal
+, until the matrices reaching dimension 1, which then gives the diagonal
  entries of the Hermite normal form of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
@@ -252,38 +243,215 @@ Although this procedure correctly computes the diagonal entries of the Hermite
 \end_inset
 
 .
-\end_layout
+\begin_inset Note Note
+status collapsed
 
-\begin_layout Standard
-Notice that the matrix 
+\begin_layout Lemma
+Any nonsingular matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ can be unimodularly transformed to 
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+* & \mathbf{G}_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ with square nonsingular 
 \begin_inset Formula $\mathbf{G}_{1}$
 \end_inset
 
- is just a GCLD of 
-\begin_inset Formula $\mathbf{F}_{u}$
+ and 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ is a unimodular matrix that can be separated to 
+\begin_inset Formula $\mathbf{U}=\begin{bmatrix}\mathbf{U}_{L} & \mathbf{U}_{R}\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+and separate it to 
+\begin_inset Formula $\mathbf{F}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ be a unimodular matrix that transforms 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+ to 
+\begin_inset Formula $\left[\mathbf{G}_{1},0\right]$
+\end_inset
+
+ with a column basis 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+* & \mathbf{G}_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+with square nonsingular 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we separate 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{F}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}$
+\end_inset
+
+, each
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ with 
+\begin_inset Formula $n/2$
+\end_inset
+
+ rows and
+\end_layout
+
+\end_inset
+
+ has full-rank as 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is assumed to be nonsingular, and also separate 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{U}=\begin{bmatrix}\mathbf{U}_{L} & \mathbf{U}_{R}\end{bmatrix}$
+\end_inset
+
+,
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ each with 
+\begin_inset Formula $n/2$
+\end_inset
+
+ columns
+\end_layout
+
+\end_inset
+
+ where the column dimension of 
+\begin_inset Formula $\mathbf{U}_{L}$
+\end_inset
+
+ matches the row dimension of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+, then 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}\begin{bmatrix}\mathbf{U}_{L} & \mathbf{U}_{R}\end{bmatrix}=\mathbf{G}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+* & \mathbf{G}_{2}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ Notice that the matrix 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ is nonsingular and is therefore just a column basis of 
+\begin_inset Formula $\mathbf{F}_{U}$
 \end_inset
 
 , and can be efficiently computed using 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:gcd"
+reference "alg:colBasis"
 
 \end_inset
 
 .
  To compute 
-\begin_inset Formula $\mathbf{G}_{2}$
+\begin_inset Formula $\mathbf{G}_{2}=\mathbf{F}_{D}\mathbf{U}_{R}$
 \end_inset
 
 , notice that the matrix 
-\begin_inset Formula $\mathbf{U}_{r}$
+\begin_inset Formula $\mathbf{U}_{R}$
 \end_inset
 
- on the right side of 
-\begin_inset Formula $\mathbf{U}$
-\end_inset
-
- is a nullspace basis
+ is a right kernel basis
 \series bold
  
 \series default
@@ -296,12 +464,28 @@ of
 \end_inset
 
  zero.
- But 
-\end_layout
+ As we have seen from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodular_kernel_columnBasis"
 
-\begin_layout Standard
-In fact, this nullspace basis can be replaced by any other nullspace basis
- of 
+\end_inset
+
+, the kernel basis 
+\begin_inset Formula $\mathbf{U}_{R}$
+\end_inset
+
+ can be replaced by any other kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to give another unimodular matrix that also works.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In fact, this kernel basis can be replaced by any other kernel basis of
+ 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -309,12 +493,6 @@ In fact, this nullspace basis can be replaced by any other nullspace basis
 \end_layout
 
 \begin_layout Lemma
-\begin_inset CommandInset label
-LatexCommand label
-name "lem:replaceNullspaceBasisMaintainsUnimodularity"
-
-\end_inset
-
 Let 
 \begin_inset Formula $\mathbf{U}=\left[\mathbf{U}_{l},\mathbf{U}_{r}\right]$
 \end_inset
@@ -335,12 +513,12 @@ Let
 \begin_inset Formula $\mathbf{U}_{r}$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
 .
- Then for any other nullspace basis 
+ Then for any other kernel basis 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -353,66 +531,6 @@ Let
 \end_inset
 
  is also unimodular.
-\end_layout
-
-\begin_layout Lemma
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Lemma
-transforms 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- to a GCLD of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-, that is, if 
-\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[\mathbf{T},0\right]$
-\end_inset
-
- for a full rank matrix 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
-, then 
-\begin_inset Formula $\mathbf{U}$
-\end_inset
-
- contain 
-\end_layout
-
-\begin_layout Lemma
-\begin_inset Formula $\mathbf{F}\mathbf{U}=\mathbf{F}\left[\bar{\mathbf{N}},\mathbf{N}\right]=\left[\mathbf{G},0\right]$
-\end_inset
-
-, where 
-\begin_inset Formula $\mathbf{U}$
-\end_inset
-
- is unimodular and 
-\begin_inset Formula $\mathbf{G}$
-\end_inset
-
- is a GCLD of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-, then for any other nullspace basis 
-\begin_inset Formula $\mathbf{N}'$
-\end_inset
-
-, the matrix 
-\begin_inset Formula $\left[\bar{\mathbf{N}},\mathbf{N}'\right]$
-\end_inset
-
- is also unimodular.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Proof
@@ -463,7 +581,7 @@ Let
 \begin_inset Formula $\mathbf{C}$
 \end_inset
 
-, as the two nullspace bases 
+, as the two kernel bases 
 \begin_inset Formula $\mathbf{U}_{r}$
 \end_inset
 
@@ -516,7 +634,7 @@ Let
 \begin_inset Formula $\mathbf{N}'$
 \end_inset
 
- are also in the nullspace of 
+ are also in the kernel of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -524,29 +642,8 @@ Let
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\mathbf{F}$
-\end_inset
-
-.
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-a nonunimodular right factor 
-\begin_inset Formula $\mathbf{A}$
-\end_inset
-
- can be removed from 
-\begin_inset Formula $\mathbf{N}$
-\end_inset
-
- to get a lower degree nullspace basis of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-, contradicting with the minimality of 
-\begin_inset Formula $\mathbf{N}$
 \end_inset
 
 .
@@ -554,13 +651,168 @@ a nonunimodular right factor
 
 \end_inset
 
+ 
+\end_layout
 
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:oneStepHermiteDiagonal"
+
+\end_inset
+
+Given a polynomial matrix 
+\begin_inset Formula $\mathbf{F}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is a kernel basis of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+, then there is a unimodular matrix 
+\begin_inset Formula $\mathbf{U}=\left[*,\mathbf{N}\right]$
+\end_inset
+
+ such that 
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{G}_{1}\\
+* & \mathbf{G}_{2}
+\end{bmatrix},
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{G}_{2}=\mathbf{F}_{D}\mathbf{N}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Lemma
+can be unimodularly transformed to 
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+* & \mathbf{G}_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ with square nonsingular 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ is a unimodular matrix that can be separated to 
+\begin_inset Formula $\mathbf{U}=\begin{bmatrix}\mathbf{U}_{L} & \mathbf{U}_{R}\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+and separate it to 
+\begin_inset Formula $\mathbf{F}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ be a unimodular matrix that transforms 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+ to 
+\begin_inset Formula $\left[\mathbf{G}_{1},0\right]$
+\end_inset
+
+ with a column basis 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula 
+\[
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+* & \mathbf{G}_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+with square nonsingular 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+ If 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is square nonsingular, then 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+ are also square nonsingular.
+\end_layout
+
+\begin_layout Standard
+Note that we do not compute the blocks represented by the symbol 
+\begin_inset Formula $*$
+\end_inset
+
+, which may have very large degrees and cannot be computed efficiently.
 \end_layout
 
 \begin_layout Standard
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:replaceNullspaceBasisMaintainsUnimodularity"
+reference "lem:oneStepHermiteDiagonal"
 
 \end_inset
 
@@ -572,10 +824,20 @@ reference "lem:replaceNullspaceBasisMaintainsUnimodularity"
 \begin_inset Formula $\mathbf{G}_{2}$
 \end_inset
 
- from 
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+from 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "eq:step1HermiteDiagonal"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -591,14 +853,14 @@ reference "chap:Matrix-GCD"
 
 \end_inset
 
-, while the nullspace basis computation from 
+, while the kernel basis computation from 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:NullspaceBasis"
 
 \end_inset
 
- can be used to compute a nullspace basis 
+ can be used to compute a kernel basis 
 \begin_inset Formula $\mathbf{N}_{1}$
 \end_inset
 
@@ -623,11 +885,331 @@ After
 \end_inset
 
  are computed, we can repeat the same process on each of these two matrices,
- which now have dimension 
+ which now have lower dimensions
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ 
 \begin_inset Formula $n/2$
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+, until the dimension becomes one.
+ This procedure of computing the diagonal entries gives 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:hermiteDiagonal"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "algorithmHermiteDiagonalEntries.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Computational Cost
+\end_layout
+
+\begin_layout Standard
+Let us look at the computational cost of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:hermiteDiagonal"
+
+\end_inset
+
 .
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:hermiteDiagonal"
+
+\end_inset
+
+ costs 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ field operations to compute the diagonal entries for the Hermite normal
+ form of a nonsingular matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the  sum of the column degrees 
+\end_layout
+
+\begin_layout Proof
+The three main operations are computing a column basis of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+, computing a kernel basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+, and the matrix multiplication 
+\begin_inset Formula $\mathbf{F}_{d}\mathbf{N}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+A column basis 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right).$
+\end_inset
+
+ The column degrees of the computed column basis 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ are also bounded by the 
+\begin_inset Formula $n/2$
+\end_inset
+
+ largest column degrees of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+For the column basis computation, by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:columnBasisCost1"
+
+\end_inset
+
+we know that a column basis 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right).$
+\end_inset
+
+ By 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:colBasisDegreeBoundByInputDegrees"
+
+\end_inset
+
+ the column degrees of the computed column basis 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ are also bounded from by the original column degrees 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+For the kernel basis computation, it also costs 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ for compute a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal kernel basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+ from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:costLowColDimension"
+
+\end_inset
+
+.
+ The sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of the output kernel basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Finally for the matrix multiplication 
+\begin_inset Formula $\mathbf{F}_{d}\mathbf{N}$
+\end_inset
+
+, since the sum of the column degrees of 
+\begin_inset Formula $\mathbf{F}_{d}$
+\end_inset
+
+ and the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ are both bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ applies and the multiplication can be done with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Now if we let the cost of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:hermiteDiagonal"
+
+\end_inset
+
+ be 
+\begin_inset Formula $g(n,\xi)$
+\end_inset
+
+ for a input matrix of dimension 
+\begin_inset Formula $n$
+\end_inset
+
+ with 
+\begin_inset Formula $\xi$
+\end_inset
+
+ bounds the sum of its column degrees, then we have the recurrence relation
+\begin_inset Formula 
+\[
+g(n,\xi)\in O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi),
+\]
+
+\end_inset
+
+ which is the same as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:inverseCost"
+
+\end_inset
+
+ for computing the matrix inverse.
+ Therefore, we also get 
+\begin_inset Formula $g(n,\xi)=O^{\sim}(n^{\omega-1}\xi)$
+\end_inset
+
+ as in the inverse computation.
+\end_layout
+
+\begin_layout Corollary
+The determinant of a nonsingular matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
+\end_inset
+
+ field operations, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the minimum of the sum of the column degrees and the sum of the row
+ degrees of the input matrix.
+\end_layout
+
+\begin_layout Proof
+Just use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:hermiteDiagonal"
+
+\end_inset
+
+ to compute the diagonal entries of the Hermite normal form of either 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ or 
+\begin_inset Formula $\mathbf{F}^{T}$
+\end_inset
+
+, and then multiply the diagonal entries.
 \end_layout
 
 \end_body

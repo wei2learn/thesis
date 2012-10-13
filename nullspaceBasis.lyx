@@ -66,7 +66,7 @@ algorithmics
 \begin_body
 
 \begin_layout Chapter
-Nullspace Basis
+Kernel Basis
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:NullspaceBasis"
@@ -77,11 +77,11 @@ name "chap:NullspaceBasis"
 \end_layout
 
 \begin_layout Standard
-In this chapter we discuss the computation of minimal nullspace bases.
+In this chapter we discuss the computation of minimal kernel bases.
 \end_layout
 
 \begin_layout Standard
-Minimal nullspace bases can be directly computed via order basis computation.
+Minimal kernel bases can be directly computed via order basis computation.
  Indeed if the order 
 \begin_inset Formula $\sigma$
 \end_inset
@@ -102,7 +102,7 @@ Minimal nullspace bases can be directly computed via order basis computation.
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis 
+-minimal kernel basis 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -124,7 +124,7 @@ Minimal nullspace bases can be directly computed via order basis computation.
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- is uniform, then its minimal nullspace bases can have degree up to 
+ is uniform, then its minimal kernel bases can have degree up to 
 \begin_inset Formula $md$
 \end_inset
 
@@ -137,7 +137,7 @@ Minimal nullspace bases can be directly computed via order basis computation.
 \begin_inset Formula $d+md$
 \end_inset
 
- in the order basis computation in order to fully compute a minimal nullspace
+ in the order basis computation in order to fully compute a minimal kernel
  basis.
  The fastest method of computing such a 
 \begin_inset Formula $\left(\mathbf{F},d+md\right)$
@@ -174,17 +174,17 @@ key "za2009"
 \begin_inset Formula $m$
 \end_inset
 
- is large, the computed nullspace basis, which can have a column dimension
+ is large, the computed kernel basis, which can have a column dimension
  of 
 \begin_inset Formula $n-m$
 \end_inset
 
 , is a much smaller subset of the order basis computed.
  Hence considerable effort is put in the computation of order basis elements
- that are not part of a nullspace basis.
+ that are not part of a kernel basis.
  A key to reducing the cost is therefore to reduce such computation of unneeded
  order basis elements, which is achieved in our algorithm by only using
- order basis computation to compute partial nullspace bases of low degrees.
+ order basis computation to compute partial kernel bases of low degrees.
 \end_layout
 
 \begin_layout Standard

@@ -76,7 +76,7 @@ Matrix inverse
 status collapsed
 
 \begin_layout Plain Layout
-We describe several applications of nullspace basis.
+We describe several applications of kernel basis.
 \end_layout
 
 \begin_layout Subsection
@@ -89,7 +89,7 @@ Linear System Solving
 \end_layout
 
 \begin_layout Standard
-In this Chapter, we consider the problem of computing the inverse of a 
+In this chapter, we consider the problem of computing the inverse of a 
 \begin_inset Formula $n\times n$
 \end_inset
 
@@ -119,8 +119,8 @@ key "storjohann:2008"
 
 \end_inset
 
- gave another algorithm with a similar cost.
- But the algorithm is randomized Las Vegas.
+ gave another algorithm with a similar cost, but the algorithm is randomized
+ Las Vegas.
  In the following, we show that Jeannerod and Villard's algorithm can be
  improved to handle any matrix with a cost of 
 \begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
@@ -168,7 +168,7 @@ key "jeannerod-villard:05"
 
 \end_inset
 
-, except that we replace the nullspace basis computation at 
+, except that we replace the kernel basis computation at 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "line:nullspaceBasisComputation"
@@ -229,7 +229,7 @@ reference "line:multiplyFN"
 \end_layout
 
 \begin_layout Standard
-Let us first look at the cost of the nullspace basis computation and matrix
+Let us first look at the cost of the kernel basis computation and matrix
  multiplications, since they dominate the cost of 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -242,7 +242,7 @@ reference "alg:matrixInverse"
 \end_layout
 
 \begin_layout Lemma
-The nullspace basis computation at 
+The kernel basis computation at 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "line:nullspaceBasisComputation"
@@ -257,8 +257,8 @@ reference "line:nullspaceBasisComputation"
 \end_layout
 
 \begin_layout Proof
-Just use the earlier nullspace basis algorithm with the shift set to the
- column degrees of the input matrix.
+Just use the earlier kernel basis algorithm with the shift set to the column
+ degrees of the input matrix.
 \end_layout
 
 \begin_layout Lemma
@@ -288,7 +288,7 @@ reference "line:multiplyFN"
 From 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -312,7 +312,7 @@ reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
  Now 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fastmultiply"
+reference "thm:multiplyUnbalancedMatrices"
 
 \end_inset
 
@@ -320,21 +320,28 @@ reference "fastmultiply"
 \end_layout
 
 \begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:inverseCost"
+
+\end_inset
+
+
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "alg:matrixInverse"
 
 \end_inset
 
- cost 
+ costs 
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
 \end_inset
 
- to compute an inverse for a 
-\begin_inset Formula $n\times n$
+ field operations to compute an inverse of a nonsingular matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
- matrix, where 
+, where 
 \begin_inset Formula $\xi$
 \end_inset
 
@@ -349,7 +356,7 @@ If the sum of the row degrees is smaller, we can just transpose the matrix.
 \end_inset
 
 .
- Then we have the following recursion:
+ Then we have the following recurrence relation:
 \begin_inset Formula 
 \begin{eqnarray*}
 g(n,\xi) & \in & O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi)\\
@@ -393,10 +400,22 @@ g(n,\xi) & \in & O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g
 \end_inset
 
  is no larger than the corresponding entries in the sequence 
-\begin_inset Formula $\left[\left\lceil n'/2\right\rceil ,\left\lceil n'/4\right\rceil ,\dots,1\right]$
+\begin_inset Formula $\left[n'/2,n'/4,\dots,1\right]$
 \end_inset
 
 , where 
+\begin_inset Formula $n'$
+\end_inset
+
+ is the smallest power of 
+\begin_inset Formula $2$
+\end_inset
+
+ that is no less than 
+\begin_inset Formula $n$
+\end_inset
+
+, that is, 
 \begin_inset Formula $n'=2^{\left\lceil \log_{2}n\right\rceil }$
 \end_inset
 
@@ -461,7 +480,7 @@ Note that
 \begin_inset Formula $\mathbf{N}'_{2}$
 \end_inset
 
- are the nullspace bases of the submatrices 
+ are the kernel bases of the submatrices 
 \begin_inset Formula $\mathbf{F}'_{1},$
 \end_inset
 
@@ -536,7 +555,7 @@ Note that
  by 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -894,7 +913,7 @@ th block in
 \begin_inset Formula $\xi$
 \end_inset
 
-.) Therefore, multiplying multiply 
+.) Therefore, multiplying 
 \begin_inset Formula $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
 \end_inset
 
@@ -930,7 +949,7 @@ reference "alg:matrixInverse"
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
 \end_inset
 
- to compute the inverse and representing the inverse with 
+ to compute the inverse and represent the inverse with 
 \begin_inset Formula $O\left(n\xi\log n\right)$
 \end_inset
 
@@ -957,7 +976,8 @@ reference "alg:matrixInverse"
 \begin_inset Formula $\mathbf{A}$
 \end_inset
 
-, which can be more expensive than the multiplication using the representation
+.
+ This can be more expensive than the multiplication using the representation
  
 \begin_inset Formula $\mathbf{F}^{-1}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$
 \end_inset
@@ -1065,7 +1085,7 @@ If
 \begin_inset Formula $\mathbf{N}_{2}$
 \end_inset
 
- be the minimal nullspace bases of 
+ be the minimal kernel bases of 
 \begin_inset Formula $\mathbf{A}_{1}$
 \end_inset
 

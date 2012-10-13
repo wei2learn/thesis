@@ -66,7 +66,7 @@ algorithmics
 \begin_body
 
 \begin_layout Section
-Minimal Nullspace Basis Computation
+Minimal Kernel Basis Computation
 \end_layout
 
 \begin_layout Standard
@@ -81,7 +81,7 @@ name "sec:Nullspace-Basis-Computation"
 
 \begin_layout Standard
 In this section, we describe a new, efficient algorithm for computing a
- shifted minimal nullspace basis.
+ shifted minimal kernel basis.
  The algorithm uses two computation processes recursively.
  The first process, described in 
 \begin_inset CommandInset ref
@@ -90,9 +90,8 @@ reference "sub:continueComputingNullspaceBasisByColumns"
 
 \end_inset
 
-, uses an order basis computation to compute a subset of nullspace basis
- elements of lower degree, and results in a new problem of lower column
- dimension.
+, uses an order basis computation to compute a subset of kernel basis elements
+ of lower degree, and results in a new problem of lower column dimension.
  The second process, described in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -100,8 +99,35 @@ reference "sub:continueComputingNullspaceBasisByRows"
 
 \end_inset
 
-, reduces the row dimension of the problem by computing a nullspace basis
- of a submatrix formed by a subset of the rows of the input matrix.
+, reduces the row dimension of the problem by computing a kernel basis of
+ a submatrix formed by a subset of the rows of the input matrix.
+\end_layout
+
+\begin_layout Standard
+We assume that the row dimension 
+\begin_inset Formula $m$
+\end_inset
+
+ is bounded by the column dimension 
+\begin_inset Formula $n$
+\end_inset
+
+ in this chapter.
+ But this assumption is later removed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sub:removeDimensionAssumption"
+
+\end_inset
+
+ with results from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:rank"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -186,7 +212,7 @@ mathbf{A}$.
 \end_inset
 
  This is a very useful condition as it helps us to keep track of and bound
- the shifted degrees throughout the nullspace basis computation, as we will
+ the shifted degrees throughout the kernel basis computation, as we will
  see in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -338,7 +364,7 @@ reference "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 , 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -403,7 +429,7 @@ The following lemma shows that any
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -419,7 +445,7 @@ The following lemma shows that any
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -450,7 +476,7 @@ Let
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -487,7 +513,7 @@ Let
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -630,7 +656,7 @@ We can now provide a simple bound on the
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -641,7 +667,7 @@ We can now provide a simple bound on the
 \begin_layout Theorem
 \begin_inset CommandInset label
 LatexCommand label
-name "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+name "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -666,7 +692,7 @@ Suppose
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -694,7 +720,7 @@ Let
 \begin_inset Formula $\mathbf{P}=\left[\mathbf{N},\bar{\mathbf{N}}\right]$
 \end_inset
 
- contains a complete nullspace basis, 
+ contains a complete kernel basis, 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -735,7 +761,7 @@ of a
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -749,7 +775,7 @@ To see this, let
 \begin_inset Formula $k$
 \end_inset
 
- be the column dimension of any nullspace basis of 
+ be the column dimension of any kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -786,7 +812,7 @@ To see this, let
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -832,7 +858,7 @@ reference "lem:boundOnDegreesOfFA"
 \begin_inset Formula $k$
 \end_inset
 
- columns are linearly independent, is also a nullspace basis of 
+ columns are linearly independent, is also a kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -846,7 +872,7 @@ reference "lem:boundOnDegreesOfFA"
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis because its 
+-minimal kernel basis because its 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -854,7 +880,7 @@ reference "lem:boundOnDegreesOfFA"
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -949,7 +975,7 @@ reference "lem:boundOnDegreesOfFA"
 \begin_layout Standard
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -967,8 +993,8 @@ Given
 \end_inset
 
  .
- The sum of the column degree of its minimal nullspace basis is bounded
- by 
+ The sum of the column degree of its minimal kernel basis is bounded by
+ 
 \begin_inset Formula $md$
 \end_inset
 
@@ -979,7 +1005,7 @@ Given
 From 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -1497,7 +1523,7 @@ status collapsed
 
 
 \series default
- are not elements of a nullspace basis of 
+ are not elements of a kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -1528,8 +1554,8 @@ Note that it is not essential to choose
 \begin_inset Formula $(\mathbf{F},\ell s,\vec{s})$
 \end_inset
 
--basis, but also results in fewer nullspace basis elements computed and
- leaves more work for computing the remaining basis elements.
+-basis, but also results in fewer kernel basis elements computed and leaves
+ more work for computing the remaining basis elements.
  On the other hand, a larger 
 \begin_inset Formula $\ell$
 \end_inset
@@ -1816,12 +1842,12 @@ Let
 \begin_inset Formula $\mathbf{P}_{1}$
 \end_inset
 
- consisting of the nullspace basis elements computed.
+ consisting of the kernel basis elements computed.
  Then the residual 
 \begin_inset Formula $\mathbf{F}\mathbf{P}=\left[\mathbf{0},\mathbf{F}\mathbf{P}_{2}\right]$
 \end_inset
 
- can be used to compute the remaining nullspace basis elements.
+ can be used to compute the remaining kernel basis elements.
  Before showing this can be correctly done, let us first make sure that
  the matrix multiplication 
 \begin_inset Formula $\mathbf{F}\mathbf{P}_{2}$
@@ -1868,8 +1894,8 @@ Let
  can be quite unbalanced.
  We will encounter this type of multiplication again multiple times, for
  computing residuals and combining results.
- In fact, almost all of the matrices in our nullspace basis computation
- can have such unbalanced degrees.
+ In fact, almost all of the matrices in our kernel basis computation can
+ have such unbalanced degrees.
  To efficiently multiply these matrices, we provide the following theorem,
  whose proof we defer until the end of this section.
  
@@ -2576,7 +2602,7 @@ It remains to show that the residual
 \begin_inset Formula $\mathbf{F}\mathbf{P}_{2}$
 \end_inset
 
- can be used to compute the remaining nullspace basis elements.
+ can be used to compute the remaining kernel basis elements.
  
 \end_layout
 
@@ -2599,7 +2625,7 @@ Let
 \begin_inset Formula $\mathbf{P}_{1}$
 \end_inset
 
- consists of all the nullspace basis elements of 
+ consists of all the kernel basis elements of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -2645,7 +2671,7 @@ Let
 \begin_inset Formula $\vec{b}_{2}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}\mathbf{P}_{2}$
 \end_inset
 
@@ -2666,7 +2692,7 @@ Let
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -2702,7 +2728,7 @@ Let
 \begin_inset Formula $\vec{b}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}\mathbf{P}$
 \end_inset
 
@@ -2728,7 +2754,7 @@ status collapsed
 \begin_inset Formula $\mathbf{P}\mathbf{Q}'=\left[\mathbf{P}_{1},\mathbf{P}_{2}\mathbf{Q}\right]$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -2897,7 +2923,7 @@ It remains to show that any
 \begin_inset Formula $\mathbf{Q}'$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\mathbf{F}\mathbf{P}$
 \end_inset
 
@@ -2916,7 +2942,7 @@ name "exm:continueComputingNullspaceBasisByColumns"
 
 \end_inset
 
-Let us look at an example of computing nullspace basis using 
+Let us look at an example of computing kernel basis using 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:continueComputingNullspaceBasisByColumns"
@@ -3123,7 +3149,7 @@ with
 \begin_inset Formula $3$
 \end_inset
 
-, is the only nullspace basis element computed.
+, is the only kernel basis element computed.
  Let 
 \begin_inset Formula $\mathbf{P}_{2}$
 \end_inset
@@ -3145,7 +3171,7 @@ with
 \begin_inset Formula $\vec{b}_{2}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}\mathbf{P}_{2}$
 \end_inset
 
@@ -3179,7 +3205,7 @@ with
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -3206,7 +3232,7 @@ reference "thm:continueComputingNullspaceBasisByColumns"
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis elements 
+-minimal kernel basis elements 
 \begin_inset Formula $\mathbf{P}_{2}\mathbf{Q}$
 \end_inset
 
@@ -3230,7 +3256,7 @@ We still need to show it can be done efficiently.
 \begin_inset Formula $\vec{b}_{2}$
 \end_inset
 
--minimal nullspace basis 
+-minimal kernel basis 
 \begin_inset Formula $\mathbf{Q}$
 \end_inset
 
@@ -3360,7 +3386,7 @@ reference "lem:boundOnDegreesOfFA"
  By 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -3463,7 +3489,7 @@ Our next task is computing a
 \begin_inset Formula $\vec{b}_{2}$
 \end_inset
 
--minimal nullspace basis of the residual 
+-minimal kernel basis of the residual 
 \begin_inset Formula $\mathbf{F}\mathbf{P}_{2}$
 \end_inset
 
@@ -3780,7 +3806,7 @@ x^{3}+x^{4} & x^{5} & x^{3}+x^{5}
 \begin_inset Formula $[5,5,5]$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -3812,7 +3838,7 @@ status collapsed
 \begin_inset Formula $[2,2,2]$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -3869,7 +3895,7 @@ reference "cor:boundOnFPAfterLowerTermsRemoved"
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{G}=\mathbf{F}\mathbf{P}_{2}/x^{3s}$
 \end_inset
 
@@ -3919,7 +3945,7 @@ We now turn to the new problem of computing a
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -3977,7 +4003,7 @@ mathbf{G}_{2}]^{T}
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis 
+-minimal kernel basis 
 \begin_inset Formula $\mathbf{N}_{1}$
 \end_inset
 
@@ -4001,7 +4027,7 @@ mathbf{G}_{2}]^{T}
 \begin_inset Formula $\vec{u}$
 \end_inset
 
--minimal nullspace basis 
+-minimal kernel basis 
 \begin_inset Formula $\mathbf{N}_{2}$
 \end_inset
 
@@ -4017,7 +4043,7 @@ status collapsed
 
 %
 \backslash
-prettyref{thm:continueComputingNullspaceBasisByRows} 
+prettyref{thm:continueComputingkernelBasisByRows} 
 \end_layout
 
 \begin_layout Plain Layout
@@ -4034,7 +4060,7 @@ shows that
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -4081,7 +4107,7 @@ status open
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{G}_{1}$
 \end_inset
 
@@ -4101,7 +4127,7 @@ status open
 \begin_inset Formula $\vec{u}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{G}_{2}\mathbf{N}_{1}$
 \end_inset
 
@@ -4121,7 +4147,7 @@ status open
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -4153,7 +4179,7 @@ reference "thm:continueComputingNullspaceBasisByColumns"
 \begin_inset Formula $\mathbf{N}_{1}\mathbf{N}_{2}$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -4282,7 +4308,7 @@ It remains to show that any
 \begin_inset Formula $\mathbf{N}_{1}$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\mathbf{G}_{1}$
 \end_inset
 
@@ -4307,7 +4333,7 @@ It remains to show that any
 \begin_inset Formula $\mathbf{N}_{2}$
 \end_inset
 
- is a nullspace basis of 
+ is a kernel basis of 
 \begin_inset Formula $\mathbf{G}_{2}\mathbf{N}_{1}$
 \end_inset
 
@@ -4324,7 +4350,7 @@ Let us compute a
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula 
 \[
 \mathbf{G}=\left[\begin{array}{ccc}
@@ -4365,7 +4391,7 @@ We first compute a
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis 
+-minimal kernel basis 
 \begin_inset Formula $\mathbf{N}_{1}$
 \end_inset
 
@@ -4398,7 +4424,7 @@ We first compute a
 \begin_inset Formula $\vec{u}$
 \end_inset
 
--minimal nullspace basis 
+-minimal kernel basis 
 \begin_inset Formula $\mathbf{N}_{2}$
 \end_inset
 
@@ -4427,7 +4453,7 @@ We first compute a
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
@@ -4443,16 +4469,16 @@ reference "thm:continueComputingNullspaceBasisByColumns"
 
 \end_inset
 
- allows us to compute nullspace bases by columns, which then reduces the
- column dimensions, 
+ allows us to compute kernel bases by columns, which then reduces the column
+ dimensions, 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:continueComputingNullspaceBasisByRows"
 
 \end_inset
 
- shows that that the nullspace bases can also be computed by rows, which
- then reduces the row dimensions.
+ shows that that the kernel bases can also be computed by rows, which then
+ reduces the row dimensions.
  Again, we need to check that these computations can be done efficiently.
  In the following, 
 \begin_inset Note Comment
@@ -4530,7 +4556,7 @@ The sum of the column degrees of
 This follows from 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -4629,7 +4655,7 @@ reference "thm:multiplyUnbalancedMatrices"
 , and by 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -4720,7 +4746,7 @@ The computation of
  This gives a recursive algorithm, shown in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasis"
+reference "alg:minimalNullspaceBasisWithRankProfile"
 
 \end_inset
 
@@ -4741,7 +4767,7 @@ filename "algorithmNullspaceBasis.lyx"
 Before analyzing the computational complexity of 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasis"
+reference "alg:minimalNullspaceBasisWithRankProfile"
 
 \end_inset
 
@@ -4788,11 +4814,11 @@ status collapsed
 The result of the previous section is a recursive algorithm, shown in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasis"
+reference "alg:minimalNullspaceBasisWithRankProfile"
 
 \end_inset
 
- for the computation of a minimal nullspace.
+ for the computation of a minimal kernel.
  It remains to determine the complexity.
 \end_layout
 
@@ -4804,7 +4830,7 @@ status open
 
 %
 \backslash
-input{algorithmNullspaceBasis.tex}
+input{algorithmkernelBasis.tex}
 \end_layout
 
 \begin_layout Plain Layout
@@ -4857,7 +4883,7 @@ If
 , then the cost of 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasis"
+reference "alg:minimalNullspaceBasisWithRankProfile"
 
 \end_inset
 
@@ -4874,7 +4900,7 @@ to compute a
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -5012,7 +5038,7 @@ name "thm:costGeneral"
 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasis"
+reference "alg:minimalNullspaceBasisWithRankProfile"
 
 \end_inset
 
@@ -5063,7 +5089,7 @@ When we have the important special case where the shift
  is uniform then 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasis"
+reference "alg:minimalNullspaceBasisWithRankProfile"
 
 \end_inset
 
@@ -5267,7 +5293,7 @@ First note that the dimension of
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{G}=\mathbf{F}\mathbf{P}_{2}/x^{3s}$
 \end_inset
 
@@ -5279,7 +5305,7 @@ First note that the dimension of
  In addition, by 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "thm:boundOfSumOfShiftedDegreesOfNullspaceBasis"
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \end_inset
 
@@ -5397,7 +5423,7 @@ If
  is uniform, then 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasis"
+reference "alg:minimalNullspaceBasisWithRankProfile"
 
 \end_inset
 
@@ -5448,7 +5474,7 @@ reference "thm:costLowColDimension"
 \begin_inset Formula $\vec{t}$
 \end_inset
 
--minimal nullspace basis of 
+-minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}\mathbf{P}_{2}/x^{3s}$
 \end_inset
 
@@ -5480,7 +5506,7 @@ If the input matrix
 \begin_inset Formula $d$
 \end_inset
 
-, then a minimal nullspace basis of 
+, then a minimal kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 

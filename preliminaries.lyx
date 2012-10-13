@@ -434,7 +434,7 @@ Shifted Degrees
 \begin_layout Standard
 In this section, we look at some properties of shifted degrees, which may
  help in understanding their usefulness in efficient computations of polynomial
- matrix prolems.
+ matrix problems.
 \end_layout
 
 \begin_layout Standard
@@ -751,7 +751,11 @@ Note that
 
  have degrees bounded by 0.
  Therefore 
-\begin_inset Formula $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
+\begin_inset Formula 
+\[
+x^{\vec{u}}\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}
+\]
+
 \end_inset
 
  also has degree bounded by 0, or equivalently, 
@@ -1276,9 +1280,50 @@ Any column of
 \end_inset
 
  to be unimodular.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Lemma
+Any matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ can be always unimodularly transformed to 
+\begin_inset Formula $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with a full rank matrix 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+.
+ This matrix 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Since 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:minimality"
+
+\end_inset
+
 Minimality and Column Reducedness
 \end_layout
 
@@ -1743,7 +1788,7 @@ If
 \begin_inset Formula $\mathbf{C}$
 \end_inset
 
- are bounded by the 
+ are bounded by the column degrees of the 
 \begin_inset Formula $r$
 \end_inset
 
@@ -1903,6 +1948,12 @@ The leading column coefficient matrix provides a useful test for being column
 \end_layout
 
 \begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:columnReducedLeadingCoefficient"
+
+\end_inset
+
 A matrix 
 \begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
@@ -3604,7 +3655,7 @@ key "za2009"
 
 , is a much smaller subset of the order basis computed.
  Hence considerable effort is put in the computation of order basis elements
- that are not part of a nullspace basis.
+ that are not part of a nullspace basis.
  A key to reducing the cost is therefore to reduce such computation of unneeded
  order basis elements, which is achieved in our algorithm by only using
  order basis computation to compute partial nullspace bases of low degrees.
