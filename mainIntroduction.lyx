@@ -866,9 +866,9 @@ The standard way to measure the size of a matrix is to use its dimension
  A major complication in many polynomial matrix computation problems is
  that the degrees of the intermediate results or the output can be much
  larger than the input.
- This seems to prevent the problems to be computed efficiently, since the
- size of the intermediate results and the size of the output provides lower
- bounds on the computational cost of any algorithm.
+ This seems to prevent these problems to be computed efficiently, since
+ the size of the intermediate results and the size of the output provides
+ lower bounds on the computational cost of any algorithm.
  
 \begin_inset Note Note
 status collapsed
@@ -880,8 +880,18 @@ One may wonder why the size of the intermediate problems or the size of
 
 \end_inset
 
- But it turns out that the degree just may not be the best choice to be
- used in these computations.
+ But 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+it turns out
+\end_layout
+
+\end_inset
+
+ it is possible that the degree just may not be the best choice to be used
+ in these computations.
  
 \begin_inset Note Note
 status collapsed
@@ -893,9 +903,9 @@ way to measure the size in all the problem we consider in this thesis.
 
 \end_inset
 
-Instead of the standard degrees, we use the more general shifted degrees
- to guide the computations, and use the sum of the shifted degrees to measure
- the size of polynomial matrices.
+In this thesis, instead of the standard degrees, we use the more general
+ shifted degrees to guide the computations, and use the sum of the shifted
+ degrees to measure the size of polynomial matrices.
  We will see that the shifted degree is in fact a more natural choice, as
  it guides the computation so that the sizes of the output and the intermediate
  results are indeed bounded by the size as the input for all these problems.
@@ -1958,7 +1968,7 @@ Overview
 
 \begin_layout Standard
 The remainder of this thesis is structured as follows.
- Basic definitions and properties are given in the next Chapter.
+ Basic definitions and properties are given in the next chapter.
  The details of our order basis computation can be found in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -2008,15 +2018,15 @@ reference "chap:determinant"
 
 , Hermite normal form computation in 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand formatted
 reference "chap:hermite"
 
 \end_inset
 
 , and rank profile and rank-sensitive computations in 
 \begin_inset CommandInset ref
-LatexCommand ref
-reference "chap:rankSensitive"
+LatexCommand formatted
+reference "chap:rank"
 
 \end_inset
 

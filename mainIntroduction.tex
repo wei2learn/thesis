@@ -128,20 +128,21 @@ problems).
 The standard way to measure the size of a matrix is to use its dimension
 and its degree. A major complication in many polynomial matrix computation
 problems is that the degrees of the intermediate results or the output
-can be much larger than the input. This seems to prevent the problems
+can be much larger than the input. This seems to prevent these problems
 to be computed efficiently, since the size of the intermediate results
 and the size of the output provides lower bounds on the computational
-cost of any algorithm.  But it turns out that the degree just may
-not be the best choice to be used in these computations. Instead
-of the standard degrees, we use the more general shifted degrees to
-guide the computations, and use the sum of the shifted degrees to
-measure the size of polynomial matrices. We will see that the shifted
-degree is in fact a more natural choice, as it guides the computation
-so that the sizes of the output and the intermediate results are indeed
-bounded by the size as the input for all these problems.  Closely
-examination of the shifted degrees reveals new structures of the problems
-in this thesis, leading to better understanding of the problems, and
-allowing the development of simple and efficient algorithms. 
+cost of any algorithm.  But  it is possible that the degree just
+may not be the best choice to be used in these computations. In this
+thesis, instead of the standard degrees, we use the more general shifted
+degrees to guide the computations, and use the sum of the shifted
+degrees to measure the size of polynomial matrices. We will see that
+the shifted degree is in fact a more natural choice, as it guides
+the computation so that the sizes of the output and the intermediate
+results are indeed bounded by the size as the input for all these
+problems.  Closely examination of the shifted degrees reveals new
+structures of the problems in this thesis, leading to better understanding
+of the problems, and allowing the development of simple and efficient
+algorithms. 
 
 \begin{comment}
 Although the degree is simple and seems natural, 
@@ -408,15 +409,15 @@ section. The paper ends with a conclusion and topics for future research.
 \section{Overview}
 
 The remainder of this thesis is structured as follows. Basic definitions
-and properties are given in the next Chapter. The details of our order
+and properties are given in the next chapter. The details of our order
 basis computation can be found in \chapref{OrderBasis}. Kernel basis
 computation is described in \chapref{NullspaceBasis}.  \chapref{Matrix-inverse}
 discusses the algorithm for computing matrix inverse. \chapref{Matrix-GCD}
 discusses the computation of column bases. Unimodular completion is
 then discussed in \chapref{Unimodular-Completion}. Then we look at
 determinant computation in \chapref{determinant}, Hermite normal
-form computation in \ref{chap:hermite}, and rank profile and rank-sensitive
-computations in \ref{chap:rankSensitive}. %
+form computation in \chapref{hermite}, and rank profile and rank-sensitive
+computations in \chapref{rank}. %
 \begin{comment}
 The paper ends with a conclusion and topics for future research. 
 \end{comment}

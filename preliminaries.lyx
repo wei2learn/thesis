@@ -176,10 +176,10 @@ Since we use matrices to represent bases with columns representing the sets
 
 \end_inset
 
- In addition, our matrices often represent a set of column vectors, and
- the arrangement of these columns are not important.
- Therefore, to compare two lists of column degrees, we first sort each list
- in increasing order, and then do the comparison.
+ In addition, our matrices often represent sets of column vectors, so the
+ arrangement of these columns are not important.
+ To compare two lists of column degrees from two matrices, we first sort
+ each list in increasing order, and then do the comparison.
 \end_layout
 
 \begin_layout Description
