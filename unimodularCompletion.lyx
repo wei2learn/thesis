@@ -599,10 +599,7 @@ Let
  We define
 \begin_inset Formula 
 \[
-\colRev(\mathbf{a},\vec{u},v)=x^{-\vec{u}}\left(\mathbf{a}(x^{-1})\right)x^{v}=\begin{bmatrix}x^{-u_{1}}\\
- & \ddots\\
- &  & x^{-u_{n}}
-\end{bmatrix}\left(\mathbf{a}(x^{-1})\right)x^{v}=\begin{bmatrix}\rev(p,v-u_{1})\\
+\colRev(\mathbf{a},\vec{u},v)=x^{-\vec{u}}\left(\mathbf{a}(x^{-1})\right)x^{v}=\begin{bmatrix}\rev(p,v-u_{1})\\
 \vdots\\
 \rev(p,v-u_{n})
 \end{bmatrix}.
@@ -629,10 +626,7 @@ Similarly for a row vector
  is a degree shift, we define
 \begin_inset Formula 
 \[
-\rowRev(\mathbf{b},\vec{u},v)=\colRev(\mathbf{b}^{T},\vec{u},v)^{T}=x^{v}\left(\mathbf{b}(x^{-1})\right)x^{-\vec{u}}=x^{v}\left(\mathbf{b}(x^{-1})\right)\begin{bmatrix}x^{-u_{1}}\\
- & \ddots\\
- &  & x^{-u_{n}}
-\end{bmatrix}.
+\rowRev(\mathbf{b},\vec{u},v)=\colRev(\mathbf{b}^{T},\vec{u},v)^{T}=x^{v}\left(\mathbf{b}(x^{-1})\right)x^{-\vec{u}}.
 \]
 
 \end_inset

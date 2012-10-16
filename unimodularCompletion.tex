@@ -113,10 +113,7 @@ Let $\vec{u}=\left[u_{1},\dots u_{n}\right]\in\mathbb{Z}^{n}$ be
 a degree shift, and a column vector $\mathbf{a}\in\mathbb{K}\left[x\right]^{n\times1}$
 with $\vec{u}$-column degree bounded by $v$. We define
 \[
-\colRev(\mathbf{a},\vec{u},v)=x^{-\vec{u}}\left(\mathbf{a}(x^{-1})\right)x^{v}=\begin{bmatrix}x^{-u_{1}}\\
- & \ddots\\
- &  & x^{-u_{n}}
-\end{bmatrix}\left(\mathbf{a}(x^{-1})\right)x^{v}=\begin{bmatrix}\rev(p,v-u_{1})\\
+\colRev(\mathbf{a},\vec{u},v)=x^{-\vec{u}}\left(\mathbf{a}(x^{-1})\right)x^{v}=\begin{bmatrix}\rev(p,v-u_{1})\\
 \vdots\\
 \rev(p,v-u_{n})
 \end{bmatrix}.
@@ -125,10 +122,7 @@ Similarly for a row vector $\mathbf{b}\in\mathbb{K}\left[x\right]^{1\times n}$
 with $\vec{u}$-row degree bounded by $v$, where $\vec{u}=\left[u_{1},\dots u_{n}\right]\in\mathbb{Z}^{n}$
 is a degree shift, we define
 \[
-\rowRev(\mathbf{b},\vec{u},v)=\colRev(\mathbf{b}^{T},\vec{u},v)^{T}=x^{v}\left(\mathbf{b}(x^{-1})\right)x^{-\vec{u}}=x^{v}\left(\mathbf{b}(x^{-1})\right)\begin{bmatrix}x^{-u_{1}}\\
- & \ddots\\
- &  & x^{-u_{n}}
-\end{bmatrix}.
+\rowRev(\mathbf{b},\vec{u},v)=\colRev(\mathbf{b}^{T},\vec{u},v)^{T}=x^{v}\left(\mathbf{b}(x^{-1})\right)x^{-\vec{u}}.
 \]
 \end{defn}
 \begin{example}
