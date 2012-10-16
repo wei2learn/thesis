@@ -297,8 +297,8 @@ status collapsed
 
 \end_inset
 
-We presented a second algorithm which balances the high degree rows and
- computes an order basis also using 
+We have presented a second algorithm which balances the high degree rows
+ and computes an order basis also using 
 \begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
 \end_inset
 
@@ -512,8 +512,16 @@ Order basis computation and nullspace basis computation were then applied
 \end_inset
 
  is the sum of column or row degrees of the input matrix.
- Then we looked at an algorithm for computing the Hermite normal form with
- a cost of 
+ Then we looked at an algorithm for computing the Hermite normal form of
+ a degree 
+\begin_inset Formula $d$
+\end_inset
+
+ input matrix in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ with a cost of 
 \begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
 \end_inset
 
@@ -527,8 +535,8 @@ Order basis computation and nullspace basis computation were then applied
 \begin_inset Formula $O^{\sim}\left(mr^{\omega-2}\xi\right)$
 \end_inset
 
-, and then applied it to rank-sensitive computation of minimal kernel basis
- with a cost of 
+, and then applied the rank profile algorithm to rank-sensitive computation
+ of minimal kernel basis to obtain a cost of 
 \begin_inset Formula $O^{\sim}(nmr^{\omega-2}d+n^{\omega-1}rd)$
 \end_inset
 
@@ -539,8 +547,8 @@ Order basis computation and nullspace basis computation were then applied
 For all these problems, our algorithms are not only essentially optimal,
  but in most cases they also solve more general versions of these problems
  than previous algorithms.
- More specifically, the computational costs are stated with the the sum
- of the column degrees of the input matrix, which is more precise and tighter
+ More specifically, the computational costs are stated with the  sum of
+ the column degrees of the input matrix, which is more precise and tighter
  than using just degrees.
  In addition, the shifted minimal bases computed by our algorithms are more
  general than the standard minimal bases.

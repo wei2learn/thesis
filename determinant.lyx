@@ -956,7 +956,7 @@ reference "alg:hermiteDiagonal"
 \begin_inset Formula $\xi$
 \end_inset
 
- is the  sum of the column degrees 
+ is the sum of the column degrees 
 \end_layout
 
 \begin_layout Proof
@@ -1021,7 +1021,7 @@ reference "thm:columnBasisCost1"
 
 \end_inset
 
-we know that a column basis 
+ we know that a column basis 
 \begin_inset Formula $\mathbf{G}_{1}$
 \end_inset
 
@@ -1044,7 +1044,7 @@ reference "lem:colBasisDegreeBoundByInputDegrees"
 \begin_inset Formula $\mathbf{G}_{1}$
 \end_inset
 
- are also bounded from by the original column degrees 
+ are also bounded by the original column degrees 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -1056,7 +1056,7 @@ For the kernel basis computation, it also costs
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
 \end_inset
 
- for compute a 
+ to compute a 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -1153,7 +1153,7 @@ reference "alg:hermiteDiagonal"
 \begin_inset Formula $\xi$
 \end_inset
 
- bounds the sum of its column degrees, then we have the recurrence relation
+ bounding the sum of its column degrees, then we have the recurrence relation
 \begin_inset Formula 
 \[
 g(n,\xi)\in O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi),

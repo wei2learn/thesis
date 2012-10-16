@@ -366,7 +366,7 @@ g(n,\xi) & \in & O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g
 
 \end_inset
 
- Note that always round up 
+ Note that always rounding up 
 \begin_inset Formula $n/2$
 \end_inset
 
@@ -531,11 +531,7 @@ Note that
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--column degrees 
-\begin_inset Formula $\vec{s}'$
-\end_inset
-
- of 
+-column degrees of 
 \begin_inset Formula $\mathbf{N}_{2}$
 \end_inset
 
@@ -937,7 +933,7 @@ th block in
  as desired.
 \end_layout
 
-\begin_layout Remark
+\begin_layout Standard
 Again, it is interesting to note that 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -949,7 +945,7 @@ reference "alg:matrixInverse"
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
 \end_inset
 
- to compute the inverse and represent the inverse with 
+ to compute the inverse and it represents the inverse with 
 \begin_inset Formula $O\left(n\xi\log n\right)$
 \end_inset
 

@@ -127,10 +127,6 @@ Let
 \begin_inset Formula $\mathbb{K}$
 \end_inset
 
- with 
-\begin_inset Formula $m\le n$
-\end_inset
-
 .
  Given a nonnegative integer 
 \begin_inset Formula $\sigma$
@@ -402,7 +398,7 @@ For a matrix of polynomials
 \end_inset
 
  with rank 
-\begin_inset Formula $r\le m\le n$
+\begin_inset Formula $r$
 \end_inset
 
 .

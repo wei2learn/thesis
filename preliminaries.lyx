@@ -130,9 +130,11 @@ Notations
 \begin_layout Standard
 Since we are interested in computing bases with minimal degrees, it is useful
  to have convenient notations for comparing two lists of degrees.
-\end_layout
+ 
+\begin_inset Note Note
+status collapsed
 
-\begin_layout Description
+\begin_layout Plain Layout
 Comparing
 \begin_inset space ~
 \end_inset
@@ -161,12 +163,23 @@ Lists For two lists
 
 \end_layout
 
-\begin_layout Standard
+\end_inset
+
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Since we use matrices to represent bases with columns representing the sets
- of basis elements, we often do not care about the order of arrangement
- of the columns in matrices.
- It is therefore convenient to have the following notations for comparing
- two sets of degrees.
+ of basis elements,
+\end_layout
+
+\end_inset
+
+ In addition, our matrices often represent a set of column vectors, and
+ the arrangement of these columns are not important.
+ Therefore, to compare two lists of column degrees, we first sort each list
+ in increasing order, and then do the comparison.
 \end_layout
 
 \begin_layout Description
@@ -207,10 +220,10 @@ Lists For two lists
 \begin_inset Formula 
 \[
 \begin{cases}
-\vec{a}\succeq\vec{b} & \mbox{if }\bar{a}_{i}\ge\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
-a\preceq\vec{b} & \mbox{if }\bar{a}_{i}\le\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
-\vec{a}\succ\vec{b} & \mbox{if }\vec{a}\succeq\vec{b}\mbox{ and }\bar{a}_{j}>\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
-\vec{a}\prec\vec{b} & \mbox{if }\vec{a}\preceq\vec{b}\mbox{ and }\bar{a}_{j}<\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
+\vec{a}\ge\vec{b} & \mbox{if }\bar{a}_{i}\ge\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+\vec{a}\le\vec{b} & \mbox{if }\bar{a}_{i}\le\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+\vec{a}>\vec{b} & \mbox{if }\vec{a}\ge\vec{b}\mbox{ and }\bar{a}_{j}>\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
+\vec{a}<\vec{b} & \mbox{if }\vec{a}\le\vec{b}\mbox{ and }\bar{a}_{j}<\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
 \end{cases}
 \]
 
@@ -233,7 +246,7 @@ Notation For a list
 \end_inset
 
  without index to denote the summation of all entries in 
-\begin_inset Formula $a$
+\begin_inset Formula $\vec{a}$
 \end_inset
 
 .
@@ -241,6 +254,10 @@ Notation For a list
 \end_layout
 
 \begin_layout Description
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 List
 \begin_inset space ~
 \end_inset
@@ -274,6 +291,11 @@ Constant For a list
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
@@ -1436,7 +1458,7 @@ Given a matrix
 \end_inset
 
  such that 
-\begin_inset Formula $\cdeg\left(\mathbf{A}\mathbf{U}\right)\prec\cdeg\mathbf{A}$
+\begin_inset Formula $\cdeg\left(\mathbf{A}\mathbf{U}\right)<\cdeg\mathbf{A}$
 \end_inset
 
 .
@@ -1727,11 +1749,11 @@ Given any two right unimodularly equivalent matrices
 \end_inset
 
 , and satisfies 
-\begin_inset Formula $\cdeg\mathbf{C}\preceq\cdeg\mathbf{A}$
+\begin_inset Formula $\cdeg\mathbf{C}\le\cdeg\mathbf{A}$
 \end_inset
 
  and 
-\begin_inset Formula $\cdeg\mathbf{C}\preceq\cdeg\mathbf{B}$
+\begin_inset Formula $\cdeg\mathbf{C}\le\cdeg\mathbf{B}$
 \end_inset
 
 .
@@ -1760,11 +1782,11 @@ Given any two right unimodularly equivalent matrices
 \end_inset
 
 , and satisfies 
-\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{D}\preceq\cdeg_{\vec{s}}\mathbf{A}$
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{D}\le\cdeg_{\vec{s}}\mathbf{A}$
 \end_inset
 
  and 
-\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{D}\preceq\cdeg_{\vec{s}}\mathbf{B}$
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{D}\le\cdeg_{\vec{s}}\mathbf{B}$
 \end_inset
 
 .
@@ -1837,7 +1859,7 @@ Given a matrix
 \end_inset
 
  and 
-\begin_inset Formula $\cdeg\mathbf{G}\preceq\cdeg(\mathbf{F}\mathbf{U})$
+\begin_inset Formula $\cdeg\mathbf{G}\le\cdeg(\mathbf{F}\mathbf{U})$
 \end_inset
 
  for any unimodular 
@@ -1858,7 +1880,7 @@ Given a matrix
 \end_inset
 
  and 
-\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{G}\preceq\cdeg_{\vec{s}}(\mathbf{F}\mathbf{U})$
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{G}\le\cdeg_{\vec{s}}(\mathbf{F}\mathbf{U})$
 \end_inset
 
  for any unimodular 
@@ -1901,7 +1923,7 @@ A matrix
 column reduced
 \emph default
  if 
-\begin_inset Formula $\cdeg\mathbf{A}\preceq\cdeg\mathbf{A}\mathbf{U}$
+\begin_inset Formula $\cdeg\mathbf{A}\le\cdeg\mathbf{A}\mathbf{U}$
 \end_inset
 
  for any unimodular matrix 
@@ -1926,7 +1948,7 @@ column reduced
 -column reduced
 \emph default
  if 
-\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{A}\preceq\cdeg_{\vec{s}}\mathbf{A}\mathbf{U}$
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{A}\le\cdeg_{\vec{s}}\mathbf{A}\mathbf{U}$
 \end_inset
 
  for any unimodular matrix 
@@ -2047,7 +2069,7 @@ reference "cor:minimalUnimodularEquivalentMatrix"
 \end_inset
 
 , then 
-\begin_inset Formula $\cdeg\mathbf{A}\succ\cdeg\mathbf{B}$
+\begin_inset Formula $\cdeg\mathbf{A}>\cdeg\mathbf{B}$
 \end_inset
 
 .
@@ -2092,7 +2114,7 @@ reference "cor:minimalUnimodularEquivalentMatrix"
 
 .
  But 
-\begin_inset Formula $\cdeg\bar{\mathbf{B}}\preceq\cdeg\mathbf{B}\prec\cdeg\mathbf{A}=\cdeg\bar{\mathbf{A}}$
+\begin_inset Formula $\cdeg\bar{\mathbf{B}}\le\cdeg\mathbf{B}<\cdeg\mathbf{A}=\cdeg\bar{\mathbf{A}}$
 \end_inset
 
 , while from 

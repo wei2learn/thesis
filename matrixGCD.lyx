@@ -117,7 +117,7 @@ key "SS2011"
 \end_inset
 
  for computing column reduced forms and Popov forms require that the input
- matrices to be square nonsingular or full-column rank.
+ matrices be square nonsingular or full-column rank.
  As in the previous chapters, 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
@@ -618,7 +618,7 @@ reference "lem:unimodularlyReduceToColumnBasis"
 \begin_inset Formula $\mathbf{U}_{L}$
 \end_inset
 
- has column dimension 
+ have column dimension 
 \begin_inset Formula $n-r$
 \end_inset
 
@@ -786,7 +786,7 @@ Note that the column dimension of
 
 \end_layout
 
-\begin_layout Proof
+\begin_layout Standard
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:unimodular_kernel_columnBasis"
@@ -2422,8 +2422,8 @@ reference "alg:minimalNullspaceBasisWithRankProfile"
 \end_inset
 
 .
- In other words, the new input has degrees matches the old output, while
- the new output has degrees bounded by the output.
+ In other words, the new input has degrees that matches the old output,
+ while the new output has degrees bounded by the old input.
  
 \begin_inset Note Note
 status collapsed
@@ -2437,8 +2437,9 @@ Note that in the new problem, the degree structure of the input is more
 \end_inset
 
 It is therefore reasonable to expect that the new problem can be computed
- efficiently, but we need to find some way to work with the more complicated
- input degree structure.
+ efficiently.
+ However, we need to find some way to work with the more complicated input
+ degree structure.
  On the other hand, the simpler output degree structure makes it easier
  to apply order basis computation to compute a 
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
@@ -3408,7 +3409,7 @@ As before, to see that a
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
--row degrees are bounded by 0, we just need to show 
+-row degrees are no more than 0, we can just show 
 \begin_inset Formula $\rdeg_{-\vec{s}_{2}}\hat{\mathbf{Q}}_{2}\le0$
 \end_inset
 
@@ -4287,7 +4288,7 @@ Let
 \begin_inset Formula $\mathbf{G}"$
 \end_inset
 
- be consists of only the columns of 
+ consist of only the columns of 
 \begin_inset Formula $\mathbf{G}'$
 \end_inset
 
@@ -4319,7 +4320,7 @@ Let
 \end_inset
 
  with the same entries.
- Note that by the definition of shifted row degree, 
+ By the definition of shifted row degree, 
 \begin_inset Formula $-\vec{t}"$
 \end_inset
 
