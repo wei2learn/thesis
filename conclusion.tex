@@ -1,0 +1,112 @@
+
+\chapter{Conclusion\label{sec:Future-Research}}
+
+In this thesis, we have presented efficient deterministic algorithms
+for a number of polynomial matrix computation problems, including
+the computation of order basis, minimal nullspace basis, matrix inverse,
+column basis, unimodular completion, determinant, and Hermite normal
+form. The algorithm for nullspace basis computation also immediately
+allows us to solve linear systems. The algorithm for column basis
+also immediately allows us to compute matrix GCD, column reduced forms
+and Popov normal forms for matrices of any dimension. 
+
+We first gave algorithms for computing a shifted order basis of an
+$m\times n$ matrix of power series over a field $\mathbb{K}$ with
+$m\le n$. For a given order $\sigma$ and balanced shift $\vec{s}$
+the first algorithm determines an order basis with a cost of $O^{\sim}(n^{\omega-1}m\sigma)$
+field operations in $\mathbb{K}$, where $\omega$ is the exponent
+of matrix multiplication. Here an input shift is balanced when $\max(\vec{s})-\min(\vec{s})\in O(m\sigma/n)$.
+%Here $O^{\sim}$
+%is just $O$ with log factors omitted and 
+%$\MM\left(n,d\right)$ denotes
+%the cost of multiplying two polynomial matrices with dimension $n$
+%and degree $d$. 
+\begin{comment}
+This extends earlier work of Storjohann which only determines a subset
+of an order basis that is within a specified degree bound $\delta$
+using $O^{\sim}(n^{\omega}\delta)$ field operations for $\delta\ge\lceil m\sigma/n\rceil$.
+\end{comment}
+{} While the first algorithm addresses the case when the column degrees
+of a complete order basis are unbalanced given a balanced input shift,
+it is not efficient in the case when an unbalanced shift results in
+the row degrees also becoming unbalanced. %The column degrees of a complete basis may be unbalanced, which is
+%a major issue we address in the first algorithm. When the input shift
+%is unbalanced, the row degrees of the basis can also be unbalanced
+%in addition to the unbalanced column degrees. For this, we present
+We have presented a second algorithm which balances the high degree
+rows and computes an order basis also using $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+field operations in the case that the shift is unbalanced but satisfies
+the condition $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma$.%
+\begin{comment}
+Every problem with any unbalanced shift can be in fact reduced to
+a problem with a shift that satisfying this condition if the degrees
+of a resulting order basis is known. 
+\end{comment}
+{} %
+\begin{comment}
+Many unbalanced shift problems can be in fact converted to problems
+satisfying this condition. 
+\end{comment}
+{} This condition essentially allows us to locate those high degree
+rows that need to be balanced. %
+\begin{comment}
+In more general unbalanced shift cases, this algorithm may not work
+well directly since we do not know in advance which are the high degree
+rows need to be balanced. But it may work efficiently if we have an
+effective way of estimating the resulting row degrees. 
+\end{comment}
+{} %
+\begin{comment}
+This extends the earlier work by the authors from ISSAC'09.
+\end{comment}
+
+
+We then presented an algorithm for the computation of a minimal nullspace
+basis of an $m\times n$ input matrix of univariate polynomials over
+a field $\mathbb{K}$ with $m\le n$. This algorithm computes a minimal
+nullspace basis of a degree $d$ input matrix with a cost of $O^{\sim}\left(n^{\omega-1}md\right)$
+field operations in $\mathbb{K}$. %
+\begin{comment}
+Here the soft-$O$ notation is Big-$O$ with log factors removed while
+$\omega$ is the exponent of matrix multiplication.
+\end{comment}
+{} The same algorithm also works in the more general situation on computing
+a shifted minimal nullspace basis, with a given degree shift $\vec{s}\in\mathbb{Z}^{n}$
+whose entries bound the corresponding column degrees of the input
+matrix. In this case if $\rho$ is the sum of the $m$ largest entries
+of $\vec{s}$, then a $\vec{s}$-minimal right nullspace basis can
+be computed with a cost of $O^{\sim}(n^{\omega}\rho/m)$ field operations. 
+
+Order basis computation and nullspace basis computation were then
+applied to the remaining problems. An algorithm for computing the
+inverse of an matrix in $\mathbb{K}\left[x\right]^{n\times n}$ was
+then given with a cost of $O^{\sim}\left(n^{2}\xi\right)$ field operations,
+where $\xi$ is the sum of column or row degrees of the input matrix.
+The inverse represented alternatively by a product of $\left\lceil \log n\right\rceil $
+matrices costs only $O^{\sim}\left(n^{\omega-1}\xi\right)$ to compute.
+We then discussed the computation of a column basis of an input matrix
+in $\mathbb{K}\left[x\right]^{m\times n}$ with a cost of $O^{\sim}\left(m^{\omega-1}\xi\right)$,
+where $\xi$ is the sum of column degrees of the input matrix. Next,
+an algorithm was presented for computing an unimodular completion
+of an input matrix in $\mathbb{K}\left[x\right]^{m\times n}$, $m<n$
+with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$, where $\xi$
+is the sum of column degrees of the input matrix. Then an algorithm
+for computing the determinant of an input matrix in $\mathbb{K}\left[x\right]^{n\times n}$
+with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$ was given,
+where $\xi$ is the sum of column or row degrees of the input matrix.
+Then we looked at an algorithm for computing the Hermite normal form
+of a degree $d$ input matrix in $\mathbb{K}\left[x\right]^{n\times n}$
+with a cost of $O^{\sim}\left(n^{\omega}d\right)$. Finally, we provided
+algorithms for rank-sensitive computations of the rank and rank profile
+of an input matrix in $\mathbb{K}\left[x\right]^{m\times n}$ with
+a cost of $O^{\sim}\left(mr^{\omega-2}\xi\right)$, and then applied
+the rank profile algorithm to rank-sensitive computation of minimal
+kernel basis to obtain a cost of $O^{\sim}(nmr^{\omega-2}d+n^{\omega-1}rd)$.
+
+For all these problems, our algorithms are not only essentially optimal,
+but in most cases they also solve more general versions of these problems
+than previous algorithms. More specifically, the computational costs
+are stated with the  sum of the column degrees of the input matrix,
+which is more precise and tighter than using just degrees. In addition,
+the shifted minimal bases computed by our algorithms are more general
+than the standard minimal bases.

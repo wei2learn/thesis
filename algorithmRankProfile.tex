@@ -1,0 +1,40 @@
+\begin{algorithm}[t]
+\caption{$\rankProfile(\mathbf{F})$: Compute a rank profile of $\mathbf{F}$}
+\label{alg:rankProfile}
+
+\begin{algorithmic}
+[1]\REQUIRE{$\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$. }
+
+\ENSURE{A row rank profile $\bar{j}=\left[j_{1},\dots,j_{r}\right]\in\mathbb{Z}^{r}$
+of $\mathbf{F}$. }
+
+\STATE{$k:=1$; ($k$ keeps track of the current row) }
+
+\STATE{\textbf{while }$k\le m$ \textbf{and }$\mathbf{F}_{k}\ne0$ \textbf{do
+$k:=k+1$ end while}; (find the first nonzero row $\mathbf{F}_{k}$)}
+
+\STATE{$\bar{j}=\left[k\right];$ $r:=1$; ($r$ is the current rank)}
+
+\WHILE{$k<m$ \AND{} }
+
+\whilebody{\STATE{$k':=\min\left(m,k+r-1\right)$; (last row in the block)}
+
+\STATE{$\mathbf{G}:=\mathbf{F}_{\left[\bar{j},k\dots,k'\right]};$ (the $r$
+linearly independent rows and the next block of rows)}
+
+\STATE{$\mathbf{T}:=\colBasis(\mathbf{G});$}
+
+\STATE{$\mathbf{N},\bar{e}:=\mnbrp(\mathbf{G});$ }
+
+\FOR{$i$ \textbf{from $r+1$ to }$2r$ (convert indicator to indices and
+append to $\bar{j}$) }
+
+\forbody{\STATE{\textbf{if} $e_{i}=1$ \textbf{then} $\bar{j}:=\left[\bar{j},e_{i}-r+k-1\right]$
+\textbf{end if};}}
+
+\STATE{$k:=k+r$; }}
+
+\RETURN $\bar{j}$;
+\end{algorithmic}
+\end{algorithm}
+

@@ -1,0 +1,144 @@
+
+\section{The Case $m\sigma\in o(n)$}
+
+\label{sec:removeCeilingFunction}
+
+We have been assuming $m\sigma\in\Omega(n)$ so far. With this assumption,
+we can transform the original problem with dimension $m\times n$
+and degree $\sigma$ to one with dimension $\Theta(n)\times\Theta(n)$
+and degree $\Theta(d)=\Theta(m\sigma/n)$, allowing order basis computation
+to be efficient with a final cost of $O^{\sim}(n^{\omega}d)$. However,
+if $m\sigma\in o(n)$, the average degree $d=m\sigma/n\in o(1)$ but
+$1$ is the lowest possible degree and $m\sigma$ is the maximum possible
+row dimension of our transformed problems. In other words, we cannot
+obtain a nearly square transformed problem for our algorithms to behave
+efficiently. In this case, our algorithms still require $O^{\sim}(n^{\omega}$$\left\lceil d\right\rceil )=O^{\sim}(n^{\omega})$
+field operations. We now look how this cost can be improved to $O^{\sim}(n^{\omega}d)=O^{\sim}(n^{\omega-1}m\sigma)$.
+
+
+\subsection{Balanced Case}
+
+First note that in this case, using \prettyref{def:balancedShift},
+a balanced shift $\vec{s}$ is also uniform, since $\max\left(\vec{s}\right)-\min\left(\vec{s}\right)\in O\left(m\sigma/n\right)\subseteq o(1)$,
+which makes $\max\left(\vec{s}\right)-\min\left(\vec{s}\right)=0$.
+So let us just consider the uniform shift case.
+
+We first compute all degree 0 basis elements, which then helps to
+eliminate the columns of the input that are never going to be needed
+as pivots. The remaining columns can then be used as the input to
+compute the remaining basis elements efficiently. The degree 0 elements
+of a $\left(\mathbf{F},\sigma\right)$-basis%
+\begin{comment}
+nullspace basis elements of $\mathbf{F}$
+\end{comment}
+{} correspond to a nullspace basis of a linearized matrix 
+\[
+\bar{F}=\left[\begin{array}{c}
+F_{0}\\
+F_{1}\\
+F_{2}\\
+\vdots\\
+F_{\sigma-1}
+\end{array}\right]\in\mathbb{K}^{(m\sigma)\times n}
+\]
+of $\mathbf{F}=F_{0}+F_{1}x+F_{2}x^{2}+\cdots+F_{\sigma-1}x^{\sigma-1}$.
+\begin{lem}
+The elements of a nullspace basis of $\bar{F}$ over $\mathbb{K}$
+are also the degree 0 elements of a $\left(\mathbf{F},\sigma\right)$-basis%
+\begin{comment}
+a minimal nullspace basis of $\mathbf{F}$
+\end{comment}
+.\end{lem}
+\begin{proof}
+The columns of $\bar{F}$ and the columns of $\mathbf{F}$ are equivalent
+representations of the same elements of the same $\mathbb{K}$-module,
+which is also a vector space over $\mathbb{K}$.
+\end{proof}
+To compute these basis elements, we can use the Gauss Jordan transform
+algorithm from \citet{storjohann:phd2000} on $\bar{F}$ with a cost
+of $O\left(nm\sigma\bar{r}^{\omega-2}\right)$, where $\bar{r}\le m\sigma$
+is the rank of $\bar{F}$. The algorithm finds a permutation matrix
+$P$ and a unimodular matrix $U$ in $\mathbb{K}^{n\times n}$ such
+that $\bar{F}PU$ is in the reduced column echelon form of $\bar{F}$.
+Note that $P$ permutes the columns of $\bar{F}$ so that the first
+$\bar{r}$ columns of $\bar{F}$ are linearly independent. Let $\left[U_{1},U_{0}\right]:=U$
+with $U_{0}$ correspond to the zero columns of $\bar{F}PU$. Then
+the matrix consists of the bottom $n-\bar{r}$ rows of $U_{0}$ is
+the identity matrix, and only the first $\bar{r}$ rows of $U_{1}$
+are nonzero. Because of this simpler structure after permutation,
+let us compute a $\left(\mathbf{F}P,\sigma\right)$-basis $\mathbf{P}$
+instead, which also gives us a $\left(\mathbf{F},\sigma\right)$-basis
+$P\mathbf{P}$. Notice that $U_{0}$ consists of all the degree 0
+elements of a $\left(\mathbf{F}P,\sigma\right)$-basis. We can then
+use $\mathbf{F}PU_{1}$ as the input matrix to compute the remaining
+basis elements. But to further simplify our future computation, let
+us replace $U_{1}$ with $V=\left[I,0\right]^{T}$ of the same dimension,
+where the identity matrix $I$ replaces the first nonzero $\bar{r}$
+rows in $U_{1}$. In essence, $PV$ picks $\bar{r}$ columns from
+$\mathbf{F}$ for computing the remaining basis elements. Since $U_{0}$
+has at least $n-m\sigma$ columns, there are at most $m\sigma$ columns
+in $U_{1}$, and hence at most $m\sigma$ columns in $V$ and in $\mathbf{F}PV$. 
+\begin{lem}
+\begin{comment}
+Let If $\bar{F}P\left[U_{2},U_{0}\right]$ is in the reduced column
+echelon form of $\bar{F}$ with $U_{0}$ being a nullspace basis of
+$\bar{F}P$, and i
+\end{comment}
+If we compute a $\left(\mathbf{F}PV,\sigma\right)$-basis $\mathbf{Q}$,
+then $\left[V\mathbf{Q},U_{0}\right]$ is a $\left(\mathbf{F}P,\sigma\right)$-basis.\end{lem}
+\begin{proof}
+Note that the matrix $\left[V,U_{0}\right]$, which has the structure
+\[
+\begin{bmatrix}I & *\\
+0 & I
+\end{bmatrix}
+\]
+ with $*$ representing the first $r$ rows of $U_{0}$, is a $\left(\mathbf{F}P,0\right)$-basis
+since it is unimodular and column reduced. From \ref{thm:combineOrderBases},
+we can use the residual $\mathbf{F}P[V,U_{0}]=\left[\mathbf{F}PV,0\right]$
+to compute a $\left(\left[\mathbf{F}PV,0\right],\sigma\right)$-basis
+$\bar{\mathbf{Q}}$, then $[V,U_{0}]\bar{\mathbf{Q}}$ is a $\left(\mathbf{F}P,\sigma\right)$-basis.
+Also note that if $\mathbf{Q}$ is a $\left(\mathbf{F}PV,\sigma\right)$-basis,
+then 
+\[
+\bar{\mathbf{Q}}=\begin{bmatrix}\mathbf{Q}\\
+ & I
+\end{bmatrix}
+\]
+ is a $\left(\left[\mathbf{F}PV,0\right],\sigma\right)$-basis, and
+$[V,U_{0}]\bar{\mathbf{Q}}=\left[V\mathbf{Q},U_{0}\right]$ is a $\left(\mathbf{F}P,\sigma\right)$-basis.
+\end{proof}
+Our new problem of computing a $\left(\mathbf{F}PV,\sigma\right)$-basis
+now satisfies the condition of having column dimension bounded by
+$m\sigma$.%
+\begin{comment}
+\begin{lem}
+The column dimensions of $V$ and $\mathbf{F}PV$ are bounded by $m\sigma$.\end{lem}
+\begin{proof}
+The rank of $\bar{F}$ is bounded by $m\sigma$. This means its nullspace
+basis $U_{0}$ has at least $n-m\sigma$ columns. Therefore $V$ has
+at most $m\sigma$ columns.\end{proof}
+\end{comment}
+{} We can therefore compute a $\left(\mathbf{F}PV,\sigma\right)$-basis
+using \prettyref{alg:mab} with a cost of $O^{\sim}\left(\left(m\sigma\right)^{\omega}\right)=O^{\sim}\left(n^{\omega-1}m\sigma\right)$.
+
+The last thing to check is making sure that the multiplications for
+computing the residual $\mathbf{F}PV$, and for combining the results
+$V\mathbf{Q}$, and for obtaining the final result $P\left[V\mathbf{Q},U_{0}\right]$
+can all be done efficiently, which is not difficult since $P$ is
+a permutation matrix, and $V$ consists of an identity matrix and
+zeros. Therefore, the $(\mathbf{F},\sigma)$-basis $P\left[V\mathbf{Q},U_{0}\right]$
+can be computed with a cost of $O^{\sim}\left(n^{\omega-1}m\sigma\right)$.
+This allows us to remove the assumption of $m\sigma\in\Omega(n)$,
+and to extend \prettyref{thm:balancedCost} to the situation of $m\sigma\in o(n)$.
+\begin{thm}
+\label{thm:orderBasisCostCeilingRemoved}When $m\sigma\in o(n)$ and
+the shift $\vec{s}$ is balanced, a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
+can be computed with a cost of $O\left(n^{\omega}\bar{\M}(d)\log\sigma)\right)=O\left(n^{\omega}d\log d\log\log d\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
+field operations, where $d=m\sigma/n$. %
+\begin{comment}
+Should easily work for the second unbalanced case as well. But need
+to write it out.
+\end{comment}
+\end{thm}
+

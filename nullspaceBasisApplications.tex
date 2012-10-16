@@ -1,0 +1,165 @@
+
+\chapter{\label{chap:Matrix-inverse}Matrix inverse}
+
+In this chapter, we consider the problem of computing the inverse
+of a $n\times n$ polynomial matrix with degree $d$. \citet{jeannerod-villard:05}
+gave a deterministic algorithm for this problem that cost $O^{\sim}\left(n^{3}d\right)$
+field operations. But their algorithm only works well on input matrices
+that are generic with dimension a power of 2. \citet{storjohann:2008}
+gave another algorithm with a similar cost, but the algorithm is randomized
+Las Vegas. In the following, we show that Jeannerod and Villard's
+algorithm can be improved to handle any matrix with a cost of $O^{\sim}\left(n^{3}d\right)$
+using new results from this thesis. The algorithm given here is still
+deterministic. In fact, an additional improvement of our algorithm
+is that it is more general, as its computational cost is given in
+terms of the sum of the column (or row) degrees. If $\xi$ is the
+minimum of the sum of the column degrees and the sum of the row degrees
+of the input matrix, then the inverse can be computed with $O^{\sim}\left(n^{2}\xi\right).$
+In the following, we assume without loss of generality that the sum
+of the column degrees is the minimum sum.
+
+\input{algorithmInversion.tex}
+
+\prettyref{alg:matrixInverse} is a recursive version of the algorithm
+from \citet{jeannerod-villard:05}, except that we replace the kernel
+basis computation at \prettyref{line:nullspaceBasisComputation} and
+the matrix multiplications at \prettyref{line:multiplyFN} with the
+new algorithms from this thesis. The algorithm also returns a list
+of matrices $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}$
+satisfying $\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}=\mathbf{F}^{-1}$,
+instead of just two matrices $\mathbf{A},\mathbf{B}$ satisfying $\mathbf{A}\mathbf{B}^{-1}=\mathbf{F}^{-1}$.
+We can then compute the product $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+with a cost of $O^{\sim}\left(n^{2}\xi\right)$. It is interesting
+to note that the output $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}$
+takes only $O(n\xi)$ space, but the product $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+takes $O(n^{2}\xi)$ space.
+
+Let us first look at the cost of the kernel basis computation and
+matrix multiplications, since they dominate the cost of \prettyref{alg:matrixInverse}. 
+\begin{lem}
+The kernel basis computation at \prettyref{line:nullspaceBasisComputation}
+costs $O^{\sim}(n^{\omega-1}\xi)$.\end{lem}
+\begin{proof}
+Just use the earlier kernel basis algorithm with the shift set to
+the column degrees of the input matrix.\end{proof}
+\begin{lem}
+The multiplications $\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$
+and $\mathbf{R}_{2}:=\mathbf{F}_{2}\mathbf{N}_{1}$at \prettyref{line:multiplyFN}
+cost $O^{\sim}(n^{\omega-1}\xi)$.\end{lem}
+\begin{proof}
+From \prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBasis} we know
+that the sum of the $\vec{s}$-column degrees of $\mathbf{N}_{1}$
+and that of $\mathbf{N}_{2}$ are both bounded by $\xi$. Now \prettyref{thm:multiplyUnbalancedMatrices}
+can be applied.\end{proof}
+\begin{thm}
+\label{thm:inverseCost}\prettyref{alg:matrixInverse} costs $O^{\sim}\left(n^{\omega-1}\xi\right)$
+field operations to compute an inverse of a nonsingular matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$,
+where $\xi$ is the minimum of the sum of the column degrees and the
+sum of the row degrees of the input matrix.\end{thm}
+\begin{proof}
+If the sum of the row degrees is smaller, we can just transpose the
+matrix. Let the cost be $g(n,\xi)$. Then we have the following recurrence
+relation:
+\begin{eqnarray*}
+g(n,\xi) & \in & O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi)\\
+ & \in & O^{\sim}(n^{\omega-1}\xi)+2g(\left\lceil n/2\right\rceil ,\xi)\\
+ & \in & O^{\sim}(n^{\omega-1}\xi).
+\end{eqnarray*}
+ Note that always rounding up $n/2$ to $\left\lceil n/2\right\rceil $
+is no worse than assuming $n$ is a power of $2$. In other words,
+the entries in the sequence $\left[\left\lceil n/2\right\rceil ,\left\lceil n/4\right\rceil ,\dots,1\right]$
+is no larger than the corresponding entries in the sequence $\left[n'/2,n'/4,\dots,1\right]$,
+where $n'$ is the smallest power of $2$ that is no less than $n$,
+that is, $n'=2^{\left\lceil \log_{2}n\right\rceil }$. \end{proof}
+\begin{lem}
+The multiplications $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+can be done with a cost of $O^{\sim}(n^{2}\xi)$ .\end{lem}
+\begin{proof}
+Note that $\mathbf{A}_{i}$ for $i\le\log n$ has $2^{i}$ blocks
+on the diagonal. Each block of $\mathbf{A}_{i}$ is used to compute
+two corresponding blocks of $\mathbf{A}_{i+1}$. Let us first look
+at $\mathbf{A}_{1}=\left[\mathbf{N}_{2},\mathbf{N}_{1}\right]$ and
+\[
+\mathbf{A}_{2}=\begin{bmatrix}\mathbf{N}'_{2} & \mathbf{N}'_{1}\\
+ &  & \mathbf{M}'_{2} & \mathbf{M}'_{1}
+\end{bmatrix},
+\]
+ where $\mathbf{N}'_{1},$ $\mathbf{N}'_{2}$ are the kernel bases
+of the submatrices $\mathbf{F}'_{1},$ $\mathbf{F}'_{2}$ contained
+in 
+\[
+\mathbf{R}_{1}=\begin{bmatrix}\mathbf{F}'_{1}\\
+\mathbf{F}'_{2}
+\end{bmatrix}=\mathbf{F}_{1}\mathbf{N}_{2}.
+\]
+ When multiplying $\mathbf{A}_{1}$ and $\mathbf{A}_{2}$, the submatrix
+$\mathbf{N}_{2}$ of $\mathbf{A}_{1}$ is multiplied with the block
+$\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$ in $\mathbf{A}_{2}$.
+Let $\vec{s}'$ be the list of the $\vec{s}$-column degrees of $\mathbf{N}_{2}$,
+where $\vec{s}$ is list of the column degrees of the input matrix
+$\mathbf{F}$. Then $\sum\vec{s}'\le\sum\vec{s}=\xi$ by \prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBasis}.
+From \prettyref{lem:boundOnDegreesOfFA}, we know the column degrees
+of $\mathbf{R}_{1}=\mathbf{F}_{1}\mathbf{N}_{2}$ are bounded component-wise
+by the $\vec{s}$-column degrees $\vec{s}'$ of $\mathbf{N}_{2}$,
+hence the sum of the column degrees of $\mathbf{R}_{1}$ is also bounded
+by $\xi$. It follows that the sum of $\vec{s}'$-column degrees of
+$\mathbf{N}'_{1}$ and that of $\mathbf{N}'_{2}$ are each bounded
+by $\xi$. We can therefore use \prettyref{thm:multiplyUnbalancedMatrices}
+to multiply $\mathbf{N}_{2}$ and $\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$. From \prettyref{lem:boundOnDegreesOfFA},
+the $\vec{s}$-column degrees of the product $\mathbf{N}_{2}\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+are bounded by the $\vec{s}'$-column degrees of $\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$,
+hence the sum of the $\vec{s}$-column degrees of each column block
+in $\mathbf{N}_{2}\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]=\left[\mathbf{N}_{2}\mathbf{N}'_{2},\mathbf{N}_{2}\mathbf{N}'_{1}\right]$
+is still bounded by $\xi$. The multiplication involving $\mathbf{N}_{1}$
+and the second block of $\mathbf{A}_{2}$ is done in the same way
+as the multiplication $\mathbf{N}_{2}\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$,
+hence the multiplication $\mathbf{A}_{1}\mathbf{A}_{2}$ cost $O^{\sim}\left(n^{\omega-1}\xi\right)$,
+with the sum of $\vec{s}$-column degrees of each of the four column
+blocks in $\mathbf{A}_{1}\mathbf{A}_{2}=\left[\mathbf{N}_{2}\mathbf{N}'_{2},\mathbf{N}_{2}\mathbf{N}'_{1},\mathbf{N}_{1}\mathbf{M}'_{2},\mathbf{N}_{1}\mathbf{M}'_{1}\right]$
+bounded by $\xi$.
+
+Next, we multiply $\mathbf{A}_{1}\mathbf{A}_{2}$ with $\mathbf{A}_{3}$.
+The matrix $\mathbf{A}_{3}$ now has four blocks on the diagonal.
+Consider $\mathbf{N}_{2}\mathbf{N}'_{2}$ , the first column block
+of $\mathbf{A}_{1}\mathbf{A}_{2}$, multiplied with the first block
+$\left[\mathbf{N}"_{2},\mathbf{N}"_{1}\right]$ on the diagonal of
+$\mathbf{A}_{3}$. Let $\vec{s}"$ be the $\vec{s}'$-column degrees
+of $\mathbf{N}'_{2}$, which bound the $\vec{s}$-column degrees of
+$\mathbf{N}_{2}\mathbf{N}'_{2}$. Then $\sum\vec{s}"\le\sum\vec{s}'\le\sum\vec{s}=\xi$.
+Following the same reasoning as before, the sum of the $\vec{s}"$-column
+degrees of $\mathbf{N}"_{2}$ is still bounded by $\xi$. We can therefore
+again use \prettyref{thm:multiplyUnbalancedMatrices} to multiply
+$\mathbf{N}_{2}\mathbf{N}'_{2}$ and $\mathbf{N}"_{2}$. The multiplication
+of the remaining blocks are done in the same way. The product $\mathbf{A}_{1}\mathbf{A}_{2}\mathbf{A}_{3}$
+now has 8 column blocks, with the sum of the $\vec{s}$-column degrees
+of each column block bounded by $\xi$.
+
+Repeating this process, we multiply $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+with $\mathbf{A}_{i+1}$ at step $i$ for $i$ from 1 to $\left\lfloor \log n\right\rfloor $.
+Each of the $2^{i}$ column blocks of $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+has dimension $n\times O(n/2^{i})$. Each of the $O(2^{i})$ column
+blocks on the diagonal of $\mathbf{A}_{i+1}$ has dimension $O(n/2^{i})\times O(n/2^{i})$.
+(Big $O$ notation is used here because $n/2^{i}$ may not be an integer.)
+Let $\vec{u}_{j}$ be the shift used to compute the $j$th in $\mathbf{A}_{j+1}$,
+then as before, the $\vec{s}$-column degrees of the $j$th column
+block in $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$ are bounded by $\vec{u}_{j}$,
+with $\sum\vec{u}_{j}\le\xi$. The sum of the $\vec{u}$-column degrees
+of the $j$th block in $\mathbf{A}_{j+1}$ is bounded by $2\xi$.
+(Each of the left half and the right half has the sum bounded by $\xi$.)
+Therefore, multiplying $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$ with
+$\mathbf{A}_{i+1}$ cost $O^{\sim}\left(2^{j}2^{j}\left(n/2^{j}\right)^{\omega-1}\xi\right)$.
+Take $\omega=3,$ we get $O^{\sim}\left(n^{2}\xi\right)$ as desired.
+\end{proof}
+Again, it is interesting to note that \prettyref{alg:matrixInverse}
+costs only $O^{\sim}\left(n^{\omega-1}\xi\right)$ to compute the
+inverse and it represents the inverse with $O\left(n\xi\log n\right)$
+space. It is possible that this representation is useful in some applications.
+For example, if we wish to multiply another low degree matrix or a
+row vector $\mathbf{H}$ by $\mathbf{F}^{-1}$, representing $\mathbf{F}^{-1}=\mathbf{A}\mathbf{B}^{-1}$
+requires us to multiply $\mathbf{H}$ with a high degree matrix $\mathbf{A}$.
+This can be more expensive than the multiplication using the representation
+$\mathbf{F}^{-1}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$,
+then $\mathbf{H}\mathbf{F}^{-1}=\mathbf{H}\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$,
+which is less expensive. It may be interesting to look for other applications
+where this smaller representation is useful.

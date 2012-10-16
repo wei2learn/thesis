@@ -1,0 +1,150 @@
+
+\chapter{\label{chap:rank}Rank Profile and Rank Sensitive Computation of
+Kernel Basis}
+
+In this chapter, we consider the problems of computing the row rank
+profile of an input matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$,
+which also immediately gives us the rank. If $n\ge m$, the rank can
+already be computed by either kernel basis computation or column basis
+computation from the earlier chapters. The column basis computation
+(\prettyref{alg:colBasis}) can compute the rank with a cost of $O^{\sim}(m^{\omega-1}\xi)$
+field operations, where $\xi$ is the sum of the column degrees of
+$\mathbf{F}$. However, we would like to refine this cost to $O^{\sim}\left(mr^{\omega-2}\xi\right)$,
+where $r$ is the rank of $\mathbf{F}$. We also would like to compute
+a row rank profile with the same cost.
+
+We use the following approach to achieve the desired cost. We first
+modify our kernel basis algorithm, \prettyref{alg:minimalNullspaceBasisWithRankProfile},
+slightly to allow the rank profile to be computed along with a kernel
+basis. Then we do a series of computations with increasing number
+of rows from $\mathbf{F}$. For each set of rows we do successive
+column basis computation (or order basis computation) as in \prettyref{sec:successiveColBasisComputation}
+to reduce the column dimension of the problem, so the modified \prettyref{alg:minimalNullspaceBasisWithRankProfile}
+can work efficiently to compute the rank profile of this set of rows.
+
+
+\section{Rank Profile from Kernel Basis Computation}
+
+Recall that the row rank profile of $\mathbf{F}$ is the lexicographically
+smallest list of row indices $\left[i_{1},i_{2},\dots i_{r}\right]$
+such that these rows of $\mathbf{F}$ are linearly independent, where
+$r$ is the rank of $\mathbf{F}$. Let us see how the row rank profile
+can be computed by our kernel basis algorithm.  The following lemma
+provides a key to the rank profile computation using \prettyref{alg:minimalNullspaceBasis}.
+\begin{lem}
+\label{lem:rankProfileIndicator}At any base case of running \prettyref{alg:minimalNullspaceBasis}
+on the input matrix\textbf{ $\mathbf{F}$}, we work with an input
+matrix $\mathbf{g}$ consisting of a single row. Let $\mathbf{f}$
+be the original row in $\mathbf{F}$ corresponding to $\mathbf{g}$
+and $\mathbf{F}'$ be the submatrix of $\mathbf{F}$ consists of the
+rows above $\mathbf{f}$. Then $\mathbf{g}=0$ if and only if $\mathbf{f}$
+is linearly dependent with the rows of $\mathbf{F}'$.\end{lem}
+\begin{proof}
+When the algorithm has reached the base case involving the single
+row matrix $\mathbf{g}$, it has finished processing $\mathbf{F}'$
+and has produced a number of order bases and kernel bases from the
+earlier subproblems, where the kernel bases computed only involved
+all the rows of $\mathbf{F}'$. The matrix $\mathbf{g}$ is the residual
+from multiplying $\mathbf{f}$ with these order bases and kernel bases.
+Note that such multiplications do not change the linear dependency
+of $\mathbf{g}$ with the rows of $\mathbf{F}'$. But if $\mathbf{f}$
+is linearly dependent with the rows of $\mathbf{F}'$, the residual
+$\mathbf{g}$ becomes 0 after multiplying with kernel bases of the
+rows of $\mathbf{F}'$.
+\end{proof}
+\prettyref{lem:rankProfileIndicator} now allows us to provide a small
+modification to \prettyref{alg:minimalNullspaceBasis} to produce
+the rank profile of $\mathbf{F}$. The modified algorithm is given
+in \prettyref{alg:minimalNullspaceBasisWithRankProfile}. Note that
+the rank profile in our algorithm is represented using a list of $n$
+indicators that indicate the first $r$ linearly independent rows
+of $\mathbf{F}$. At this point, the rank profile of $\mathbf{F}$
+still costs the same to compute as a kernel basis of $\mathbf{F}$.
+In the following, we see how column basis computation can be used
+to improve this.
+
+\input{algorithmNullspaceBasisWithRankProfile.tex}
+
+
+\section{Successive Rank Profile Computation}
+
+To compute the rank and rank profile of $\mathbf{F}$ in a rank-sensitive
+way, we do a series of computations with a set of increasing number
+of rows from $\mathbf{F}$.
+
+We start with the first nonzero row of $\mathbf{F}$, which is the
+first row in the rank-profile. Suppose we have found the indices
+$\bar{j}=\left[j_{1},\dots,j_{k}\right]$ in the rank profile. To
+find the next linearly independent rows, we work with the matrix $\mathbf{G}=\mathbf{F}_{\left[\bar{j},j_{k+1}\dots,j_{k}+i\right]}$,
+the matrix consists of the $k$ linearly independent rows indexed
+by $\bar{j}$ and the next $k$ rows. We compute a column basis $\mathbf{T}$
+of this matrix, which has the same rank profile as $\mathbf{G}$.
+Now we can use \prettyref{alg:minimalNullspaceBasisWithRankProfile}
+to compute the rank profile of $\mathbf{T}$, which gives more indices
+for the rank profile of $\mathbf{F}$. We repeat this procedure until
+all rows of $\mathbf{F}$ are processed. This gives us \prettyref{alg:rankProfile}
+for computing the rank profile of $\mathbf{F}$.
+
+\input{algorithmRankProfile.tex}
+
+The main remaining task is to analyze the computational cost of \prettyref{alg:rankProfile}. 
+\begin{thm}
+The cost of \prettyref{alg:rankProfile} is $O^{\sim}\left(\xi mr^{\omega-2}\right)$
+field operations for computing a rank profile of $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$.\end{thm}
+\begin{proof}
+Let $r_{i}$ be the number of rows in the new block considered at
+step $i$. Then the cost at step $i$ is $O^{\sim}\left(r_{i}^{\omega-1}\xi\right)$
+field operations for the column basis and the kernel basis with rank
+profile computation. The total cost is then 
+\[
+\sum O^{\sim}\left(r_{i}^{\omega-1}\xi\right)=O^{\sim}\left(\xi\sum r_{i}^{\omega-1}\right).
+\]
+ We also know that $\sum r_{i}=m$, and the maximum of $r_{i}$ is
+the rank $r$ of $\mathbf{F}$. Note that 
+\[
+\sum r_{i}^{\omega-1}\le\frac{m}{r}r^{\omega-1}=mr^{\omega-2}.
+\]
+ Hence 
+\[
+\sum O^{\sim}\left(r_{i}^{\omega-1}\xi\right)=O^{\sim}\left(\xi\sum r_{i}^{\omega-1}\right)=O^{\sim}\left(\xi mr^{\omega-2}\right).
+\]
+
+\end{proof}
+
+\section{Applications of Rank Profile Computation}
+
+
+\subsection{\label{sub:removeDimensionAssumption}Remove the assumption $n\ge m$}
+
+In order basis, kernel basis, and column basis computations from previous
+chapters, we have assumed that the column dimension $n$ is no less
+than the row dimension $m.$ We can now use the rank profile computation
+to ensure that this is always the case. For order basis and kernel
+basis computation, we can just determine the rank profile $\bar{j}$
+of the input matrix $\mathbf{F}$, and then work with just $\mathbf{F}_{\bar{j}}$,
+which consists of only $r$ linearly independent rows, as we know
+the rank $r$ is always bounded by the column dimension $n$. For
+column basis computation, the assumption is only required by the kernel
+basis computation used. Therefore removing this assumption from the
+kernel basis computation also removes this assumption from the column
+basis computation.
+
+
+\subsection{Rank-sensitive computation of minimal kernel bases}
+
+With the ability to compute a rank profile efficiently, we can now
+slightly improve \prettyref{cor:costOfMinimalNullspaceBasis} on the
+cost of kernel basis computation with a matrix of degree $d$, by
+using only the linearly independent rows from $\mathbf{F}$, hence
+reducing the row dimension of the input matrix from $m$ to $r$,
+after a cost of $O^{\sim}\left(\xi mr^{\omega-2}\right)=O^{\sim}\left(nmr^{\omega-2}d\right)$
+to compute the rank profile. 
+\begin{thm}
+Given a matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$with
+degree $d$, a minimal kernel basis of $\mathbf{F}$ can be computed
+with a cost of $O^{\sim}(nmr^{\omega-2}d+n^{\omega-1}rd)$.
+\end{thm}
+It looks difficult to further improve this cost by removing the exponent
+$\omega$ from the column dimension $n$ if a minimal kernel basis
+is required. Since the minimality requires us to work with some matrix
+involving all $n$ columns at the same time. 

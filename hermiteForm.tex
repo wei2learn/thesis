@@ -1,0 +1,336 @@
+
+\chapter{\label{chap:hermite} Hermite Normal Form}
+
+In \prettyref{chap:determinant}, we have shown how the diagonal entries
+of the Hermite normal form of a nonsingular input matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+can be computed efficiently. In this Chapter, we consider the problem
+of computing the complete Hermite normal form $\mathbf{H}$ of $\mathbf{F}$.
+\citet{GS2011,G2011} gave a randomized Las Vegas algorithm that costs
+$O^{\sim}\left(n^{\omega}d\right)$ to compute the Hermite normal
+form. We make use of some of their ideas and follow a similar path.
+But we do not use Smith normal form and our algorithm is deterministic.
+
+For simplicity, we assume $\mathbf{F}$ is already column reduced
+and has degrees $\vec{d}=\left[d_{1},\dots,d_{n}\right]$ and let
+$d=\max\vec{d}$. Let $\vec{s}=\left[s_{1},\dots,s_{n}\right]$ be
+the degrees of the diagonal entries of the Hermite form $\mathbf{H}$.
+Then if $\vec{u}=\left[\max\vec{s},\dots,\max\vec{s}\right]$ with
+$n$ entries, we can obtain the Hermite normal form from a $\left[-\vec{u},-\vec{s}\right]$-minimal
+kernel basis of $\left[\mathbf{F},I\right]$.
+\begin{lem}
+If $\begin{bmatrix}\mathbf{V}\\
+\mathbf{G}
+\end{bmatrix}$ is a $\left[-\vec{u},-\vec{s}\right]$-minimal kernel basis of $\left[\mathbf{F},-I\right]$,
+where each block is $n\times n$ square, then $\mathbf{G}$ is unimodularly
+equivalent with the Hermite normal form $\mathbf{H}$ of $\mathbf{F}$
+and has row degrees $\vec{s}$, the same as the row degrees of $\mathbf{H}$.\end{lem}
+\begin{proof}
+Notice that the unimodular matrix $\mathbf{U}$ satisfying $\mathbf{F}\mathbf{U}=\mathbf{H}$
+has $\vec{d}$-column degrees bounded by $\max\vec{s}$ from the predictable-degree
+property \prettyref{lem:predictableDegree}, which means $\mathbf{U}$
+has degree bounded by $\max\vec{s}$, or equivalently, $\cdeg_{-\vec{u}}\mathbf{U}\le0$,
+hence $\cdeg_{\left[-\vec{u},-\vec{s}\right]}\begin{bmatrix}\mathbf{U}\\
+\mathbf{H}
+\end{bmatrix}=\cdeg_{-\vec{s}}\mathbf{H}=0$, making $\begin{bmatrix}\mathbf{U}\\
+\mathbf{H}
+\end{bmatrix}$ $\left[-\vec{u},-\vec{s}\right]$-column reduced and a $\left[-\vec{u},-\vec{s}\right]$-minimal
+kernel basis of $\left[\mathbf{F},-I\right]$. If we compute a $\left[-\vec{u},-\vec{s}\right]$-minimal
+kernel basis $\begin{bmatrix}\mathbf{V}\\
+\mathbf{G}
+\end{bmatrix}$ of $\left[\mathbf{F},-I\right]$, we know that $\begin{bmatrix}\mathbf{V}\\
+\mathbf{G}
+\end{bmatrix}$ is unimodularly equivalent to $\begin{bmatrix}\mathbf{U}\\
+\mathbf{H}
+\end{bmatrix}$, implying that $\mathbf{V}$ is also unimodular. The minimality also
+ensures that $\cdeg_{\left[-\vec{u},-\vec{s}\right]}\begin{bmatrix}\mathbf{V}\\
+\mathbf{G}
+\end{bmatrix}=\cdeg_{\left[-\vec{u},-\vec{s}\right]}\begin{bmatrix}\mathbf{U}\\
+\mathbf{H}
+\end{bmatrix}=0$, implying $\cdeg_{-\vec{s}}\mathbf{G}\le0=\cdeg_{-\vec{s}}\mathbf{H}$.
+But the minimality of $\mathbf{H}$ ensures that $\cdeg_{-\vec{s}}\mathbf{G}=\cdeg_{-\vec{s}}\mathbf{H}=0$,
+or equivalently, $\rdeg\mathbf{G}=\rdeg\mathbf{H}=\vec{s}$.
+\end{proof}
+Knowing that $\mathbf{G}$ has the same row degrees as $\mathbf{H}$
+and is unimodularly equivalent with $\mathbf{H}$, the Hermite form
+$\mathbf{H}$ can then be obtained from $\mathbf{G}$ using Lemma
+8 from \citep{GS2011}, restated as follows:
+\begin{lem}
+\label{lem:recoverH}If the Hermite normal form $\mathbf{H}$ of $\mathbf{F}$
+is a column basis of a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times k}$,
+and has the same row degrees as $\mathbf{A}$, then the matrix $U\in\mathbb{K}^{n\times n}$
+putting $\lcoeff\left(x^{-\vec{s}}\mathbf{A}\right)U$ in reduced
+column echelon form also gives the Hermite normal form $\mathbf{H}$
+as the principal $n\times n$ submatrix of $\mathbf{A}U$.\end{lem}
+\begin{proof}
+This follows from the fact that $\mathbf{H}$ and $\mathbf{A}$ all
+have uniform $-\vec{s}$ column degrees 0, which allows their relationship
+to be completely determined by $\lcoeff\left(x^{-\vec{s}}\mathbf{A}\right)$
+and the diagonal matrix $\lcoeff\left(x^{-\vec{s}}\mathbf{H}\right)$
+alone.
+\end{proof}
+Although the Hermite normal form $\mathbf{H}$ of $\mathbf{F}$ can
+be computed from a $\left[-\vec{u},-\vec{s}\right]$-minimal kernel
+basis of $\left[\mathbf{F},I\right]$, a major problem here is that
+$\max\vec{s}$ can be very large. So the existing algorithms would
+be inefficient if applied directly. 
+
+However, since we know the row degrees of $\mathbf{H}$, we can expand
+each of the high degree rows of $\mathbf{H}$ to multiple rows with
+lower degrees, as done in \citep{GS2011,G2011} and also in the computation
+of order basis with unbalanced shift from \prettyref{chap:Unbalanced-Shift},
+which then allows to compute an alternative matrix $\mathbf{H}'$
+with lower degrees but a higher row dimension that is still in $O(n)$,
+such that $\mathbf{H}'$ can be easily transformed to $\mathbf{H}$.
+Our task here is in fact easier than in \prettyref{chap:Unbalanced-Shift}
+as we already know the exact row degrees of $\mathbf{H}$.
+
+For each entry $s_{i}$ of the shift $\vec{s}$, let $q_{i}$ and
+$r_{i}$ be the quotient and remainder of $s_{i}$ divided by $d$.
+Then, we expand the $i$th column $e_{i}$ of the identity matrix
+$I$ in $[\mathbf{F},I]$ and shift $s_{i}$ to
+\[
+\tilde{\mathbf{E}}^{(i)}=\left[e_{i},x^{s_{i}-q_{i}d}e_{i},\dots,x^{s_{i}-d}e_{i}\right]\mbox{ and }\tilde{s}_{i}=\left[r_{i},d,\dots,d,\right],
+\]
+ %
+\begin{comment}
+\[
+\tilde{\mathbf{E}}^{(i)}=\left[e_{i},x^{d}e_{i},\dots,x^{q_{i}d}e_{i},x^{q_{i}d+r_{i}}e_{i}\right]\mbox{ and }\tilde{s}_{i}=\left[d,\dots,d,r_{i}\right],
+\]
+\end{comment}
+{} where $\tilde{s}_{i}$ has with $q_{i}+1$ entries in each case.
+For the transformed problem, the shift $\vec{s}$ becomes $\bar{s}=[\tilde{s}_{1},\dots,\tilde{s}_{n}]\in\mathbb{Z}_{\le0}^{\bar{n}}$,
+and the identity matrix becomes
+\begin{eqnarray*}
+\mathbf{E} & = & [\tilde{\mathbf{E}},\dots,\tilde{\mathbf{E}}^{\left(n\right)}]\\
+ & = & \left[\begin{array}{ccccc|ccc|ccccccc}
+1 & x^{s_{1}-q_{1}d} & \cdots & x^{s_{1}-2d} & x^{s_{1}-d} &  &  & \\
+\hline  &  &  &  &  & \ddots &  & \\
+ &  &  &  &  &  & \  & \ddots\\
+\hline  &  &  &  &  &  &  &  & 1 & x^{s_{n}-q_{n}d} & \cdots & x^{s_{n}-2d} & x^{s_{n}-d}
+\end{array}\right]_{n\times\bar{n}},
+\end{eqnarray*}
+ with the new column dimension $\bar{n}$ satisfying 
+\[
+\bar{n}=n+\sum_{i=1}^{n}q_{i}\le n+\sum_{i=1}^{n}s_{i}/d\le n+nd/d=2n.
+\]
+
+
+We can now recover $\mathbf{H}$ from a $\left[-\vec{u},-\bar{s}\right]$-minimal
+kernel basis of $\left[\mathbf{F},-\mathbf{E}\right]$.
+\begin{lem}
+\label{lem:expandH}Let $\mathbf{B}=\begin{bmatrix}\mathbf{V}'\\
+\mathbf{G}'
+\end{bmatrix}$ be a $\left(\left[\mathbf{F},-\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$-kernel
+basis, where $\mathbf{G}'$ has dimension $\bar{n}\times\bar{n}$.
+Let $\bar{\mathbf{B}}_{0}$ be the matrix consisting of the columns
+of $\mathbf{G}'$ whose $-\bar{s}$-column degrees are bounded by
+0. Then $\mathbf{H}$ is a column basis of $\mathbf{E}\bar{\mathbf{B}}_{0}$
+and the nonzero columns of $\mathbf{E}\bar{\mathbf{B}}_{0}$ have
+$-\vec{s}$-column degrees 0, allowing us to recover $\mathbf{H}$
+from $\mathbf{E}\bar{\mathbf{B}}_{0}$ using \prettyref{lem:recoverH}.\end{lem}
+\begin{proof}
+Note that we can construct a $\left(\left[\mathbf{F},-\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$-kernel
+basis $\mathbf{A}=\begin{bmatrix}\mathbf{U} & 0\\
+\mathbf{H}_{\mathbf{E}} & \mathbf{N}_{\mathbf{E}}
+\end{bmatrix}$, where $\mathbf{U}$ is the unimodular matrix satisfying $\mathbf{F}\mathbf{U}=\mathbf{H}$,
+$\mathbf{H}_{\mathbf{E}}$ is the matrix $\mathbf{H}$ expanded according
+to $\mathbf{E}$, so that $\mathbf{H}_{\mathbf{E}}$ has row degrees
+$\bar{s}$ and $\mathbf{H}_{\mathbf{E}}\mathbf{E}=\mathbf{H}$, and
+$\mathbf{N}_{\mathbf{E}}$ is a $\left(\mathbf{E},-\bar{s}\right)$-kernel
+basis. Let $\mathbf{B}=\begin{bmatrix}\mathbf{V}'\\
+\mathbf{G}'
+\end{bmatrix}$ be another $\left(\left[\mathbf{F},-\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$-kernel
+basis. Then the matrix $\mathbf{A}_{0}$ and $\mathbf{B}_{0}$ consists
+of the columns from $\mathbf{A}$ and $\mathbf{B}$, respectively,
+whose $\left[-\vec{u},-\bar{s}\right]$-column degrees are bounded
+by $0$, are unimodularly equivalent, that is, $\mathbf{A}_{0}\mathbf{U}_{0}=\mathbf{B}_{0}$
+for some unimodular matrix $\mathbf{U}_{0}$. As a result, the matrices
+$\bar{\mathbf{A}}_{0}$ and $\bar{\mathbf{B}}_{0}$ consists of the
+bottom $\bar{n}$ rows of $\mathbf{A}_{0}$ and $\mathbf{B}_{0}$
+respectively, also satisfies $\bar{\mathbf{A}}_{0}\mathbf{U}_{0}=\bar{\mathbf{B}}_{0}$.
+Therefore, we also get $\mathbf{E}\bar{\mathbf{A}}_{0}\mathbf{U}_{0}=\mathbf{E}\bar{\mathbf{B}}_{0}$,
+with $\cdeg_{-\vec{s}}\mathbf{E}\bar{\mathbf{A}}_{0}\le0$ and $\cdeg_{-\vec{s}}\mathbf{E}\bar{\mathbf{B}}_{0}\le0$,
+since $\cdeg_{-\bar{s}}\bar{\mathbf{A}}_{0}\le0$ and $\cdeg_{-\bar{s}}\bar{\mathbf{B}}_{0}\le0$.
+Let $\bar{\mathbf{A}}_{0}=\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}'\right]$,
+where $\mathbf{N}'$ consists of the columns of $\mathbf{N}_{E}$
+with $-\bar{s}$-column degrees bounded by 0. Then $\mathbf{E}\bar{\mathbf{A}}_{0}\mathbf{U}_{0}=\mathbf{E}\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}'\right]\mathbf{U}_{0}=\left[\mathbf{H},0\right]\mathbf{U}_{0}=\mathbf{E}\bar{\mathbf{B}}_{0}$.
+Now since $\mathbf{H}$ is $-\vec{s}$-column reduced and has $-\vec{s}$-column
+degrees $0$, the nonzero columns of $\mathbf{E}\bar{\mathbf{B}}_{0}$
+must have $-\vec{s}$-column degrees no less than $0$, hence their
+$-\vec{s}$-column degrees are equal to 0.
+\end{proof}
+The problem of computing a $\left(\left[\mathbf{F},I\right],\left[-\vec{u},-\vec{s}\right]\right)$-kernel
+basis of is now reduced to computing a $\left(\left[\mathbf{F},\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$-kernel
+basis. However, the degree of $\mathbf{E}$ and the shift $\vec{u}$
+are still too big to make the computation efficient. To lower these,
+we can reduce $\mathbf{E}$ against $\mathbf{F}$ in a way similar
+to \citep{GS2011,G2011}, where the authors used the Smith normal
+form to reduce the degrees. 
+\begin{lem}
+\label{lem:reduceToRemainder}Let $\mathbf{R}=\mathbf{E}-\mathbf{F}\mathbf{Q}$
+for some polynomial matrix $\mathbf{Q}$ such that $\mathbf{R}$ has
+degree less than $d$ and $\bar{u}=\left[2d,\dots,2d\right]\in\mathbb{Z}^{n}$.
+Let $\mathbf{D}=\begin{bmatrix}\bar{\mathbf{V}}\\
+\mathbf{G}'
+\end{bmatrix}$ be a $\left(\left[\mathbf{F},-\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$-kernel
+basis, where the block $\mathbf{G}'$ has dimension $n\times n$,
+and $\bar{\mathbf{D}}_{0}$ be the matrix consisting of the columns
+of $\mathbf{G}'$ whose $-\bar{s}$-column degrees are bounded by
+0. Then $\mathbf{H}$ is a column basis of $\mathbf{E}\bar{\mathbf{D}}_{0}$
+and the nonzero columns of $\mathbf{E}\bar{\mathbf{D}}_{0}$ have
+$-\vec{s}$-column degrees 0, allowing us to recover $\mathbf{H}$
+from $\mathbf{E}\bar{\mathbf{D}}_{0}$ using \prettyref{lem:recoverH}.\end{lem}
+\begin{proof}
+First note that from the kernel basis $\mathbf{A}=\begin{bmatrix}\mathbf{U} & 0\\
+\mathbf{H}_{\mathbf{E}} & \mathbf{N}_{\mathbf{E}}
+\end{bmatrix}$ of $\left[\mathbf{F},-\mathbf{E}\right]$ constructed in \prettyref{lem:expandH},
+we can construct a kernel basis 
+\[
+\mathbf{C}=\begin{bmatrix}I & -\mathbf{Q}\\
+0 & I
+\end{bmatrix}\mathbf{A}=\begin{bmatrix}\mathbf{U}-\mathbf{Q}\mathbf{H}_{\mathbf{E}} & -\mathbf{Q}\mathbf{N}_{E}\\
+\mathbf{H}_{\mathbf{E}} & \mathbf{N}_{\mathbf{E}}
+\end{bmatrix}
+\]
+ of $\left[\mathbf{F},-\mathbf{R}\right]=\left[\mathbf{F},-\mathbf{E}\right]\begin{bmatrix}I & \mathbf{Q}\\
+0 & I
+\end{bmatrix}$. Now if $\mathbf{D}$ is a $\left(\left[\mathbf{F},-\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$-kernel
+basis, it satisfies $\mathbf{C}\mathbf{V}=\mathbf{D}$ for a unimodular
+$\mathbf{V}$. Also, the matrix $\mathbf{C}_{0}$ and $\mathbf{D}_{0}$
+consist of the columns from $\mathbf{C}$ and $\mathbf{D}$, respectively,
+whose $\left[-\bar{u},-\bar{s}\right]$-column degrees are bounded
+by $0$, satisfy $\mathbf{C}_{0}=\mathbf{D}_{0}\mathbf{V}_{0}$ for
+some polynomial matrix $\mathbf{V}_{0}$. Then the matrices $\bar{\mathbf{C}}$,
+$\bar{\mathbf{D}}$, $\bar{\mathbf{C}}_{0}$, $\bar{\mathbf{D}}_{0}$
+consist of the bottom $\bar{n}$ rows of $\mathbf{C}$, $\mathbf{D}$,
+$\mathbf{C}_{0}$, $\mathbf{D}_{0}$ respectively, satisfy $\bar{\mathbf{C}}\mathbf{V}=\bar{\mathbf{D}}$
+and $\bar{\mathbf{C}}_{0}=\bar{\mathbf{D}}_{0}\mathbf{V}_{0}$. It
+then follows that $\mathbf{E}\bar{\mathbf{C}}\mathbf{V}=\mathbf{E}\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}_{\mathbf{E}}\right]\mathbf{V}=\left[\mathbf{H},0\right]\mathbf{V}=\mathbf{E}\bar{\mathbf{D}}$
+and $\mathbf{E}\bar{\mathbf{C}}_{0}=\mathbf{E}\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}'\right]=\left[\mathbf{H},0\right]=\mathbf{E}\bar{\mathbf{D}}_{0}\mathbf{V}_{0}$,
+where $\mathbf{N}'$ consists of the columns of $\mathbf{N}_{E}$
+with $-\bar{s}$-column degrees bounded by 0. From $\left[\mathbf{H},0\right]\mathbf{V}=\mathbf{E}\bar{\mathbf{D}}$
+we know that the nonzero columns of $\mathbf{E}\bar{\mathbf{D}}$
+has $-\vec{s}$-column degrees no less than $\cdeg_{-\vec{s}}\mathbf{H}=0$.
+On the other hand, we know that $\cdeg_{-\vec{s}}\mathbf{E}\bar{\mathbf{D}}_{0}\le0$
+since $\cdeg_{-\bar{s}}\bar{\mathbf{D}}_{0}\le0$, therefore the nonzero
+columns of $\mathbf{E}\bar{\mathbf{D}}_{0}$ has $-\vec{s}$-column
+degrees equal $0$. Also from $\left[\mathbf{H},0\right]\mathbf{V}=\mathbf{E}\bar{\mathbf{D}}$
+and $\left[\mathbf{H},0\right]=\mathbf{E}\bar{\mathbf{D}}_{0}\mathbf{V}_{0}$
+we know that $\mathbf{H}$ is a column basis of $\mathbf{E}\bar{\mathbf{D}}_{0}$.
+\end{proof}
+A $\left(\left[\mathbf{F},-\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$-kernel
+basis from \prettyref{lem:reduceToRemainder} can now be efficiently
+computed, and can then be used to recover the Hermite normal form.
+A big question remaining, however, is how to efficiently compute the
+remainder $\mathbf{R}$ from $\mathbf{E}$ and $\mathbf{F}$. For
+this, we can use the series expansion of the inverse of 
+\[
+\mathbf{F}^{r}=\colRev(\mathbf{F},0,\vec{d})=\mathbf{F}(1/x)\begin{bmatrix}x^{d_{1}}\\
+ & \ddots\\
+ &  & x^{d_{n}}
+\end{bmatrix},
+\]
+ as noted in the proof of Lemma 3.4 from \citep{Giorgi2003}. The
+series expansion can be done using the series solution algorithm from
+\citet{storjohann:2003}. Note that since $\mathbf{F}$ is assumed
+to be column reduced, $\deg\det\mathbf{F}=\sum\vec{d}$ exactly, and
+therefore $x$ is not a factor of $\deg\det\mathbf{F}^{r}$, which
+means the series expansion of $\left(\mathbf{F}^{r}\right)^{-1}$
+always exists. It also means that using $x^{d}$-adic lifting always
+works, and the series solution algorithm from \citet{storjohann:2003}
+becomes deterministic. 
+
+Let us now look at how the series expansion of $\left(\mathbf{F}^{r}\right)^{-1}$
+gives a remainder of $x^{k}I$ divide by $\mathbf{F}$.
+\begin{lem}
+\label{lem:remainder}Let \textup{the series expansion of $\left(\mathbf{F}^{r}\right)^{-1}$
+be }$\bar{\mathbf{F}}=F_{0}+F_{1}x+F_{2}x^{2}+\dots$. Then for any
+integer $k\ge d$, we have 
+\begin{equation}
+I=\mathbf{F}^{r}\left(\bar{\mathbf{F}}\mod x^{k-\vec{d}}\right)+x^{k-d}\mathbf{C},\label{eq:division}
+\end{equation}
+where $\bar{\mathbf{F}}\mod x^{k-\vec{d}}$ denotes the $i$th row
+of $\bar{\mathbf{F}}$ $\mod$ $x^{k-d_{i}}$ for each row $i$. Then
+$\mathbf{C}^{r}=\colRev\left(x^{k-d}\mathbf{C},0,k\right)$ has degree
+less than $d$ and satisfies \textup{$x^{k}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r}$.}\end{lem}
+\begin{proof}
+Since the first term of Equation \eqref{eq:division} has degree less
+than $k$, the the degree of $x^{k-d}\mathbf{C}$ must be also less
+than $k$, or equivalently, the degree of $\mathbf{C}$ must be less
+than $d$. If we now reverse the coefficients, we get 
+\[
+\colRev\left(I,0,k\right)=\colRev(\mathbf{F}^{r},0,\vec{d})\cdot\colRev\left(\left(\bar{\mathbf{F}}\mod x^{k-\vec{d}}\right),\vec{d},k\right)+\colRev\left(x^{k-d}\mathbf{C},0,k\right),
+\]
+ that is, 
+\[
+x^{k}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r},
+\]
+ which gives us $\mathbf{C}^{r}$ as a remainder of $x^{k}I$ divided
+by $\mathbf{F}$, where $\mathbf{C}^{r}$ has degree less than $d$. 
+\end{proof}
+\prettyref{lem:remainder} shows how the series expansion $\bar{\mathbf{F}}$
+can be used to compute a remainder of $x^{k}I$ divided by $\mathbf{F}$
+for any $k\ge d$. Similarly, the $i$th column $\bar{\mathbf{F}}_{i}=\bar{\mathbf{F}}e_{i}$
+of $\bar{\mathbf{F}}$ allows us to compute a remainder $\mathbf{r}$
+of $x^{k}e_{i}$ divided by $\mathbf{F}$, with $\deg\mathbf{r}<d$.
+Note that the degrees of columns correspond to $e_{i}$ are bounded
+by $s_{i}$, so we need to compute the series expansion $\bar{\mathbf{F}}_{i}$
+to at least order $s_{i}$. Now let us look how these series expansions
+can be computed efficiently.
+
+
+\begin{lem}
+Computing the series expansions $\bar{\mathbf{F}}_{i}$ to order $s_{i}$
+for all $i$'s where $s_{i}\ge d$ can be done with a cost of \textup{$O^{\sim}\left(n^{\omega}d\right)$
+field operations.}\end{lem}
+\begin{proof}
+As before, we assume without loss of generality that the columns of
+$\mathbf{F}$ and the corresponding entries of $\vec{s}=\left[s_{1},\dots,s_{n}\right]$
+are arranged so that the entries of $\vec{s}$ are in increasing order.
+We separate $\vec{s}$ to $\left\lceil \log n\right\rceil +1$ disjoint
+lists  $\vec{s}_{\bar{j}^{\left(0\right)}},\vec{s}_{\bar{j}^{\left(1\right)}},\vec{s}_{\bar{j}^{\left(2\right)}},\dots,\vec{s}_{\bar{j}^{\left(\left\lceil \log n\right\rceil \right)}}$
+with entries in the ranges $[0,d)$, $[d,2d)$, $[2d,4d)$, $[4d,8d)$,
+...,$[2^{\left\lceil \log n\right\rceil -2}d,2^{\left\lceil \log n\right\rceil -1}d)$,
+$[2^{\left\lceil \log n\right\rceil -1}d,nd]$ respectively, where
+each $\bar{j}^{(i)}$ consists a list of indices of the entries of
+$\vec{s}$ that belong to $\vec{s}_{\bar{j}^{\left(i\right)}}$. Note
+that $\bar{j}^{\left(i\right)}$ has at most $n/2^{i-1}$ entries,
+otherwise, the sum of the entries of $\vec{s}_{\bar{j}^{(i)}}$ would
+exceed $\sum\vec{s}=nd$. Then we compute series expansions $\bar{\mathbf{F}}_{\bar{j}^{\left(1\right)}},\bar{\mathbf{F}}_{\bar{j}^{\left(2\right)}},\dots,\bar{\mathbf{F}}_{\bar{j}^{\left(\left\lceil \log n\right\rceil \right)}}$
+separately, to order $2d,4d,\dots,2^{\left\lceil \log n\right\rceil }d/2,nd$
+respectively, where again $\bar{\mathbf{F}}_{\bar{j}^{(i)}}$ consists
+of the columns of $\bar{\mathbf{F}}$ that are indexed by the entries
+in $\bar{j}^{\left(i\right)}$. We can use the series solution algorithm
+from \citet{storjohann:2003} to do these computations. For $\bar{\mathbf{F}}{}_{\bar{j}^{\left(i\right)}}$,
+there are at most $n/2^{i-1}$ columns, so computing the series expansion
+to order $2^{i}d$ cost $O^{\sim}\left(n^{\omega}d\right)$. Then
+doing this for $i$ from $1$ to $\left\lceil \log n\right\rceil $
+costs $O^{\sim}\left(n^{\omega}d\right)$ field operations. 
+\end{proof}
+With the series expansions computed, we can now compute a remainder
+$\mathbf{R}$ of $\mathbf{E}$ divide by $\mathbf{F}$.
+\begin{lem}
+A remainder $\mathbf{R}$ of $\mathbf{E}$ divide by $\mathbf{F}$,
+where $\deg\mathbf{R}<d$, can be computed with a cost of $O^{\sim}\left(n^{\omega}d\right)$
+field operations.\end{lem}
+\begin{proof}
+The remainder $\mathbf{r}$ of $x^{k}e_{i}$ divide by $\mathbf{F}$
+can be obtained by 
+\[
+\left(e_{i}-\mathbf{F}^{r}\left(\bar{\mathbf{F}}_{i}\mod x^{k-\vec{d}}\right)\right)/x^{k-d}.
+\]
+Note that only the terms from $\bar{\mathbf{F}}_{i}$ with degrees
+in the range $[k-2d,k)$ are needed for this computation, which means
+we are just multiplying $\mathbf{F}^{r}$ with a polynomial vector
+with degree bounded by $2d$. To make the multiplication more efficient,
+we can compute all the remainder vectors at once. Since there at most
+$n$ columns with degrees no less than $d$, the cost is just the
+multiplication of matrices of dimension $n$ and degrees bounded by
+$2d$, which costs $O^{\sim}\left(n^{\omega}d\right)$ field operations.
+\end{proof}
+With the remainder $\mathbf{R}$ computed, we can now compute a $\left(\left[\mathbf{F},-\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$-kernel
+basis that can be used to recover the Hermite normal form using \prettyref{lem:reduceToRemainder}.
+\begin{thm}
+A Hermite normal form of $\mathbf{F}$ can be computed with a cost
+of \textup{$O^{\sim}\left(n^{\omega}d\right)$ field operations.}\end{thm}
+

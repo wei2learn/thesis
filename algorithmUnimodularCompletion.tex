@@ -1,0 +1,61 @@
+\begin{comment}
+Note that rank sensitive computation for order basis is not as natural,
+since for order basis we work with power series in general, whose
+rank may never be truly computed. In addition, the computed basis
+does not correspond to the rank. For these reasons, we do not pursue
+rank sensitive computations for order basis. 
+\end{comment}
+\begin{algorithm}[t]
+\caption{$\unimodularCompletion(\mathbf{F},\vec{s})$}
+\label{alg:unimodularCompletion}
+
+\begin{algorithmic}
+[1]\REQUIRE{$\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$ with $I_{m}$
+as a GCD; $\vec{s}$ is initially set to the column degrees of $\mathbf{F}$.
+It keeps track of the degrees.}
+
+\ENSURE{$\mathbf{G}\in\mathbb{K}\left[x\right]^{\left(n-m\right)\times n}$
+such that $\begin{bmatrix}\mathbf{F}\\
+\mathbf{G}
+\end{bmatrix}$ is unimodular.}
+
+\STATE{$\mathbf{F}^{r}:=\rowRev\left(\mathbf{F},-\vec{s},0\right)$;}
+
+\STATE{$\mathbf{M}:=\mnb(\mathbf{F}^{r},\vec{s})$; $\vec{b}:=\cdeg_{\vec{s}}\mathbf{M}$;
+$k:=n-m;$}
+
+\STATE{\textbf{$\left[\mathbf{M}_{1}^{T},\mathbf{M}_{2}^{T},\cdots,\mathbf{M}_{\log k-1}^{T},\mathbf{M}_{\log k}^{T}\right]:=\mathbf{M}$},
+with $\mathbf{M}_{\log k},\mathbf{M}_{\log k-1},\cdots,\mathbf{M}_{2},\mathbf{M}_{1}$
+having $\vec{s}$-row degrees in the range $\left[0,2\xi/k\right],(2\xi/k,4\xi/k],...,(\xi/4,\xi/2],(\xi/2,\xi].$\textbf{ }}
+
+\FOR{$i$ \textbf{from $1$ to $\log k$ }} 
+
+\forbody{\STATE{$\vec{\sigma}_{i}:=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$,
+with the number of entries matches the row dimension of $\mathbf{M}_{i};$}}
+
+\STATE{$\vec{\sigma}:=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]$;}
+
+\STATE{$\hat{\mathbf{M}}:=x^{\vec{\sigma}-\vec{b}-1}\mathbf{M};$}
+
+\STATE{$\mathbf{N}_{0}:=I_{n}$; $\tilde{\mathbf{N}}_{0}:=I_{n};$}
+
+\FOR{$i$ \textbf{from $1$ to $\log k$ }} 
+
+\forbody{\STATE{$\vec{s}_{i}:=-\cdeg_{-\vec{s}}\mathbf{N}_{i-1};$ (note $\vec{s}_{1}=\vec{s}$)}
+
+\STATE{$\mathbf{P}_{i}:=\umab\left(\hat{\mathbf{M}}_{i}\tilde{\mathbf{N}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$; }
+
+\STATE{$\left[\mathbf{N}_{i},\mathbf{Q}_{i}\right]:=\mathbf{P}_{i}$, where
+$\mathbf{N}_{i}$ is a $\left(\hat{\mathbf{M}}_{i},-\vec{s}_{i}\right)$-nullspace
+basis;}
+
+\STATE{$\tilde{\mathbf{N}_{i}}:=\tilde{\mathbf{N}}_{i-1}\cdot\mathbf{N}_{i};$ }
+
+\STATE{$\mathbf{R}:=\left[\mathbf{R},\tilde{\mathbf{N}}_{i-1}\mathbf{Q}_{i}\right]$;}}
+
+\STATE{$\mathbf{R}^{r}:=\colRev\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right);$}
+
+\RETURN $\left(\mathbf{R}^{r}\right)^{T}$ 
+\end{algorithmic}
+\end{algorithm}
+

@@ -1,0 +1,425 @@
+%% LyX 2.0.4 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,english,letterpaper,titlepage,oneside,final]{report}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{prettyref}
+\usepackage{refstyle}
+\usepackage{float}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage[authoryear]{natbib}
+\doublespacing
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+
+\AtBeginDocument{\providecommand\chapref[1]{\ref{chap:#1}}}
+\AtBeginDocument{\providecommand\secref[1]{\ref{sec:#1}}}
+\AtBeginDocument{\providecommand\lemref[1]{\ref{lem:#1}}}
+\let\pr@chap=\pr@cha
+\floatstyle{ruled}
+\newfloat{algorithm}{tbp}{loa}[chapter]
+\providecommand{\algorithmname}{Algorithm}
+\floatname{algorithm}{\protect\algorithmname}
+\RS@ifundefined{subref}
+  {\def\RSsubtxt{section~}\newref{sub}{name = \RSsubtxt}}
+  {}
+\RS@ifundefined{thmref}
+  {\def\RSthmtxt{theorem~}\newref{thm}{name = \RSthmtxt}}
+  {}
+\RS@ifundefined{lemref}
+  {\def\RSlemtxt{lemma~}\newref{lem}{name = \RSlemtxt}}
+  {}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+ \usepackage{algorithmic}
+\floatstyle{ruled}
+\newfloat{algorithm}{tbp}{loa}
+\floatname{algorithm}{Algorithm}
+\usepackage{algorithmic}
+\newcommand{\forbody}[1]{ #1 \ENDFOR }
+\newcommand{\ifbody}[1]{ #1  \ENDIF}
+\newcommand{\whilebody}[1]{ #1  \ENDWHILE}
+\renewcommand{\algorithmicprint}{\textbf{draw}}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\theoremstyle{plain}
+\ifx\thechapter\undefined
+\newtheorem{thm}{\protect\theoremname}
+\else
+\newtheorem{thm}{\protect\theoremname}[chapter]
+\fi
+  \theoremstyle{plain}
+  \newtheorem{lem}[thm]{\protect\lemmaname}
+  \theoremstyle{plain}
+  \newtheorem{cor}[thm]{\protect\corollaryname}
+  \theoremstyle{definition}
+  \newtheorem{defn}[thm]{\protect\definitionname}
+  \theoremstyle{definition}
+  \newtheorem{example}[thm]{\protect\examplename}
+ \usepackage{algolyx}
+ \usepackage{algolyx}
+  \theoremstyle{remark}
+  \newtheorem{rem}[thm]{\protect\remarkname}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+% UW Thesis Template for LaTeX -- Updated Mar 27, 2008 by Stephen Carr
+% FOR ASSISTANCE, please send mail to rt-IST-CSmathsci@ist.uwaterloo.ca
+
+% Effective October 2006, the University of Waterloo 
+% requires electronic thesis submission
+% (http://www.grad.uwaterloo.ca/students/current/thesis_regulations.asp).
+% However, many faculties/departments also require one or more printed
+% copies. This template attempts to satisfy both types of output. 
+% It is based on the standard "report" document class. The "book" document 
+% class can be substituted if you have a very large, multi-part thesis.
+% To the best of our knowledge, it satisfies the current UW
+% requirements (http://www.grad.uwaterloo.ca/Thesis_Regs/thesistofc.asp).
+% However, it is your responsibility to assure that you have met all 
+% requirements of the University and your particular department.
+% Many thanks to Colin Alie for assistance in preparing this updated template.
+
+% -----------------------------------------------------------------------
+
+% By default, output is produced that is geared toward generating a PDF 
+% version optimized for viewing on an electronic display, including 
+% hyperlinks within the PDF.
+ 
+% To process a thesis called "mythesis.tex" based on this template, run:
+
+% pdflatex mythesis	-- first pass of the pdflatex processor
+% bibtex mythesis	-- generates bibliography from .bib data file(s) 
+% pdflatex mythesis	-- fixes cross-references, bibliographic references, etc
+% pdflatex mythesis	-- fixes cross-references, bibliographic references, etc
+
+% N.B. The "pdftex" program allows graphics in the following formats to be
+% included with the "\includegraphics" command: PNG, PDF, JPEG, TIFF
+% Tip 1: Generate your figures and photos in the size you want them to appear
+% in your thesis, rather than scaling them with \includegraphics options.
+% Tip 2: Any drawings you do should be in scalable vector graphic formats:
+% SVG, PNG, WMF, EPS and then converted to PNG or PDF, so they are scalable in
+% the final PDF as well.
+% Tip 3: Photographs should be cropped and compressed so as not to be too large.
+
+% To create PDF output that is optimized for double-sided printing: 
+%
+% 1) comment-out the \documentclass statement in the preamble below, and
+% un-comment the second \documentclass line.
+%
+% 2) change the value assigned below to the boolean variable
+% "ElectronicVersion" from "true" to "false".
+
+% --------------------- Start of Document Preamble -----------------------
+
+% Specify the document class, default style attributes, and page dimensions
+% For hyperlinked PDF, suitable for viewing on a computer, use this:
+
+ 
+% For un-hyperlinked PDF, suitable for double-sided printing, use this:
+%\documentclass[letterpaper,12pt,titlepage,openright,twoside,final]{report}
+
+% Some LaTeX commands I define for my own nomenclature.
+% If you have to, it's better to change nomenclature once here than in a 
+% million places throughout your thesis!
+\newcommand{\package}[1]{\textbf{#1}} % package names in bold text
+\newcommand{\cmmd}[1]{\textbackslash\texttt{#1}} % command name in tt font 
+\newcommand{\href}[1]{#1} % does nothing, but defines the command so the
+    % print-optimized version will ignore \href tags (redefined by hyperref pkg).
+%\newcommand{\texorpdfstring}[2]{#1} % does nothing, but defines the command
+% Anything defined here may be redefined by packages added below...
+
+% This package allows if-then-else control structures.
+\usepackage{ifthen}
+
+\newboolean{ElectronicVersion}
+\setboolean{ElectronicVersion}{false} % CHANGE THIS AS REQUIRED
+
+% allows easy specifying of the page layout
+\usepackage{geometry}
+
+\usepackage{nomencl}
+
+\usepackage{amstext}
+ % Lots of math symbols and environments
+ % For including graphics N.B. pdftex graphics driver 
+\usepackage{geometry}
+ % allows easy specifying of the page layout
+
+% Hyperlinks make it very easy to navigate an electronic document.
+% The following statement places "bookmarks" in the PDF document
+% linking Table of Contents, List of Figures, List of Tables, and
+% List of References entries to their appearance in the body of the
+% text.  In addition, this is where one would specify the thesis title
+% and author as it should appear in the properties of the PDF
+% document.
+% Use the "hyperref" package only for the electronic version:
+% N.B. HYPERREF MUST BE THE LAST PACKAGE LOADED; ADD ADDITIONAL PKGS ABOVE
+\ifthenelse{\boolean{ElectronicVersion}}{
+    \usepackage[letterpaper=true,pdftex,bookmarks,pagebackref,
+plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis\ Template,         pdfauthor=Pat\ Neugraad	         ]{hyperref}
+}{}
+
+% UW thesis requirements specify a minimum of 1" (72pt) margin at the
+% top, bottom, and outside page edges and a 1.125" (81pt) gutter
+% margin.  More space is needed for the gutter margin so that the text
+% remains legible after the printed material is bound (not an issue
+% for an electronic document).  The following statement specifies a
+% page layout which is suitable for both electronic and print versions
+% of the thesis (a 20pt shift to the outside of the page is
+% automatically imposed when the print version is being generated
+% providing the wider gutter margin).
+\geometry{
+  verbose,
+  dvips,
+  width=422.695pt, marginparsep=0pt, marginparwidth=0pt,
+  top=72.27pt, headheight=12pt, headsep=36pt, footskip=30pt, bottom=72.27pt
+}
+
+% The following statement specifies the amount of space between
+% paragraphs.  Other reasonable specifications are \bigskipamount and \smallskipamount.
+
+
+% The following statement controls the line spacing.  The default
+% spacing corresponds to good typographic conventions and only slight
+% changes (e.g., perhaps "1.2"), if any, should be made.
+\renewcommand{\baselinestretch}{1}     
+
+% By default, each chapter will start on a recto (right-hand side)
+% page.  In some cases, this will require that the verso page be
+% blank and, while it should be counted, a page number should not be
+% printed.  The following statements ensure a page number is not
+% printed on an otherwise blank verso page.
+\let\origdoublepage\cleardoublepage
+\newcommand{\clearemptydoublepage}{%
+  \clearpage{\pagestyle{empty}\origdoublepage}}
+\let\cleardoublepage\clearemptydoublepage
+
+
+%%%%%%%%%%%%%%
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\def\diag{\mbox{diag}}
+\def\cdeg{\qopname\relax n{cdeg}}
+\def\rdeg{\qopname\relax n{rdeg}}
+%\keycomment{\{\{}{\}\}}
+\def\MM{\qopname\relax n{MM}}
+\def\M{\qopname\relax n{M}}
+\def\ord{\qopname\relax n{ord}}
+
+\def\StorjohannTransform{\qopname\relax n{StorjohannTransform}}
+\def\TransformUnbalanced{\qopname\relax n{TransformUnbalanced}}
+\def\rowDimension{\qopname\relax n{rowDimension}}
+\def\columnDimension{\qopname\relax n{columnDimension}}
+\DeclareMathOperator{\re}{rem}
+\DeclareMathOperator{\coeff}{coeff}
+\DeclareMathOperator{\lcoeff}{lcoeff}
+\DeclareMathOperator{\inv}{inverse}
+\DeclareMathOperator{\rev}{rev}
+\DeclareMathOperator{\colRev}{colRev}
+\DeclareMathOperator{\rowRev}{rowRev}
+\DeclareMathOperator{\unimodularCompletion}{unimodularCompletion}
+\DeclareMathOperator{\hermiteDiagonal}{hermiteDiagonal}
+\DeclareMathOperator{\mnbr}{minimaKernelBasisReversed}
+\DeclareMathOperator{\mnbrp}{minimalKernelBasisWithRankProfile}
+\DeclareMathOperator{\colBasis}{colBasis}
+\DeclareMathOperator{\rankProfile}{rankProfile}
+\def\mab{\qopname\relax n{OrderBasis}}
+\def\mnbrs{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
+\def\mmab{\qopname\relax n{FastBasis}}
+\def\umab{\qopname\relax n{UnbalancedFastBasis}}
+\def\mnb{\qopname\relax n{MinimalKernelBasis ~ }}
+\newcommand{\bb}{\\}
+
+
+%======================================================================
+%   L O G I C A L    D O C U M E N T -- the content of your thesis
+%======================================================================
+
+\makeatother
+
+\usepackage{babel}
+  \providecommand{\corollaryname}{Corollary}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\examplename}{Example}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\remarkname}{Remark}
+\providecommand{\theoremname}{Theorem}
+
+\begin{document}
+% T I T L E   P A G E
+% -------------------
+% The title page is counted as page `i' but we need to suppress the
+% page number.  We also don't want any headers or footers.
+\pagestyle{empty}
+\pagenumbering{roman}
+
+% The contents of the title page are specified in the "titlepage"
+% environment.
+\begin{titlepage}
+        \begin{center}
+        \vspace*{1.0cm}
+
+        \Huge
+   {\bf Order Basis and Kernel Basis Computation}
+
+        \vspace*{1.0cm}
+
+        \normalsize
+        by \\
+
+        \vspace*{1.0cm}
+
+        \Large
+        Wei Zhou \\
+
+        \vspace*{3.0cm}
+
+        \normalsize
+        A thesis \\
+        presented to the University of Waterloo \\ 
+        in fulfillment of the \\
+        thesis requirement for the degree of \\
+  Doctor of Philosophy \\
+        in \\
+        Computer Science \\
+
+        \vspace*{2.0cm}
+
+        Waterloo, Ontario, Canada, 2012 \\
+
+        \vspace*{1.0cm}
+
+        \copyright\ Wei Zhou 2012 \\
+        \end{center}
+\end{titlepage}
+
+
+% The rest of the front pages should contain no headers and be
+% numbered using roman numerals starting with `ii'
+\pagestyle{plain} \setcounter{page}{2}
+
+\noindent % D E C L A R A T I O N   P A G E
+% -------------------------------
+\ifthenelse{\boolean{ElectronicVersion}}{ % The following is the sample Delaration Page as provided by the GSO
+ % December 13th, 2006.  It is designed for an electronic thesis.
+
+
+\noindent I hereby declare that I am the sole author of this thesis.
+This is a true copy of the thesis, including any required final revisions,
+as accepted by my examiners.\bigskip{}
+
+
+\noindent I understand that my thesis may be made electronically available
+to the public.}{ % The following text was what was required back when the GSO acceped
+ % printed versions and you may want to continue to use it for your
+ % printed version.
+
+
+\noindent I hereby declare that I am the sole author of this thesis.
+
+\noindent \smallskip{}
+
+
+\noindent I authorize the University of Waterloo to lend this thesis
+to other institutions or individuals for the purpose of scholarly
+research.
+
+\bigskip{}
+
+
+\noindent I further authorize the University of Waterloo to reproduce
+this thesis by photocopying or by other means, in total or in part,
+at the request of other institutions or individuals for the purpose
+of scholarly research. } \newpage{}
+
+\begin{center}
+\textbf{Abstract}
+\par\end{center}
+
+\noindent In this thesis, we present efficient deterministic algorithms
+for polynomial matrix computation problems, including the computation
+of order basis, minimal kernel basis, matrix inverse, column basis,
+unimodular completion, determinant, Hermite normal form, rank and
+rank profile for matrices of univariate polynomials over a field.
+The algorithm for kernel basis computation also immediately allows
+us to solve linear systems. The algorithm for column basis also immediately
+allows us to compute matrix GCDs, column reduced forms, and Popov
+normal forms for matrices of any dimension. 
+
+
+
+For all these problems, our algorithms are not only essentially optimal,
+but in most cases they also solve more general versions of these problems
+than previous algorithms. More specifically, the computational costs
+are often stated with the sum of the column degrees of the input matrix,
+which is more precise and tighter than using just the degrees. In
+addition, the shifted minimal bases computed by our algorithms are
+more general than the standard minimal bases.
+
+\noindent \newpage{}
+
+\begin{center}
+\textbf{Acknowledgments}
+\par\end{center}
+
+Thanks 
+
+\noindent \newpage{}
+
+\begin{center}
+\textbf{Dedication}
+\par\end{center}
+
+\noindent To  \newpage{}
+
+\tableofcontents{}\newpage{}
+
+\listoftables
+\newpage{}
+
+\listoffigures
+\newpage{}\pagenumbering{arabic}
+
+\doublespacing
+
+\input{mainIntroduction.tex}
+
+
+
+\input{preliminaries.tex}
+
+\input{orderBasis.tex}
+
+\input{nullspaceBasis.tex}
+
+\input{nullspaceBasisApplications.tex}
+
+\input{matrixGCD.tex}
+
+\input{unimodularCompletion.tex}
+
+\input{determinant.tex}
+
+\input{hermiteForm.tex}
+
+\input{rank.tex}
+
+
+
+\input{conclusion.tex} 
+
+\bibliographystyle{plainnat}
+\bibliography{paper}
+
+\end{document}

@@ -1,0 +1,554 @@
+
+\chapter{Preliminaries}
+
+\label{chap:Background}
+
+In this chapter, we provide some of the background needed in order
+to understand the basic concepts needed for order basis computation
+and nullspace basis computation. %
+\begin{comment}
+, which provide lower bounds for the computational cost 
+\end{comment}
+{} %
+\begin{comment}
+The challenges of balancing input and handling unbalanced output are
+discussed along with the techniques which we plan to use to overcome
+the difficulties. We review the construction by \citet{Storjohann:2006}
+which transforms the inputs to those having dimensions and degree
+balance better suited for fast computation and discuss an idea from
+\citet{storjohann-villard:2005} for handling the case where the output
+degree is unbalanced.
+\end{comment}
+
+
+
+\section{Notations}
+
+Since we are interested in computing bases with minimal degrees, it
+is useful to have convenient notations for comparing two lists of
+degrees.   In addition, our matrices often represent a set of column
+vectors, and the arrangement of these columns are not important. Therefore,
+to compare two lists of column degrees, we first sort each list in
+increasing order, and then do the comparison.
+\begin{description}
+\item [{Comparing~Unordered~Lists}] For two lists $\vec{a}\in\mathbb{Z}^{n}$
+and $\vec{b}\in\mathbb{Z}^{n}$, let $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]\in\mathbb{Z}^{n}$
+and $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]\in\mathbb{Z}^{n}$
+be the lists consists of the entries of $\vec{a}$ and $\vec{b}$
+but sorted in increasing order. 
+\[
+\begin{cases}
+\vec{a}\ge\vec{b} & \mbox{if }\bar{a}_{i}\ge\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+\vec{a}\le\vec{b} & \mbox{if }\bar{a}_{i}\le\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+\vec{a}>\vec{b} & \mbox{if }\vec{a}\ge\vec{b}\mbox{ and }\bar{a}_{j}>\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
+\vec{a}<\vec{b} & \mbox{if }\vec{a}\le\vec{b}\mbox{ and }\bar{a}_{j}<\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
+\end{cases}
+\]
+
+\item [{Summation~Notation}] For a list $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$,
+we write $\sum\vec{a}$ without index to denote the summation of all
+entries in $\vec{a}$. 
+\item [{}]~
+\item [{Uniformly~Shift~a~List}] For a list $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
+and $c\in\mathbb{Z}$, we write $\vec{a}+c$ to denote $\vec{a}+\left[c,\dots,c\right]=\left[a_{1}+c,\dots,a_{n}+c\right]$,
+and similarly for $-$.
+\item [{Compare~a~List~with~a~Integer}] For a list $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
+and $c\in\mathbb{Z}$, we write $\vec{a}<c$ to denote $\vec{a}<\left[c,\dots,c\right]$,
+and similarly for $>,\le,\ge,=$.
+\end{description}
+
+\section{Model of Computation}
+
+The computational cost in this paper is analyzed by bounding the number
+of arithmetic operations (additions, subtractions, multiplications,
+and divisions) in the coefficient field $\mathbb{K}$ on an algebraic
+random access machine. We use $\MM(n,d)$ to denote the cost of multiplying
+two polynomial matrices with dimension $n$ and degree $d$, and $\M(n)$
+to denote the cost of multiplying two polynomials with degree $d$.
+We define a cost function $\bar{\M}(d)=d\log d\log\log d$, then $\bar{\M}(ab)\in O\left(\bar{\M}(a)\bar{\M}(b)\right)$
+and $\bar{\M}(n)\in O(n^{\omega-1})$. We take $\MM(n,d)\in O\left(n^{\omega}\M(d)\right)\subset O(n^{\omega}\bar{\M}(d))$,
+where the multiplication exponent $\omega$ is assumed to satisfy
+$2<\omega\le3$. We refer to the book by \citet{vonzurgathen} for
+more details and reference about the cost of polynomial multiplication
+and matrix multiplication.
+
+
+\section{Shifted Degrees}
+
+In this section, we look at some properties of shifted degrees, which
+may help in understanding their usefulness in efficient computations
+of polynomial matrix problems.
+
+
+\begin{lem}
+\label{lem:columnDegreesRowDegreesSymmetry}A matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+has $\vec{u}$-column degrees bounded by $\vec{v}$ if and only if
+its $-\vec{v}$-row degrees are bounded by $-\vec{u}$. %
+\begin{comment}
+In addition, for a matrix $\mathbf{A}$ with $\vec{u}$-column degrees
+$\vec{v}$, it has a full-rank leading $\vec{u}$-column coefficient
+matrix if and only if it has a full-rank leading $-\vec{v}$-row coefficient
+matrix.
+\end{comment}
+\end{lem}
+\begin{proof}
+The lemma follows from the fact $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$
+has degree bounded by 0 (Note that the negative degrees are define
+here by setting$\deg x^{-d}=-d$ for $d\in\mathbb{Z}_{>0}$. If one
+wishes to avoid this negative degrees, one can simply shift the degrees
+up by multiplying the matrix by $x^{a}$ for some large $a$). Note
+the symmetry between the shifted row degrees and the shifted column
+degrees.\end{proof}
+\begin{lem}
+\label{lem:productDegreeBound}If the $\vec{u}$-column degrees of
+$\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$ are bounded by
+the corresponding entries of an integer list $\vec{v}\in\mathbb{Z}^{n}$,
+(or equivalently, the $-\vec{v}$-row degrees of $\mathbf{A}$ are
+bounded by $-\vec{u}$) and the $\vec{v}$-column degrees of $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+are bounded by $\vec{w}\in\mathbb{Z}^{k}$, then the $\vec{u}$-column
+degrees of $\mathbf{A}\mathbf{B}$ are bounded by $\vec{w}$. \end{lem}
+\begin{proof}
+Note that $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$ and $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+have degrees bounded by 0. Therefore 
+\[
+x^{\vec{u}}\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}
+\]
+ also has degree bounded by 0, or equivalently, $\cdeg_{\vec{u}}\mathbf{A}\mathbf{B}\le\vec{w}$. \end{proof}
+\begin{cor}
+\label{lem:boundOnDegreesOfFA}Let $\vec{v}$ be a shift whose entries
+bound the corresponding column degrees of $\mathbf{A}$. Then for
+any polynomial matrix $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$,
+the column degrees of $\mathbf{A}\mathbf{B}$ are bounded %component-wise 
+by the corresponding $\vec{s}$-column degrees of $\mathbf{B}$.\end{cor}
+\begin{proof}
+Just set the shift $\vec{u}$ to 0 in \prettyref{lem:productDegreeBound}
+\end{proof}
+\begin{comment}
+\begin{lem}
+\label{lem:productDegreeBoundWithRowDegrees}If the $\vec{u}$-row
+degrees of $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$ are
+bounded by the corresponding entries of an integer list $\vec{v}\in\mathbb{Z}^{n}$,
+and the $-\vec{u}$-column degrees of $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+are bounded by $\vec{w}\in\mathbb{Z}^{k}$, then the $-\vec{v}$-column
+degrees of $\mathbf{A}\mathbf{B}$ are bounded by $\vec{w}$. \end{lem}
+\begin{proof}
+Note that $x^{-\vec{v}}\mathbf{A}x^{\vec{u}}$ and $x^{-\vec{u}}\mathbf{B}^{-\vec{w}}$
+have degrees bounded by 0. Therefore, $x^{-\vec{v}}\mathbf{A}x^{\vec{u}}x^{-\vec{u}}\mathbf{B}^{-\vec{w}}=x^{-\vec{v}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
+also has degree bounded by 0, or equivalently, $\cdeg_{-\vec{v}}\mathbf{A}\mathbf{B}\le\vec{w}$.
+Alternatively, this also follows from the fact $\cdeg_{-\vec{v}}\mathbf{A}\le-\vec{u}$
+from \prettyref{lem:productDegreeBound}.\end{proof}
+\end{comment}
+
+
+
+\section{Unimodular Matrices and Unimodular Transformations}
+
+A square matrix in $\mathbb{K}\left[x\right]^{n\times n}$ is said
+to be \emph{unimodular} if its determinant is in $\mathbb{K}$. A
+matrix in $\mathbb{K}\left[x\right]^{n\times n}$ is unimodular if
+and only if it has an inverse in $\mathbb{K}\left[x\right]^{n\times n}$.
+Therefore, a unimodular transformation can be undone by the multiplication
+with the inverse transformation matrix. This allows us to talk about
+unimodular equivalence of the polynomial matrices. Two matrices $\mathbf{A},\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times n}$
+are said to be right unimodularly equivalent if $\mathbf{A}=\mathbf{B}\mathbf{U}$
+for some unimodular matrix $\mathbf{U}$. This also means that the
+columns of $\mathbf{A}$ and $\mathbf{B}$ generates the same set
+of vectors. That is, if a vector $\mathbf{q}=\mathbf{A}\mathbf{p}$
+for some $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$, then
+$\mathbf{q}=\mathbf{B}\mathbf{U}\mathbf{p}$.
+
+
+\section{Column Basis}
+
+The column module of a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+is the $\mathbb{K}\left[x\right]$-module generated by the columns
+of $\mathbf{A}$, that is, this module contains all the column vectors
+that are $\mathbb{K}\left[x\right]$-linear combinations of the columns
+of $\mathbf{A}$. A column basis of $\mathbf{A}$ is just a basis
+for this module. Any column basis of $\mathbf{A}$ can be represented
+as a matrix $\mathbf{T}$, whose columns are the basis elements. The
+matrix $\mathbf{T}$ has full-rank since basis elements must be linearly
+independent. In addition, any two bases for the same module are unimodularly
+equivalent.
+\begin{lem}
+\label{lem:basisEquivalence}If the matrices $\mathbf{T}_{1}$ and
+$\mathbf{T}_{2}$ are both column bases of $\mathbf{A}$, then $\mathbf{T}_{1}$
+and $\mathbf{T}_{2}$ are right unimodularly equivalent.\end{lem}
+\begin{proof}
+Any column of $\mathbf{T}_{1}$ or $\mathbf{T}_{2}$ is generated
+by $\mathbf{T}_{1}$ and also by $\mathbf{T}_{2}$. In other words,
+$\mathbf{T}_{1}=\mathbf{T}_{2}\mathbf{U}$ and $\mathbf{T}_{2}=\mathbf{T}_{1}\mathbf{V}$
+for polynomial matrices $\mathbf{U}$ and $\mathbf{V}$. Hence $\mathbf{T}_{1}=\mathbf{T}_{1}\mathbf{V}\mathbf{U}$
+and $\mathbf{T}_{2}=\mathbf{T}_{2}\mathbf{U}\mathbf{V}$, implying
+$\mathbf{U}\mathbf{V}=\mathbf{V}\mathbf{U}=I$, which requires both
+$\mathbf{U}$ and $\mathbf{V}$ to be unimodular.
+\end{proof}
+
+\section{\label{sec:minimality}Minimality and Column Reducedness}
+
+For many polynomial matrix computation problems, we would like the
+output matrix to be not only easy to describe, but also convenient
+to use. This usually means the column degrees or the more general
+shifted column degrees are small comparing to other matrices that
+are right unimodularly equivalent. For example a matrix $\mathbf{A}=\left[x,x^{2},x^{2}\right]$
+with column degrees $\left[1,2,2\right]$ can be unimodularly reduced
+to a matrix $\mathbf{B}=\left[x,x,x^{2}\right]$ with column degrees
+$\left[1,1,2\right]$, which is more desirable with lower degrees. 
+
+To unimodularly reduce a matrix to one with lower column degrees,
+we can look at its\emph{ leading column coefficient matrix}, which
+is defined as follows. 
+\begin{defn}
+Given a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$,
+the leading column coefficient matrix $A$ of $\mathbf{A}$ is
+\begin{align*}
+A & =\lcoeff\left(\mathbf{A}\right)\\
+ & =\left[\lcoeff\left(\mathbf{a}_{1}\right),\dots,\lcoeff\left(\mathbf{a}_{k}\right)\right]\\
+ & =\left[\coeff\left(\mathbf{a}_{1},\deg\left(\mathbf{a}_{1}\right)\right),\dots,\coeff\left(\mathbf{a}_{k},\deg\left(\mathbf{a}_{k}\right)\right)\right].
+\end{align*}
+
+\end{defn}
+Then, the matrix $\mathbf{A}$ can be unimodularly reduced to another
+matrix with lower column degrees if $\lcoeff\left(\mathbf{A}\right)$
+is not full-rank. %
+\begin{comment}
+In the following, we assume with out loss of generality that matrices
+have columns arranged in increasing column degrees. 
+\end{comment}
+
+\begin{lem}
+\label{lem:columnOperationToReduceDegree}Given a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+with no zero columns. If $\lcoeff\left(\mathbf{A}\right)$ is not
+full-rank, then there is a unimodular matrix $\mathbf{U}$ such that
+$\cdeg\left(\mathbf{A}\mathbf{U}\right)<\cdeg\mathbf{A}$.\end{lem}
+\begin{proof}
+We may assume the columns of $\mathbf{A}$ are arranged in increasing
+column degrees. Let the column degrees of $\mathbf{A}$ be $\left[d_{1},\dots,d_{n}\right]$.
+Let $A=\lcoeff\left(\mathbf{A}\right)$. Suppose the $i$th column
+$A_{i}$ of $A$ is a linear combination of the first $i-1$ columns.
+That is, $A_{i}=A'a$, where $A'$ is the submatrix of $A$ consists
+of the first $i-1$ columns of $A$, and $a=\left[a_{1},\dots,a_{i-1}\right]^{T}\in\mathbb{K}^{(i-1)\times1}$.
+Let 
+\[
+\mathbf{U}=\begin{bmatrix}1 &  &  &  & -a_{1}x^{d_{i}-d_{1}}\\
+ & 1 &  &  & -a_{2}x^{d_{i}-d_{2}}\\
+ &  & \ddots &  & \vdots\\
+ &  &  & 1 & -a_{i-1}x^{d_{i}-d_{i-1}}\\
+ &  &  &  & 1\\
+ &  &  &  &  & \ddots\\
+ &  &  &  &  &  & 1
+\end{bmatrix}.
+\]
+Then $\mathbf{B}=\mathbf{A}\mathbf{U}$ has column degrees $\left[d_{1},\dots,d_{i-1},\bar{d}{}_{i},d_{i+1},\dots,d_{n}\right],$
+with $\bar{d}_{i}<d_{i}$.
+\end{proof}
+The leading column coefficient matrix can also help to determine the
+degree of the matrix.
+\begin{lem}
+\label{lem:fullRankLeadingCoefficientAndDegreeOfDetermant}The degree
+of the determinant of a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times n}$
+is bounded by $\sum\cdeg\mathbf{A}$. If $\lcoeff\left(\mathbf{A}\right)$
+is nonsingular, then $\deg\det\mathbf{A}=\sum\cdeg\mathbf{A}$. More
+generally, for any shift $\vec{s}\in\mathbb{Z}^{n}$, $\deg\det\mathbf{A}\le\sum\cdeg_{\vec{s}}\mathbf{A}-\sum\vec{s}$.
+If $\lcoeff\left(x^{\vec{s}}\mathbf{A}\right)$ is nonsingular, then
+$\deg\det\mathbf{A}=\sum\cdeg_{\vec{s}}\mathbf{A}-\sum\vec{s}$.\end{lem}
+\begin{proof}
+The determinant is the sum of products, with each product involving
+exactly one entry from each column. So the largest possible degree
+of each product is $\sum\cdeg\mathbf{A}$. For the second statement,
+note that the coefficient of $\det\mathbf{A}$ corresponds to the
+largest possible degree $\sum\cdeg\mathbf{A}$ is $\det\lcoeff\left(\mathbf{A}\right)$.
+The more general results with shift can be shown by considering the
+the determinant of $x^{\vec{s}}\mathbf{A}$.
+\end{proof}
+It is still not always possible to order two lists of integer degrees,
+as in the case of matrices $\left[x,x^{2},x^{2}\right]$ and $\left[x,x,x^{3}\right]$
+with column degrees $\left[1,2,2\right]$ and $\left[1,1,3\right]$.
+Fortunately, although the lists of column degrees of the set of unimodular
+equivalent matrices are not well-ordered, there always exists some
+matrices with the \emph{minimal} column degrees, as shown below by
+\prettyref{lem:matrixGCDlowerDegrees} and \prettyref{cor:minimalUnimodularEquivalentMatrix}.
+\begin{lem}
+\label{lem:matrixGCDlowerDegrees}Given any two right unimodularly
+equivalent matrices $\mathbf{A}$ and $\mathbf{B}$, the matrix $\left[\mathbf{A},\mathbf{B}\right]$
+can be unimodularly reduced to $\left[0,\mathbf{C}\right]$ with a
+matrix $\mathbf{C}$ that is unimodularly equivalent to both $\mathbf{A}$
+and $\mathbf{B}$, and satisfies $\cdeg\mathbf{C}\le\cdeg\mathbf{A}$
+and $\cdeg\mathbf{C}\le\cdeg\mathbf{B}$. More generally, with a shift
+$\vec{s},$ the matrix $\left[\mathbf{A},\mathbf{B}\right]$ can be
+unimodularly reduced to $\left[0,\mathbf{D}\right]$ with a matrix
+$\mathbf{D}$ that is unimodularly equivalent to both $\mathbf{A}$
+and $\mathbf{B}$, and satisfies $\cdeg_{\vec{s}}\mathbf{D}\le\cdeg_{\vec{s}}\mathbf{A}$
+and $\cdeg_{\vec{s}}\mathbf{D}\le\cdeg_{\vec{s}}\mathbf{B}$. \end{lem}
+\begin{proof}
+If $r$ is the rank of $\mathbf{A}$ and $\mathbf{B}$, the column
+degrees of $\mathbf{C}$ are bounded by the column degrees of the
+$r$ linear independent columns of $\left[\mathbf{A},\mathbf{B}\right]$
+with the smallest column degrees, as higher degree columns can be
+reduced using \prettyref{lem:columnOperationToReduceDegree}. For
+the more general result with shift, we can again multiply $x^{\vec{s}}$
+to the matrices.\end{proof}
+\begin{cor}
+\label{cor:minimalUnimodularEquivalentMatrix}Given a matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+and a shift $\vec{s}\in\mathbb{Z}^{n}$. There exists a matrix $\mathbf{G}$
+that is right unimodularly equivalent to $\mathbf{F}$ and $\cdeg\mathbf{G}\le\cdeg(\mathbf{F}\mathbf{U})$
+for any unimodular $\mathbf{U}$. More generally, with a shift $\vec{s}$,
+there exists a matrix $\mathbf{H}$ that is right unimodularly equivalent
+to $\mathbf{F}$ and $\cdeg_{\vec{s}}\mathbf{G}\le\cdeg_{\vec{s}}(\mathbf{F}\mathbf{U})$
+for any unimodular $\mathbf{U}$\end{cor}
+\begin{proof}
+Just repeatedly apply \prettyref{lem:matrixGCDlowerDegrees} to matrices
+that are right unimodularly equivalent to $\mathbf{F}$. 
+\end{proof}
+The existence of matrices with minimal column degrees allows us to
+define \emph{column reducedness.}
+\begin{defn}
+A matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$ is said
+to be \emph{column reduced} if $\cdeg\mathbf{A}\le\cdeg\mathbf{A}\mathbf{U}$
+for any unimodular matrix $\mathbf{U}$. More generally, for a shift
+$\vec{s}\in\mathbb{Z}^{n}$, a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+is said to be $\vec{s}$\emph{-column reduced} if $\cdeg_{\vec{s}}\mathbf{A}\le\cdeg_{\vec{s}}\mathbf{A}\mathbf{U}$
+for any unimodular matrix $\mathbf{U}$.
+
+Note that the nonzero columns of a column reduced matrix form a column
+basis. So computing a column reduced form is at least as hard as computing
+a column basis.
+
+The leading column coefficient matrix provides a useful test for being
+column reduced.\end{defn}
+\begin{lem}
+\label{lem:columnReducedLeadingCoefficient}A matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+with no zero columns is column reduced if and only if \textup{$\lcoeff\left(\mathbf{A}\right)$
+has full column rank.}\end{lem}
+\begin{proof}
+We just need to show that the full-rank $\lcoeff\left(\mathbf{A}\right)$
+implies a column reduced $\mathbf{A}$, since the other direction
+is covered in \prettyref{lem:columnOperationToReduceDegree}. Suppose
+$\lcoeff\left(\mathbf{A}\right)$ is full-rank but not column reduced.
+Let $\mathbf{B}$ be a unimodularly equivalent column reduced matrix,
+which exists from \prettyref{cor:minimalUnimodularEquivalentMatrix},
+then $\cdeg\mathbf{A}>\cdeg\mathbf{B}$. Let $\mathbf{U}$ be the
+unimodular matrix satisfying $\mathbf{A}\mathbf{U}=\mathbf{B}$. Let
+$\bar{\mathbf{A}}$ be a square matrix with $n$ rows chosen from
+$\mathbf{A}$ such that $\cdeg\bar{\mathbf{A}}=\cdeg\mathbf{A}$.
+Then $\bar{\mathbf{B}}=\bar{\mathbf{A}}\mathbf{U}$ is a matrix consisting
+of rows from $\mathbf{B}$ with the same indices. It follows that
+$\deg\det\bar{\mathbf{A}}=\deg\det\bar{\mathbf{B}}$. But $\cdeg\bar{\mathbf{B}}\le\cdeg\mathbf{B}<\cdeg\mathbf{A}=\cdeg\bar{\mathbf{A}}$,
+while from \prettyref{lem:fullRankLeadingCoefficientAndDegreeOfDetermant}
+$\deg\det\bar{\mathbf{B}}\le\sum\cdeg\bar{\mathbf{B}}$ and $\deg\det\bar{\mathbf{A}}=\sum\cdeg\bar{\mathbf{A}}$,
+which gives $\deg\det\bar{\mathbf{B}}<\deg\det\bar{\mathbf{A}}$,
+a contradiction.
+\end{proof}
+In \prettyref{lem:productDegreeBound}, when the matrix $\mathbf{A}$
+is $\vec{u}$-column reduced, the bound becomes an equality, which
+then gives the following lemma. This can be viewed as a stronger version
+of the predictable-degree property \citep{kailath:1980}.
+\begin{lem}
+\label{lem:predictableDegree}If $\mathbf{A}$ is a full-rank $\vec{u}$-column
+reduced matrix with $\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$, then $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
+if and only if $\cdeg_{\vec{u}}\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$.\end{lem}
+\begin{proof}
+$\vec{u}$-column reduced means the leading column coefficient matrix
+$A$ of $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$ has linearly independent
+columns. Now the leading coefficient matrix $B$ of $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+has no zero column if and only if the leading column coefficient matrix
+$AB$ of $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
+has no zero column, in other words, $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+has column degrees $\left[0,\dots,0\right]$ if and only if $x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
+has column degrees $\left[0,\dots,0\right]$.
+\end{proof}
+
+\section{Order Basis}
+
+We now look at order basis in more detail.
+
+Let $\mathbb{K}$ be a field, $\mathbf{F}\in\mathbb{K}\left[\left[x\right]\right]^{m\times n}$
+a matrix of power series and $\vec{\sigma}=\left[\sigma_{1},\dots,\sigma_{m}\right]$
+a vector of non-negative integers. 
+\begin{defn}
+We say a vector of polynomials $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$
+has \emph{order} $\left(\mathbf{F},\vec{\sigma}\right)$ (or \emph{order}
+$\vec{\sigma}$ with respect to $\mathbf{F}$) if $\mathbf{F}\cdot\mathbf{p}\equiv\mathbf{0}\mod x^{\vec{\sigma}}$,
+that is, 
+\[
+\mathbf{F}\cdot\mathbf{p}=x^{\vec{\sigma}}\mathbf{r}=\begin{bmatrix}x^{\sigma_{1}}\\
+ & \ddots\\
+ &  & x^{\sigma_{m}}
+\end{bmatrix}\mathbf{r}
+\]
+ for some $\mathbf{r}\in\mathbb{K}\left[\left[x\right]\right]^{m\times1}$.
+If $\vec{\sigma}=\left[\sigma,\dots,\sigma\right]$ is uniform, then
+we say that $\mathbf{p}$ has order $\left(\mathbf{F},\sigma\right).$
+\begin{comment}
+The vector of power series $\mathbf{r}$ is called the order $\left(\mathbf{F},\sigma\right)$-residual
+of \textbf{$\mathbf{p}$}. 
+\end{comment}
+{} The set of all order $\left(\mathbf{F},\vec{\sigma}\right)$ vectors
+is a free $\mathbb{K}\left[x\right]$-module denoted by $\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $. 
+\end{defn}
+An order basis for $\mathbf{F}$ and $\vec{\sigma}$ is simply a basis
+for the $\mathbb{K}\left[x\right]$-module $\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $.
+In this thesis we compute those order bases having minimal or shifted
+minimal degrees (also referred to as a reduced order basis in \citep{BL1997}).
+
+
+
+An \emph{order basis} \citep{BeLa94,BL1997} $\mathbf{P}$ of $\mathbf{F}$
+with order $\vec{\sigma}$ and shift $\vec{s}$, or simply an $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis,
+is a basis for the module $\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
+\begin{comment}
+\[
+\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle =\{\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}\|\mathbf{F}\cdot\mathbf{p}=x^{\vec{\sigma}}\mathbf{r},\mathbf{r}\in\mathbb{K}[[x]]^{m\times1}\}
+\]
+\end{comment}
+{} having minimal $\vec{s}$-column degrees. If $\vec{\sigma}=\left[\sigma,\dots,\sigma\right]$
+are constant vectors then we simply write $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis.
+The precise definition of an $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis
+is as follows.
+\begin{defn}
+\label{def:orderBasis}A polynomial matrix $\mathbf{P}$ is an order
+basis of $\mathbf{F}$ of order $\vec{\sigma}$ and shift $\vec{s}$,
+denoted by $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis,
+if the following properties hold: 
+\begin{enumerate}
+\item $\mathbf{P}$ is a nonsingular matrix of dimension $n$ and is $\vec{s}$-column
+reduced. 
+\item $\mathbf{P}$ has order $\left(\mathbf{F},\vec{\sigma}\right)$ (or
+equivalently, each column of $\mathbf{P}$ is in $\left\langle (\mathbf{F},\vec{\sigma})\right\rangle $). 
+\item Any $\mathbf{q}\in\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
+can be expressed as a linear combination of the columns of $\mathbf{P}$,
+given by $\mathbf{P}^{-1}\mathbf{q}$. 
+\end{enumerate}
+\end{defn}
+\begin{comment}
+Note that the module $\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
+does not depend on the shift $\vec{s}$. 
+\end{comment}
+
+
+
+
+It follows from \prettyref{def:orderBasis} and \prettyref{lem:basisEquivalence}
+that any pair of $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-bases
+$\mathbf{P}$ and $\mathbf{Q}$ are column bases of each other and
+are unimodularly equivalent.
+
+From \citep{BL1997} we have the following lemma. 
+\begin{lem}
+\label{lem:orderBasisEquivalence}The following are equivalent for
+a polynomial matrix \textbf{$\mathbf{P}$}: 
+\begin{enumerate}
+\item $\mathbf{P}$ is a $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis. 
+\item $\mathbf{P}$ is comprised of a set of $n$ minimal $\vec{s}$-degree
+polynomial vectors that are linearly independent and each having order
+$\left(\mathbf{F},\vec{\sigma}\right)$. 
+\item $\mathbf{P}$ does not contain a zero column, has order $\left(\mathbf{F},\vec{\sigma}\right)$,
+is $\vec{s}$-column reduced, and any $\mathbf{q}\in\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
+can be expressed as a linear combination of the columns of $\mathbf{P}$.
+
+\end{enumerate}
+\end{lem}
+In some cases an entire order basis is unnecessary and instead one
+looks for a minimal basis that generates only the elements of $\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
+with $\vec{s}$-degrees bounded by a given $\delta$. Such a minimal
+basis is a partial $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis
+comprised of elements of a $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis
+with $\vec{s}$-degrees bounded by $\delta$. This is called a \emph{minbasis}
+in \citet{Storjohann:2006}. 
+\begin{defn}
+\label{def:genset} Let $\left\langle \left(\mathbf{F},\vec{\sigma},\vec{s}\right)\right\rangle _{\delta}\subset\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
+denote the set of order $\left(\mathbf{F},\vec{\sigma}\right)$ polynomial
+vectors with $\vec{s}$-degree bounded by $\delta$. A $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)_{\delta}$-basis
+is a polynomial matrix $\mathbf{P}$ not containing a zero column
+and satisfying: \end{defn}
+\begin{enumerate}
+\item $\mathbf{P}$ has order $\left(\mathbf{F},\vec{\sigma}\right).$ 
+
+\begin{enumerate}
+\item Any element of $\left\langle \left(\mathbf{F},\vec{\sigma},\vec{s}\right)\right\rangle _{\delta}$
+can be expressed as a linear combination of the columns of $\mathbf{P}$. 
+\item $\mathbf{P}$ is $\vec{s}$-column reduced. 
+\end{enumerate}
+\end{enumerate}
+\begin{comment}
+As before, the linear combination here is in fact unique. 
+\end{comment}
+A $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)_{\delta}$-basis is,
+in general, not square unless $\delta$ is large enough to contain
+all $n$ basis elements in which case it is a complete $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis.
+
+
+\section{Kernel Basis}
+
+Recall that the kernel of $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+is the $\mathbb{F}\left[x\right]$-module 
+\[
+\left\{ \mathbf{p}\in\mathbb{K}\left[x\right]^{n}~|~\mathbf{F}\mathbf{p}=0\right\} .
+\]
+ A kernel basis of $\mathbf{F}$ is just a basis of this module. Kernel
+bases are closely related to order bases, as can be seen from the
+following definitions. 
+\begin{defn}
+\label{def:kernelBasis}Given $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$,
+a polynomial matrix $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times*}$
+is a (right) kernel basis of $\mathbf{F}$ if the following properties
+hold: 
+\begin{enumerate}
+\item $\mathbf{N}$ is full-rank. 
+\item $\mathbf{N}$ satisfies $\mathbf{F}\cdot\mathbf{N}=0$. 
+\item Any $\mathbf{q}\in\mathbb{K}\left[x\right]^{n}$ satisfying $\mathbf{F}\mathbf{q}=0$
+can be expressed as a linear combination of the columns of $\mathbf{N}$,
+that is, there exists some polynomial vector $\mathbf{p}$ such that
+$\mathbf{q}=\mathbf{N}\mathbf{p}$. 
+\end{enumerate}
+\end{defn}
+Again, it follows from \prettyref{def:kernelBasis} and \prettyref{lem:basisEquivalence}
+that any pair of kernel bases $\mathbf{N}$ and $\mathbf{M}$ of $\mathbf{F}$
+are column bases of each other and are unimodularly equivalent.
+
+An $\vec{s}$-minimal kernel basis of $\mathbf{F}$ is just a kernel
+basis that is $\vec{s}$-column reduced.
+\begin{defn}
+Given $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$, a polynomial
+matrix $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times*}$ is a $\vec{s}$-minimal
+(right) kernel basis of $\mathbf{F}$ if\textbf{ $\mathbf{N}$} is
+a kernel basis of $\mathbf{F}$ and $\mathbf{N}$ is $\vec{s}$-column
+reduced. We also call a $\vec{s}$-minimal (right) kernel basis of
+$\mathbf{F}$ a $\left(\mathbf{F},\vec{s}\right)$-kernel basis in
+this thesis.
+\end{defn}
+
+
+
+
+\begin{comment}
+Note that the module $\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
+does not depend on the shift $\vec{s}$. 
+\end{comment}
+
+
+\begin{comment}
+Minimal kernel bases can be directly computed via order basis computation.
+Indeed if the order $\sigma$ of a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
+$\mathbf{P}$ is high enough, then $\mathbf{P}$ contains a $\vec{s}$-minimal
+kernel basis $\mathbf{N}$. However, this approach may require the
+order $\sigma$ to be quite high. For example, if $\mathbf{F}$ has
+degree $d$ and $\vec{s}$ is uniform, then its minimal kernel bases
+can have degree up to $md$. In that case the order $\sigma$ would
+need to be set to $d+md$ in the order basis computation in order
+to fully compute a minimal kernel basis. The fastest method of computing
+such a $\left(\mathbf{F},d+md\right)$-basis would cost $O^{\sim}\left(n^{\omega}\left\lceil m^{2}d/n\right\rceil \right)$
+using the algorithm from \citep{za2009}. We can see from this cost
+that there is room for improvement when $m$ is large. For example,
+in the worst case when $m\in\Theta\left(n\right)$, this cost would
+be $O^{\sim}\left(n^{\omega+1}d\right)$. This points to a root cause
+for the inefficiency in this approach. Namely, when $m$ is large,
+the computed kernel basis, which can have a column dimension of $n-m$,
+is a much smaller subset of the order basis computed. Hence considerable
+effort is put in the computation of order basis elements that are
+not part of a nullspace basis. A key to reducing the cost is therefore
+to reduce such computation of unneeded order basis elements, which
+is achieved in our algorithm by only using order basis computation
+to compute partial nullspace bases of low degrees.
+\end{comment}
+

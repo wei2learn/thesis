@@ -1,0 +1,149 @@
+
+\subsection{Proof of \prettyref{thm:multiplyUnbalancedMatrices}}
+
+%The recursive procedure described in the next section reduces a single null space
+%computation to a set of null space computations of smaller size. These smaller problems
+%are constructed by the computations of residuals which in all cases involves the multiplication
+%of two polynomial matrices having unbalanced degrees. In this section, we present a method for 
+%multiplying polynomial matrices that occur in the algorithm given in the following section.  These matrices have unbalanced degrees so it would be inefficient to directly apply the 
+%standard matrix multiplication.
+
+
+%\begin{lem}
+%\label{lem:multiplyUnbalancedMatrices} Let $\vec{s}$ be a shift
+%ordered in terms of increasing values and $\xi$, a bound on the sum
+%of the entries of $\vec{s}$. Let $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$,
+%with column degrees bounded by $\vec{s}$ and $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+%with $k\in O\left(m\right)$ and the sum $\theta$ of its $\vec{s}$-column
+%degrees satisfying $\theta\in O\left(\xi\right)$. Then we can multiply
+%$\mathbf{A}$ and $\mathbf{B}$ with a cost of $O^{\sim}(nm^{\omega-2}\xi)$. \end{lem}
+
+
+In this subsection we give a proof of \prettyref{thm:multiplyUnbalancedMatrices}.
+\begin{proof}
+Recall that $\vec{s}$ is a shift with entries ordered in terms of
+increasing values and $\xi$ is a bound on the sum of the entries
+of $\vec{s}$. We wish to determine the cost of multiplying the two
+polynomials matrices $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+and $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$ where $\mathbf{A}$
+has column degrees bounded by $\vec{s}$ and where $k\in O\left(m\right)$
+and the sum $\theta$ of its $\vec{s}$-column degrees satisfies $\theta\in O\left(\xi\right)$.
+The goal is to show that these polynomial matrices can be multiplied
+%Then we can multiply %$\mathbf{A}$ and $\mathbf{B}$ 
+with a cost of $O^{\sim}(nm^{\omega-2}\xi)$.
+
+For simplicity we assume $m$ is a power of $2$, something which
+can be achieved by appending zero rows to $\mathbf{F}$. We divide
+the matrix $\mathbf{B}$ into $\log m$ column blocks according to
+the $\vec{s}$-column degrees of its columns. Let 
+\[
+\mathbf{B}=\left[\begin{array}{ccccc}
+\mathbf{B}^{\left(\log m\right)} & \mathbf{B}^{\left(\log m-1\right)} & \cdots & \mathbf{B}^{\left(2\right)} & \mathbf{B}^{\left(1\right)}\end{array}\right],
+\]
+ with $\mathbf{B}^{\left(\log m\right)}$, $\mathbf{B}^{\left(\log m-1\right)},$
+$\mathbf{B}^{\left(\log m-2\right)}$, ... , $\mathbf{B}^{\left(2\right)}$,
+$\mathbf{B}^{\left(1\right)}$ having $\vec{s}$-column degrees in
+the range $\left[0,2\xi/m\right]$, $(2\xi/m,4\xi/m]$, $(4\xi/m,8\xi/m]$,
+...,$(\xi/4,\xi/2]$, $(\xi/2,\theta]$, respectively. We will multiply
+$\mathbf{A}$ with each $\mathbf{B}^{\left(i\right)}$ separately.
+
+We also divide the matrix $\mathbf{A}$ into $\log m$ column blocks
+and each matrix $\mathbf{B}^{\left(i\right)}$ into $\log m$ row
+blocks according to the size of the corresponding entries in $\vec{s}$.
+Set 
+\begin{eqnarray*}
+~~~~\vec{s} & = & \left[\begin{array}{cccc}
+\vec{s}_{\log m} & \vec{s}_{\log m-1} & \cdots & \vec{s}_{1}\end{array}\right]\\
+\mathbf{A} & = & \left[\begin{array}{cccc}
+\mathbf{A}_{\log m} & \mathbf{A}_{\log m-1} & \cdots & \mathbf{A}_{1}\end{array}\right]\\
+\mathbf{B} & = & \left[\begin{array}{cccc}
+\mathbf{B}^{\left(\log m\right)} & \mathbf{B}^{\left(\log m-1\right)} & \cdots & \mathbf{B}^{\left(1\right)}\end{array}\right]\\
+ & = & \left[\begin{array}{cccc}
+\mathbf{B}_{\log m}^{\left(\log m\right)} & \mathbf{B}_{\log m}^{\left(\log m-1\right)} & \cdots & \mathbf{B}_{\log m}^{\left(1\right)}\\
+\vdots &  &  & \vdots\\
+\mathbf{B}_{1}^{\left(\log m\right)} & \mathbf{B}_{1}^{\left(\log m-1\right)} & \cdots & \mathbf{B}_{1}^{\left(1\right)}
+\end{array}\right]
+\end{eqnarray*}
+ %
+\begin{comment}
+\wei{Shouldn't they be reversed? We are not assign to $\vec{s},\mathbf{A},\mathbf{B},$
+but to $\vec{s}_{i},\mathbf{A}_{i},\mathbf{B}_{i}$. Same issue with
+other assignments as well} \george{I think it is more readable this
+way.} 
+\end{comment}
+with $\vec{s}_{\log m},\vec{s}_{\log m-1},\dots,\vec{s}_{1}$ having
+entries in the range $\left[0,2\xi/m\right]$, $(2\xi/m,4\xi/m]$,
+$(4\xi/m,8\xi/m]$, ..., $(\xi/2,\xi]$ respectively. Also the column
+dimension of $\mathbf{A}_{j}$ and the row dimension of $\mathbf{B}_{j}^{\left(i\right)}$
+match that of $\vec{s}_{j}$ for $j$ from $1$ to $\log m$.
+
+Notice that $\mathbf{B}_{(j)}^{(i)}$ for $i>j$ must be zero. Otherwise,
+as $\vec{s}_{j}>\xi/2^{j}\ge\xi/2^{i-1}$, the $\vec{s}$-column degree
+of $\mathbf{B}^{(i)}$ would exceed $\xi/2^{i-1}$, a contradiction
+since by definition the $\vec{s}$-column degree of $\mathbf{B}^{(i)}$
+is bounded by $\xi/2^{i-1}$ when $i>1$. So $\mathbf{B}$ in fact
+has a block triangular shape 
+\[
+\mathbf{B}=\left[\begin{array}{cccc}
+\mathbf{B}_{\log m}^{\left(\log m\right)} & \mathbf{B}_{\log m}^{\left(\log m-1\right)} & \cdots & \mathbf{B}_{\log m}^{\left(1\right)}\\
+ & \mathbf{B}_{\log m-1}^{\left(\log m-1\right)} &  & \vdots\\
+ &  & \ddots\\
+ &  &  & \mathbf{B}_{1}^{\left(1\right)}
+\end{array}\right]
+\]
+ (while remembering that the blocks have varying sizes).
+
+First consider the multiplication 
+\[
+\mathbf{A}\mathbf{B}^{\left(1\right)}=\left[\begin{array}{ccc}
+\mathbf{A}_{\log m} & \cdots & \mathbf{A}_{1}\end{array}\right]\left[\begin{array}{l}
+\mathbf{B}_{\log m}^{\left(1\right)}\\
+\vdots\\
+\mathbf{B}_{1}^{\left(1\right)}
+\end{array}\right].
+\]
+ Note that there are $O\left(1\right)$ columns in $\mathbf{B}^{(1)}$
+since $\theta\in O\left(\xi\right)$. We do this in $\log m$ steps.
+At step $j$ for $j$ from $1$ to $\log m$ we multiply $\mathbf{A}_{j}$
+and $\mathbf{B}_{j}^{(1)}$. The column dimension of $\mathbf{A}_{j}$,
+which is the same as the row dimension of $\mathbf{B}_{j}^{(1)}$,
+is less than $2^{j}$. The degree of $\mathbf{B}_{j}^{(1)}$ is $O\left(\xi\right)$.
+To use fast multiplication, we expand $\mathbf{B}_{j}^{(1)}$ to a
+matrix $\bar{\mathbf{B}}_{j}^{(1)}$ with degree less than $\delta\in\Theta(\xi/2^{j})$
+and column dimension $q\in O(2^{j})$ as follows. Write 
+\[
+\mathbf{B}_{j}^{(1)}=\mathbf{B}_{j,0}^{(1)}+\mathbf{B}_{j,1}^{(1)}x^{\delta}+\dots+\mathbf{B}_{j,q-1}^{(1)}x^{\delta(q-1)}=\sum_{k=0}^{q-1}\mathbf{B}_{j,k}^{(1)}x^{\delta k}
+\]
+ with each $\mathbf{B}_{j,k}^{(1)}$ having degree less than $\delta.$
+Set 
+\[
+\bar{\mathbf{B}}_{j}^{(1)}=\left[\mathbf{B}_{j,0}^{(1)},\mathbf{B}_{j,1}^{(1)},\dots,\mathbf{B}_{j,q-1}^{(1)}\right]
+\]
+. We can then multiply $\mathbf{A}_{j}$, which has dimension $m\times O(2^{j})$
+for $j<\log m$, and $\bar{\mathbf{B}}_{j}^{(1)}$, which has dimension
+$O(2^{j})\times O(2^{j})$ for $j<\log m$, with a cost of 
+\begin{align*}
+O^{\sim}\left((m/2^{j})\left(2^{j}\right)^{\omega}\xi/2^{j}\right) & =O^{\sim}\left(\left(2^{j}\right)^{\omega-2}m\xi\right).\\
+ & \subset O^{\sim}\left(m^{\omega-1}\xi\right)\subset O^{\sim}(nm^{\omega-2}\xi)
+\end{align*}
+ For $j=\log m$, $\mathbf{A}_{j}$ has dimension $m\times O\left(n\right)$,
+$\bar{\mathbf{B}}_{j}^{\left(1\right)}$ has dimension $O\left(n\right)\times O(m)$,
+and their degrees are $O\left(\xi/m\right)$. Hence they can be multiplied
+with a cost of $O^{\sim}\left((n/m)m^{\omega}(\xi/m)\right)=O^{\sim}\left(nm^{\omega-2}\xi\right)$.
+Adding up the columns of $\mathbf{A}_{j}\bar{\mathbf{B}}_{j}^{(1)}$
+gives $\mathbf{A}_{j}\mathbf{B}_{j}^{(1)}$ and costs $O(m\xi)$.
+Therefore, multiplying $\mathbf{A}$ and $\mathbf{B}^{(1)}$ over
+$\log(m)$ steps costs $O^{\sim}\left(nm^{\omega-2}\xi\right)$.
+
+Next we multiply $\mathbf{A}$ with $\mathbf{B}^{(2)}$. We proceed
+in the same way as before, but notice that $\mathbf{A}_{1}\mathbf{B}_{1}^{(2)}$
+is no longer needed since $\mathbf{B}_{1}^{(2)}=0$. Multiplying $\mathbf{A}$
+and $\mathbf{B}^{(2)}$ also costs $O^{\sim}\left(nm^{\omega-2}\xi\right)$.
+
+Continuing to doing this, gives a costs of $O^{\sim}\left(nm^{\omega-2}\xi\right)$
+to multiply $\mathbf{A}$ with the columns $\mathbf{B}^{(i)}$ for
+$i$ from $1$ to $\log m$. As before, we recall that $\mathbf{B}_{(j)}^{(i)}=0$
+for $j>i$. The overall cost for $i$ from 1 to $\log m$ is therefore
+$O^{\sim}\left(nm^{\omega-2}\xi\right)$ to multiply $\mathbf{A}$
+and $\mathbf{B}$. \end{proof}
+

@@ -1,0 +1,1352 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass report
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-chap
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:rank"
+
+\end_inset
+
+Rank Profile and Rank Sensitive Computation of Kernel Basis
+\end_layout
+
+\begin_layout Standard
+In this chapter, we consider the problems of computing the row rank profile
+ of an input matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+, which also immediately gives us the rank.
+ If 
+\begin_inset Formula $n\ge m$
+\end_inset
+
+, the rank can already be computed by either kernel basis computation or
+ column basis computation from the earlier chapters.
+ The column basis computation (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:colBasis"
+
+\end_inset
+
+) can compute the rank with a cost of 
+\begin_inset Formula $O^{\sim}(m^{\omega-1}\xi)$
+\end_inset
+
+ field operations, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the sum of the column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ However, we would like to refine this cost to 
+\begin_inset Formula $O^{\sim}\left(mr^{\omega-2}\xi\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $r$
+\end_inset
+
+ is the rank of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ We also would like to compute a row rank profile with the same cost.
+\end_layout
+
+\begin_layout Standard
+We use the following approach to achieve the desired cost.
+ We first modify our kernel basis algorithm, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasisWithRankProfile"
+
+\end_inset
+
+, slightly to allow the rank profile to be computed along with a kernel
+ basis.
+ Then we do a series of computations with increasing number of rows from
+ 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ For each set of rows we do successive column basis computation (or order
+ basis computation) as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:successiveColBasisComputation"
+
+\end_inset
+
+ to reduce the column dimension of the problem, so the modified 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasisWithRankProfile"
+
+\end_inset
+
+ can work efficiently to compute the rank profile of this set of rows.
+\end_layout
+
+\begin_layout Section
+Rank Profile from Kernel Basis Computation
+\end_layout
+
+\begin_layout Standard
+Recall that the row rank profile of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is the lexicographically smallest list of row indices 
+\begin_inset Formula $\left[i_{1},i_{2},\dots i_{r}\right]$
+\end_inset
+
+ such that these rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ are linearly independent, where 
+\begin_inset Formula $r$
+\end_inset
+
+ is the rank of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ We represent the row rank profile with a list of indicators that indicate
+ the 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ with the smallest possible row indices.
+ 
+\end_layout
+
+\end_inset
+
+Let us see how the row rank profile can be computed by our kernel basis
+ algorithm.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The key here is to notice the following.
+ At any base case of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasis"
+
+\end_inset
+
+, we compute a kernel basis of an input matrix 
+\begin_inset Formula $\mathbf{g}$
+\end_inset
+
+ with a single row.
+ Let 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ be its original corresponding row 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ At this point, we have already completed subproblems involving computing
+ kernel bases of all rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ above 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+ be the submatrix of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ consists of the rows above 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+.
+ Then the cumulative product of the already computed order bases and kernel
+ bases 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ makes 
+\begin_inset Formula $\mathbf{F}'\mathbf{Q}=0$
+\end_inset
+
+.
+ Now since 
+\begin_inset Formula $\mathbf{g}=\mathbf{f}\mathbf{Q}$
+\end_inset
+
+, we have 
+\begin_inset Formula $\mathbf{g}\ne0$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ is linearly independent from the rows of 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ The following lemma provides a key to the rank profile computation using
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasis"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:rankProfileIndicator"
+
+\end_inset
+
+At any base case of running 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasis"
+
+\end_inset
+
+ on the input matrix
+\series bold
+ 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+
+\series default
+, we work with an input matrix 
+\begin_inset Formula $\mathbf{g}$
+\end_inset
+
+ consisting of a single row.
+ Let 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ be the original row in 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ corresponding to 
+\begin_inset Formula $\mathbf{g}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+ be the submatrix of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ consists of the rows above 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{g}=0$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ is linearly dependent with the rows of 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+When the algorithm has reached the base case involving the single row matrix
+ 
+\begin_inset Formula $\mathbf{g}$
+\end_inset
+
+, it has finished processing 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+ and has produced a number of order bases and kernel bases from the earlier
+ subproblems, where the kernel bases computed only involved all the rows
+ of 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+.
+ The matrix 
+\begin_inset Formula $\mathbf{g}$
+\end_inset
+
+ is the residual from multiplying 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ with these order bases and kernel bases.
+ Note that such multiplications do not change the linear dependency of 
+\begin_inset Formula $\mathbf{g}$
+\end_inset
+
+ with the rows of 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+.
+ But if 
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+ is linearly dependent with the rows of 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+, the residual 
+\begin_inset Formula $\mathbf{g}$
+\end_inset
+
+ becomes 0 after multiplying with kernel bases of the rows of 
+\begin_inset Formula $\mathbf{F}'$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:rankProfileIndicator"
+
+\end_inset
+
+ now allows us to provide a small modification to 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasis"
+
+\end_inset
+
+ to produce the rank profile of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ The modified algorithm is given in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasisWithRankProfile"
+
+\end_inset
+
+.
+ Note that the rank profile in our algorithm is represented using a list
+ of 
+\begin_inset Formula $n$
+\end_inset
+
+ indicators that indicate the first 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ At this point, the rank profile of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ still costs the same to compute as a kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ In the following, we see how column basis computation can be used to improve
+ this.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "algorithmNullspaceBasisWithRankProfile.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Successive Rank Profile Computation
+\end_layout
+
+\begin_layout Standard
+To compute the rank and rank profile of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ in a rank-sensitive way, we do a series of computations with a set of increasin
+g number of rows from 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ We store the rank profile in the list 
+\begin_inset Formula $\bar{j}=\left[j_{1},j_{2},\dots\right]$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{F}_{\bar{j}}$
+\end_inset
+
+ represent the linearly independent rows from 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ indexed by the rank profile.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+First, we look for the first row in the rank-profile, which is just the
+ first nonzero row of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ Let 
+\begin_inset Formula $j_{1}$
+\end_inset
+
+ be its row index and set 
+\begin_inset Formula $\bar{j}=\left[j_{1}\right]$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+We start with the first nonzero row of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which is the first row in the rank-profile.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Next, we try to double the number of rows in the rank-profile.
+ To do this, we start with row 
+\begin_inset Formula $j_{1}+1$
+\end_inset
+
+, and work with the matrix 
+\begin_inset Formula $\mathbf{F}_{\left[\bar{j},j_{1}+1\right]}=\mathbf{F}_{\left[j_{1},j_{1}+1\right]}$
+\end_inset
+
+, which consists of rows 
+\begin_inset Formula $j_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $j_{1}+1$
+\end_inset
+
+.
+ We compute a column basis of 
+\begin_inset Formula $\mathbf{F}_{\left[\bar{j},j_{1}+1\right]}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Suppose we have found the indices 
+\begin_inset Formula $\bar{j}=\left[j_{1},\dots,j_{k}\right]$
+\end_inset
+
+ in the rank profile.
+ To find the next linearly independent rows, we work with the matrix 
+\begin_inset Formula $\mathbf{G}=\mathbf{F}_{\left[\bar{j},j_{k+1}\dots,j_{k}+i\right]}$
+\end_inset
+
+, the matrix consists of the 
+\begin_inset Formula $k$
+\end_inset
+
+ linearly independent rows indexed by 
+\begin_inset Formula $\bar{j}$
+\end_inset
+
+ and the next 
+\begin_inset Formula $k$
+\end_inset
+
+ rows.
+ We compute a column basis 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ of this matrix, which has the same rank profile as 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+.
+ Now we can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasisWithRankProfile"
+
+\end_inset
+
+ to compute the rank profile of 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+, which gives more indices for the rank profile of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ We repeat this procedure until all rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ are processed.
+ This gives us 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:rankProfile"
+
+\end_inset
+
+ for computing the rank profile of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "algorithmRankProfile.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The main remaining task is to analyze the computational cost of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:rankProfile"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Theorem
+The cost of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:rankProfile"
+
+\end_inset
+
+ is 
+\begin_inset Formula $O^{\sim}\left(\xi mr^{\omega-2}\right)$
+\end_inset
+
+ field operations for computing a rank profile of 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ be the number of rows in the new block considered at step 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Then the cost at step 
+\begin_inset Formula $i$
+\end_inset
+
+ is 
+\begin_inset Formula $O^{\sim}\left(r_{i}^{\omega-1}\xi\right)$
+\end_inset
+
+ field operations for the column basis and the kernel basis with rank profile
+ computation.
+ The total cost is then 
+\begin_inset Formula 
+\[
+\sum O^{\sim}\left(r_{i}^{\omega-1}\xi\right)=O^{\sim}\left(\xi\sum r_{i}^{\omega-1}\right).
+\]
+
+\end_inset
+
+ We also know that 
+\begin_inset Formula $\sum r_{i}=m$
+\end_inset
+
+, and the maximum of 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ is the rank 
+\begin_inset Formula $r$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula 
+\[
+\sum r_{i}^{\omega-1}\le\frac{m}{r}r^{\omega-1}=mr^{\omega-2}.
+\]
+
+\end_inset
+
+ Hence 
+\begin_inset Formula 
+\[
+\sum O^{\sim}\left(r_{i}^{\omega-1}\xi\right)=O^{\sim}\left(\xi\sum r_{i}^{\omega-1}\right)=O^{\sim}\left(\xi mr^{\omega-2}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Applications of Rank Profile Computation
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:removeDimensionAssumption"
+
+\end_inset
+
+Remove the assumption 
+\begin_inset Formula $n\ge m$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order basis, kernel basis, and column basis computations from previous
+ chapters, we have assumed that the column dimension 
+\begin_inset Formula $n$
+\end_inset
+
+ is no less than the row dimension 
+\begin_inset Formula $m.$
+\end_inset
+
+ We can now use the rank profile computation to ensure that this is always
+ the case.
+ For order basis and kernel basis computation, we can just determine the
+ rank profile 
+\begin_inset Formula $\bar{j}$
+\end_inset
+
+ of the input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, and then work with just 
+\begin_inset Formula $\mathbf{F}_{\bar{j}}$
+\end_inset
+
+, which consists of only 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent rows, as we know the rank 
+\begin_inset Formula $r$
+\end_inset
+
+ is always bounded by the column dimension 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ For column basis computation, the assumption is only required by the kernel
+ basis computation used.
+ Therefore removing this assumption from the kernel basis computation also
+ removes this assumption from the column basis computation.
+\end_layout
+
+\begin_layout Subsection
+Rank-sensitive computation of minimal kernel bases
+\end_layout
+
+\begin_layout Standard
+With the ability to compute a rank profile efficiently, we can now slightly
+ improve 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:costOfMinimalNullspaceBasis"
+
+\end_inset
+
+ on the cost of kernel basis computation with a matrix of degree 
+\begin_inset Formula $d$
+\end_inset
+
+, by using only the linearly independent rows from 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, hence reducing the row dimension of the input matrix from 
+\begin_inset Formula $m$
+\end_inset
+
+ to 
+\begin_inset Formula $r$
+\end_inset
+
+, after a cost of 
+\begin_inset Formula $O^{\sim}\left(\xi mr^{\omega-2}\right)=O^{\sim}\left(nmr^{\omega-2}d\right)$
+\end_inset
+
+ to compute the rank profile.
+ 
+\end_layout
+
+\begin_layout Theorem
+Given a matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+with degree 
+\begin_inset Formula $d$
+\end_inset
+
+, a minimal kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be computed with a cost of 
+\begin_inset Formula $O^{\sim}(nmr^{\omega-2}d+n^{\omega-1}rd)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+It looks difficult to further improve this cost by removing the exponent
+ 
+\begin_inset Formula $\omega$
+\end_inset
+
+ from the column dimension 
+\begin_inset Formula $n$
+\end_inset
+
+ if a minimal kernel basis is required.
+ Since the minimality requires us to work with some matrix involving all
+ 
+\begin_inset Formula $n$
+\end_inset
+
+ columns at the same time.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We can, however, compute a kernel basis that may be not minimal with a cost
+ of 
+\begin_inset Formula $O^{\sim}(nmr^{\omega-2}d).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Rank-sensitive computation of kernel bases
+\end_layout
+
+\begin_layout Plain Layout
+Assuming the input matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ now contains only linearly independent rows.
+ We again work with 
+\begin_inset Formula $m\times2m$
+\end_inset
+
+ block from 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ each time, as in the column basis computation in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:successiveColBasisComputation"
+
+\end_inset
+
+.
+ As before, we can separate 
+\begin_inset Formula $\mathbf{F}=\left[\mathbf{F}_{1},\mathbf{F}_{2},\dots,\mathbf{F}_{n/m}\right]$
+\end_inset
+
+ to 
+\begin_inset Formula $n/m$
+\end_inset
+
+ blocks, each with dimension 
+\begin_inset Formula $m\times m$
+\end_inset
+
+, assuming without loss of generality 
+\begin_inset Formula $n$
+\end_inset
+
+ is a multiple of 
+\begin_inset Formula $m$
+\end_inset
+
+, and the columns are arranged in increasing degrees.
+ We again do a series of column basis computations.
+ First we compute a column basis 
+\begin_inset Formula $\mathbf{T}_{1}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{F}_{1},\mathbf{F}_{2}\right]$
+\end_inset
+
+.
+ Then compute a column basis 
+\begin_inset Formula $\mathbf{T}_{2}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{T}_{1},\mathbf{F}_{3}\right]$
+\end_inset
+
+.
+ Repeating this process, at step 
+\begin_inset Formula $i$
+\end_inset
+
+, we compute a column basis 
+\begin_inset Formula $\mathbf{T}_{i}$
+\end_inset
+
+ of 
+\begin_inset Formula $\left[\mathbf{T}_{i-1},\mathbf{F}_{i+1}\right]$
+\end_inset
+
+, until 
+\begin_inset Formula $i=n/m-1$
+\end_inset
+
+, when a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is computed.
+ But now in addition to the column bases we also compute a series of kernel
+ bases associated with the column bases with the help of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodular_kernel_columnBasis"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodular_kernel_columnBasis"
+
+\end_inset
+
+, a unimodular matrix 
+\begin_inset Formula $\mathbf{U}_{1}$
+\end_inset
+
+ that gives 
+\begin_inset Formula $\mathbf{F}\mathbf{U}_{1}=\left[0,\mathbf{T}_{1},\mathbf{F}_{3},\dots,\mathbf{F}_{n/m}\right]$
+\end_inset
+
+ has the form 
+\begin_inset Formula 
+\[
+\mathbf{U}_{1}=\begin{bmatrix}\left[\mathbf{N}_{1},\mathbf{M}_{1}\right]\\
+ & I_{n-2m}
+\end{bmatrix},
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{N}_{1}\in\mathbb{K}\left[x\right]^{2m\times r_{1}}$
+\end_inset
+
+ is a kernel basis of 
+\begin_inset Formula $\left[\mathbf{F}_{1},\mathbf{F}_{2}\right]$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{T}_{1}=\left[\mathbf{F}_{1},\mathbf{F}_{2}\right]\mathbf{M}_{1}$
+\end_inset
+
+.
+ Then a unimodular matrix 
+\begin_inset Formula $\mathbf{U}_{2}$
+\end_inset
+
+ that gives 
+\begin_inset Formula $\mathbf{F}\mathbf{U}_{1}\mathbf{U}_{2}=\left[0,\mathbf{T}_{2},\mathbf{F}_{4},\dots,\mathbf{F}_{n/m}\right]$
+\end_inset
+
+ has the form 
+\begin_inset Formula 
+\[
+\mathbf{U}_{2}=\begin{bmatrix}I_{m}\\
+ & \left[\mathbf{N}_{2},\mathbf{M}_{2}\right]\\
+ &  & I_{n-3m}
+\end{bmatrix},
+\]
+
+\end_inset
+
+ where
+\end_layout
+
+\begin_layout Subsection
+Rank-sensitive computation of column bases
+\end_layout
+
+\begin_layout Plain Layout
+First, we compute the row rank profile of an input matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+, which gives 
+\begin_inset Formula $\bar{\mathbf{F}}\in\mathbb{K}\left[x\right]^{r\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent rows.
+ Next, we compute a column basis 
+\begin_inset Formula $\bar{\mathbf{T}}$
+\end_inset
+
+ of 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+, which cost 
+\begin_inset Formula $r^{\omega-1}\xi$
+\end_inset
+
+.
+ Note that the matrix 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\bar{\mathbf{T}}\mathbf{G}=\bar{\mathbf{F}}$
+\end_inset
+
+ also satisfies 
+\begin_inset Formula $\mathbf{T}\mathbf{G}=\mathbf{F}$
+\end_inset
+
+.
+ In fact, for a matrix 
+\begin_inset Formula $\bar{\mathbf{F}}_{\bar{k}}$
+\end_inset
+
+ consists of 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent columns with indices 
+\begin_inset Formula $\bar{k}=\left[k_{1},\dots,k_{r}\right]$
+\end_inset
+
+ from 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+, the matrix 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\bar{\mathbf{T}}\mathbf{G}'=\bar{\mathbf{F}}'$
+\end_inset
+
+ also satisfies 
+\begin_inset Formula $\mathbf{T}\mathbf{G}'=\mathbf{F}_{\bar{k}}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{F}_{\bar{k}}$
+\end_inset
+
+ consists of the 
+\begin_inset Formula $r$
+\end_inset
+
+ columns also with indices 
+\begin_inset Formula $\bar{k}$
+\end_inset
+
+ from 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ In other words, 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ is uniquely determined in either case.
+\end_layout
+
+\begin_layout Plain Layout
+To find a set of 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent columns from 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+, we can again use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:rankProfile"
+
+\end_inset
+
+ to compute the column rank profile of 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+, which cost 
+\begin_inset Formula $ $
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Subsection
+Rank-sensitive computation of column bases
+\end_layout
+
+\begin_layout Plain Layout
+Now let us look how a column basis of a degree 
+\begin_inset Formula $d$
+\end_inset
+
+ input matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ can be computed in a rank-sensitive way.
+\end_layout
+
+\begin_layout Plain Layout
+First, we compute the row rank profile of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which which costs 
+\begin_inset Formula $O^{\sim}\left(nmr^{\omega-2}d\right)$
+\end_inset
+
+ field operations and gives 
+\begin_inset Formula $\bar{\mathbf{F}}\in\mathbb{K}\left[x\right]^{r\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent rows.
+ Next, we compute a column basis 
+\begin_inset Formula $\bar{\mathbf{T}}$
+\end_inset
+
+ of 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+, which costs 
+\begin_inset Formula $O^{\sim}\left(r^{\omega-1}nd\right)$
+\end_inset
+
+.
+ Note that the matrix 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\bar{\mathbf{T}}\mathbf{G}=\bar{\mathbf{F}}$
+\end_inset
+
+ also satisfies 
+\begin_inset Formula $\mathbf{T}\mathbf{G}=\mathbf{F}$
+\end_inset
+
+.
+ In fact, for a matrix 
+\begin_inset Formula $\bar{\mathbf{F}}_{\bar{k}}$
+\end_inset
+
+ consists of 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent columns with indices 
+\begin_inset Formula $\bar{k}=\left[k_{1},\dots,k_{r}\right]$
+\end_inset
+
+ from 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+, the matrix 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\bar{\mathbf{T}}\mathbf{G}'=\bar{\mathbf{F}}{}_{\bar{k}}$
+\end_inset
+
+ also satisfies 
+\begin_inset Formula $\mathbf{T}\mathbf{G}'=\mathbf{F}_{\bar{k}}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{F}_{\bar{k}}$
+\end_inset
+
+ consists of the 
+\begin_inset Formula $r$
+\end_inset
+
+ columns also with indices 
+\begin_inset Formula $\bar{k}$
+\end_inset
+
+ from 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ In other words, 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ is uniquely determined in either case.
+\end_layout
+
+\begin_layout Plain Layout
+To find a set of 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent columns from 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+, we can again use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:rankProfile"
+
+\end_inset
+
+ to compute the column rank profile of 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+, which costs 
+\begin_inset Formula $O^{\sim}\left(r^{\omega-1}nd\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

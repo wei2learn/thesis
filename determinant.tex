@@ -1,0 +1,139 @@
+
+\chapter{\label{chap:determinant}Diagonal Entries of Hermite Normal Form
+and Determinant}
+
+In this Chapter, we consider the problem of computing a determinant
+of a nonsingular input matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+with column degrees bounded by a shift $\vec{s}$. The computation
+is done by using the column basis and kernel basis computation to
+compute the diagonal entries of the Hermite form of $\mathbf{F}$,
+and then multiply these diagonal entries.
+
+Consider unimodularly transforming $\mathbf{F}$ to 
+\begin{equation}
+\mathbf{F}\mathbf{U}=\mathbf{G}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+* & \mathbf{G}_{2}
+\end{bmatrix},\label{eq:step1HermiteDiagonal}
+\end{equation}
+
+
+ After this unimodular transformation, which eliminated the top
+right block of $\mathbf{G}$ , the matrix is now closer to the Hermite
+normal form of $\mathbf{F}$. This procedure can then be applied recursively
+to $\mathbf{G}_{1}$ and $\mathbf{G}_{2}$, until the matrices reaching
+dimension 1, which then gives the diagonal entries of the Hermite
+normal form of $\mathbf{F}$.
+
+Although this procedure correctly computes the diagonal entries of
+the Hermite normal form of $\mathbf{F}$, a major problem is that
+the degree of the unimodular $\mathbf{U}$ can be too large for $\mathbf{U}$
+to be efficiently computed. However, with the tools we have developed
+in the earlier chapters, we can efficiently compute $\mathbf{G}_{1}$
+and $\mathbf{G}_{2}$ without computing $\mathbf{U}$.
+
+If we separate $\mathbf{F}$ to $\mathbf{F}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}$, each has full-rank as $\mathbf{F}$ is assumed to be nonsingular,
+and also separate $\mathbf{U}$ to $\mathbf{U}=\begin{bmatrix}\mathbf{U}_{L} & \mathbf{U}_{R}\end{bmatrix}$,
+where the column dimension of $\mathbf{U}_{L}$ matches the row dimension
+of $\mathbf{F}_{U}$, then 
+\[
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}\begin{bmatrix}\mathbf{U}_{L} & \mathbf{U}_{R}\end{bmatrix}=\mathbf{G}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+* & \mathbf{G}_{2}
+\end{bmatrix}.
+\]
+ Notice that the matrix $\mathbf{G}_{1}$ is nonsingular and is therefore
+just a column basis of $\mathbf{F}_{U}$, and can be efficiently computed
+using \prettyref{alg:colBasis}. To compute $\mathbf{G}_{2}=\mathbf{F}_{D}\mathbf{U}_{R}$,
+notice that the matrix $\mathbf{U}_{R}$ is a right kernel basis\textbf{
+}of $\mathbf{F}$, which makes the top right block of $\mathbf{G}$
+zero. As we have seen from \prettyref{lem:unimodular_kernel_columnBasis},
+the kernel basis $\mathbf{U}_{R}$ can be replaced by any other kernel
+basis of $\mathbf{F}$ to give another unimodular matrix that also
+works. 
+\begin{lem}
+\label{lem:oneStepHermiteDiagonal}Given a polynomial matrix $\mathbf{F}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}$. If $\mathbf{G}_{1}$ is a column basis of $\mathbf{F}_{U}$ and
+$\mathbf{N}$ is a kernel basis of $\mathbf{F}_{U}$, then there is
+a unimodular matrix $\mathbf{U}=\left[*,\mathbf{N}\right]$ such that
+\[
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{G}_{1}\\
+* & \mathbf{G}_{2}
+\end{bmatrix},
+\]
+ where $\mathbf{G}_{2}=\mathbf{F}_{D}\mathbf{N}$.  If $\mathbf{F}$
+is square nonsingular, then $\mathbf{G}_{1}$ and $\mathbf{G}_{2}$
+are also square nonsingular.
+\end{lem}
+Note that we do not compute the blocks represented by the symbol $*$,
+which may have very large degrees and cannot be computed efficiently.
+
+\prettyref{lem:oneStepHermiteDiagonal} allows us to compute $\mathbf{G}_{1}$
+and $\mathbf{G}_{2}$ independently without computing the unimodular
+matrix. $\mathbf{G}_{1}$ can be computed using the method from \prettyref{chap:Matrix-GCD},
+while the kernel basis computation from \prettyref{chap:NullspaceBasis}
+can be used to compute a kernel basis $\mathbf{N}_{1}$ of $\mathbf{F}_{u}$,
+which can then be used to compute $\mathbf{G}_{2}=\mathbf{F}_{d}\mathbf{N}_{1}$.
+
+After $\mathbf{G}_{1}$ and $\mathbf{G}_{2}$ are computed, we can
+repeat the same process on each of these two matrices, which now have
+lower dimensions, until the dimension becomes one. This procedure
+of computing the diagonal entries gives \prettyref{alg:hermiteDiagonal}
+
+\input{algorithmHermiteDiagonalEntries.tex}
+
+
+\section{Computational Cost}
+
+Let us look at the computational cost of \prettyref{alg:hermiteDiagonal}. 
+\begin{thm}
+\prettyref{alg:hermiteDiagonal} costs $O^{\sim}\left(n^{\omega-1}\xi\right)$
+field operations to compute the diagonal entries for the Hermite normal
+form of a nonsingular matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$,
+where $\xi$ is the sum of the column degrees \end{thm}
+\begin{proof}
+The three main operations are computing a column basis of $\mathbf{F}_{U}$,
+computing a kernel basis $\mathbf{N}$ of $\mathbf{F}_{U}$, and the
+matrix multiplication $\mathbf{F}_{d}\mathbf{N}$.
+
+For the column basis computation, by \prettyref{thm:columnBasisCost1}
+we know that a column basis $\mathbf{G}_{1}$ of $\mathbf{F}_{U}$
+can be computed with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right).$
+By \prettyref{lem:colBasisDegreeBoundByInputDegrees} the column degrees
+of the computed column basis $\mathbf{G}_{1}$ are also bounded by
+the original column degrees $\vec{s}$.
+
+For the kernel basis computation, it also costs $O^{\sim}\left(n^{\omega-1}\xi\right)$
+to compute a $\vec{s}$-minimal kernel basis $\mathbf{N}$ of $\mathbf{F}_{U}$
+from \prettyref{thm:costLowColDimension}. The sum of the $\vec{s}$-column
+degrees of the output kernel basis $\mathbf{N}$ is bounded by $\xi$
+by \prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBasis}.
+
+Finally for the matrix multiplication $\mathbf{F}_{d}\mathbf{N}$,
+since the sum of the column degrees of $\mathbf{F}_{d}$ and the sum
+of the $\vec{s}$-column degrees of $\mathbf{N}$ are both bounded
+by $\xi$, \prettyref{thm:multiplyUnbalancedMatrices} applies and
+the multiplication can be done with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$.
+
+Now if we let the cost of \prettyref{alg:hermiteDiagonal} be $g(n,\xi)$
+for a input matrix of dimension $n$ with $\xi$ bounding the sum
+of its column degrees, then we have the recurrence relation
+\[
+g(n,\xi)\in O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi),
+\]
+ which is the same as in \prettyref{thm:inverseCost} for computing
+the matrix inverse. Therefore, we also get $g(n,\xi)=O^{\sim}(n^{\omega-1}\xi)$
+as in the inverse computation.\end{proof}
+\begin{cor}
+The determinant of a nonsingular matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+can be computed with a cost of $O^{\sim}(n^{\omega-1}\xi)$ field
+operations, where $\xi$ is the minimum of the sum of the column degrees
+and the sum of the row degrees of the input matrix.\end{cor}
+\begin{proof}
+Just use \prettyref{alg:hermiteDiagonal} to compute the diagonal
+entries of the Hermite normal form of either $\mathbf{F}$ or $\mathbf{F}^{T}$,
+and then multiply the diagonal entries.\end{proof}
+

@@ -1,0 +1,46 @@
+\begin{algorithm}[t]
+\caption{$\mnb(\mathbf{F},\vec{s})$: Compute a $\vec{s}$-minimal kernel Basis}
+\label{alg:minimalNullspaceBasis}
+
+\begin{algorithmic}
+[1]\REQUIRE{$\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$, $\vec{s}=[s_{1},\dots,s_{n}]\in\mathbb{Z}^{n}$
+with entries arranged in non-decreasing order and bounding the corresponding
+column degrees of $\mathbf{F}$. }
+
+\ENSURE{A $\vec{s}$-minimal kernel basis of $\mathbf{F}$.}
+
+\STATE{$\xi:=\sum_{i=1}^{n}s_{i}$; $\rho:=\sum_{i=n-m+1}^{n}s_{i};$ $s:=\rho/m$; }
+
+\STATE{$\left[\mathbf{P},\vec{b}\right]:=\mab\left(\mathbf{F},3s,\vec{s}\right)$,
+a $\left(\mathbf{F},3s,\vec{s}\right)$-basis with the columns of
+$\mathbf{P}$ and the entries of is $\vec{s}$-column degrees $\vec{b}$
+arranged so that the entries of $\vec{b}$ are in non-decreasing order;}\label{line:orderBasis}
+
+\STATE{$\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]:=\mathbf{P}$ where $\mathbf{P}_{1}$
+consists of all columns $\mathbf{p}$ of $\mathbf{P}$ satisfying
+$\mathbf{F}\mathbf{p}=0$;}
+
+\IF{$m=1$}
+
+\ifbody{\RETURN $\mathbf{P}_{1}$ 
+
+\ELSE{}
+
+\STATE{ $\vec{t}:=\deg_{\vec{s}}\mathbf{P}_{2}-\left[3s,3s,\dots,3s\right];$}
+
+\STATE{$\mathbf{G}:=\mathbf{F}\mathbf{P}_{2}/x^{3s}$;}\label{line:multiplyFP2}
+
+\STATE{$\left[\mathbf{G}_{1}^{T},\mathbf{G}_{2}^{T}\right]^{T}:=\mathbf{G}$,
+with $\mathbf{G}_{1}$ having $\left\lfloor m/2\right\rfloor $ rows
+and $\mathbf{G}_{2}$ having $\left\lceil m/2\right\rceil $ rows;}
+
+\STATE{$\mathbf{N}_{1}:=\mnb\left(\mathbf{G}_{1},\vec{t}\right);$ }
+
+\STATE{$\mathbf{N}_{2}:=\mnb\left(\mathbf{G}_{2}\mathbf{N}_{1},\cdeg_{\vec{t}}\mathbf{N}_{1}\right);$}\label{line:multiplyG2N1}
+
+\STATE{$\mathbf{Q}:=\mathbf{N}_{1}\mathbf{N}_{2}$;}\label{line:multiplyN1N2}
+
+\RETURN $\left[\mathbf{P}_{1},\mathbf{P}_{2}\mathbf{Q}\right]$\label{line:multiplyP2Q}}
+\end{algorithmic}
+\end{algorithm}
+

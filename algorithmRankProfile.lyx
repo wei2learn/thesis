@@ -8,7 +8,7 @@
 \end_preamble
 \options amsthm
 \use_default_options false
-\master nullspaceBasisApplications.lyx
+\master nullspaceBasisComputing.lyx
 \begin_modules
 algorithmics
 \end_modules
@@ -69,22 +69,6 @@ algorithmics
 \begin_body
 
 \begin_layout Standard
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-Note that rank sensitive computation for order basis is not as natural,
- since for order basis we work with power series in general, whose rank
- may never be truly computed.
- In addition, the computed basis does not correspond to the rank.
- For these reasons, we do not pursue rank sensitive computations for order
- basis.
- 
-\end_layout
-
-\end_inset
-
-
 \begin_inset Float algorithm
 placement t
 wide false
@@ -95,7 +79,11 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-\begin_inset Formula $\unimodularCompletion(\mathbf{F},\vec{s})$
+\begin_inset Formula $\rankProfile(\mathbf{F})$
+\end_inset
+
+: Compute a rank profile of 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
 
@@ -106,7 +94,7 @@ status open
 
 \begin_inset CommandInset label
 LatexCommand label
-name "alg:unimodularCompletion"
+name "alg:rankProfile"
 
 \end_inset
 
@@ -125,20 +113,8 @@ status open
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- with 
-\begin_inset Formula $I_{m}$
-\end_inset
-
- as a GCD; 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
- is initially set to the column degrees of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
 .
- It keeps track of the degrees.
+ 
 \end_layout
 
 \end_inset
@@ -151,16 +127,16 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{\left(n-m\right)\times n}$
+A row rank profile 
+\begin_inset Formula $\bar{j}=\left[j_{1},\dots,j_{r}\right]\in\mathbb{Z}^{r}$
 \end_inset
 
- such that 
-\begin_inset Formula $\begin{bmatrix}\mathbf{F}\\
-\mathbf{G}
-\end{bmatrix}$
+ of 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
- is unimodular.
+.
+ 
 \end_layout
 
 \end_inset
@@ -173,34 +149,14 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{F}^{r}:=\rowRev\left(\mathbf{F},-\vec{s},0\right)$
+\begin_inset Formula $k:=1$
 \end_inset
 
-;
-\end_layout
-
+; (
+\begin_inset Formula $k$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathbf{M}:=\mnb(\mathbf{F}^{r},\vec{s})$
-\end_inset
-
-; 
-\begin_inset Formula $\vec{b}:=\cdeg_{\vec{s}}\mathbf{M}$
-\end_inset
-
-; 
-\begin_inset Formula $k:=n-m;$
-\end_inset
-
-
+ keeps track of the current row) 
 \end_layout
 
 \end_inset
@@ -215,180 +171,30 @@ status open
 \begin_layout Plain Layout
 
 \series bold
-\begin_inset Formula $\left[\mathbf{M}_{1}^{T},\mathbf{M}_{2}^{T},\cdots,\mathbf{M}_{\log k-1}^{T},\mathbf{M}_{\log k}^{T}\right]:=\mathbf{M}$
-\end_inset
-
-
+while 
 \series default
-, with 
-\begin_inset Formula $\mathbf{M}_{\log k},\mathbf{M}_{\log k-1},\cdots,\mathbf{M}_{2},\mathbf{M}_{1}$
-\end_inset
 
- having 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--row degrees in the range 
-\begin_inset Formula $\left[0,2\xi/k\right],(2\xi/k,4\xi/k],...,(\xi/4,\xi/2],(\xi/2,\xi].$
-\end_inset
-
-
-\series bold
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex FOR
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $i$
+\begin_inset Formula $k\le m$
 \end_inset
 
  
 \series bold
-from 
-\begin_inset Formula $1$
-\end_inset
+and 
+\series default
 
- to 
-\begin_inset Formula $\log k$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex FORBODY
-status open
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\vec{\sigma}_{i}:=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
-\end_inset
-
-, with the number of entries matches the row dimension of 
-\begin_inset Formula $\mathbf{M}_{i};$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\vec{\sigma}:=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]$
-\end_inset
-
-;
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\hat{\mathbf{M}}:=x^{\vec{\sigma}-\vec{b}-1}\mathbf{M};$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\mathbf{N}_{0}:=I_{n}$
-\end_inset
-
-; 
-\begin_inset Formula $\tilde{\mathbf{N}}_{0}:=I_{n};$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex FOR
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $i$
+\begin_inset Formula $\mathbf{F}_{k}\ne0$
 \end_inset
 
  
 \series bold
-from 
-\begin_inset Formula $1$
+do 
+\begin_inset Formula $k:=k+1$
 \end_inset
 
- to 
-\begin_inset Formula $\log k$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Flex FORBODY
-status open
-
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\vec{s}_{i}:=-\cdeg_{-\vec{s}}\mathbf{N}_{i-1};$
-\end_inset
-
- (note 
-\begin_inset Formula $\vec{s}_{1}=\vec{s}$
+ end while
+\series default
+; (find the first nonzero row 
+\begin_inset Formula $\mathbf{F}_{k}$
 \end_inset
 
 )
@@ -404,10 +210,18 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{P}_{i}:=\umab\left(\hat{\mathbf{M}}_{i}\tilde{\mathbf{N}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
+\begin_inset Formula $\bar{j}=\left[k\right];$
 \end_inset
 
-; 
+ 
+\begin_inset Formula $r:=1$
+\end_inset
+
+; (
+\begin_inset Formula $r$
+\end_inset
+
+ is the current rank)
 \end_layout
 
 \end_inset
@@ -416,35 +230,21 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Flex STATE
+\begin_inset Flex WHILE
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left[\mathbf{N}_{i},\mathbf{Q}_{i}\right]:=\mathbf{P}_{i}$
+\begin_inset Formula $k<m$
 \end_inset
 
-, where 
-\begin_inset Formula $\mathbf{N}_{i}$
-\end_inset
+ 
+\begin_inset Flex AND
+status collapsed
 
- is a 
-\begin_inset Formula $\left(\hat{\mathbf{M}}_{i},-\vec{s}_{i}\right)$
-\end_inset
-
--nullspace basis;
-\end_layout
-
-\end_inset
-
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset Flex STATE
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula $\tilde{\mathbf{N}_{i}}:=\tilde{\mathbf{N}}_{i-1}\cdot\mathbf{N}_{i};$
 \end_inset
 
  
@@ -456,13 +256,138 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Flex STATE
-status collapsed
+\begin_inset Flex WHILEBODY
+status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{R}:=\left[\mathbf{R},\tilde{\mathbf{N}}_{i-1}\mathbf{Q}_{i}\right]$
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $k':=\min\left(m,k+r-1\right)$
 \end_inset
 
+; (last row in the block)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{G}:=\mathbf{F}_{\left[\bar{j},k\dots,k'\right]};$
+\end_inset
+
+ (the 
+\begin_inset Formula $r$
+\end_inset
+
+ linearly independent rows and the next block of rows)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{T}:=\colBasis(\mathbf{G});$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{N},\bar{e}:=\mnbrp(\mathbf{G});$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex FOR
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $i$
+\end_inset
+
+ 
+\series bold
+from 
+\begin_inset Formula $r+1$
+\end_inset
+
+ to 
+\series default
+
+\begin_inset Formula $2r$
+\end_inset
+
+ (convert indicator to indices and append to 
+\begin_inset Formula $\bar{j}$
+\end_inset
+
+) 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex FORBODY
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+if
+\series default
+ 
+\begin_inset Formula $e_{i}=1$
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ 
+\begin_inset Formula $\bar{j}:=\left[\bar{j},e_{i}-r+k-1\right]$
+\end_inset
+
+ 
+\series bold
+end if
+\series default
 ;
 \end_layout
 
@@ -481,7 +406,12 @@ status collapsed
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{R}^{r}:=\colRev\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right);$
+\begin_inset Formula $k:=k+r$
+\end_inset
+
+; 
+\end_layout
+
 \end_inset
 
 
@@ -506,10 +436,10 @@ RETURN
 \end_inset
 
  
-\begin_inset Formula $\left(\mathbf{R}^{r}\right)^{T}$
+\begin_inset Formula $\bar{j}$
 \end_inset
 
- 
+;
 \end_layout
 
 \end_inset

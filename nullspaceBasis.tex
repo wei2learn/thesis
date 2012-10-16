@@ -1,0 +1,29 @@
+
+\chapter{Kernel Basis\label{chap:NullspaceBasis}}
+
+In this chapter we discuss the computation of minimal kernel bases.
+
+Minimal kernel bases can be directly computed via order basis computation.
+Indeed if the order $\sigma$ of a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
+$\mathbf{P}$ is high enough, then $\mathbf{P}$ contains a $\vec{s}$-minimal
+kernel basis $\mathbf{N}$. However, this approach may require the
+order $\sigma$ to be quite high. For example, if $\mathbf{F}$ has
+degree $d$ and $\vec{s}$ is uniform, then its minimal kernel bases
+can have degree up to $md$. In that case the order $\sigma$ would
+need to be set to $d+md$ in the order basis computation in order
+to fully compute a minimal kernel basis. The fastest method of computing
+such a $\left(\mathbf{F},d+md\right)$-basis would cost $O^{\sim}\left(n^{\omega-1}m^{2}d\right)$
+using the algorithm from \citep{za2009}. We can see from this cost
+that there is room for improvement when $m$ is large. For example,
+in the worst case when $m\in\Theta\left(n\right)$, this cost would
+be $O^{\sim}\left(n^{\omega+1}d\right)$. This points to a root cause
+for the inefficiency in this approach. Namely, when $m$ is large,
+the computed kernel basis, which can have a column dimension of $n-m$,
+is a much smaller subset of the order basis computed. Hence considerable
+effort is put in the computation of order basis elements that are
+not part of a kernel basis. A key to reducing the cost is therefore
+to reduce such computation of unneeded order basis elements, which
+is achieved in our algorithm by only using order basis computation
+to compute partial kernel bases of low degrees.
+
+\input{nullspaceBasisComputing.tex}
