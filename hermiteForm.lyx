@@ -137,7 +137,69 @@ For simplicity, we assume
 \end_inset
 
 .
- Notice that the unimodular matrix 
+ Then if 
+\begin_inset Formula $\vec{u}=\left[\max\vec{s},\dots,\max\vec{s}\right]$
+\end_inset
+
+ with 
+\begin_inset Formula $n$
+\end_inset
+
+ entries, we can obtain the Hermite normal form from a 
+\begin_inset Formula $\left[-\vec{u},-\vec{s}\right]$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\left[\mathbf{F},I\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+If 
+\begin_inset Formula $\begin{bmatrix}\mathbf{V}\\
+\mathbf{G}
+\end{bmatrix}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left[-\vec{u},-\vec{s}\right]$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\left[\mathbf{F},-I\right]$
+\end_inset
+
+, where each block is 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ square, then 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is unimodularly equivalent with the Hermite normal form 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and has row degrees 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, the same as the row degrees of 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Notice that the unimodular matrix 
 \begin_inset Formula $\mathbf{U}$
 \end_inset
 
@@ -168,37 +230,36 @@ reference "lem:predictableDegree"
 \begin_inset Formula $\max\vec{s}$
 \end_inset
 
-.
- Therefore, if 
-\begin_inset Formula $\vec{u}=\left[\max\vec{s},\dots,\max\vec{s}\right]$
+, or equivalently, 
+\begin_inset Formula $\cdeg_{-\vec{u}}\mathbf{U}\le0$
 \end_inset
 
- with 
-\begin_inset Formula $n$
+, hence 
+\begin_inset Formula $\cdeg_{\left[-\vec{u},-\vec{s}\right]}\begin{bmatrix}\mathbf{U}\\
+\mathbf{H}
+\end{bmatrix}=\cdeg_{-\vec{s}}\mathbf{H}=0$
 \end_inset
 
- entries, then 
+, making 
 \begin_inset Formula $\begin{bmatrix}\mathbf{U}\\
 \mathbf{H}
 \end{bmatrix}$
 \end_inset
 
- is a 
+ 
+\begin_inset Formula $\left[-\vec{u},-\vec{s}\right]$
+\end_inset
+
+-column reduced and a 
 \begin_inset Formula $\left[-\vec{u},-\vec{s}\right]$
 \end_inset
 
 -minimal kernel basis of 
-\begin_inset Formula $\left[\mathbf{F},I\right]$
-\end_inset
-
-, as 
-\begin_inset Formula $\cdeg_{\left[-\vec{u},-\vec{s}\right]}\begin{bmatrix}\mathbf{U}\\
-\mathbf{H}
-\end{bmatrix}=\cdeg_{-\vec{s}}\mathbf{H}$
+\begin_inset Formula $\left[\mathbf{F},-I\right]$
 \end_inset
 
 .
- Therefore, If we compute a 
+ If we compute a 
 \begin_inset Formula $\left[-\vec{u},-\vec{s}\right]$
 \end_inset
 
@@ -209,31 +270,189 @@ reference "lem:predictableDegree"
 \end_inset
 
  of 
-\begin_inset Formula $\left[\mathbf{F},I\right]$
+\begin_inset Formula $\left[\mathbf{F},-I\right]$
 \end_inset
 
-, the matrix 
-\begin_inset Formula $\mathbf{G}$
+, we know that 
+\begin_inset Formula $\begin{bmatrix}\mathbf{V}\\
+\mathbf{G}
+\end{bmatrix}$
 \end_inset
 
- would have the same row degrees as 
-\begin_inset Formula $\mathbf{H}$
+ is unimodularly equivalent to 
+\begin_inset Formula $\begin{bmatrix}\mathbf{U}\\
+\mathbf{H}
+\end{bmatrix}$
+\end_inset
+
+, implying that 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is also unimodular.
+ The minimality also ensures that 
+\begin_inset Formula $\cdeg_{\left[-\vec{u},-\vec{s}\right]}\begin{bmatrix}\mathbf{V}\\
+\mathbf{G}
+\end{bmatrix}=\cdeg_{\left[-\vec{u},-\vec{s}\right]}\begin{bmatrix}\mathbf{U}\\
+\mathbf{H}
+\end{bmatrix}=0$
+\end_inset
+
+, implying 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{G}\le0=\cdeg_{-\vec{s}}\mathbf{H}$
 \end_inset
 
 .
- The Hermite form can then be obtained from 
+ But the minimality of 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ ensures that 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{G}=\cdeg_{-\vec{s}}\mathbf{H}=0$
+\end_inset
+
+, or equivalently, 
+\begin_inset Formula $\rdeg\mathbf{G}=\rdeg\mathbf{H}=\vec{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Knowing that 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
 
-, using Lemma 8 from 
+ has the same row degrees as 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ and is unimodularly equivalent with 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+, the Hermite form 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ can then be obtained from 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ using Lemma 8 from 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "GS2011"
 
 \end_inset
 
+, restated as follows:
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:recoverH"
+
+\end_inset
+
+If the Hermite normal form 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is a column basis of a matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+, and has the same row degrees as 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+has columns that generate the same module as the module generated by the
+ columns of 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, then the matrix 
+\begin_inset Formula $U\in\mathbb{K}^{n\times n}$
+\end_inset
+
+ putting 
+\begin_inset Formula $\lcoeff\left(x^{-\vec{s}}\mathbf{A}\right)U$
+\end_inset
+
+ in reduced column echelon form also gives the Hermite normal form 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ as the principal 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ submatrix of 
+\begin_inset Formula $\mathbf{A}U$
+\end_inset
+
 .
- The main difficulty here is that 
+\end_layout
+
+\begin_layout Proof
+This follows from the fact that 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ all have uniform 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+ column degrees 0, which allows their relationship to be completely determined
+ by 
+\begin_inset Formula $\lcoeff\left(x^{-\vec{s}}\mathbf{A}\right)$
+\end_inset
+
+ and the diagonal matrix 
+\begin_inset Formula $\lcoeff\left(x^{-\vec{s}}\mathbf{H}\right)$
+\end_inset
+
+ alone.
+\end_layout
+
+\begin_layout Standard
+Although the Hermite normal form 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be computed from a 
+\begin_inset Formula $\left[-\vec{u},-\vec{s}\right]$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\left[\mathbf{F},I\right]$
+\end_inset
+
+, a major problem here is that 
 \begin_inset Formula $\max\vec{s}$
 \end_inset
 
@@ -437,27 +656,275 @@ with the new column dimension
 \end_layout
 
 \begin_layout Standard
-Now if we compute a 
-\begin_inset Formula $\left(-\vec{u},-\bar{s}\right)$
+We can now recover 
+\begin_inset Formula $\mathbf{H}$
 \end_inset
 
--minimal kernel basis 
-\begin_inset Formula $\begin{bmatrix}\mathbf{V}\\
+ from a 
+\begin_inset Formula $\left[-\vec{u},-\bar{s}\right]$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\left[\mathbf{F},-\mathbf{E}\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:expandH"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{B}=\begin{bmatrix}\mathbf{V}'\\
 \mathbf{G}'
 \end{bmatrix}$
 \end_inset
 
- of 
-\begin_inset Formula $\left[\mathbf{F},\mathbf{E}\right]$
+ be a 
+\begin_inset Formula $\left(\left[\mathbf{F},-\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$
 \end_inset
 
-, then 
-\begin_inset Formula $\left[\mathbf{F},\mathbf{E}\right]\begin{bmatrix}\mathbf{V}\\
+-kernel basis, where 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $\bar{n}\times\bar{n}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\bar{\mathbf{B}}_{0}$
+\end_inset
+
+ be the matrix consisting of the columns of 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ whose 
+\begin_inset Formula $-\bar{s}$
+\end_inset
+
+-column degrees are bounded by 0.
+ Then 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{B}}_{0}$
+\end_inset
+
+ and the nonzero columns of 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{B}}_{0}$
+\end_inset
+
+ have 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees 0, allowing us to recover 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ from 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{B}}_{0}$
+\end_inset
+
+ using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:recoverH"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Note that we can construct a 
+\begin_inset Formula $\left(\left[\mathbf{F},-\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$
+\end_inset
+
+-kernel basis 
+\begin_inset Formula $\mathbf{A}=\begin{bmatrix}\mathbf{U} & 0\\
+\mathbf{H}_{\mathbf{E}} & \mathbf{N}_{\mathbf{E}}
+\end{bmatrix}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ is the unimodular matrix satisfying 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\mathbf{H}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{H}_{\mathbf{E}}$
+\end_inset
+
+ is the matrix 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ expanded according to 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+, so that 
+\begin_inset Formula $\mathbf{H}_{\mathbf{E}}$
+\end_inset
+
+ has row degrees 
+\begin_inset Formula $\bar{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{H}_{\mathbf{E}}\mathbf{E}=\mathbf{H}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{N}_{\mathbf{E}}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{E},-\bar{s}\right)$
+\end_inset
+
+-kernel basis.
+ Let 
+\begin_inset Formula $\mathbf{B}=\begin{bmatrix}\mathbf{V}'\\
 \mathbf{G}'
-\end{bmatrix}=0$
+\end{bmatrix}$
 \end_inset
 
- implies 
+ be another 
+\begin_inset Formula $\left(\left[\mathbf{F},-\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$
+\end_inset
+
+-kernel basis.
+ Then the matrix 
+\begin_inset Formula $\mathbf{A}_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}_{0}$
+\end_inset
+
+ consists of the columns from 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, respectively, whose 
+\begin_inset Formula $\left[-\vec{u},-\bar{s}\right]$
+\end_inset
+
+-column degrees are bounded by 
+\begin_inset Formula $0$
+\end_inset
+
+, are unimodularly equivalent, that is, 
+\begin_inset Formula $\mathbf{A}_{0}\mathbf{U}_{0}=\mathbf{B}_{0}$
+\end_inset
+
+ for some unimodular matrix 
+\begin_inset Formula $\mathbf{U}_{0}$
+\end_inset
+
+.
+ As a result, the matrices 
+\begin_inset Formula $\bar{\mathbf{A}}_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{\mathbf{B}}_{0}$
+\end_inset
+
+ consists of the bottom 
+\begin_inset Formula $\bar{n}$
+\end_inset
+
+ rows of 
+\begin_inset Formula $\mathbf{A}_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}_{0}$
+\end_inset
+
+ respectively, also satisfies 
+\begin_inset Formula $\bar{\mathbf{A}}_{0}\mathbf{U}_{0}=\bar{\mathbf{B}}_{0}$
+\end_inset
+
+.
+ Therefore, we also get 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{A}}_{0}\mathbf{U}_{0}=\mathbf{E}\bar{\mathbf{B}}_{0}$
+\end_inset
+
+, with 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{E}\bar{\mathbf{A}}_{0}\le0$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{E}\bar{\mathbf{B}}_{0}\le0$
+\end_inset
+
+, since 
+\begin_inset Formula $\cdeg_{-\bar{s}}\bar{\mathbf{A}}_{0}\le0$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{-\bar{s}}\bar{\mathbf{B}}_{0}\le0$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\bar{\mathbf{A}}_{0}=\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}'\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{N}'$
+\end_inset
+
+ consists of the columns of 
+\begin_inset Formula $\mathbf{N}_{E}$
+\end_inset
+
+ with 
+\begin_inset Formula $-\bar{s}$
+\end_inset
+
+-column degrees bounded by 0.
+ Then 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{A}}_{0}\mathbf{U}_{0}=\mathbf{E}\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}'\right]\mathbf{U}_{0}=\left[\mathbf{H},0\right]\mathbf{U}_{0}=\mathbf{E}\bar{\mathbf{B}}_{0}$
+\end_inset
+
+.
+ Now since 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ is 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column reduced and has 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $0$
+\end_inset
+
+, the nonzero columns of 
 \family roman
 \series medium
 \shape up
@@ -470,13 +937,10 @@ Now if we compute a
 \noun off
 \color none
 
-\begin_inset Formula $\left[\mathbf{F},I\right]\begin{bmatrix}\mathbf{V}\\
-\mathbf{E}\mathbf{G}'
-\end{bmatrix}=0$
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{B}}_{0}$
 \end_inset
 
-.
- The 
+ must have 
 \family default
 \series default
 \shape default
@@ -489,49 +953,31 @@ Now if we compute a
 \noun default
 \color inherit
 
-\begin_inset Formula $\left(-\vec{u},-\bar{s}\right)$
+\begin_inset Formula $-\vec{s}$
 \end_inset
 
--minimal
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-ity of 
-\begin_inset Formula $\begin{bmatrix}\mathbf{V}\\
-\mathbf{G}'
-\end{bmatrix}$
+-column degrees no less than 
+\begin_inset Formula $0$
 \end_inset
 
- also implies that 
-\begin_inset Formula $\mathbf{E}\mathbf{G}'$
+, hence their 
+\begin_inset Formula $-\vec{s}$
 \end_inset
 
- has the same row degrees as 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
-
-.
- We can therefore recover 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
-
- from 
-\begin_inset Formula $\mathbf{E}\mathbf{G}'$
-\end_inset
-
-.
+-column degrees are equal to 0.
 \end_layout
 
 \begin_layout Standard
-However, the degree of 
+The problem of computing a 
+\begin_inset Formula $\left(\left[\mathbf{F},I\right],\left[-\vec{u},-\vec{s}\right]\right)$
+\end_inset
+
+-kernel basis of is now reduced to computing a 
+\begin_inset Formula $\left(\left[\mathbf{F},\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$
+\end_inset
+
+-kernel basis.
+ However, the degree of 
 \begin_inset Formula $\mathbf{E}$
 \end_inset
 
@@ -539,7 +985,7 @@ However, the degree of
 \begin_inset Formula $\vec{u}$
 \end_inset
 
- is still too big to make the computation efficient.
+ are still too big to make the computation efficient.
  To lower these, we can reduce 
 \begin_inset Formula $\mathbf{E}$
 \end_inset
@@ -555,11 +1001,17 @@ key "GS2011,G2011"
 
 \end_inset
 
-, where the Smith normal form is used to reduce the degrees.
+, where the authors used the Smith normal form to reduce the degrees.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:reduceToRemainder"
+
+\end_inset
+
 Let 
 \begin_inset Formula $\mathbf{R}=\mathbf{E}-\mathbf{F}\mathbf{Q}$
 \end_inset
@@ -572,8 +1024,12 @@ Let
 \begin_inset Formula $\mathbf{R}$
 \end_inset
 
- has row degrees less than 
-\begin_inset Formula $\vec{d}$
+ has degree less than 
+\begin_inset Formula $d$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{u}=\left[2d,\dots,2d\right]\in\mathbb{Z}^{n}$
 \end_inset
 
 .
@@ -635,33 +1091,553 @@ status collapsed
 
 \end_inset
 
- Then 
-\begin_inset Formula $\left[\mathbf{F},\mathbf{E}\right]\begin{bmatrix}\mathbf{V}\\
+ Let 
+\begin_inset Formula $\mathbf{D}=\begin{bmatrix}\bar{\mathbf{V}}\\
 \mathbf{G}'
-\end{bmatrix}=0$
+\end{bmatrix}$
 \end_inset
 
- if and only if 
+ be a 
+\begin_inset Formula $\left(\left[\mathbf{F},-\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$
+\end_inset
+
+-kernel basis, where the block 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $n\times n$
+\end_inset
+
+, and 
+\begin_inset Formula $\bar{\mathbf{D}}_{0}$
+\end_inset
+
+ be the matrix consisting of the columns of 
+\begin_inset Formula $\mathbf{G}'$
+\end_inset
+
+ whose 
+\begin_inset Formula $-\bar{s}$
+\end_inset
+
+-column degrees are bounded by 0.
+ Then 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{D}}_{0}$
+\end_inset
+
+ and the nonzero columns of 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{D}}_{0}$
+\end_inset
+
+ have 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees 0, allowing us to recover 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ from 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{D}}_{0}$
+\end_inset
+
+ using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:recoverH"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+First note that from the kernel basis 
+\begin_inset Formula $\mathbf{A}=\begin{bmatrix}\mathbf{U} & 0\\
+\mathbf{H}_{\mathbf{E}} & \mathbf{N}_{\mathbf{E}}
+\end{bmatrix}$
+\end_inset
+
+ of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left[\mathbf{F},-\mathbf{E}\right]$
+\end_inset
+
+ constructed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:expandH"
+
+\end_inset
+
+, we can construct a kernel basis 
 \begin_inset Formula 
 \[
-\left[\mathbf{F},\mathbf{E}-\mathbf{F}\mathbf{Q}\right]\begin{bmatrix}\mathbf{V}+\mathbf{Q}\mathbf{G}'\\
-\mathbf{G}'
-\end{bmatrix}=\left[\mathbf{F},\mathbf{R}\right]\begin{bmatrix}\mathbf{V}+\mathbf{Q}\mathbf{G}'\\
-\mathbf{G}'
-\end{bmatrix}=0.
+\mathbf{C}=\begin{bmatrix}I & -\mathbf{Q}\\
+0 & I
+\end{bmatrix}\mathbf{A}=\begin{bmatrix}\mathbf{U}-\mathbf{Q}\mathbf{H}_{\mathbf{E}} & -\mathbf{Q}\mathbf{N}_{E}\\
+\mathbf{H}_{\mathbf{E}} & \mathbf{N}_{\mathbf{E}}
+\end{bmatrix}
 \]
 
 \end_inset
 
+ of 
+\begin_inset Formula $\left[\mathbf{F},-\mathbf{R}\right]=\left[\mathbf{F},-\mathbf{E}\right]\begin{bmatrix}I & \mathbf{Q}\\
+0 & I
+\end{bmatrix}$
+\end_inset
 
+.
+ Now if 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ is a 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\left(\left[\mathbf{F},-\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$
+\end_inset
+
+-kernel basis, it satisfies 
+\begin_inset Formula $\mathbf{C}\mathbf{V}=\mathbf{D}$
+\end_inset
+
+ for a unimodular 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+.
+ Also, the matrix 
+\begin_inset Formula $\mathbf{C}_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{D}_{0}$
+\end_inset
+
+ consist of the columns from 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+, respectively, whose 
+\begin_inset Formula $\left[-\bar{u},-\bar{s}\right]$
+\end_inset
+
+-column degrees are bounded by 
+\begin_inset Formula $0$
+\end_inset
+
+, satisfy 
+\begin_inset Formula $\mathbf{C}_{0}=\mathbf{D}_{0}\mathbf{V}_{0}$
+\end_inset
+
+ for some polynomial matrix 
+\begin_inset Formula $\mathbf{V}_{0}$
+\end_inset
+
+.
+ Then the matrices 
+\begin_inset Formula $\bar{\mathbf{C}}$
+\end_inset
+
+, 
+\begin_inset Formula $\bar{\mathbf{D}}$
+\end_inset
+
+, 
+\begin_inset Formula $\bar{\mathbf{C}}_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $\bar{\mathbf{D}}_{0}$
+\end_inset
+
+ consist of the bottom 
+\begin_inset Formula $\bar{n}$
+\end_inset
+
+ rows of 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{C}_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{D}_{0}$
+\end_inset
+
+ respectively, satisfy 
+\begin_inset Formula $\bar{\mathbf{C}}\mathbf{V}=\bar{\mathbf{D}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{\mathbf{C}}_{0}=\bar{\mathbf{D}}_{0}\mathbf{V}_{0}$
+\end_inset
+
+.
+ It then follows that 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{C}}\mathbf{V}=\mathbf{E}\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}_{\mathbf{E}}\right]\mathbf{V}=\left[\mathbf{H},0\right]\mathbf{V}=\mathbf{E}\bar{\mathbf{D}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{C}}_{0}=\mathbf{E}\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}'\right]=\left[\mathbf{H},0\right]=\mathbf{E}\bar{\mathbf{D}}_{0}\mathbf{V}_{0}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{N}'$
+\end_inset
+
+ consists of the columns of 
+\begin_inset Formula $\mathbf{N}_{E}$
+\end_inset
+
+ with 
+\begin_inset Formula $-\bar{s}$
+\end_inset
+
+-column degrees bounded by 0.
+ From 
+\begin_inset Formula $\left[\mathbf{H},0\right]\mathbf{V}=\mathbf{E}\bar{\mathbf{D}}$
+\end_inset
+
+ we know that the nonzero columns of 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{D}}$
+\end_inset
+
+ has 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees no less than 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{H}=0$
+\end_inset
+
+.
+ On the other hand, we know that 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{E}\bar{\mathbf{D}}_{0}\le0$
+\end_inset
+
+ since 
+\begin_inset Formula $\cdeg_{-\bar{s}}\bar{\mathbf{D}}_{0}\le0$
+\end_inset
+
+, therefore the nonzero columns of 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{D}}_{0}$
+\end_inset
+
+ has 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees equal 
+\begin_inset Formula $0$
+\end_inset
+
+.
+ Also from 
+\begin_inset Formula $\left[\mathbf{H},0\right]\mathbf{V}=\mathbf{E}\bar{\mathbf{D}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left[\mathbf{H},0\right]=\mathbf{E}\bar{\mathbf{D}}_{0}\mathbf{V}_{0}$
+\end_inset
+
+ we know that 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{D}}_{0}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Proof
+the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of nonzero columns of 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{D}}_{0}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $0$
+\end_inset
+
+, since 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Proof
+we know that 
+\end_layout
+
+\begin_layout Proof
+is a kernel basis of 
+\begin_inset Formula $\left[\mathbf{F},-\mathbf{E}\right]$
+\end_inset
+
+.
+ Now 
+\begin_inset Formula $\mathbf{A}=\mathbf{B}\mathbf{U}$
+\end_inset
+
+ for any 
+\begin_inset Formula $\left(\left[\mathbf{F},\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$
+\end_inset
+
+-kernel basis 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, and therefore as before, the matrix 
+\begin_inset Formula $\mathbf{A}_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}_{0}$
+\end_inset
+
+ consists of the columns from 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, respectively, whose 
+\begin_inset Formula $\left[-\bar{u},-\bar{s}\right]$
+\end_inset
+
+-column degrees are bounded by 
+\begin_inset Formula $0$
+\end_inset
+
+, satisfies, 
+\begin_inset Formula $\mathbf{A}_{0}=\mathbf{B}_{0}\mathbf{C}_{0}$
+\end_inset
+
+ for some polynomial matrix 
+\begin_inset Formula $\mathbf{C}_{0}$
+\end_inset
+
+.
+ The matrices 
+\begin_inset Formula $\bar{\mathbf{A}}_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{\mathbf{B}}_{0}$
+\end_inset
+
+ consists of the bottom 
+\begin_inset Formula $\bar{n}$
+\end_inset
+
+ rows of 
+\begin_inset Formula $\mathbf{A}_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}_{0}$
+\end_inset
+
+ respectively, also satisfies 
+\begin_inset Formula $\bar{\mathbf{A}}_{0}=\bar{\mathbf{B}}_{0}\mathbf{C}_{0}$
+\end_inset
+
+.
+ Therefore, we also get 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{A}}_{0}=\mathbf{E}\bar{\mathbf{B}}_{0}\mathbf{C}_{0}$
+\end_inset
+
+, with 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{E}\bar{\mathbf{A}}_{0}\le0$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{E}\bar{\mathbf{B}}_{0}\le0$
+\end_inset
+
+, since 
+\begin_inset Formula $\cdeg_{-\bar{s}}\bar{\mathbf{A}}_{0}\le0$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{-\bar{s}}\bar{\mathbf{B}}_{0}\le0$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\bar{\mathbf{A}}_{0}=\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}'\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{N}'$
+\end_inset
+
+ consists of the columns of 
+\begin_inset Formula $\mathbf{N}_{E}$
+\end_inset
+
+ with 
+\begin_inset Formula $-\bar{s}$
+\end_inset
+
+-column degrees bounded by 0.
+ Then 
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{A}}_{0}=\mathbf{E}\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}'\right]=\left[\mathbf{H},0\right]=\mathbf{E}\bar{\mathbf{B}}_{0}\mathbf{C}_{0}$
+\end_inset
+
+.
+ Now since 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ is 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column reduced and has 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $0$
+\end_inset
+
+, the nonzero columns of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{B}}_{0}$
+\end_inset
+
+ must have 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees no less than 
+\begin_inset Formula $0$
+\end_inset
+
+, hence their 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees are equal to 0.
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula $\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}_{\mathbf{E}}\right]=\bar{\mathbf{B}}\mathbf{U}$
+\end_inset
+
+, where 
+\begin_inset Formula $\bar{\mathbf{B}}$
+\end_inset
+
+ consists of the bottom 
+\begin_inset Formula $\bar{n}$
+\end_inset
+
+ rows of 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+.
+ Then we have 
+\begin_inset Formula $\mathbf{E}\left[\mathbf{H}_{\mathbf{E}},\mathbf{N}_{\mathbf{E}}\right]=\left[\mathbf{H},0\right]=\mathbf{E}\bar{\mathbf{B}}\mathbf{U}$
+\end_inset
+
+.
+ Now if 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\left[\mathbf{F},\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$
+\end_inset
+
+-kernel basis, then its minimality ensures that its columns with 
+\begin_inset Formula $\left[-\bar{u},-\bar{s}\right]$
+\end_inset
+
+-column degrees bounded by 0 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Notice that the degree of 
 \begin_inset Formula $\mathbf{V}+\mathbf{Q}\mathbf{G}'$
 \end_inset
 
- is now also less than 
+ is now less than 
 \begin_inset Formula $2d$
 \end_inset
 
@@ -694,26 +1670,30 @@ Notice that the degree of
 \begin_inset Formula $\left[\mathbf{F},\mathbf{R}\right]$
 \end_inset
 
-.
- This can now be done efficiently and gives us a kernel basis 
-\begin_inset Formula $\begin{bmatrix}*\\
-\mathbf{G}'
-\end{bmatrix}$
+
+\end_layout
+
 \end_inset
 
-, which then allow us to recover 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
 
- from 
-\begin_inset Formula $\mathbf{E}\mathbf{G}'$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
-A big question remaining, however, is how to efficiently compute 
+A 
+\begin_inset Formula $\left(\left[\mathbf{F},-\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$
+\end_inset
+
+-kernel basis from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:reduceToRemainder"
+
+\end_inset
+
+ can now be efficiently computed, and can then be used to recover the Hermite
+ normal form.
+ A big question remaining, however, is how to efficiently compute the remainder
+ 
 \begin_inset Formula $\mathbf{R}$
 \end_inset
 
@@ -753,7 +1733,7 @@ inverse of
 
 \begin_inset Formula 
 \[
-\mathbf{F}^{r}=\colRev(\mathbf{F},0,\vec{d})=\left(\mathbf{F}(1/x)\right)\begin{bmatrix}x^{d_{1}}\\
+\mathbf{F}^{r}=\colRev(\mathbf{F},0,\vec{d})=\mathbf{F}(1/x)\begin{bmatrix}x^{d_{1}}\\
  & \ddots\\
  &  & x^{d_{n}}
 \end{bmatrix},
@@ -883,12 +1863,12 @@ key "storjohann:2003"
 \uwave off
 \noun off
 \color none
- is deterministic.
+ becomes deterministic.
  
 \end_layout
 
 \begin_layout Standard
-
+Let us now look at how the series expansion of 
 \family roman
 \series medium
 \shape up
@@ -900,7 +1880,53 @@ key "storjohann:2003"
 \uwave off
 \noun off
 \color none
-Let the series expansion of 
+
+\begin_inset Formula $\left(\mathbf{F}^{r}\right)^{-1}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ gives a remainder of 
+\begin_inset Formula $x^{k}I$
+\end_inset
+
+ divide by 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:remainder"
+
+\end_inset
+
+Let 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+the series expansion of 
 \begin_inset Formula $\left(\mathbf{F}^{r}\right)^{-1}$
 \end_inset
 
@@ -921,35 +1947,19 @@ Let the series expansion of
 \end_inset
 
 .
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-Then 
-\begin_inset Formula $I=\mathbf{F}^{r}\left(\bar{\mathbf{F}}\mod x^{k-\vec{d}}\right)+x^{k-\vec{d}}\mathbf{C}$
+ Then for any integer 
+\begin_inset Formula $k\ge d$
 \end_inset
 
-, where 
+, we have 
+\begin_inset Formula 
+\begin{equation}
+I=\mathbf{F}^{r}\left(\bar{\mathbf{F}}\mod x^{k-\vec{d}}\right)+x^{k-d}\mathbf{C},\label{eq:division}
+\end{equation}
+
+\end_inset
+
+where 
 \begin_inset Formula $\bar{\mathbf{F}}\mod x^{k-\vec{d}}$
 \end_inset
 
@@ -974,31 +1984,66 @@ th row of
 \end_inset
 
 .
- Note that since the first term must have degree less than 
+ Then 
+\begin_inset Formula $\mathbf{C}^{r}=\colRev\left(x^{k-d}\mathbf{C},0,k\right)$
+\end_inset
+
+ has degree less than 
+\begin_inset Formula $d$
+\end_inset
+
+ and satisfies 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $x^{k}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Since the first term of Equation 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:division"
+
+\end_inset
+
+ has degree less than 
 \begin_inset Formula $k$
 \end_inset
 
-, the degree of 
-\begin_inset Formula $x^{k-\vec{d}}\mathbf{C}$
+, the the degree of 
+\begin_inset Formula $x^{k-d}\mathbf{C}$
 \end_inset
 
  must be also less than 
 \begin_inset Formula $k$
 \end_inset
 
-, or equivalently, the row degrees of 
+, or equivalently, the degree of 
 \begin_inset Formula $\mathbf{C}$
 \end_inset
 
  must be less than 
-\begin_inset Formula $\vec{d}$
+\begin_inset Formula $d$
 \end_inset
 
 .
- If we now reverse the coefficients, we have 
+ If we now reverse the coefficients, we get 
 \begin_inset Formula 
 \[
-\colRev\left(I,0,k\right)=\colRev(\mathbf{F}^{r},0,\vec{d})\cdot\colRev\left(\left(\bar{\mathbf{F}}^{r}\mod x^{k-\vec{d}}\right),\vec{d},k\right)+\colRev\left(x^{k-\vec{d}}\mathbf{C},0,k\right),
+\colRev\left(I,0,k\right)=\colRev(\mathbf{F}^{r},0,\vec{d})\cdot\colRev\left(\left(\bar{\mathbf{F}}\mod x^{k-\vec{d}}\right),\vec{d},k\right)+\colRev\left(x^{k-d}\mathbf{C},0,k\right),
 \]
 
 \end_inset
@@ -1015,7 +2060,7 @@ x^{k}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r},
 \begin_inset Formula $\mathbf{C}^{r}$
 \end_inset
 
- as the remainder of 
+ as a remainder of 
 \begin_inset Formula $x^{k}I$
 \end_inset
 
@@ -1023,12 +2068,30 @@ x^{k}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r},
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
-.
- This shows that the series expansion of 
-\begin_inset Formula $\bar{\mathbf{F}}^{r}$
+, where 
+\begin_inset Formula $\mathbf{C}^{r}$
 \end_inset
 
- allows us to compute the remainder of 
+ has degree less than 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:remainder"
+
+\end_inset
+
+ shows how the series expansion 
+\begin_inset Formula $\bar{\mathbf{F}}$
+\end_inset
+
+ can be used to compute a remainder of 
 \begin_inset Formula $x^{k}I$
 \end_inset
 
@@ -1037,7 +2100,7 @@ x^{k}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r},
 \end_inset
 
  for any 
-\begin_inset Formula $k$
+\begin_inset Formula $k\ge d$
 \end_inset
 
 .
@@ -1045,15 +2108,19 @@ x^{k}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r},
 \begin_inset Formula $i$
 \end_inset
 
-th column of 
-\begin_inset Formula $\bar{\mathbf{F}}^{r}$
+th column 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}=\bar{\mathbf{F}}e_{i}$
 \end_inset
 
-, or equivalently 
-\begin_inset Formula $\bar{\mathbf{F}}^{r}e_{i}$
+ of 
+\begin_inset Formula $\bar{\mathbf{F}}$
 \end_inset
 
- allows us to compute the remainder of 
+ allows us to compute a remainder 
+\begin_inset Formula $\mathbf{r}$
+\end_inset
+
+ of 
 \begin_inset Formula $x^{k}e_{i}$
 \end_inset
 
@@ -1061,29 +2128,8 @@ th column of
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
-.
- 
-\end_layout
-
-\begin_layout Standard
-Note that 
-\begin_inset Formula $\mathbf{E}$
-\end_inset
-
- consists of the columns of the form 
-\begin_inset Formula $x^{k}e_{i}$
-\end_inset
-
-, with at most 
-\begin_inset Formula $2n$
-\end_inset
-
- columns, which contains at most 
-\begin_inset Formula $n$
-\end_inset
-
- columns with degree no less than 
-\begin_inset Formula $d$
+, with 
+\begin_inset Formula $\deg\mathbf{r}<d$
 \end_inset
 
 .
@@ -1095,20 +2141,150 @@ Note that
 \begin_inset Formula $s_{i}$
 \end_inset
 
-, and 
-\begin_inset Formula $\sum\vec{s}$
+, so we need to compute the series expansion 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}$
 \end_inset
 
- is bounded by 
-\begin_inset Formula $nd$
+ to at least order 
+\begin_inset Formula $s_{i}$
 \end_inset
 
 .
- 
+ Now let us look how these series expansions can be computed efficiently.
 \end_layout
 
 \begin_layout Standard
-We can separate 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We need to compute a remainder for each column of 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ that has degree no less than 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ consists of at most 
+\begin_inset Formula $2n$
+\end_inset
+
+ columns of the form 
+\begin_inset Formula $x^{k}e_{i}$
+\end_inset
+
+, with 
+\begin_inset Formula $n$
+\end_inset
+
+ columns from 
+\begin_inset Formula $I_{n}$
+\end_inset
+
+ having degree 0.
+ So there are no more than 
+\begin_inset Formula $n$
+\end_inset
+
+ columns remaining to be worked on.
+ Also note that the degrees of columns correspond to 
+\begin_inset Formula $e_{i}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $s_{i}$
+\end_inset
+
+, so we need at least 
+\begin_inset Formula $s_{i}$
+\end_inset
+
+ terms from the series expansion 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}$
+\end_inset
+
+.
+ To efficiently compute the series expansions 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}$
+\end_inset
+
+ for all 
+\begin_inset Formula $i$
+\end_inset
+
+'s where 
+\begin_inset Formula $s_{i}\ge d$
+\end_inset
+
+, we group the computations together according the size of 
+\begin_inset Formula $s_{i}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+Computing the series expansions 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}$
+\end_inset
+
+ to order 
+\begin_inset Formula $s_{i}$
+\end_inset
+
+ for all 
+\begin_inset Formula $i$
+\end_inset
+
+'s where 
+\begin_inset Formula $s_{i}\ge d$
+\end_inset
+
+ can be done with a cost of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+ field operations.
+\end_layout
+
+\begin_layout Proof
+As before, we assume without loss of generality that the columns of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and the corresponding entries of 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]$
+\end_inset
+
+ are arranged so that the entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ are in increasing order.
+ We separate 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -1204,7 +2380,7 @@ by grouping their indices
 \end_inset
 
  would exceed 
-\begin_inset Formula $nd$
+\begin_inset Formula $\sum\vec{s}=nd$
 \end_inset
 
 .
@@ -1221,7 +2397,7 @@ by grouping their indices
 \noun default
 \color inherit
 Then we compute series expansions 
-\begin_inset Formula $\bar{\mathbf{F}}_{\bar{j}^{\left(1\right)}}^{r},\bar{\mathbf{F}}_{\bar{j}^{\left(2\right)}}^{r},\dots,\bar{\mathbf{F}}_{\bar{j}^{\left(\left\lceil \log n\right\rceil \right)}}^{r}$
+\begin_inset Formula $\bar{\mathbf{F}}_{\bar{j}^{\left(1\right)}},\bar{\mathbf{F}}_{\bar{j}^{\left(2\right)}},\dots,\bar{\mathbf{F}}_{\bar{j}^{\left(\left\lceil \log n\right\rceil \right)}}$
 \end_inset
 
  separately, to order 
@@ -1229,11 +2405,11 @@ Then we compute series expansions
 \end_inset
 
  respectively, where again 
-\begin_inset Formula $\bar{\mathbf{F}}_{\bar{j}^{(i)}}^{r}$
+\begin_inset Formula $\bar{\mathbf{F}}_{\bar{j}^{(i)}}$
 \end_inset
 
  consists of the columns of 
-\begin_inset Formula $\bar{\mathbf{F}}^{r}$
+\begin_inset Formula $\bar{\mathbf{F}}$
 \end_inset
 
  that are indexed by the entries in 
@@ -1260,19 +2436,32 @@ computing the series expansion
 \end_inset
 
 
-\begin_inset Formula $\bar{\mathbf{F}}^{r}{}_{\bar{j}^{\left(i\right)}}$
+\begin_inset Formula $\bar{\mathbf{F}}{}_{\bar{j}^{\left(i\right)}}$
 \end_inset
 
-, there are less than 
-\begin_inset Formula $nd/2^{i}$
+, there are at most 
+\begin_inset Formula $n/2^{i-1}$
 \end_inset
 
- columns, so computing the series expansion to 
+ columns, so computing the series expansion to order 
 \begin_inset Formula $2^{i}d$
 \end_inset
 
  cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Formula $O^{\sim}\left(in^{\omega}d\right)\subset O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 .
@@ -1325,7 +2514,24 @@ status collapsed
 
 \end_inset
 
- Also note that since 
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Also note that since 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -1350,8 +2556,53 @@ tic.
  
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-Now the remainder 
+With the series expansions computed, we can now compute a remainder 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ divide by 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+A remainder 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ divide by 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, where 
+\begin_inset Formula $\deg\mathbf{R}<d$
+\end_inset
+
+, can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+ field operations.
+\end_layout
+
+\begin_layout Proof
+The remainder 
 \begin_inset Formula $\mathbf{r}$
 \end_inset
 
@@ -1364,24 +2615,11 @@ Now the remainder
 \end_inset
 
  can be obtained by 
-\begin_inset Formula $\left(e_{i}-\mathbf{F}^{r}\left(\bar{\mathbf{F}}_{i}^{r}\mod x^{k-\vec{d}}\right)\right)/x^{k-\vec{d}}$
-\end_inset
+\begin_inset Formula 
+\[
+\left(e_{i}-\mathbf{F}^{r}\left(\bar{\mathbf{F}}_{i}\mod x^{k-\vec{d}}\right)\right)/x^{k-d}.
+\]
 
-, where 
-\begin_inset Formula $\bar{\mathbf{F}}_{i}^{r}$
-\end_inset
-
- is the 
-\begin_inset Formula $i$
-\end_inset
-
-th column of 
-\begin_inset Formula $\bar{\mathbf{F}}^{r}$
-\end_inset
-
-.
- To compute 
-\begin_inset Formula $\left(e_{i}-\mathbf{F}^{r}\left(\bar{\mathbf{F}}_{i}^{r}\mod x^{k-\vec{d}}\right)\right)/x^{k-\vec{d}}$
 \end_inset
 
 
@@ -1396,17 +2634,39 @@ th column of
 \uwave off
 \noun off
 \color none
-, note that only the terms from 
-\begin_inset Formula $\bar{\mathbf{F}}_{i}^{r}$
+Note that only the terms from 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}$
 \end_inset
 
  with degrees in the range 
-\begin_inset Formula $[k-2\vec{d},k-\vec{d})$
+\begin_inset Formula $[k-2d,k)$
 \end_inset
 
- are needed.
+ are needed for this computation
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+.
  For simplicity, let us just take the degree range 
 \begin_inset Formula $[k-2d,k)$
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 , which means we are just multiplying 
@@ -1432,8 +2692,8 @@ th column of
 \begin_inset Formula $n$
 \end_inset
 
- and degree 
-\begin_inset Formula $d$
+ and degrees bounded by 
+\begin_inset Formula $2d$
 \end_inset
 
 , which costs 
@@ -1448,34 +2708,43 @@ With the remainder
 \begin_inset Formula $\mathbf{R}$
 \end_inset
 
- computed, we can now compute a kernel basis of 
-\begin_inset Formula $\left[\mathbf{F},\mathbf{R}\right]$
+ computed, we can now compute a 
+\begin_inset Formula $\left(\left[\mathbf{F},-\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$
 \end_inset
 
-, which gives us 
-\begin_inset Formula $\begin{bmatrix}*\\
-\mathbf{B}
-\end{bmatrix}$
+-kernel basis that can be used to recover the Hermite normal form using
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:reduceToRemainder"
+
 \end_inset
 
 .
- Now the Hermite normal form of 
+\end_layout
+
+\begin_layout Theorem
+A Hermite normal form of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- can be recovered from 
-\begin_inset Formula $\mathbf{EB}$
+ can be computed with a cost of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
 \end_inset
 
- as done in 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "GS2011,G2011"
-
-\end_inset
-
-.
- 
+ field operations.
 \end_layout
 
 \end_body

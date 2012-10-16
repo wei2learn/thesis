@@ -584,6 +584,40 @@ key "BL2000"
 \end_inset
 
 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Section
+Future Work
+\end_layout
+
+\begin_layout Plain Layout
+The algorithms for computing column reduced form and Hermite normal form
+ are still not quite as nice as the algorithms for other problems.
+ They are still more complicated and their complexity 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+ are only stated in the matrix degree 
+\begin_inset Formula $d$
+\end_inset
+
+ instead of the more refined complexity 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ using the sum of the column degrees 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ With the tools developed in this thesis, we believe better algorithms for
+ these problems are now within our reach.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
