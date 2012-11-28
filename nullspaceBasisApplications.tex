@@ -3,7 +3,7 @@
 
 In this chapter, we consider the problem of computing the inverse
 of a $n\times n$ polynomial matrix with degree $d$. \citet{jeannerod-villard:05}
-gave a deterministic algorithm for this problem that cost $O^{\sim}\left(n^{3}d\right)$
+gave a deterministic algorithm for this problem that costs $O^{\sim}\left(n^{3}d\right)$
 field operations. But their algorithm only works well on input matrices
 that are generic with dimension a power of 2. \citet{storjohann:2008}
 gave another algorithm with a similar cost, but the algorithm is randomized
@@ -31,7 +31,7 @@ instead of just two matrices $\mathbf{A},\mathbf{B}$ satisfying $\mathbf{A}\math
 We can then compute the product $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
 with a cost of $O^{\sim}\left(n^{2}\xi\right)$. It is interesting
 to note that the output $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}$
-takes only $O(n\xi)$ space, but the product $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+takes only $O(n\xi\log n)$ space, but the product $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
 takes $O(n^{2}\xi)$ space.
 
 Let us first look at the cost of the kernel basis computation and

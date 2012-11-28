@@ -1771,7 +1771,7 @@ reference "chap:NullspaceBasis"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}(n^{\omega}\rho/m)$
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
 \end_inset
 
  if the entries of 
@@ -1783,10 +1783,10 @@ reference "chap:NullspaceBasis"
 \end_inset
 
 , where 
-\begin_inset Formula $\rho$
+\begin_inset Formula $s$
 \end_inset
 
- is the sum of the 
+ is the average of the 
 \begin_inset Formula $m$
 \end_inset
 

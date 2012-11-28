@@ -828,7 +828,7 @@ status collapsed
 \end_inset
 
 by the corresponding 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{v}$
 \end_inset
 
 -column degrees of 
@@ -982,7 +982,11 @@ unimodular
 
 .
  Therefore, a unimodular transformation can be undone by the multiplication
- with the inverse transformation matrix.
+ with the inverse transformation matrix in 
+\begin_inset Formula $\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+.
  This allows us to talk about unimodular equivalence of the polynomial matrices.
  Two matrices 
 \begin_inset Formula $\mathbf{A},\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times n}$
@@ -1387,7 +1391,7 @@ To unimodularly reduce a matrix to one with lower column degrees, we can
 
 \begin_layout Definition
 Given a matrix 
-\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\begin_inset Formula $\mathbf{A}=\left[\mathbf{a}_{1},\dots,\mathbf{a}_{n}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
 , the leading column coefficient matrix 
@@ -1403,7 +1407,7 @@ Given a matrix
 \begin{align*}
 A & =\lcoeff\left(\mathbf{A}\right)\\
  & =\left[\lcoeff\left(\mathbf{a}_{1}\right),\dots,\lcoeff\left(\mathbf{a}_{k}\right)\right]\\
- & =\left[\coeff\left(\mathbf{a}_{1},\deg\left(\mathbf{a}_{1}\right)\right),\dots,\coeff\left(\mathbf{a}_{k},\deg\left(\mathbf{a}_{k}\right)\right)\right].
+ & =\left[\coeff\left(\mathbf{a}_{1},\cdeg\left(\mathbf{a}_{1}\right)\right),\dots,\coeff\left(\mathbf{a}_{k},\cdeg\left(\mathbf{a}_{k}\right)\right)\right].
 \end{align*}
 
 \end_inset
@@ -1554,6 +1558,97 @@ Then
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "cor:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+Any matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ can be unimodularly transformed to 
+\begin_inset Formula $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with a full rank matrix 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]$
+\end_inset
+
+ for some unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ Any such matrix 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We can just repeatedly apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnReducedLeadingCoefficient"
+
+\end_inset
+
+, this eventually gives a column reduced form that contains a column basis.
+ The matrix 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ since its columns are linearly independent and the 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrix 
+\begin_inset Formula $\left[0,\mathbf{T}\right]$
+\end_inset
+
+ is unimodularly equivalent with 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, implying 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ each has columns that generate the same 
+\begin_inset Formula $\mathbb{F}\left[x\right]$
+\end_inset
+
+-module.
 \end_layout
 
 \begin_layout Standard
@@ -1806,7 +1901,11 @@ If
 \begin_inset Formula $\mathbf{B}$
 \end_inset
 
-, the column degrees of 
+, we can compute a matrix 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ the column degrees of 
 \begin_inset Formula $\mathbf{C}$
 \end_inset
 
@@ -2257,6 +2356,49 @@ If
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+We also have the following similar result on column reducedness.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:predictableColumnReducedness"
+
+\end_inset
+
+If 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is a full-rank 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column reduced matrix with 
+\begin_inset Formula $\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ is 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+-column reduced if and only if 
+\begin_inset Formula $\mathbf{A}\mathbf{B}$
+\end_inset
+
+ is column reduced.
+\end_layout
+
+\begin_layout Proof
+This again follows by looking at the full rank leading column coefficient
+ matrices.
 \end_layout
 
 \begin_layout Section
@@ -2929,8 +3071,8 @@ The following are equivalent for a polynomial matrix
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--degree polynomial vectors that are linearly independent and each having
- order 
+-column degree polynomial vectors that are linearly independent and each
+ having order 
 \begin_inset Formula $\left(\mathbf{F},\vec{\sigma}\right)$
 \end_inset
 
@@ -3018,7 +3160,7 @@ In some cases an entire order basis is unnecessary and instead one looks
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--degrees bounded by a given 
+-column degrees bounded by a given 
 \begin_inset Formula $\delta$
 \end_inset
 
@@ -3035,7 +3177,7 @@ In some cases an entire order basis is unnecessary and instead one looks
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--degrees bounded by 
+-column degrees bounded by 
 \begin_inset Formula $\delta$
 \end_inset
 
@@ -3074,7 +3216,7 @@ name "def:genset"
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--degree bounded by 
+-column degree bounded by 
 \begin_inset Formula $\delta$
 \end_inset
 

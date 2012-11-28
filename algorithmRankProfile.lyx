@@ -237,17 +237,7 @@ status open
 \begin_inset Formula $k<m$
 \end_inset
 
- 
-\begin_inset Flex AND
-status collapsed
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
- 
+  
 \end_layout
 
 \end_inset

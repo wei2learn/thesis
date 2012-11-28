@@ -496,8 +496,8 @@ To compute the rank and rank profile of
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- in a rank-sensitive way, we do a series of computations with a set of increasin
-g number of rows from 
+ in a rank-sensitive way, we do a series of computations with sets of increasing
+ number of rows from 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -602,7 +602,7 @@ Suppose we have found the indices
 
  in the rank profile.
  To find the next linearly independent rows, we work with the matrix 
-\begin_inset Formula $\mathbf{G}=\mathbf{F}_{\left[\bar{j},j_{k+1}\dots,j_{k}+i\right]}$
+\begin_inset Formula $\mathbf{G}=\mathbf{F}_{\left[\bar{j},j_{k}+1\dots,j_{k}+k\right]}$
 \end_inset
 
 , the matrix consists of the 

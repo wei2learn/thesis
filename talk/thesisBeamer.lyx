@@ -1,0 +1,1361 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+\def\reverse{\qopname\relax n{reverse}}
+%\def\MM{\qopname\relax n{MM}}
+\def\mab{\qopname\relax n{mab}}
+\def\cdeg{\qopname\relax n{cdeg}}
+\def\mdeg{\qopname\relax n{mdeg}}
+\def\diag{\qopname\relax n{diag}}
+\beamertemplateshadingbackground{red!5}{structure!5}
+
+\usepackage{beamerthemeshadow}
+%\beamertemplatetransparentcovereddynamicmedium
+%\usetheme{progressbar}
+\usecolortheme{progressbar}
+ \usefonttheme{progressbar}
+ \useoutertheme{progressbar}
+ \useinnertheme{progressbar}
+\progressbaroptions{headline=sections,frametitle=normal,titlepage=normal}
+\beamertemplatetransparentcovereddynamicmedium
+
+% my white
+\definecolor{white}{rgb}{1,1,1}
+\newcommand{\white}{\color{white}}
+
+% my gray
+\definecolor{gray}{rgb}{.4,.4,.4}
+\newcommand{\dgray}{\color{dgray}}
+
+% my red
+\definecolor{red}{rgb}{1,.3,.3}
+\newcommand{\dred}{\color{dred}}
+
+% my green
+\definecolor{green}{rgb}{0,.5,0}
+\newcommand{\dgreen}{\color{dgreen}}
+\end_preamble
+\use_default_options false
+\begin_modules
+beamer-incremented-lists
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman times
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 2
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Fast Order Basis and Kernel Basis Computation and Related Problems
+\end_layout
+
+\begin_layout Author
+Wei Zhou
+\begin_inset Newline newline
+\end_inset
+
+Symbolic Computation Group
+\begin_inset Newline newline
+\end_inset
+
+University of Waterloo
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Date
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Symbolic Computation Group
+\begin_inset Newline newline
+\end_inset
+
+University of Waterloo
+\end_layout
+
+\end_inset
+
+Nov.
+ 28, 2012
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout BeginFrame
+Problems Considered
+\end_layout
+
+\begin_layout Standard
+Efficient deterministic algorithms for polynomial matrix computation problems
+\end_layout
+
+\begin_layout ItemizeIncremental
+Order basis
+\end_layout
+
+\begin_layout ItemizeIncremental
+Kernel basis
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+A special case: Linear system solving
+\end_layout
+
+\end_deeper
+\begin_layout ItemizeIncremental
+Matrix Inverse
+\end_layout
+
+\begin_layout ItemizeIncremental
+Column basis 
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+column reduction and Popov form computation for matrices of any dimension
+ and any rank
+\end_layout
+
+\end_deeper
+\begin_layout ItemizeIncremental
+Unimodular completion
+\end_layout
+
+\begin_layout ItemizeIncremental
+Determinant
+\end_layout
+
+\begin_layout ItemizeIncremental
+Hermite normal form
+\end_layout
+
+\begin_layout ItemizeIncremental
+Rank and rank profile
+\end_layout
+
+\begin_layout BeginFrame
+Common features of the algorithms
+\end_layout
+
+\begin_layout ItemizeIncremental
+Deterministic
+\end_layout
+
+\begin_layout ItemizeIncremental
+Costs are often stated in terms of the average column degrees
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+E.g.
+ problem with 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ input matrix with average column degree 
+\begin_inset Formula $s$
+\end_inset
+
+ reduced to multiplication of matrices of dimension 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ and degree 
+\begin_inset Formula $s$
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout BeginFrame
+Frequently used ideas
+\end_layout
+
+\begin_layout ItemizeIncremental
+Shifted degrees are useful
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+guide the computation to control the degree sizes
+\end_layout
+
+\end_deeper
+\begin_layout ItemizeIncremental
+Order basis computation and kernel basis computation can be broken to smaller
+ subproblems
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+Residual used as the input matrix and shifted column degrees as the new
+ shift
+\end_layout
+
+\end_deeper
+\begin_layout ItemizeIncremental
+Unbalanced degrees may be handled by
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+Partial linearization
+\end_layout
+
+\begin_layout ItemizeIncremental
+Group columns (or rows) together by their (shifted) degrees and work with
+ the groups one by one
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout BeginFrame
+Generalize Column Degree
+\end_layout
+
+\begin_layout Itemize
+Minimal 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ typically means 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ has minimal column degrees.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Column degree of a column 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+\cdeg\mathbf{p}=\max_{1\le i\le n}\left[\deg p^{\left(i\right)}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Can also minimize shifted column degrees with respect to a shift 
+\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{n}\right]$
+\end_inset
+
+.
+ 
+\begin_inset Formula 
+\[
+\cdeg_{\vec{a}}\mathbf{p}=\max_{1\le i\le n}\left[\deg p^{\left(i\right)}+a_{i}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Useful for keeping track of degrees: e.g.
+ Suppose a column reduced 
+\begin_inset Formula $\mathbf{P}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $\vec{a}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{q}\in\mathbb{K}\left[x\right]^{n\times1}$
+\end_inset
+
+, then the column degree of 
+\begin_inset Formula $\mathbf{P}\mathbf{q}$
+\end_inset
+
+ is equal to the 
+\begin_inset Formula $\vec{a}-$
+\end_inset
+
+column degree of 
+\begin_inset Formula $\mathbf{q}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{Q}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ is 
+\begin_inset Formula $\vec{a}-$
+\end_inset
+
+column reduced, then 
+\begin_inset Formula $\mathbf{P}\mathbf{Q}$
+\end_inset
+
+ is column reduced.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ minimal w.r.t.
+ degree shift 
+\begin_inset Formula $\vec{a}$
+\end_inset
+
+ 
+\begin_inset Formula $\implies$
+\end_inset
+
+
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ 
+\begin_inset Formula $\vec{a}-$
+\end_inset
+
+column reduced 
+\end_layout
+
+\begin_layout BeginFrame
+Generalize Order
+\end_layout
+
+\begin_layout Itemize
+Instead of having an integer order 
+\begin_inset Formula $\sigma$
+\end_inset
+
+, such that 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathbf{F}\cdot\mathbf{P} & = & x^{\sigma}\mathbf{R}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+can have an vector order 
+\begin_inset Formula $\vec{\sigma}=\left[\sigma_{1},\dots,\sigma_{m}\right]\in\mathbb{Z}_{\ge0}^{m}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathbf{F}\cdot\mathbf{P} & = & x^{\vec{\sigma}}\mathbf{R}=\begin{bmatrix}x^{\sigma_{1}}\\
+ & \ddots\\
+ &  & x^{\sigma_{m}}
+\end{bmatrix}\mathbf{R}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Can define order basis with these generalizations
+\end_layout
+
+\begin_layout Itemize
+We focus on problems with uniform shift and order, but need more general
+ cases in algorithm and analysis
+\end_layout
+
+\begin_layout Itemize
+Also assume 
+\begin_inset Formula $m\le n$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Problems
+\end_layout
+
+\begin_layout BeginFrame
+Order basis with balanced shift
+\end_layout
+
+\begin_layout Standard
+Input 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n},$
+\end_inset
+
+ 
+\begin_inset Formula $m\le n$
+\end_inset
+
+, a shift 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
+\end_inset
+
+, an order 
+\begin_inset Formula $\sigma\in\mathbb{Z}_{\ge0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is balanced if (
+\begin_inset Formula $\max(\vec{s})-\min(\vec{s})\in O(s)$
+\end_inset
+
+), where 
+\begin_inset Formula $s=m\sigma/n$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout ItemizeIncremental
+Cost 
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Ideas:
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+The result of a (Storjohann's) partial linearized problem can be extended
+ to that of another partial linearized problem of a higher degree.
+\end_layout
+
+\begin_layout ItemizeIncremental
+The extension can be done efficiently by disregarding basis elements computed
+ previously.
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Order basis with unbalanced shift
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is unbalanced, but 
+\end_layout
+
+\begin_layout ItemizeIncremental
+\begin_inset Formula $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\in O(m\sigma)$
+\end_inset
+
+ or 
+\begin_inset Formula $\sum_{i=1}^{n}(\vec{s}_{i}-\min(\vec{s}))\in O(m\sigma)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Or equivalently, 
+\begin_inset Formula $\sum_{i=1}^{n}-\vec{s}_{i}\in O(m\sigma)$
+\end_inset
+
+ or 
+\begin_inset Formula $\sum_{i=1}^{n}\vec{s}_{i}\in O(m\sigma)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Cost 
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
+\end_inset
+
+, where 
+\begin_inset Formula $s=m\sigma/n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Ideas
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+Storjohann's partial linearization can be modified to establish a one to
+ one correspondence between the high degree basis elements of the transformed
+ problem and the high degree basis elements of the original problem.
+\end_layout
+
+\begin_layout ItemizeIncremental
+After high degree basis elements are computed, columns of the input matrix
+ corresponding to the high shift entries can be removed.
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Minimal kernel basis
+\end_layout
+
+\begin_layout Standard
+Input 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+If 
+\begin_inset Formula $\deg\mathbf{F}=d$
+\end_inset
+
+, cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s=md/n$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+More generally for nonuniform column degrees, cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average of the 
+\begin_inset Formula $m$
+\end_inset
+
+ largest column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Ideas:
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+Shifted degrees are useful in guiding the computation and keep the degrees
+ under control
+\end_layout
+
+\begin_layout ItemizeIncremental
+Minimal kernel basis can be computed by rows or by columns 
+\end_layout
+
+\begin_layout ItemizeIncremental
+Matrices with unbalanced degrees can be multiplied efficiently
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Matrix Inverse
+\end_layout
+
+\begin_layout Standard
+Input nonsingular 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+costs 
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average column degree or the average row degree.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Algorithm from Jeannerod and Villard 2005, but with new kernel basis algorithm
+ and matrix multiplication
+\end_layout
+
+\begin_layout BeginFrame
+Column basis
+\end_layout
+
+\begin_layout Standard
+Input 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+cost 
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average column degree of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Ideas:
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ can be factored as 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is a left kernel basis of a right kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis.
+\end_layout
+
+\begin_layout ItemizeIncremental
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ can be computed by the algorithms for kernel basis and order basis
+\end_layout
+
+\begin_layout ItemizeIncremental
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ can be computed from 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ using order basis computation
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Column reduction and Popov form
+\end_layout
+
+\begin_layout Standard
+Input 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with degree 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout ItemizeIncremental
+Cost 
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}d\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Column basis reduces input matrix to full column rank.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Factor full column rank 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ as 
+\begin_inset Formula $\mathbf{F}=\mathbf{G}\mathbf{T}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is column reduced and 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a square nonsingular row basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+For 
+\begin_inset Formula $\vec{t}=\cdeg\mathbf{G}$
+\end_inset
+
+, a 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+-column reduced form 
+\begin_inset Formula $\mathbf{T}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ gives a column reduced form 
+\begin_inset Formula $\mathbf{G}\mathbf{T}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout ItemizeIncremental
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is square nonsingular
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+Use existing algorithm (Gupta, Sarkar, Storjohann, and Valeriote 2012) to
+ column reduce 
+\begin_inset Formula $x^{\vec{t}}\mathbf{T}$
+\end_inset
+
+ to 
+\begin_inset Formula $x^{\vec{t}}\mathbf{T}'$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout ItemizeIncremental
+\begin_inset Formula $\mathbf{G}\mathbf{T}'$
+\end_inset
+
+ is a column reduced form of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Sarkar and Storjohann 2011: Transform column reduced matrix to Popov form
+ 
+\end_layout
+
+\begin_layout BeginFrame
+Unimodular completion
+\end_layout
+
+\begin_layout Standard
+Input full row rank 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Compute 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ in 
+\begin_inset Formula 
+\[
+\begin{bmatrix}\mathbf{F}\\
+\mathbf{G}
+\end{bmatrix}=\begin{bmatrix}\mathbf{T}\\
+ & I
+\end{bmatrix}\begin{bmatrix}\mathbf{F}'\\
+\mathbf{G}
+\end{bmatrix}=\begin{bmatrix}\mathbf{T}\mathbf{F}'\\
+\mathbf{G}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, and 
+\begin_inset Formula $\begin{bmatrix}\mathbf{F}'\\
+\mathbf{G}
+\end{bmatrix}$
+\end_inset
+
+ is unimodular.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Compute 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\begin{bmatrix}\mathbf{T}^{-1}\\
+ & I
+\end{bmatrix}\begin{bmatrix}\mathbf{F}\\
+\mathbf{G}
+\end{bmatrix}$
+\end_inset
+
+ is unimodular, where 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has a unimodular column basis 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has a unimodular completion
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+cost: 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average of the largest 
+\begin_inset Formula $m$
+\end_inset
+
+ column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Ideas:
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+Reverse order basis is unimodular
+\end_layout
+
+\begin_layout ItemizeIncremental
+Order basis computation on a right kernel basis of reversed 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ gives a reversed unimodular completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Determinant
+\end_layout
+
+\begin_layout Standard
+Input square nonsingular 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout ItemizeIncremental
+cost: 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average column degree or the average row degree.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Ideas:
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+unimodularly transformed 
+\begin_inset Formula $\mathbf{F}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}$
+\end_inset
+
+ to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\begin{bmatrix}\mathbf{G}_{1}\\
+* & \mathbf{G}_{2}
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Can take 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ to be any column basis of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Any kernel basis 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}_{U}$
+\end_inset
+
+ gives 
+\begin_inset Formula $\mathbf{G}_{2}=\mathbf{F}_{D}\mathbf{N}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Repeat this on 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Hermite Normal Form
+\end_layout
+
+\begin_layout Standard
+Input square nonsingular 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ with degree 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout ItemizeIncremental
+cost: 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Ideas:
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+Follow the path of Gupta and Storjohann (2011).
+\begin_inset Note Note
+status open
+
+\begin_layout ItemizeIncremental
+first compute the diagonal degrees 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ of the Hermite form.
+\end_layout
+
+\begin_layout ItemizeIncremental
+A 
+\begin_inset Formula $\left[-d,\dots,-d,-\vec{s}\right]$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\left[\mathbf{F},-I\right]$
+\end_inset
+
+ gives Hermite form
+\end_layout
+
+\begin_layout ItemizeIncremental
+Reduce to computing a 
+\begin_inset Formula $\left[-d,\dots,-d,-\bar{s}\right]$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\left[\mathbf{F},-\mathbf{E}\right]$
+\end_inset
+
+, with 
+\begin_inset Formula $\bar{s}\le d$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Reduce to computing a 
+\begin_inset Formula $\left[-2d,\dots,-2d,-\bar{s}\right]$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\left[\mathbf{F},-\mathbf{R}\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout ItemizeIncremental
+Reduce to computing a shifted minimal kernel basis of 
+\begin_inset Formula $\left[\mathbf{F},-\mathbf{R}\right]$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{R}=\mathbf{E}-\mathbf{F}\mathbf{Q}$
+\end_inset
+
+ for some polynomial matrix 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ has degree less than 
+\begin_inset Formula $d$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+, where 
+\begin_inset Formula $\deg\mathbf{R}<d$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Use series expansion ( Storjohann 2003) of reversed 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to compute 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Rank Profile
+\end_layout
+
+\begin_layout Standard
+Input 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout ItemizeIncremental
+cost: 
+\begin_inset Formula $O^{\sim}\left(nmr^{\omega-2}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average column degree of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout ItemizeIncremental
+Ideas:
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+modify kernel basis algorithm to return rank profile
+\end_layout
+
+\begin_layout ItemizeIncremental
+work with submatrix consists of increasing number of rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout ItemizeIncremental
+Compute column basis and rank profile of the submatrix
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout ItemizeIncremental
+Can reduce input matrices to full row rank.
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\end_body
+\end_document

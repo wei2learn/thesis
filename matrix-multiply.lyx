@@ -67,6 +67,12 @@ theorems-chap
 \begin_body
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:multiplyUnbalancedMatrices"
+
+\end_inset
+
 Proof of 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -414,6 +420,10 @@ Recall that
 \end_inset
 
  and where 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+'s column dimension 
 \begin_inset Formula $k\in O\left(m\right)$
 \end_inset
 
@@ -881,12 +891,11 @@ First consider the multiplication
  Set 
 \begin_inset Formula 
 \[
-\bar{\mathbf{B}}_{j}^{(1)}=\left[\mathbf{B}_{j,0}^{(1)},\mathbf{B}_{j,1}^{(1)},\dots,\mathbf{B}_{j,q-1}^{(1)}\right]
+\bar{\mathbf{B}}_{j}^{(1)}=\left[\mathbf{B}_{j,0}^{(1)},\mathbf{B}_{j,1}^{(1)},\dots,\mathbf{B}_{j,q-1}^{(1)}\right].
 \]
 
 \end_inset
 
-.
  We can then multiply 
 \begin_inset Formula $\mathbf{A}_{j}$
 \end_inset

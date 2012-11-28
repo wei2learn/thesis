@@ -34,8 +34,9 @@ A unimodular completion that is not minimal is $\left[x^{9},1\right]$.
 If $\mathbf{F}=\left[x,x^{2}\right]$, then a $\left(-\vec{s}\right)$-minimal
 completion that maintains the generalized determinant is again $\left[0,1\right]$.\end{example}
 \end{comment}
-{} As before, our goal is to do this with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$
-field operations, where $\xi=\sum\vec{s}$. 
+{} Our goal is to do this with a cost of $O^{\sim}\left(n^{\omega-1}s\right)$
+field operations, where $s$ is the average of the $m$ largest column
+degrees of $\mathbf{F}$.
 
 Unimodular completion also provides another way of computing column
 bases. To compute a column basis of $\mathbf{A}$, we can compute
@@ -451,7 +452,7 @@ as in \prettyref{lem:unimodularComputation}.
 compute a unimodular completion of $\mathbf{F}$. Our next task is
 to make sure it can be computed efficiently and analyze its computational
 cost. We already know that a $(\mathbf{F}^{r},\vec{s})$-kernel basis
-can be computed with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$.
+can be computed with a cost of $O^{\sim}\left(n^{\omega}s\right)$.
 Therefore, it only remains to check the cost of the order basis computations.
 Note that the non-uniform order makes our problem here a little more
 difficult. But on the other hand, the output basis has its $-\vec{s}$-column
@@ -494,7 +495,7 @@ The following lemma extends \prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBas
 to give a bound based on the shifted column degrees or shifted row
 degrees, instead of just the column degrees of the input matrix.
 \begin{lem}
-\label{lem:generalNullspaceBasisDegreeBound}If $\mathbf{A}\in\mathbb{K}^{m\times n}[x]$
+\label{lem:generaKernelBasisDegreeBound}If $\mathbf{A}\in\mathbb{K}^{m\times n}[x]$
 has $\rdeg_{\vec{u}}\mathbf{A}\le\vec{v}$ or equivalently $\cdeg_{-\vec{v}}\mathbf{A}\le-\vec{u}$,
 then any $(\mathbf{A},-\vec{u})$-kernel basis has $-\vec{u}$-column
 degrees bounded by $\sum\vec{v}-\sum\vec{u}$. \end{lem}
@@ -517,8 +518,8 @@ is a $(\mathbf{A},-\vec{u})$-kernel basis with $\cdeg_{-\vec{u}}\mathbf{B}=\vec{
 and $\mathbf{A}^{T}$ is a $\left(\mathbf{B}^{T},\vec{u}\right)$-kernel
 basis with $\rdeg_{\vec{u}}\mathbf{A}=\vec{v}$, then $\sum\vec{w}=\sum\vec{v}-\sum\vec{u}$.\end{lem}
 \begin{proof}
-This follows from \prettyref{lem:generalNullspaceBasisDegreeBound},
-which gives $\sum\vec{w}\le\sum\vec{v}-\sum\vec{u}$ and also $\sum\vec{v}\le\sum\vec{w}+\sum\vec{u}$
+This follows from \prettyref{lem:generaKernelBasisDegreeBound}, which
+gives $\sum\vec{w}\le\sum\vec{v}-\sum\vec{u}$ and also $\sum\vec{v}\le\sum\vec{w}+\sum\vec{u}$
 in the reverse direction.
 \end{proof}
 From \prettyref{lem:nullspaceBasisInOrderBasis}, we know that any

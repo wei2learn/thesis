@@ -11,20 +11,20 @@ of the Hermite normal form of $\mathbf{F}$.}
 
 \STATE{$\begin{bmatrix}\mathbf{F}_{U}\\
 \mathbf{F}_{D}
-\end{bmatrix}:=\mathbf{F}$, with $\mathbf{F}_{u}$ consists of the top $\left\lceil n/2\right\rceil $
+\end{bmatrix}:=\mathbf{F}$, with $\mathbf{F}_{U}$ consists of the top $\left\lceil n/2\right\rceil $
 rows of $\mathbf{F}$;}
 
 
 
 \STATE{\textbf{if }$n=1$ \textbf{then} \textbf{return} $\mathbf{F}$; \textbf{endif};}
 
-\STATE{$\mathbf{G}_{1}:=\colBasis(\mathbf{F}_{u})$;}
+\STATE{$\mathbf{G}_{1}:=\colBasis(\mathbf{F}_{U})$;}
 
 
 
-\STATE{$\mathbf{N}:=\mnb(\mathbf{F}_{u},\cdeg\mathbf{F})$;}
+\STATE{$\mathbf{N}:=\mnb(\mathbf{F}_{U},\cdeg\mathbf{F})$;}
 
-\STATE{$\mathbf{G}_{2}:=\mathbf{F}_{d}\mathbf{N}$;}
+\STATE{$\mathbf{G}_{2}:=\mathbf{F}_{D}\mathbf{N}$;}
 
 \STATE{$\mathbf{d}_{1}:=\hermiteDiagonal(\mathbf{G}_{1});$$\mathbf{d}_{2}:=\hermiteDiagonal(\mathbf{G}_{2});$}
 

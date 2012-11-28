@@ -1,5 +1,5 @@
 
-\subsection{Proof of \prettyref{thm:multiplyUnbalancedMatrices}}
+\subsection{\label{sub:multiplyUnbalancedMatrices}Proof of \prettyref{thm:multiplyUnbalancedMatrices}}
 
 %The recursive procedure described in the next section reduces a single null space
 %computation to a set of null space computations of smaller size. These smaller problems
@@ -26,8 +26,9 @@ increasing values and $\xi$ is a bound on the sum of the entries
 of $\vec{s}$. We wish to determine the cost of multiplying the two
 polynomials matrices $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 and $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$ where $\mathbf{A}$
-has column degrees bounded by $\vec{s}$ and where $k\in O\left(m\right)$
-and the sum $\theta$ of its $\vec{s}$-column degrees satisfies $\theta\in O\left(\xi\right)$.
+has column degrees bounded by $\vec{s}$ and where $\mathbf{B}$'s
+column dimension $k\in O\left(m\right)$ and the sum $\theta$ of
+its $\vec{s}$-column degrees satisfies $\theta\in O\left(\xi\right)$.
 The goal is to show that these polynomial matrices can be multiplied
 %Then we can multiply %$\mathbf{A}$ and $\mathbf{B}$ 
 with a cost of $O^{\sim}(nm^{\omega-2}\xi)$.
@@ -117,9 +118,9 @@ and column dimension $q\in O(2^{j})$ as follows. Write
  with each $\mathbf{B}_{j,k}^{(1)}$ having degree less than $\delta.$
 Set 
 \[
-\bar{\mathbf{B}}_{j}^{(1)}=\left[\mathbf{B}_{j,0}^{(1)},\mathbf{B}_{j,1}^{(1)},\dots,\mathbf{B}_{j,q-1}^{(1)}\right]
+\bar{\mathbf{B}}_{j}^{(1)}=\left[\mathbf{B}_{j,0}^{(1)},\mathbf{B}_{j,1}^{(1)},\dots,\mathbf{B}_{j,q-1}^{(1)}\right].
 \]
-. We can then multiply $\mathbf{A}_{j}$, which has dimension $m\times O(2^{j})$
+ We can then multiply $\mathbf{A}_{j}$, which has dimension $m\times O(2^{j})$
 for $j<\log m$, and $\bar{\mathbf{B}}_{j}^{(1)}$, which has dimension
 $O(2^{j})\times O(2^{j})$ for $j<\log m$, with a cost of 
 \begin{align*}

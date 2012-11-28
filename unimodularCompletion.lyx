@@ -236,16 +236,37 @@ If
 
 \end_inset
 
- As before, our goal is to do this with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+ Our goal is to do this with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}s\right)$
 \end_inset
 
  field operations, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average of the 
+\begin_inset Formula $m$
+\end_inset
+
+ largest column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Formula $\xi=\sum\vec{s}$
 \end_inset
 
 .
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2263,7 +2284,7 @@ reference "lem:unimodularComputationByRows"
 \end_inset
 
 -kernel basis can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -2627,7 +2648,7 @@ Given an input matrix
 
 
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
  and 
@@ -2645,7 +2666,7 @@ status open
 \shape up
 
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -2739,7 +2760,7 @@ reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 \begin_layout Lemma
 \begin_inset CommandInset label
 LatexCommand label
-name "lem:generalNullspaceBasisDegreeBound"
+name "lem:generaKernelBasisDegreeBound"
 
 \end_inset
 
@@ -2885,7 +2906,7 @@ Let
 This follows from 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:generalNullspaceBasisDegreeBound"
+reference "lem:generaKernelBasisDegreeBound"
 
 \end_inset
 

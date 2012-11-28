@@ -105,7 +105,7 @@ key "jeannerod-villard:05"
 
 \end_inset
 
- gave a deterministic algorithm for this problem that cost 
+ gave a deterministic algorithm for this problem that costs 
 \begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
 \end_inset
 
@@ -214,7 +214,7 @@ reference "line:multiplyFN"
 \end_inset
 
  takes only 
-\begin_inset Formula $O(n\xi)$
+\begin_inset Formula $O(n\xi\log n)$
 \end_inset
 
  space, but the product 

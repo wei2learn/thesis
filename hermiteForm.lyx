@@ -119,7 +119,7 @@ For simplicity, we assume
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- is already column reduced and has degrees 
+ is already column reduced and has column degrees 
 \begin_inset Formula $\vec{d}=\left[d_{1},\dots,d_{n}\right]$
 \end_inset
 
@@ -972,7 +972,7 @@ The problem of computing a
 \begin_inset Formula $\left(\left[\mathbf{F},I\right],\left[-\vec{u},-\vec{s}\right]\right)$
 \end_inset
 
--kernel basis of is now reduced to computing a 
+-kernel basis is now reduced to computing a 
 \begin_inset Formula $\left(\left[\mathbf{F},\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$
 \end_inset
 
@@ -2012,14 +2012,14 @@ th row of
 \end_layout
 
 \begin_layout Proof
-Since the first term of Equation 
+Since the first term of equation (
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "eq:division"
 
 \end_inset
 
- has degree less than 
+) has degree less than 
 \begin_inset Formula $k$
 \end_inset
 
@@ -2401,7 +2401,7 @@ Then we compute series expansions
 \end_inset
 
  separately, to order 
-\begin_inset Formula $2d,4d,\dots,2^{\left\lceil \log n\right\rceil }d/2,nd$
+\begin_inset Formula $2d,4d,\dots,2^{\left\lceil \log n\right\rceil -1}d/2,nd$
 \end_inset
 
  respectively, where again 

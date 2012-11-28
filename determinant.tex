@@ -75,8 +75,8 @@ which may have very large degrees and cannot be computed efficiently.
 and $\mathbf{G}_{2}$ independently without computing the unimodular
 matrix. $\mathbf{G}_{1}$ can be computed using the method from \prettyref{chap:Matrix-GCD},
 while the kernel basis computation from \prettyref{chap:NullspaceBasis}
-can be used to compute a kernel basis $\mathbf{N}_{1}$ of $\mathbf{F}_{u}$,
-which can then be used to compute $\mathbf{G}_{2}=\mathbf{F}_{d}\mathbf{N}_{1}$.
+can be used to compute a kernel basis $\mathbf{N}_{1}$ of $\mathbf{F}_{U}$,
+which can then be used to compute $\mathbf{G}_{2}=\mathbf{F}_{D}\mathbf{N}_{1}$.
 
 After $\mathbf{G}_{1}$ and $\mathbf{G}_{2}$ are computed, we can
 repeat the same process on each of these two matrices, which now have
@@ -97,7 +97,7 @@ where $\xi$ is the sum of the column degrees \end{thm}
 \begin{proof}
 The three main operations are computing a column basis of $\mathbf{F}_{U}$,
 computing a kernel basis $\mathbf{N}$ of $\mathbf{F}_{U}$, and the
-matrix multiplication $\mathbf{F}_{d}\mathbf{N}$.
+matrix multiplication $\mathbf{F}_{D}\mathbf{N}$.
 
 For the column basis computation, by \prettyref{thm:columnBasisCost1}
 we know that a column basis $\mathbf{G}_{1}$ of $\mathbf{F}_{U}$
@@ -112,8 +112,8 @@ from \prettyref{thm:costLowColDimension}. The sum of the $\vec{s}$-column
 degrees of the output kernel basis $\mathbf{N}$ is bounded by $\xi$
 by \prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBasis}.
 
-Finally for the matrix multiplication $\mathbf{F}_{d}\mathbf{N}$,
-since the sum of the column degrees of $\mathbf{F}_{d}$ and the sum
+Finally for the matrix multiplication $\mathbf{F}_{D}\mathbf{N}$,
+since the sum of the column degrees of $\mathbf{F}_{D}$ and the sum
 of the $\vec{s}$-column degrees of $\mathbf{N}$ are both bounded
 by $\xi$, \prettyref{thm:multiplyUnbalancedMatrices} applies and
 the multiplication can be done with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$.

@@ -3264,6 +3264,12 @@ s
 \end_layout
 
 \begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:unbalancedOrderBasisCost"
+
+\end_inset
+
 If the shift 
 \begin_inset Formula $\vec{s}$
 \end_inset

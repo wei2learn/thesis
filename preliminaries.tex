@@ -119,7 +119,7 @@ x^{\vec{u}}\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=x^{\vec{u}}\ma
 bound the corresponding column degrees of $\mathbf{A}$. Then for
 any polynomial matrix $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$,
 the column degrees of $\mathbf{A}\mathbf{B}$ are bounded %component-wise 
-by the corresponding $\vec{s}$-column degrees of $\mathbf{B}$.\end{cor}
+by the corresponding $\vec{v}$-column degrees of $\mathbf{B}$.\end{cor}
 \begin{proof}
 Just set the shift $\vec{u}$ to 0 in \prettyref{lem:productDegreeBound}
 \end{proof}
@@ -148,8 +148,9 @@ to be \emph{unimodular} if its determinant is in $\mathbb{K}$. A
 matrix in $\mathbb{K}\left[x\right]^{n\times n}$ is unimodular if
 and only if it has an inverse in $\mathbb{K}\left[x\right]^{n\times n}$.
 Therefore, a unimodular transformation can be undone by the multiplication
-with the inverse transformation matrix. This allows us to talk about
-unimodular equivalence of the polynomial matrices. Two matrices $\mathbf{A},\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times n}$
+with the inverse transformation matrix in $\mathbb{K}\left[x\right]^{n\times n}$.
+This allows us to talk about unimodular equivalence of the polynomial
+matrices. Two matrices $\mathbf{A},\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times n}$
 are said to be right unimodularly equivalent if $\mathbf{A}=\mathbf{B}\mathbf{U}$
 for some unimodular matrix $\mathbf{U}$. This also means that the
 columns of $\mathbf{A}$ and $\mathbf{B}$ generates the same set
@@ -199,12 +200,12 @@ To unimodularly reduce a matrix to one with lower column degrees,
 we can look at its\emph{ leading column coefficient matrix}, which
 is defined as follows. 
 \begin{defn}
-Given a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$,
+Given a matrix $\mathbf{A}=\left[\mathbf{a}_{1},\dots,\mathbf{a}_{n}\right]\in\mathbb{K}\left[x\right]^{m\times n}$,
 the leading column coefficient matrix $A$ of $\mathbf{A}$ is
 \begin{align*}
 A & =\lcoeff\left(\mathbf{A}\right)\\
  & =\left[\lcoeff\left(\mathbf{a}_{1}\right),\dots,\lcoeff\left(\mathbf{a}_{k}\right)\right]\\
- & =\left[\coeff\left(\mathbf{a}_{1},\deg\left(\mathbf{a}_{1}\right)\right),\dots,\coeff\left(\mathbf{a}_{k},\deg\left(\mathbf{a}_{k}\right)\right)\right].
+ & =\left[\coeff\left(\mathbf{a}_{1},\cdeg\left(\mathbf{a}_{1}\right)\right),\dots,\coeff\left(\mathbf{a}_{k},\cdeg\left(\mathbf{a}_{k}\right)\right)\right].
 \end{align*}
 
 \end{defn}
@@ -240,7 +241,22 @@ Let
 \end{bmatrix}.
 \]
 Then $\mathbf{B}=\mathbf{A}\mathbf{U}$ has column degrees $\left[d_{1},\dots,d_{i-1},\bar{d}{}_{i},d_{i+1},\dots,d_{n}\right],$
-with $\bar{d}_{i}<d_{i}$.
+with $\bar{d}_{i}<d_{i}$.\end{proof}
+\begin{cor}
+\label{cor:unimodularlyReduceToColumnBasis}Any matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+can be unimodularly transformed to $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
+with a full rank matrix $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$,
+that is, $\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]$ for some
+unimodular matrix $\mathbf{U}$. Any such matrix $\mathbf{T}$ is
+a column basis of $\mathbf{F}$.\end{cor}
+\begin{proof}
+We can just repeatedly apply \prettyref{lem:columnOperationToReduceDegree}.
+From \prettyref{lem:columnReducedLeadingCoefficient}, this eventually
+gives a column reduced form that contains a column basis. The matrix
+$\mathbf{T}$ is a column basis of $\mathbf{F}$ since its columns
+are linearly independent and the $m\times n$ matrix $\left[0,\mathbf{T}\right]$
+is unimodularly equivalent with $\mathbf{F}$, implying $\mathbf{T}$
+and $\mathbf{F}$ each has columns that generate the same $\mathbb{F}\left[x\right]$-module.
 \end{proof}
 The leading column coefficient matrix can also help to determine the
 degree of the matrix.
@@ -281,9 +297,9 @@ $\mathbf{D}$ that is unimodularly equivalent to both $\mathbf{A}$
 and $\mathbf{B}$, and satisfies $\cdeg_{\vec{s}}\mathbf{D}\le\cdeg_{\vec{s}}\mathbf{A}$
 and $\cdeg_{\vec{s}}\mathbf{D}\le\cdeg_{\vec{s}}\mathbf{B}$. \end{lem}
 \begin{proof}
-If $r$ is the rank of $\mathbf{A}$ and $\mathbf{B}$, the column
-degrees of $\mathbf{C}$ are bounded by the column degrees of the
-$r$ linear independent columns of $\left[\mathbf{A},\mathbf{B}\right]$
+If $r$ is the rank of $\mathbf{A}$ and $\mathbf{B}$, we can compute
+a matrix $\mathbf{C}$ the column degrees of $\mathbf{C}$ are bounded
+by the column degrees of the $r$ linear independent columns of $\left[\mathbf{A},\mathbf{B}\right]$
 with the smallest column degrees, as higher degree columns can be
 reduced using \prettyref{lem:columnOperationToReduceDegree}. For
 the more general result with shift, we can again multiply $x^{\vec{s}}$
@@ -356,6 +372,16 @@ $AB$ of $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=x^{\v
 has no zero column, in other words, $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
 has column degrees $\left[0,\dots,0\right]$ if and only if $x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
 has column degrees $\left[0,\dots,0\right]$.
+\end{proof}
+We also have the following similar result on column reducedness.
+\begin{lem}
+\label{lem:predictableColumnReducedness}If $\mathbf{A}$ is a full-rank
+$\vec{u}$-column reduced matrix with $\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$,
+then $\mathbf{B}$ is $\vec{v}$-column reduced if and only if $\mathbf{A}\mathbf{B}$
+is column reduced.\end{lem}
+\begin{proof}
+This again follows by looking at the full rank leading column coefficient
+matrices.
 \end{proof}
 
 \section{Order Basis}
@@ -439,9 +465,9 @@ From \citep{BL1997} we have the following lemma.
 a polynomial matrix \textbf{$\mathbf{P}$}: 
 \begin{enumerate}
 \item $\mathbf{P}$ is a $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis. 
-\item $\mathbf{P}$ is comprised of a set of $n$ minimal $\vec{s}$-degree
-polynomial vectors that are linearly independent and each having order
-$\left(\mathbf{F},\vec{\sigma}\right)$. 
+\item $\mathbf{P}$ is comprised of a set of $n$ minimal $\vec{s}$-column
+degree polynomial vectors that are linearly independent and each having
+order $\left(\mathbf{F},\vec{\sigma}\right)$. 
 \item $\mathbf{P}$ does not contain a zero column, has order $\left(\mathbf{F},\vec{\sigma}\right)$,
 is $\vec{s}$-column reduced, and any $\mathbf{q}\in\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
 can be expressed as a linear combination of the columns of $\mathbf{P}$.
@@ -450,15 +476,15 @@ can be expressed as a linear combination of the columns of $\mathbf{P}$.
 \end{lem}
 In some cases an entire order basis is unnecessary and instead one
 looks for a minimal basis that generates only the elements of $\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
-with $\vec{s}$-degrees bounded by a given $\delta$. Such a minimal
-basis is a partial $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis
+with $\vec{s}$-column degrees bounded by a given $\delta$. Such
+a minimal basis is a partial $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis
 comprised of elements of a $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis
-with $\vec{s}$-degrees bounded by $\delta$. This is called a \emph{minbasis}
-in \citet{Storjohann:2006}. 
+with $\vec{s}$-column degrees bounded by $\delta$. This is called
+a \emph{minbasis} in \citet{Storjohann:2006}. 
 \begin{defn}
 \label{def:genset} Let $\left\langle \left(\mathbf{F},\vec{\sigma},\vec{s}\right)\right\rangle _{\delta}\subset\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
 denote the set of order $\left(\mathbf{F},\vec{\sigma}\right)$ polynomial
-vectors with $\vec{s}$-degree bounded by $\delta$. A $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)_{\delta}$-basis
+vectors with $\vec{s}$-column degree bounded by $\delta$. A $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)_{\delta}$-basis
 is a polynomial matrix $\mathbf{P}$ not containing a zero column
 and satisfying: \end{defn}
 \begin{enumerate}

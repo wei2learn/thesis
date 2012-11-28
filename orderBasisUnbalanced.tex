@@ -704,9 +704,9 @@ entries that are greater than $-\alpha$. We can then repeat the same
 process again, with a larger $\alpha$ and $\beta$, in order to compute
 more basis elements. 
 \begin{thm}
-If the shift $\vec{s}$ satisfies condition (\ref{con:unbalancedCondition}),
-then a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis can be computed
-with cost $O\left(n^{\omega}\bar{\M}(d)\log\sigma\right)=O(n^{\omega}d\log d\log\log d\log\sigma)\subset O^{\sim}(n^{\omega}d)$. \end{thm}
+\label{thm:unbalancedOrderBasisCost}If the shift $\vec{s}$ satisfies
+condition (\ref{con:unbalancedCondition}), then a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
+can be computed with cost $O\left(n^{\omega}\bar{\M}(d)\log\sigma\right)=O(n^{\omega}d\log d\log\log d\log\sigma)\subset O^{\sim}(n^{\omega}d)$. \end{thm}
 \begin{proof}
 We give the following constructive proof. Initially, we set transformation
 parameters $\alpha_{1}=\beta_{1}=2d$ with $d=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$.

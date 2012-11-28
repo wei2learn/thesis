@@ -69,13 +69,13 @@ to improve this.
 \section{Successive Rank Profile Computation}
 
 To compute the rank and rank profile of $\mathbf{F}$ in a rank-sensitive
-way, we do a series of computations with a set of increasing number
+way, we do a series of computations with sets of increasing number
 of rows from $\mathbf{F}$.
 
 We start with the first nonzero row of $\mathbf{F}$, which is the
 first row in the rank-profile. Suppose we have found the indices
 $\bar{j}=\left[j_{1},\dots,j_{k}\right]$ in the rank profile. To
-find the next linearly independent rows, we work with the matrix $\mathbf{G}=\mathbf{F}_{\left[\bar{j},j_{k+1}\dots,j_{k}+i\right]}$,
+find the next linearly independent rows, we work with the matrix $\mathbf{G}=\mathbf{F}_{\left[\bar{j},j_{k}+1\dots,j_{k}+k\right]}$,
 the matrix consists of the $k$ linearly independent rows indexed
 by $\bar{j}$ and the next $k$ rows. We compute a column basis $\mathbf{T}$
 of this matrix, which has the same rank profile as $\mathbf{G}$.

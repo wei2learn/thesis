@@ -865,11 +865,11 @@ reference "chap:NullspaceBasis"
 \end_inset
 
  of 
-\begin_inset Formula $\mathbf{F}_{u}$
+\begin_inset Formula $\mathbf{F}_{U}$
 \end_inset
 
 , which can then be used to compute 
-\begin_inset Formula $\mathbf{G}_{2}=\mathbf{F}_{d}\mathbf{N}_{1}$
+\begin_inset Formula $\mathbf{G}_{2}=\mathbf{F}_{D}\mathbf{N}_{1}$
 \end_inset
 
 .
@@ -973,7 +973,7 @@ The three main operations are computing a column basis of
 \end_inset
 
 , and the matrix multiplication 
-\begin_inset Formula $\mathbf{F}_{d}\mathbf{N}$
+\begin_inset Formula $\mathbf{F}_{D}\mathbf{N}$
 \end_inset
 
 .
@@ -1100,11 +1100,11 @@ reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
 \begin_layout Proof
 Finally for the matrix multiplication 
-\begin_inset Formula $\mathbf{F}_{d}\mathbf{N}$
+\begin_inset Formula $\mathbf{F}_{D}\mathbf{N}$
 \end_inset
 
 , since the sum of the column degrees of 
-\begin_inset Formula $\mathbf{F}_{d}$
+\begin_inset Formula $\mathbf{F}_{D}$
 \end_inset
 
  and the sum of the 

@@ -122,7 +122,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{M}\in\mathbb{K}\left[x\right]^{m\times n}$
+\begin_inset Formula $\mathbf{M}\in\mathbb{K}\left[x\right]^{k\times n}$
 \end_inset
 
  such that 
@@ -133,7 +133,7 @@ status open
 \begin_inset Formula $\left(\mathbf{M},-\vec{s}\right)$
 \end_inset
 
--nullspace basis has row degrees bounded by 
+-kernel basis has row degrees bounded by 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -154,14 +154,14 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{n\times k}$
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{n\times*}$
 \end_inset
 
 , a 
 \begin_inset Formula $\left(\mathbf{M},-\vec{s}\right)$
 \end_inset
 
--nullspace basis.
+-kernel basis.
 \end_layout
 
 \end_inset
@@ -263,7 +263,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\vec{\sigma}:=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]$
+\begin_inset Formula $\vec{\sigma}:=\left[\vec{\sigma}_{1},\vec{\sigma}_{2},\dots,\vec{\sigma}_{\log k}\right]$
 \end_inset
 
 ;
@@ -392,7 +392,7 @@ status open
 \begin_inset Formula $\left(\hat{\mathbf{M}}_{i},-\vec{s}_{i}\right)$
 \end_inset
 
--nullspace basis;
+-kernel basis;
 \end_layout
 
 \end_inset

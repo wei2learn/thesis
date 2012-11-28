@@ -125,11 +125,7 @@ status open
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- with 
-\begin_inset Formula $I_{m}$
-\end_inset
-
- as a GCD; 
+ with full row rank; 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -457,7 +453,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Flex STATE
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Formula $\mathbf{R}:=\left[\mathbf{R},\tilde{\mathbf{N}}_{i-1}\mathbf{Q}_{i}\right]$

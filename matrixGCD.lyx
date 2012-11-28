@@ -109,10 +109,17 @@ key "GSSV2012"
 
 \end_inset
 
- and 
+, 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "SS2011"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sarkar2011"
 
 \end_inset
 
@@ -155,7 +162,7 @@ Column basis is a generalization of polynomial GCDs.
  From 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "sec:minimality"
+reference "cor:unimodularlyReduceToColumnBasis"
 
 \end_inset
 
@@ -163,110 +170,29 @@ reference "sec:minimality"
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- can be unimodularly transformed to its column basis, as it can be unimodularly
- transformed to a column reduced form that contains a column basis.
+ can be unimodularly transformed to a column basis
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+, as it can be unimodularly transformed to a column reduced form that contains
+ a column basis
 \end_layout
 
-\begin_layout Lemma
-\begin_inset CommandInset label
-LatexCommand label
-name "lem:unimodularlyReduceToColumnBasis"
-
 \end_inset
 
-Any matrix 
-\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+ by repeatedly working with the leading column coefficient matrices.
+ But computing a column basis this way can be expensive, as we need to work
+ with up to 
+\begin_inset Formula $\xi=\sum\vec{s}$
 \end_inset
 
- can be unimodularly transformed to 
-\begin_inset Formula $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
+ such coefficient matrices, which would involve up to 
+\begin_inset Formula $\xi$
 \end_inset
 
- with a full rank matrix 
-\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
-\end_inset
-
-, that is, 
-\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]$
-\end_inset
-
- for some unimodular matrix 
-\begin_inset Formula $\mathbf{U}$
-\end_inset
-
-.
- Any such matrix 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- is a column basis of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Proof
-This follows from 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:minimality"
-
-\end_inset
-
-.
- We can just repeatedly apply 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:columnOperationToReduceDegree"
-
-\end_inset
-
-.
- From 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:columnReducedLeadingCoefficient"
-
-\end_inset
-
-, this eventually gives a column reduced form that contains a column basis.
- The matrix 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- is a column basis of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- since its columns are linearly independent and the 
-\begin_inset Formula $m\times n$
-\end_inset
-
- matrix 
-\begin_inset Formula $\left[0,\mathbf{T}\right]$
-\end_inset
-
- is unimodularly equivalent with 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-, implying 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- each has columns that generate the same 
-\begin_inset Formula $\mathbb{F}\left[x\right]$
-\end_inset
-
--module.
-\end_layout
-
-\begin_layout Standard
+ polynomial matrix multiplications.
+ 
 \begin_inset Note Note
 status collapsed
 
@@ -460,13 +386,9 @@ s.
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Before discussing the computation of column basis, it is useful to look
- at following relationship between column basis, kernel basis, and unimodular
- matrix.
+ Before discussing the efficient computation of column basis, it is useful
+ to look at following relationship between column basis, kernel basis, and
+ unimodular matrix.
 \end_layout
 
 \begin_layout Lemma
@@ -558,7 +480,7 @@ Note that
  by 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:unimodularlyReduceToColumnBasis"
+reference "cor:unimodularlyReduceToColumnBasis"
 
 \end_inset
 
@@ -656,7 +578,7 @@ reference "lem:unimodularlyReduceToColumnBasis"
 \end{bmatrix}$
 \end_inset
 
- is unimodular.
+ are unimodular.
  Therefore, 
 \begin_inset Formula $\mathbf{C}$
 \end_inset
@@ -679,9 +601,6 @@ reference "lem:unimodularlyReduceToColumnBasis"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Proof
 \begin_inset Note Note
 status collapsed
 
@@ -1521,7 +1440,7 @@ Note that
  From 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:unimodularlyReduceToColumnBasis"
+reference "cor:unimodularlyReduceToColumnBasis"
 
 \end_inset
 
@@ -1636,7 +1555,7 @@ If
 From 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:unimodularlyReduceToColumnBasis"
+reference "cor:unimodularlyReduceToColumnBasis"
 
 \end_inset
 
@@ -1710,7 +1629,7 @@ reference "lem:unimodularlyReduceToColumnBasis"
  From 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:unimodularlyReduceToColumnBasis"
+reference "cor:unimodularlyReduceToColumnBasis"
 
 \end_inset
 
@@ -1750,7 +1669,7 @@ reference "lem:unimodularlyReduceToColumnBasis"
 Then from 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:unimodularlyReduceToColumnBasis"
+reference "cor:unimodularlyReduceToColumnBasis"
 
 \end_inset
 
@@ -1988,7 +1907,7 @@ To see that
 From 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:unimodularlyReduceToColumnBasis"
+reference "cor:unimodularlyReduceToColumnBasis"
 
 \end_inset
 
@@ -3475,7 +3394,7 @@ Now that we can correctly compute a
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--row degrees, and then work with these blocks one by one consecutively using
+-row degrees, and then work with these blocks one by one successively using
  
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -3571,7 +3490,7 @@ Let
 \end_inset
 
 with 
-\begin_inset Formula $\mathbf{N}_{1},\mathbf{N}_{2},\cdots,\mathbf{N}_{\log k-1},\mathbf{N}_{\log k}$
+\begin_inset Formula $\mathbf{N}_{\log k},\mathbf{N}_{\log k-1},\dots,\mathbf{N}_{2},\mathbf{N}_{1}$
 \end_inset
 
  having 
@@ -3716,6 +3635,10 @@ status collapsed
 \end_inset
 
 .
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
  This computation can be done using 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -3733,6 +3656,11 @@ reference "alg:umab"
 
 .
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4003,12 +3931,112 @@ reference "alg:minimalNullspaceBasisReverse"
 \end_layout
 
 \begin_layout Standard
-We still need to check the cost of the multiplications 
+Now let us check the cost of this algorithm.
+ The cost is dominated by the order basis computation and the multiplications
+ 
 \begin_inset Formula $\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1}$
 \end_inset
 
  and 
 \begin_inset Formula $\tilde{\mathbf{G}}_{i-1}\mathbf{G}_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+An 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
+\end_inset
+
+-basis can be computed at a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $d=\xi/n$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Note that 
+\begin_inset Formula $\mathbf{N}_{i}$
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+has less than 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ columns
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ Otherwise, 
+\begin_inset Formula $\sum\cdeg_{\vec{s}}\mathbf{N}_{i}>2^{i}\xi/2^{i}=\xi$
+\end_inset
+
+, contradicting with 
+\begin_inset Formula $\sum\cdeg_{\vec{s}}\mathbf{N}=\sum\vec{b}\le\sum\vec{s}\le\xi$
+\end_inset
+
+.
+ It follows that 
+\begin_inset Formula $\hat{\mathbf{N}}_{i}$
+\end_inset
+
+, and therefore 
+\begin_inset Formula $\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1}$
+\end_inset
+
+, also have less than 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ rows.
+ We also have 
+\begin_inset Formula $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]=\Theta\left(\xi/2^{i}\right)$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:umab"
+
+\end_inset
+
+ can be used with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:unbalancedOrderBasisCost"
+
 \end_inset
 
 .
@@ -4288,7 +4316,7 @@ Let
 \begin_inset Formula $\mathbf{G}"$
 \end_inset
 
- consist of only the columns of 
+ consists of only the columns of 
 \begin_inset Formula $\mathbf{G}'$
 \end_inset
 
@@ -4859,7 +4887,7 @@ reference "lem:colBasisDegreeBoundByInputDegrees"
 \end_inset
 
  can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\left(\sum\cdeg\mathbf{T}_{i-1}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)$
+\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\left(\sum\cdeg\mathbf{T}_{i-1}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)$
 \end_inset
 
  from 
@@ -4922,6 +4950,189 @@ In this section, the computational efficiency is improved by reducing the
  The computational complexity of using order basis computation to reduce
  the column dimension would remain the same, but in practice it maybe more
  efficient since order basis computations are simpler.
+\end_layout
+
+\begin_layout Section
+Column Reduced Form and Popov Form
+\end_layout
+
+\begin_layout Standard
+Let us now look how column basis computation leads to efficient deterministic
+ algorithms for computing column reduced form and Popov form for matrices
+ of any dimension.
+ Since 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "SS2011"
+
+\end_inset
+
+ already provided algorithms to transform column reduced forms to Popov
+ forms, we just need to consider the problem of computing column reduced
+ form.
+ In addition, since 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "GSSV2012"
+
+\end_inset
+
+ provided a deterministic algorithm for the column reduction of a square
+ nonsingular input matrix, we just need to reduce the problem with general
+ input matrix to the square nonsingular case.
+ For this problem, we only give the cost in terms of the less refined matrix
+ degree 
+\begin_inset Formula $d$
+\end_inset
+
+ instead of the sum of the column degrees and aim for a cost of 
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}d\right)$
+\end_inset
+
+.
+ So there is more room for improvement here.
+\end_layout
+
+\begin_layout Theorem
+The column reduced form and Popov form of any matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ can be computed deterministically with a cost of 
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}d\right).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We may now assume that the input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has full column rank, which can be done by a direct application of the
+ column basis computation.
+ It only remains to consider the case that the row dimension 
+\begin_inset Formula $m$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is higher than its column dimension 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ Using the transposed version of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:matrixGCD"
+
+\end_inset
+
+, we can factor 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ as 
+\begin_inset Formula $\mathbf{F}=\mathbf{G}\mathbf{T}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is column reduced and 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a square nonsingular row basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{t}=-\cdeg_{\left[-d,\dots,-d\right]}\mathbf{G}$
+\end_inset
+
+, or equivalently, 
+\begin_inset Formula $\vec{t}=d-\cdeg\mathbf{G}$
+\end_inset
+
+, then from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:colBasisdegreeBoundByRdegOfRightFactor"
+
+\end_inset
+
+ we have 
+\begin_inset Formula $\cdeg_{-\vec{t}}\mathbf{T}\le0$
+\end_inset
+
+, and from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:colBasisDegreeBoundByInputDegrees"
+
+\end_inset
+
+ we know that 
+\begin_inset Formula $\vec{t}\le d$
+\end_inset
+
+.
+ Now using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:predictableColumnReducedness"
+
+\end_inset
+
+, a 
+\begin_inset Formula $-\vec{t}$
+\end_inset
+
+-column reduced form 
+\begin_inset Formula $\mathbf{T}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ makes 
+\begin_inset Formula $\mathbf{G}\mathbf{T}'$
+\end_inset
+
+ a column reduced form of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ To compute a 
+\begin_inset Formula $-\vec{t}$
+\end_inset
+
+-column reduced form 
+\begin_inset Formula $\mathbf{T}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+, we can just compute a column reduced form of 
+\begin_inset Formula $x^{d-\vec{t}}\mathbf{T}$
+\end_inset
+
+, which is a square nonsingular matrix of degree 
+\begin_inset Formula $d$
+\end_inset
+
+.
 \end_layout
 
 \end_body

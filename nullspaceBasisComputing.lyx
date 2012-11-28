@@ -5536,6 +5536,719 @@ reference "thm:costOfMinimalNullspaceBasisWithUniformShift"
 
 .
  
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:unbalancedRowDegrees"
+
+\end_inset
+
+Input Matrix with Unbalanced Row Degrees
+\end_layout
+
+\begin_layout Plain Layout
+In this section, we consider the problem of computing a minimal kernel basis
+ of an input matrix whose row degrees are unbalanced.
+ If an input matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ has a list of row degrees 
+\begin_inset Formula $\vec{r}=\rdeg\mathbf{F}$
+\end_inset
+
+ whose sum is 
+\begin_inset Formula $\lambda=\sum\vec{r}$
+\end_inset
+
+, our goal in this section is to compute a minimal kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\lambda\right)$
+\end_inset
+
+.
+ We assume 
+\begin_inset Formula $\lambda\ge n$
+\end_inset
+
+.
+ The case of 
+\begin_inset Formula $\lambda<n$
+\end_inset
+
+ can be handled in the same way as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:removeCeilingFunction"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+We assume without loss of generality that the rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ are arranged in decreasing row degrees.
+ As in the multiplication of matrices with unbalanced degrees in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sub:multiplyUnbalancedMatrices"
+
+\end_inset
+
+, we divide 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ into 
+\begin_inset Formula $\log m$
+\end_inset
+
+ row blocks according to the row degrees of its rows, and then work with
+ these blocks one by one successively using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:continueComputingNullspaceBasisByRows"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand input
+filename "algorithmKerenelBasisByRows.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Let 
+\begin_inset Formula 
+\[
+\mathbf{F}=\left[\mathbf{F}_{1}^{T},\mathbf{F}_{2}^{T},\cdots,\mathbf{F}_{\log m-1}^{T},\mathbf{F}_{\log m}^{T}\right]^{T}
+\]
+
+\end_inset
+
+with 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{F}_{1},\mathbf{F}_{2},\cdots,\mathbf{F}_{\log m-1},\mathbf{F}_{\log m}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ having row degrees in the range 
+\begin_inset Formula $\left[0,2\lambda/m\right]$
+\end_inset
+
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $(2\lambda/m,4\lambda/m],$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $(4\lambda/m,8\lambda/m],\ ...,$
+\end_inset
+
+ 
+\begin_inset Formula $(\lambda/4,\lambda/2],$
+\end_inset
+
+ 
+\begin_inset Formula $(\lambda/2,\lambda].$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+We first compute a minimal kernel basis 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}_{1}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Let 
+\begin_inset Formula $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
+\end_inset
+
+ with the same dimension as the row dimension of 
+\begin_inset Formula $\mathbf{N}_{i}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{\sigma}=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]$
+\end_inset
+
+ be the order in the order basis computation.
+\end_layout
+
+\begin_layout Plain Layout
+To further simply our task, we also make the order of our problem in each
+ block uniform.
+ Rather than of using 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ as the input matrix, we use 
+\begin_inset Formula 
+\begin{eqnarray*}
+\hat{\mathbf{N}} & =\begin{bmatrix}\hat{\mathbf{N}}_{1}\\
+\vdots\\
+\hat{\mathbf{N}}_{\log k}
+\end{bmatrix}= & x^{\vec{\sigma}-\vec{b}-1}\begin{bmatrix}\mathbf{N}_{1}^{T}\\
+\vdots\\
+\mathbf{N}_{\log k}^{T}
+\end{bmatrix}=x^{\vec{\sigma}-\vec{b}-1}\mathbf{N}^{T}
+\end{eqnarray*}
+
+\end_inset
+
+ instead, so that a 
+\begin_inset Formula $\left(\hat{\mathbf{N}},\vec{\sigma},-\vec{s}\right)$
+\end_inset
+
+-basis is a 
+\begin_inset Formula $\left(\mathbf{N}^{T},\vec{b}+1,-\vec{s}\right)$
+\end_inset
+
+-basis.
+\end_layout
+
+\begin_layout Plain Layout
+We are now ready to compute a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-kernel basis, which is done by a series of order basis computations that
+ computes a series of kernel bases as follows.
+\end_layout
+
+\begin_layout Plain Layout
+Let 
+\begin_inset Formula $\vec{s}_{1}=\vec{s}$
+\end_inset
+
+.
+ First we compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{1},\vec{\sigma}_{1},-\vec{s}_{1}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}_{1}=\left[\mathbf{G}_{1},\mathbf{Q}_{1}\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{G}_{1}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{1},-\vec{s}_{1}\right)$
+\end_inset
+
+-kernel basis
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+ with 
+\begin_inset Formula $\cdeg_{-\vec{s}_{1}}\mathbf{N}_{1}\le0$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ This computation can be done using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:umab"
+
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $d=\xi/n$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Let 
+\begin_inset Formula $\tilde{\mathbf{G}}_{1}=\mathbf{G}_{1}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}_{2}=-\cdeg_{-\vec{s}}\mathbf{G}_{1}$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Note that 
+\begin_inset Formula $-\vec{s}_{1}\le-[\vec{s}_{2},\vec{t}_{2}]\le\left[0,\dots,0,1,\dots1\right]$
+\end_inset
+
+ component-wise, since 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ has lower order than any 
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ hence generates 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{P}_{1}\le\cdeg_{-\vec{s}}\mathbf{P}\le\left[0,\dots,0,1,\dots1\right]$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+ We then compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{2}\tilde{\mathbf{G}}_{1},\vec{\sigma}_{2},-\vec{s}_{2}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}_{2}=\left[\mathbf{G}_{2},\mathbf{Q}_{2}\right]$
+\end_inset
+
+ with 
+\begin_inset Formula $\vec{s}_{3}=-\cdeg_{-\vec{s}_{2}}\mathbf{G}_{2}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\tilde{\mathbf{G}}_{2}=\tilde{\mathbf{G}}_{1}\mathbf{G}_{2}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+To compute the product 
+\begin_inset Formula $\hat{\mathbf{M}}_{2}\bar{\mathbf{P}}_{1}$
+\end_inset
+
+, since the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\hat{\mathbf{N}}_{2}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\xi/2$
+\end_inset
+
+ and the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\left[1,\dots,1\right]$
+\end_inset
+
+, we can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}^{T}$
+\end_inset
+
+, which has column degrees bounded by 
+\begin_inset Formula $\vec{s}+\left[1,\dots,1\right]$
+\end_inset
+
+, and 
+\begin_inset Formula $\hat{\mathbf{N}}_{2}^{T}$
+\end_inset
+
+ with the sum of its 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+.
+ Now we can use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:umab"
+
+\end_inset
+
+ to compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{2}\bar{\mathbf{P}}_{1},-\vec{t},\vec{\sigma}_{2}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\bar{\mathbf{P}}_{2}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+, since the 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+are bounded by that of 
+\begin_inset Formula $\bar{\mathbf{P}}$
+\end_inset
+
+ (since the columns of 
+\begin_inset Formula $\bar{\mathbf{P}}$
+\end_inset
+
+ are generated by 
+\begin_inset Formula $\bar{\mathbf{P}}_{1}$
+\end_inset
+
+), which in turn are bounded by
+\begin_inset Formula $\left[1,\dots,1\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Let 
+\begin_inset Formula $\mathbf{R}_{1}=\left[\mathbf{N}_{1}\mathbf{Q}_{2},\mathbf{Q}_{1}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{R}_{1}^{r}=\revCol\left(\mathbf{R}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}_{1}\right)$
+\end_inset
+
+.
+ Then from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularComputationByRows"
+
+\end_inset
+
+ we know 
+\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{R}_{1}^{r}\right]$
+\end_inset
+
+ is a unimodular matrix.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Continuing this process, at step 
+\begin_inset Formula $i$
+\end_inset
+
+ we compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
+\end_inset
+
+-basis 
+\begin_inset Formula $\mathbf{P}_{i}=\left[\mathbf{G}_{i},\mathbf{Q}_{i}\right]$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\tilde{\mathbf{G}}_{i}=\prod_{j=1}^{i}\mathbf{G}_{i}=\tilde{\mathbf{G}}_{i-1}\mathbf{G}_{i}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\tilde{\mathbf{G}}_{\log k}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-kernel basis.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+This process of computing a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-kernel basis gives 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasisReverse"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+We still need to check the cost of the multiplications 
+\begin_inset Formula $\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\mathbf{G}}_{i-1}\mathbf{G}_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+The multiplication 
+\begin_inset Formula $\mathbf{F}_{i}\bar{\mathbf{N}}_{i-1}$
+\end_inset
+
+ can be done with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\lambda\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Since 
+\begin_inset Formula $\bar{\mathbf{N}}_{i-1}$
+\end_inset
+
+ is a minimal kernel basis of 
+\begin_inset Formula $\left[\mathbf{F}_{1}^{T},\mathbf{F}_{2}^{T},\dots,\mathbf{F}_{i-1}^{T}\right]^{T}$
+\end_inset
+
+, whose row degrees has a sum bounded by 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, we know the sum of the column degrees of 
+\begin_inset Formula $\bar{\mathbf{N}}_{i-1}$
+\end_inset
+
+ are also bounded by 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+ (A more general result of this is given later by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:generaKernelBasisDegreeBound"
+
+\end_inset
+
+.) We also know that the sum of the row degrees of 
+\begin_inset Formula $\mathbf{F}_{i}$
+\end_inset
+
+ is also bounded by 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+ We can therefore multiply 
+\begin_inset Formula $\mathbf{F}_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{\mathbf{N}}_{i-1}$
+\end_inset
+
+ by expanding their dimensions to 
+\begin_inset Formula $\Theta\left(n\right)$
+\end_inset
+
+ and reduce the degrees to 
+\begin_inset Formula $O(\lambda/n)$
+\end_inset
+
+ as before, allowing them to be multiplied with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}\lambda/n\right)=O^{\sim}\left(n^{\omega-1}\lambda\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+The computation of a minimal kernel basis of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{G}:=\mathbf{F}_{i}\bar{\mathbf{N}}_{i-1}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ can be done with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\lambda\right).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+We know that the sum of the column degrees of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

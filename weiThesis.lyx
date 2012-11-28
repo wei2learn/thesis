@@ -1379,9 +1379,10 @@ Order basis computation and kernel basis computation are then applied to
 For all these problems, our algorithms are not only essentially optimal,
  but in most cases they also solve more general versions of these problems
  than previous algorithms.
- More specifically, the computational costs are often stated with the sum
- of the column degrees of the input matrix, which is more precise and tighter
- than using just the degrees.
+ More specifically, the computational costs are often stated with the sums
+ of the column degrees or the average column degrees of the input matrices,
+ which are more precise and tighter than the matrix degrees, or equivalently,
+ the maximum column degrees, previously used in the literature.
  In addition, the shifted minimal bases computed by our algorithms are more
  general than the standard minimal bases.
 \end_layout
@@ -1647,6 +1648,25 @@ filename "nullspaceBasisApplications.lyx"
 \begin_inset CommandInset include
 LatexCommand input
 filename "matrixGCD.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand input
+filename "columnReduction.lyx"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 

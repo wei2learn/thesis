@@ -10,12 +10,12 @@ rank sensitive computations for order basis.
 \label{alg:minimalNullspaceBasisReverse}
 
 \begin{algorithmic}
-[1]\REQUIRE{$\mathbf{M}\in\mathbb{K}\left[x\right]^{m\times n}$ such that $\sum\rdeg_{\vec{s}}\mathbf{M}\le\sum\vec{s}$
-and a $\left(\mathbf{M},-\vec{s}\right)$-nullspace basis has row
-degrees bounded by $\vec{s}$ (equivalently, $-\vec{s}$-column degrees
-bounded by 0).}
+[1]\REQUIRE{$\mathbf{M}\in\mathbb{K}\left[x\right]^{k\times n}$ such that $\sum\rdeg_{\vec{s}}\mathbf{M}\le\sum\vec{s}$
+and a $\left(\mathbf{M},-\vec{s}\right)$-kernel basis has row degrees
+bounded by $\vec{s}$ (equivalently, $-\vec{s}$-column degrees bounded
+by 0).}
 
-\ENSURE{$\mathbf{G}\in\mathbb{K}\left[x\right]^{n\times k}$, a $\left(\mathbf{M},-\vec{s}\right)$-nullspace
+\ENSURE{$\mathbf{G}\in\mathbb{K}\left[x\right]^{n\times*}$, a $\left(\mathbf{M},-\vec{s}\right)$-kernel
 basis.}
 
 \STATE{\textbf{$\left[\mathbf{M}_{1}^{T},\mathbf{M}_{2}^{T},\cdots,\mathbf{M}_{\log k-1}^{T},\mathbf{M}_{\log k}^{T}\right]:=\mathbf{M}^{T}$},
@@ -27,7 +27,7 @@ having $\vec{s}$-row degrees in the range $\left[0,2\xi/k\right],(2\xi/k,4\xi/k]
 \forbody{\STATE{$\vec{\sigma}_{i}:=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$,
 with the number of entries matches the row dimension of $\mathbf{M}_{i};$}}
 
-\STATE{$\vec{\sigma}:=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]$;}
+\STATE{$\vec{\sigma}:=\left[\vec{\sigma}_{1},\vec{\sigma}_{2},\dots,\vec{\sigma}_{\log k}\right]$;}
 
 \STATE{$\hat{\mathbf{M}}:=x^{\vec{\sigma}-\vec{b}-1}\mathbf{M};$}
 
@@ -40,7 +40,7 @@ with the number of entries matches the row dimension of $\mathbf{M}_{i};$}}
 \STATE{$\mathbf{P}_{i}:=\umab\left(\hat{\mathbf{M}}_{i}\tilde{\mathbf{N}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$; }
 
 \STATE{$\left[\mathbf{N}_{i},\mathbf{Q}_{i}\right]:=\mathbf{P}_{i}$, where
-$\mathbf{N}_{i}$ is a $\left(\hat{\mathbf{M}}_{i},-\vec{s}_{i}\right)$-nullspace
+$\mathbf{N}_{i}$ is a $\left(\hat{\mathbf{M}}_{i},-\vec{s}_{i}\right)$-kernel
 basis;}
 
 \STATE{$\tilde{\mathbf{N}_{i}}:=\tilde{\mathbf{N}}_{i-1}\cdot\mathbf{N}_{i};$ }
