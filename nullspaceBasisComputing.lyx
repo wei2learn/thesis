@@ -4095,7 +4095,7 @@ status open
 \end_inset
 
  and 
-\begin_inset Formula $\vec{t}$
+\begin_inset Formula $\vec{t}\in\mathbb{Z}^{n}$
 \end_inset
 
  a shift vector.

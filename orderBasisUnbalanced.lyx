@@ -3286,7 +3286,7 @@ reference "con:unbalancedCondition"
 \end_inset
 
 -basis can be computed with cost 
-\begin_inset Formula $O\left(n^{\omega}\bar{\M}(d)\log\sigma\right)=O(n^{\omega}d\log d\log\log d\log\sigma)\subset O^{\sim}(n^{\omega}d)$
+\begin_inset Formula $O\left(n^{\omega}\M(d)\log\sigma\right)\subset O^{\sim}(n^{\omega}d)$
 \end_inset
 
 .
@@ -3445,7 +3445,7 @@ reference "alg:mab"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O\left(n_{2}^{\omega}\bar{\M}(d_{2})\log\sigma\right)$
+\begin_inset Formula $O\left(n_{2}^{\omega}\M(d_{2})\log\sigma\right)$
 \end_inset
 
  as the shift 
@@ -3485,9 +3485,12 @@ reference "alg:mab"
 
 -basis can be computed with a cost of 
 \begin_inset Formula 
-\[
-O\left(n_{i}^{\omega}\bar{\M}\left(d_{i}\right)\log\sigma\right)\subset O\left(\left(2^{-i}n\right)^{\omega}\bar{\M}\left(2^{i}d\right)\log\sigma\right)\subset O\left(2^{-i}n^{\omega}\bar{\M}(d)\log\sigma\right).
-\]
+\begin{align*}
+O\left(n_{i}^{\omega}\M\left(d_{i}\right)\log\sigma\right) & \subset O\left(\left(2^{-i}n\right)^{\omega}\M\left(2^{i}d\right)\log\sigma\right)\\
+ & \subset O\left(\left(2^{-i}n\right)^{\omega}\M\left(2^{i}\right)\M\left(d\right)\log\sigma\right)\\
+ & \subset O\left(\left(2^{-i}n\right)^{\omega}\left(2^{i}\right)^{\omega-1}\M\left(d\right)\log\sigma\right)\\
+ & \subset O\left(2^{-i}n^{\omega}\M(d)\log\sigma\right).
+\end{align*}
 
 \end_inset
 
@@ -3541,7 +3544,7 @@ O\left(n_{i}^{\omega}\bar{\M}\left(d_{i}\right)\log\sigma\right)\subset O\left(\
  iterations, so the overall cost is 
 \begin_inset Formula 
 \[
-O\left(\sum_{i=1}^{\log(n/m)}\left(2^{-i}n^{\omega}\bar{\M}(d)\log\sigma\right)\right)=O\left(n^{\omega}\bar{\M}(d)\log\sigma\sum_{i=1}^{\log(n/m)}2^{-i}\right)\subset O\left(n^{\omega}\bar{\M}(d)\log\sigma\right)
+O\left(\sum_{i=1}^{\log(n/m)}\left(2^{-i}n^{\omega}\M(d)\log\sigma\right)\right)=O\left(n^{\omega}\M(d)\log\sigma\sum_{i=1}^{\log(n/m)}2^{-i}\right)\subset O\left(n^{\omega}\M(d)\log\sigma\right)
 \]
 
 \end_inset

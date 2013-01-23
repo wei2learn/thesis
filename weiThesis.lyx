@@ -161,6 +161,7 @@ plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis
 \DeclareMathOperator{\rowRev}{rowRev}
 \DeclareMathOperator{\unimodularCompletion}{unimodularCompletion}
 \DeclareMathOperator{\hermiteDiagonal}{hermiteDiagonal}
+\DeclareMathOperator{\hermiteDiagonalWithScale}{hermiteDiagonalWithScale}
 \DeclareMathOperator{\mnbr}{minimaKernelBasisReversed}
 \DeclareMathOperator{\mnbrp}{minimalKernelBasisWithRankProfile}
 \DeclareMathOperator{\colBasis}{colBasis}
@@ -929,15 +930,12 @@ In this thesis, we present efficient deterministic algorithms for polynomial
  minimal kernel basis, matrix inverse, column basis, unimodular completion,
  determinant, Hermite normal form, rank and rank profile for matrices of
  univariate polynomials over a field.
- The algorithm for kernel basis computation also immediately allows us to
- solve linear systems.
- The algorithm for column basis also immediately allows us to compute matrix
- GCDs, column reduced forms, and Popov normal forms for matrices of any
- dimension.
+ The algorithm for kernel basis computation also immediately provides an
+ efficient deterministic algorithm for solving linear systems.
+ The algorithm for column basis also gives efficient deterministic algorithms
+ for computing matrix GCDs, column reduced forms, and Popov normal forms
+ for matrices of any dimension and any rank.
  
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -1376,9 +1374,22 @@ Order basis computation and kernel basis computation are then applied to
 \end_layout
 
 \begin_layout Standard
-For all these problems, our algorithms are not only essentially optimal,
- but in most cases they also solve more general versions of these problems
- than previous algorithms.
+We reduce all these problems to polynomial matrix multiplications.
+ The computational costs of our algorithms are then similar to the costs
+ of multiplying matrices, whose dimensions match the input matrix dimensions
+ in the original problems, and whose degrees equal the average column degrees
+ of the original input matrices in most cases.
+ The use of the average column degrees instead of the commonly used matrix
+ degrees, or equivalently the maximum column degrees, makes our computational
+ costs more precise and tighter.
+ In addition, the shifted minimal bases computed by our algorithms are more
+ general than the standard minimal bases.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+our algorithms are not only essentially optimal, but in most cases they
+ also solve more general versions of these problems than previous algorithms.
  More specifically, the computational costs are often stated with the sums
  of the column degrees or the average column degrees of the input matrices,
  which are more precise and tighter than the matrix degrees, or equivalently,
@@ -1387,8 +1398,9 @@ For all these problems, our algorithms are not only essentially optimal,
  general than the standard minimal bases.
 \end_layout
 
-\begin_layout Standard
-\noindent
+\end_inset
+
+
 \begin_inset Note Note
 status collapsed
 

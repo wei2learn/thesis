@@ -69,8 +69,9 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In this thesis, we present efficient algorithms for a number of problems
- involving matrices of univariate power series or polynomials over a field.
+In this thesis, we present efficient deterministic algorithms for a number
+ of problems involving matrices of univariate power series or polynomials
+ over a field.
  The first problem we consider is the computation of order bases, which
  can be viewed as the most fundamental among all the problems considered
  in this thesis, since order basis computation is used by the algorithms
@@ -78,11 +79,12 @@ In this thesis, we present efficient algorithms for a number of problems
  The second problem, minimal kernel basis computation, provides another
  essential tool used by the algorithms for the remaining problems, including
  the computation of matrix inverse, determinant, column basis, unimodular
- completion, and Hermite normal form.
+ completion, Hermite normal form, rank and rank profile.
  The algorithm for kernel basis computation also immediately allows us to
- solve linear systems.
- The algorithm for column basis also immediately allows us to compute matrix
- GCDs, column reduced forms and Popov normal forms for matrices of any dimension.
+ efficiently solve linear systems.
+ The algorithm for column basis also allows us to efficiently compute matrix
+ GCDs, column reduced forms and Popov normal forms for matrices of any dimension
+ and any rank.
  
 \end_layout
 
@@ -111,10 +113,6 @@ In this chapter, we give a brief introduction to order basis and kernel
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 Let us first look at order bases and kernel bases in more detail.
 \end_layout
 
@@ -136,7 +134,12 @@ Let
 \begin_inset Formula $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$
 \end_inset
 
- of polynomials gives an 
+ of polynomials 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+gives an 
 \emph on
 order
 \emph default
@@ -152,7 +155,12 @@ order
 \begin_inset Formula $\mathbf{p}$
 \end_inset
 
- has order 
+
+\end_layout
+
+\end_inset
+
+has order 
 \begin_inset Formula $\left(\mathbf{F},\sigma\right)$
 \end_inset
 
@@ -173,8 +181,8 @@ order
 \end_inset
 
  are zero.
- Historically such problems date back to their use in Hermite's proof of
- the transcendence of 
+ Historically the problem of finding such vectors dates back to their use
+ in Hermite's proof of the transcendence of 
 \begin_inset Formula $e$
 \end_inset
 
@@ -200,9 +208,9 @@ ls
 \end_inset
 
  and had their order conditions related to these degree constraints.
- Additional order problems include vector and matrix versions of rational
- approximation, partial realizations of matrix sequences and vector rational
- reconstruction just to name a few (cf.
+ Additional cases of such order problems include vector and matrix versions
+ of rational approximation, partial realizations of matrix sequences and
+ vector rational reconstruction just to name a few (cf.
  the references in 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -269,12 +277,12 @@ status collapsed
 
 \end_inset
 
- - or minimal approximant basis or 
+ -- or minimal approximant basis or 
 \begin_inset Formula $\sigma$
 \end_inset
 
--basis - is a basis of this module having a type of minimal degree property
- (called reduced order basis in 
+-basis -- is a basis of this module having a type of minimal degree property
+ (called a reduced order basis in 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "BL1997"
@@ -282,8 +290,18 @@ key "BL1997"
 \end_inset
 
 ).
- The minimal degree property parameterizes solutions to an order problem
+ More details on this minimality property is given in the next chapter.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The minimal degree property parameterizes solutions to an order problem
  by the degrees of the columns of the order basis.
+\end_layout
+
+\end_inset
+
  In the case of rational approximation, order bases can be viewed as a natural
  generalization of the Padé table of a power series 
 \begin_inset CommandInset citation
@@ -353,10 +371,11 @@ key "BLV:1999,BLV:jsc06"
 \end_inset
 
 , and other important problems in matrix polynomial arithmetic including
- matrix inversion, determinant and kernel computation 
+ matrix inversion, column reduction, determinant and nullspace basis computation
+ 
 \begin_inset CommandInset citation
 LatexCommand citep
-key "Giorgi2003,storjohann-villard:2005"
+key "Giorgi2003,storjohann-villard:2005,jv2006,jeannerod-villard:05"
 
 \end_inset
 
@@ -607,7 +626,15 @@ key "forney:1975"
 
  is said to be minimal if it has the minimal possible column degrees among
  all right kernel bases.
- This is also often referred to as a 
+ More details on this minimality is given in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:minimality"
+
+\end_inset
+
+.
+ A minimal kernel basis is also often referred to as a 
 \begin_inset ERT
 status collapsed
 
@@ -890,8 +917,8 @@ it turns out
 
 \end_inset
 
- it is possible that the degree just may not be the best choice to be used
- in these computations.
+ it is possible that the matrix degree just may not be the best choice to
+ be used in these computations.
  
 \begin_inset Note Note
 status collapsed
@@ -903,12 +930,12 @@ way to measure the size in all the problem we consider in this thesis.
 
 \end_inset
 
-In this thesis, instead of the standard degrees, we use the more general
- shifted degrees to guide the computations, and use the sum of the shifted
- degrees to measure the size of polynomial matrices.
- We will see that the shifted degree is in fact a more natural choice, as
- it guides the computation so that the sizes of the output and the intermediate
- results are indeed bounded by the size as the input for all these problems.
+In this thesis, instead of the standard matrix degrees, we use the more
+ general shifted column degrees to guide the computations, and use the sum
+ of the shifted column degrees to measure the size of polynomial matrices.
+ We will see that the shifted column degree is in fact a more natural choice,
+ as it guides the computation so that the sizes of the output and the intermedia
+te results are indeed bounded by the size as the input for all these problems.
  
 \begin_inset Note Note
 status collapsed
@@ -971,8 +998,11 @@ For a column vector
 \begin_inset Formula $\mathbb{K}$
 \end_inset
 
-, its column degree is just the maximum of the degrees of the entries of
- 
+, its column degree, denoted by 
+\begin_inset Formula $\cdeg\mathbf{p}$
+\end_inset
+
+, is just the maximum of the degrees of the entries of 
 \begin_inset Formula $\mathbf{p}$
 \end_inset
 
@@ -1020,7 +1050,7 @@ shift
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\cdeg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
+\cdeg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p_{i}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
 \]
 
 \end_inset
@@ -1071,7 +1101,7 @@ For a matrix
 is defined in the same way.
 \begin_inset Formula 
 \[
-\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
+\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg q_{i}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
 \]
 
 \end_inset
@@ -1291,7 +1321,7 @@ key "BeLa94"
 \begin_inset Formula $O$
 \end_inset
 
- with polylogarithmic factors 
+ with polylogarithmic multiplicative factors 
 \begin_inset Formula $(\log(nm\sigma))^{O(1)}$
 \end_inset
 
@@ -1311,12 +1341,16 @@ key "Giorgi2003"
 \begin_inset Formula $O^{\sim}\left(n^{\omega}\sigma\right)$
 \end_inset
 
- arithmetic operations.
- Their method is very efficient if 
+ arithmetic operations when 
+\begin_inset Formula $m\le n$
+\end_inset
+
+.
+ Their method is very efficient if the row dimension 
 \begin_inset Formula $m$
 \end_inset
 
- is close to the size of 
+ is close to the size of the column dimension 
 \begin_inset Formula $n$
 \end_inset
 
@@ -1324,7 +1358,11 @@ key "Giorgi2003"
 \begin_inset Formula $m$
 \end_inset
 
- is small.
+ is much smaller than 
+\begin_inset Formula $n$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1381,8 +1419,8 @@ However, while order bases of the original problem can have degree up to
 \end_inset
 
  in order to be computationally efficient.
- In other words, this approach does not in general compute a complete order
- basis.
+ In other words, this approach does not, in general, compute a complete
+ order basis.
  Rather, in order to achieve efficiency, it only computes a partial order
  basis containing basis elements with degrees within 
 \begin_inset Formula $O\left(\left\lceil m\sigma/n\right\rceil \right)$

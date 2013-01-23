@@ -95,7 +95,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mnbr(\mathbf{M},\vec{s})$
+\begin_inset Formula $\mnbr(\mathbf{M},\vec{s},\xi)$
 \end_inset
 
 
@@ -114,8 +114,15 @@ name "alg:minimalNullspaceBasisReverse"
 \end_layout
 
 \begin_layout Plain Layout
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Flex ALGORITHMIC
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Flex INPUT
@@ -125,25 +132,40 @@ status open
 \begin_inset Formula $\mathbf{M}\in\mathbb{K}\left[x\right]^{k\times n}$
 \end_inset
 
- such that 
-\begin_inset Formula $\sum\rdeg_{\vec{s}}\mathbf{M}\le\sum\vec{s}$
+ and 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}_{\ge0}^{n}$
 \end_inset
 
- and a 
+ such that 
+\begin_inset Formula $\sum\rdeg_{\vec{s}}\mathbf{M}\le\xi$
+\end_inset
+
+, 
+\begin_inset Formula $\sum\vec{s}\le\xi$
+\end_inset
+
+, and any 
 \begin_inset Formula $\left(\mathbf{M},-\vec{s}\right)$
 \end_inset
 
--kernel basis has row degrees bounded by 
+-kernel basis having row degrees bounded by 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- (equivalently, 
+ (equivalently, having 
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
 -column degrees bounded by 0).
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace bigskip
 \end_inset
 
 
@@ -170,6 +192,13 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Flex STATE
 status open
 
@@ -190,7 +219,7 @@ status open
 \end_inset
 
 -row degrees in the range 
-\begin_inset Formula $\left[0,2\xi/k\right],(2\xi/k,4\xi/k],...,(\xi/4,\xi/2],(\xi/2,\xi].$
+\begin_inset Formula $\left[0,\frac{2\xi}{k}\right],(\frac{2\xi}{k},\frac{4\xi}{k}],...,(\frac{\xi}{4},\frac{\xi}{2}],(\frac{\xi}{2},\xi].$
 \end_inset
 
 
@@ -238,10 +267,10 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\vec{\sigma}_{i}:=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
+\begin_inset Formula $\vec{\sigma}_{i}:=\left[\frac{\xi}{2^{i-1}}+1,\dots,\frac{\xi}{2^{i-1}}+1\right]$
 \end_inset
 
-, with the number of entries matches the row dimension of 
+, number of entries matching the row dimension of 
 \begin_inset Formula $\mathbf{M}_{i};$
 \end_inset
 
@@ -279,7 +308,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\hat{\mathbf{M}}:=x^{\vec{\sigma}-\vec{b}-1}\mathbf{M};$
+\begin_inset Formula $\hat{\mathbf{N}}:=x^{\vec{\sigma}-\vec{b}-1}\mathbf{M};$
 \end_inset
 
 
@@ -295,11 +324,11 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{N}_{0}:=I_{n}$
+\begin_inset Formula $\mathbf{G}_{0}:=I_{n}$
 \end_inset
 
 ; 
-\begin_inset Formula $\tilde{\mathbf{N}}_{0}:=I_{n};$
+\begin_inset Formula $\tilde{\mathbf{G}}_{0}:=I_{n};$
 \end_inset
 
 
@@ -345,7 +374,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\vec{s}_{i}:=-\cdeg_{-\vec{s}}\mathbf{N}_{i-1};$
+\begin_inset Formula $\vec{s}_{i}:=-\cdeg_{-\vec{s}}\mathbf{G}_{i-1};$
 \end_inset
 
  (note 
@@ -365,7 +394,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{P}_{i}:=\umab\left(\hat{\mathbf{M}}_{i}\tilde{\mathbf{N}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
+\begin_inset Formula $\mathbf{P}_{i}:=\umab\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
 \end_inset
 
 ; 
@@ -381,7 +410,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left[\mathbf{N}_{i},\mathbf{Q}_{i}\right]:=\mathbf{P}_{i}$
+\begin_inset Formula $\left[\mathbf{G}_{i},\mathbf{Q}_{i}\right]:=\mathbf{P}_{i}$
 \end_inset
 
 , where 
@@ -405,7 +434,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\tilde{\mathbf{N}_{i}}:=\tilde{\mathbf{N}}_{i-1}\cdot\mathbf{N}_{i};$
+\begin_inset Formula $\tilde{\mathbf{G}_{i}}:=\tilde{\mathbf{G}}_{i-1}\cdot\mathbf{G}_{i};$
 \end_inset
 
  
@@ -485,7 +514,7 @@ RETURN
 \end_inset
 
  
-\begin_inset Formula $\tilde{\mathbf{N}_{i}}$
+\begin_inset Formula $\tilde{\mathbf{G}_{i}}$
 \end_inset
 
  

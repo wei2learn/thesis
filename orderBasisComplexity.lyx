@@ -446,10 +446,10 @@ The matrices
  field operations, which is bounded by
 \begin_inset Formula 
 \begin{align}
-2^{i}\MM(n/2^{i},2^{i}d) & \in O\left(2^{i}\left(n/2^{i}\right)^{\omega}\bar{\M}(2^{i}d)\right)\nonumber \\
- & \subset O\left(n^{\omega}\left(2^{i}\right)^{1-\omega}\bar{\M}\left(2^{i}\right)\bar{\M}(d)\right)\label{eq:separateMultiplication}\\
- & \subset O\left(n^{\omega}\left(2^{i}\right)^{1-\omega}\left(2^{i}\right)^{\omega-1}\bar{\M}(d)\right)\label{eq:MultiplicationToExponent}\\
- & \subset O\left(n^{\omega}\bar{\M}(d)\right).\nonumber 
+2^{i}\MM(n/2^{i},2^{i}d) & \in O\left(2^{i}\left(n/2^{i}\right)^{\omega}\M(2^{i}d)\right)\nonumber \\
+ & \subset O\left(n^{\omega}\left(2^{i}\right)^{1-\omega}\M\left(2^{i}\right)\M(d)\right)\label{eq:separateMultiplication}\\
+ & \subset O\left(n^{\omega}\left(2^{i}\right)^{1-\omega}\left(2^{i}\right)^{\omega-1}\M(d)\right)\label{eq:MultiplicationToExponent}\\
+ & \subset O\left(n^{\omega}\M(d)\right).\nonumber 
 \end{align}
 
 \end_inset
@@ -462,7 +462,7 @@ reference "eq:separateMultiplication"
 \end_inset
 
 ) follows from 
-\begin_inset Formula $\bar{\M}(ab)\in O\left(\bar{\M}(a)\bar{\M}(b)\right)$
+\begin_inset Formula $\M(ab)\in O\left(\M(a)\M(b)\right)$
 \end_inset
 
 .
@@ -474,7 +474,7 @@ reference "eq:MultiplicationToExponent"
 \end_inset
 
 ) follows from 
-\begin_inset Formula $\bar{\M}(t)\in O(t^{\omega-1})$
+\begin_inset Formula $\M(t)\in O(t^{\omega-1})$
 \end_inset
 
 .
@@ -502,7 +502,7 @@ The matrices
 \end_inset
 
  and can also be multiplied with a cost of 
-\begin_inset Formula $O\left(n^{\omega}\bar{\M}(d)\right)$
+\begin_inset Formula $O\left(n^{\omega}\M(d)\right)$
 \end_inset
 
  field operations.
@@ -511,7 +511,7 @@ The matrices
 \end_inset
 
  iterations is therefore 
-\begin_inset Formula $O\left(n^{\omega}\bar{\M}(d)\log(n/m)\right)$
+\begin_inset Formula $O\left(n^{\omega}\M(d)\log(n/m)\right)$
 \end_inset
 
 .
@@ -540,7 +540,7 @@ The input matrix
 \end_inset
 
  is 
-\begin_inset Formula $O\left(\left(n/2^{i}\right)^{\omega}\bar{\M}\left(2^{i}d\right)\log\left(2^{i}d\right)\right)$
+\begin_inset Formula $O\left(\left(n/2^{i}\right)^{\omega}\M\left(2^{i}d\right)\log\left(2^{i}d\right)\right)$
 \end_inset
 
 .
@@ -551,11 +551,11 @@ The input matrix
  iterations is bounded by 
 \begin_inset Formula 
 \begin{align*}
- & O\left(\sum_{i=1}^{\infty}\left(\left(n/2^{i}\right)^{\omega}\bar{\M}\left(2^{i}d\right)\log\left(2^{i}d\right)\right)\right)\\
-\subset & O\left(\sum_{i=1}^{\infty}\left(\left(n/2^{i}\right)^{\omega}\bar{\M}\left(2^{i}\right)\log\left(2^{i}\right)\bar{\M}\left(d\right)\log\left(d\right)\right)\right)\\
-\subset & O\left(\sum_{i=1}^{\infty}\left(n^{\omega}\left(2^{i}\right)^{-\omega}\left(2^{i}\right)^{\omega-1}\bar{\M}\left(d\right)\log\left(d\right)\right)\right)\\
-\subset & O\left(n^{\omega}\bar{\M}\left(d\right)\log\left(d\right)\sum_{i=1}^{\infty}\left(2^{-i}\right)\right)\\
-\subset & O\left(n^{\omega}\bar{\M}\left(d\right)\log\left(d\right)\right).
+ & O\left(\sum_{i=1}^{\infty}\left(\left(n/2^{i}\right)^{\omega}\M\left(2^{i}d\right)\log\left(2^{i}d\right)\right)\right)\\
+\subset & O\left(\sum_{i=1}^{\infty}\left(\left(n/2^{i}\right)^{\omega}\M\left(2^{i}\right)\log\left(2^{i}\right)\M\left(d\right)\log\left(d\right)\right)\right)\\
+\subset & O\left(\sum_{i=1}^{\infty}\left(n^{\omega}\left(2^{i}\right)^{-\omega}\left(2^{i}\right)^{\omega-1}\M\left(d\right)\log\left(d\right)\right)\right)\\
+\subset & O\left(n^{\omega}\M\left(d\right)\log\left(d\right)\sum_{i=1}^{\infty}\left(2^{-i}\right)\right)\\
+\subset & O\left(n^{\omega}\M\left(d\right)\log\left(d\right)\right).
 \end{align*}
 
 \end_inset
@@ -572,7 +572,7 @@ Finally, extracting an order basis by LSP factorization costs
  Combining the above gives 
 \begin_inset Formula 
 \[
-O\left(n^{\omega}\bar{\M}\left(d\right)\log(n/m)+n^{\omega}\bar{\M}\left(d\right)\log d\right)=O\left(n^{\omega}\bar{\M}\left(d\right)\log\sigma)\right)
+O\left(n^{\omega}\M\left(d\right)\log(n/m)+n^{\omega}\M\left(d\right)\log d\right)=O\left(n^{\omega}\M\left(d\right)\log\sigma)\right)
 \]
 
 \end_inset

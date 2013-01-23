@@ -216,7 +216,7 @@ status open
 \end_inset
 
  consists of the top 
-\begin_inset Formula $\left\lceil n\right\rceil $
+\begin_inset Formula $\left\lceil n/2\right\rceil $
 \end_inset
 
  rows of 
@@ -486,7 +486,7 @@ status open
 if 
 \series default
 
-\begin_inset Formula $\columnDimension(\mathbf{N}_{1})\ne\left\lfloor n\right\rfloor $
+\begin_inset Formula $\columnDimension(\mathbf{N}_{1})\ne\left\lfloor n/2\right\rfloor $
 \end_inset
 
  
@@ -500,7 +500,7 @@ status collapsed
 \end_inset
 
  
-\begin_inset Formula $\columnDimension(\mathbf{N}_{2})\ne\left\lceil n\right\rceil $
+\begin_inset Formula $\columnDimension(\mathbf{N}_{2})\ne\left\lceil n/2\right\rceil $
 \end_inset
 
  
@@ -551,11 +551,11 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left\{ \mathcal{A}^{(1)},\mathbf{H}_{1}\right\} :=\inv(\mathbf{R}_{1},\deg_{\vec{s}}\mathbf{N}_{2})$
+\begin_inset Formula $\left\{ \mathcal{A}^{(1)},\mathbf{H}_{1}\right\} :=\inv(\mathbf{R}_{1},\cdeg_{\vec{s}}\mathbf{N}_{2})$
 \end_inset
 
 ; 
-\begin_inset Formula $\left\{ \mathcal{A}^{(2)},\mathbf{H}_{2}\right\} :=\inv(\mathbf{R}_{2},\deg_{\vec{s}}\mathbf{N}_{1})$
+\begin_inset Formula $\left\{ \mathcal{A}^{(2)},\mathbf{H}_{2}\right\} :=\inv(\mathbf{R}_{2},\cdeg_{\vec{s}}\mathbf{N}_{1})$
 \end_inset
 
 ;

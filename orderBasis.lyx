@@ -444,17 +444,33 @@ key "Giorgi2003"
 
  directly, which gives a cost of 
 \begin_inset Formula 
-\begin{align*}
-\sum_{i=0}^{\log\sigma}2^{i}\MM(n,2^{-i}\sigma)= & \sum_{i=0}^{\log\sigma}2^{-i}\sigma\MM(n,2^{i})\\
-\subset & O\left(\sum_{i=0}^{\log\sigma}2^{-i}n^{\omega}\sigma2^{i}\log2^{i}\log\log2^{i}\right)\\
-= & O\left(n^{\omega}\sigma\sum_{i=0}^{\log\sigma}i\log i\right)\\
-\subset & O\left(n^{\omega}\sigma\sum_{i=0}^{\log\sigma}\log\sigma\log\log\sigma\right)\\
-= & O\left(n^{\omega}\sigma\log^{2}\sigma\log\log\sigma\right)=O(n^{\omega}\bar{\M}(\sigma)\log\sigma),
-\end{align*}
+\begin{align}
+\sum_{i=0}^{\log\sigma}2^{i}\MM(n,2^{-i}\sigma)= & \sum_{i=0}^{\log\sigma}2^{-i}\sigma\MM(n,2^{i})\nonumber \\
+\subset & O\left(\sum_{i=0}^{\log\sigma}\sigma n^{\omega}\M\left(2^{i}\right)2^{-i}\right)\nonumber \\
+\subset & O\left(n^{\omega}\sum_{i=0}^{\log\sigma}\M\left(\sigma\right)\right)\label{eq:polynomialMultiplicationBound}\\
+= & O(n^{\omega}\M(\sigma)\log\sigma).\nonumber 
+\end{align}
 
 \end_inset
 
- close to the cost of multiplying two matrices with dimension 
+Equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:polynomialMultiplicationBound"
+
+\end_inset
+
+) follows from the fact 
+\begin_inset Formula $2^{i}\le\sigma$
+\end_inset
+
+ implies 
+\begin_inset Formula $\M\left(2^{i}\right)2^{-i}\le\M\left(\sigma\right)/\sigma$
+\end_inset
+
+.
+ This cost is close to the cost of multiplying two matrices with dimension
+ 
 \begin_inset Formula $n$
 \end_inset
 

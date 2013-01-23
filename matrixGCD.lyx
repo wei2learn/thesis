@@ -4,6 +4,7 @@
 \begin_header
 \textclass report
 \use_default_options true
+\master weiThesis.lyx
 \begin_modules
 theorems-ams
 theorems-chap
@@ -184,11 +185,11 @@ status collapsed
  by repeatedly working with the leading column coefficient matrices.
  But computing a column basis this way can be expensive, as we need to work
  with up to 
-\begin_inset Formula $\xi=\sum\vec{s}$
+\begin_inset Formula $\sum\vec{s}$
 \end_inset
 
  such coefficient matrices, which would involve up to 
-\begin_inset Formula $\xi$
+\begin_inset Formula $\sum\vec{s}$
 \end_inset
 
  polynomial matrix multiplications.
@@ -485,6 +486,30 @@ reference "cor:unimodularlyReduceToColumnBasis"
 \end_inset
 
 .
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Note that 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
  It remains to show that 
 \begin_inset Formula $\mathbf{U}_{L}$
 \end_inset
@@ -1070,7 +1095,7 @@ reference "cor:unimodular_kernel_columnBasis2"
 \begin_inset Formula $\mathbf{U}_{L}$
 \end_inset
 
- is any right kernel basis 
+ is any right kernel basis of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -1100,6 +1125,13 @@ reference "cor:unimodular_kernel_columnBasis2"
 
 
 \series default
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:unimodular_kernel_columnBasis2"
+
+\end_inset
+
 , any other left kernel basis 
 \begin_inset Formula $\mathbf{G}$
 \end_inset
@@ -2246,7 +2278,7 @@ reference "lem:matrixGCD"
 , which can be efficiently done using 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasisWithRankProfile"
+reference "alg:minimalNullspaceBasis"
 
 \end_inset
 
@@ -2282,6 +2314,74 @@ reference "lem:matrixGCD"
  does not require the bases computed to be minimal, working with minimal
  bases keeps the degrees well-managed and helps to make the computation
  efficient.
+\end_layout
+
+\begin_layout Example
+Let 
+\begin_inset Formula 
+\[
+\mathbf{F}=\left[\begin{array}{cccc}
+x^{2} & x^{2} & x+x^{2} & 1+x^{2}\\
+1+x+x^{2} & x^{2} & 1+x^{2} & 1+x^{2}
+\end{array}\right]~.
+\]
+
+\end_inset
+
+Then the matrix 
+\begin_inset Formula 
+\[
+\mathbf{N}=\left[\begin{array}{cc}
+x & 1\\
+1 & x\\
+x & 1\\
+0 & x
+\end{array}\right]
+\]
+
+\end_inset
+
+is a right kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and the matrix 
+\begin_inset Formula 
+\[
+\mathbf{G}=\left[\begin{array}{cccc}
+1 & 0 & 1 & 0\\
+\noalign{\medskip}x & {x}^{2} & 0 & 1+{x}^{2}
+\end{array}\right]
+\]
+
+\end_inset
+
+is a left nulllspace basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Finally the matrix 
+\begin_inset Formula 
+\[
+\mathbf{T}=\left[\begin{array}{cc}
+x+x^{2} & 1\\
+1+x^{2} & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+satisfies 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+, and is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Section
@@ -3164,6 +3264,10 @@ name "lem:nullspaceBasisOfSubsetOfRowsContainedInOrderBasis"
 \end_inset
 
 Let 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ be partitioned as 
 \begin_inset Formula $\mathbf{N}=\left[\mathbf{N}_{1},\mathbf{N}_{2}\right]$
 \end_inset
 
@@ -3192,7 +3296,7 @@ Let
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
--row degrees are bounded by 0.
+-column degrees are bounded by 0.
  Let 
 \begin_inset Formula $\mathbf{Q}_{1}$
 \end_inset
@@ -3218,7 +3322,7 @@ Let
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
--row degrees are bounded by 0.
+-column degrees are bounded by 0.
  The product 
 \begin_inset Formula $\mathbf{Q}_{1}\mathbf{Q}_{2}$
 \end_inset
@@ -3243,8 +3347,8 @@ To see that a
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
--row degrees are bounded by 0, we just need to show that 
-\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{\bar{Q}}_{1}\le0$
+-column degrees are bounded by 0, we just need to show that 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{\bar{Q}}_{1}\le0$
 \end_inset
 
  for any 
@@ -3297,7 +3401,7 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 
 .
  If 
-\begin_inset Formula $\rdeg_{-\vec{s}}\mathbf{\bar{Q}}_{1}\nleq0$
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{\bar{Q}}_{1}\nleq0$
 \end_inset
 
 , then 
@@ -3308,10 +3412,21 @@ reference "lem:predictableDegree"
 \end_inset
 
  forces 
-\begin_inset Formula $\rdeg_{-\vec{s}}\left(\bar{\mathbf{Q}}_{1}\bar{\mathbf{Q}}_{2}\right)=\rdeg_{-\vec{s}}\bar{\mathbf{G}}\nleq0$
+\begin_inset Formula $\cdeg_{-\vec{s}}\left(\bar{\mathbf{Q}}_{1}\bar{\mathbf{Q}}_{2}\right)=\cdeg_{-\vec{s}}\bar{\mathbf{G}}\nleq0$
 \end_inset
 
-, a contradiction.
+, a contradiction since we know from the proof of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:nullspaceBasisInOrderBasis"
+
+\end_inset
+
+ that 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{G}^{T}\le0$
+\end_inset
+
+.
  
 \end_layout
 
@@ -3328,8 +3443,8 @@ As before, to see that a
 \begin_inset Formula $-\vec{s}$
 \end_inset
 
--row degrees are no more than 0, we can just show 
-\begin_inset Formula $\rdeg_{-\vec{s}_{2}}\hat{\mathbf{Q}}_{2}\le0$
+-column degrees are no more than 0, we can just show 
+\begin_inset Formula $\cdeg_{-\vec{s}_{2}}\hat{\mathbf{Q}}_{2}\le0$
 \end_inset
 
  for any 
@@ -3348,8 +3463,31 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 \end_inset
 
 .
- Note that 
-\begin_inset Formula $\rdeg_{-\vec{b}_{2}}\mathbf{N}_{2}^{T}\mathbf{Q}_{1}\le-\vec{s}_{2}$
+ Since 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{N}_{2}=\vec{b}_{2}$
+\end_inset
+
+, we have 
+\begin_inset Formula $\rdeg_{-\vec{b}_{2}}\mathbf{N}_{2}\le-\vec{s}$
+\end_inset
+
+ or equivalently, 
+\begin_inset Formula $\cdeg_{-\vec{b}_{2}}\mathbf{N}_{2}^{T}\le-\vec{s}.$
+\end_inset
+
+ Then combining this with 
+\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{Q}_{1}=-\vec{s}_{2}$
+\end_inset
+
+ we get 
+\begin_inset Formula $\cdeg_{-\vec{b}_{2}}\mathbf{N}_{2}^{T}\mathbf{Q}_{1}\le-\vec{s}_{2}$
+\end_inset
+
+ using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:predictableDegree"
+
 \end_inset
 
 .
@@ -3357,13 +3495,20 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 \begin_inset Formula $\hat{\mathbf{G}}=\mathbf{Q}_{1}\hat{\mathbf{Q}}_{2}$
 \end_inset
 
-, a 
+, which is now a 
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--kernel basis.
+-kernel basis by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:continueComputingNullspaceBasisByRows"
+
+\end_inset
+
+.
  Note that 
-\begin_inset Formula $\rdeg_{-\vec{s}_{2}}\hat{\mathbf{Q}}_{2}=\rdeg_{-\vec{s}}\mathbf{Q}_{1}\hat{\mathbf{Q}}_{2}=\rdeg_{-\vec{s}}\hat{\mathbf{G}}\le0$
+\begin_inset Formula $\cdeg_{-\vec{s}_{2}}\hat{\mathbf{Q}}_{2}=\cdeg_{-\vec{s}}\mathbf{Q}_{1}\hat{\mathbf{Q}}_{2}=\cdeg_{-\vec{s}}\hat{\mathbf{G}}\le0$
 \end_inset
 
 .
@@ -3375,14 +3520,28 @@ Now that we can correctly compute a
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--kernel basis by rows with the help of order basis computation, we need
- to look at how to do it efficiently.
- One major difficulty is that the order, or equivalently, the 
+-kernel basis by rows with the help of order basis computation using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:nullspaceBasisOfSubsetOfRowsContainedInOrderBasis"
+
+\end_inset
+
+, we need to look at how to do it efficiently.
+ One major difficulty is that the order 
+\begin_inset Formula $\vec{b}+1$
+\end_inset
+
+, or equivalently, the 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--row degrees are nonuniform and can have degree as large as 
-\begin_inset Formula $\xi=\sum\vec{s}$
+-row degrees of 
+\begin_inset Formula $\mathbf{N}_{1}^{T}$
+\end_inset
+
+ are nonuniform and can have degree as large as 
+\begin_inset Formula $\sum\vec{s}$
 \end_inset
 
 .
@@ -3423,6 +3582,14 @@ Let
 
  be the column dimension of 
 \begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ and 
+\begin_inset Formula $\xi$
+\end_inset
+
+ be an upper bound of 
+\begin_inset Formula $\sum\vec{s}$
 \end_inset
 
 .
@@ -3942,6 +4109,11 @@ Now let us check the cost of this algorithm.
 \end_inset
 
 .
+ Let 
+\begin_inset Formula $s=\xi/n$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Lemma
@@ -3949,12 +4121,8 @@ An
 \begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
 \end_inset
 
--basis can be computed at a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
-\end_inset
-
-, where 
-\begin_inset Formula $d=\xi/n$
+-basis can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -3965,45 +4133,28 @@ Note that
 \begin_inset Formula $\mathbf{N}_{i}$
 \end_inset
 
- 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-has less than 
+ has less than 
 \begin_inset Formula $2^{i}$
 \end_inset
 
- columns
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-.
+ columns.
  Otherwise, 
-\begin_inset Formula $\sum\cdeg_{\vec{s}}\mathbf{N}_{i}>2^{i}\xi/2^{i}=\xi$
+\begin_inset Formula 
+\[
+\sum\cdeg_{\vec{s}}\mathbf{N}_{i}>2^{i}\xi/2^{i}=\xi,
+\]
+
 \end_inset
 
-, contradicting with 
-\begin_inset Formula $\sum\cdeg_{\vec{s}}\mathbf{N}=\sum\vec{b}\le\sum\vec{s}\le\xi$
+contradicting with 
+\begin_inset Formula 
+\[
+\sum\cdeg_{\vec{s}}\mathbf{N}=\sum\vec{b}\le\sum\vec{s}\le\xi.
+\]
+
 \end_inset
 
-.
- It follows that 
+It follows that 
 \begin_inset Formula $\hat{\mathbf{N}}_{i}$
 \end_inset
 
@@ -4017,7 +4168,11 @@ has less than
 
  rows.
  We also have 
-\begin_inset Formula $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]=\Theta\left(\xi/2^{i}\right)$
+\begin_inset Formula $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
+\end_inset
+
+ with entries in 
+\begin_inset Formula $\Theta\left(\xi/2^{i}\right)$
 \end_inset
 
 .
@@ -4029,7 +4184,7 @@ reference "alg:umab"
 \end_inset
 
  can be used with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
  by 
@@ -4048,7 +4203,7 @@ The multiplications
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -4093,7 +4248,7 @@ reference "thm:multiplyUnbalancedMatrices"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)=O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -4105,7 +4260,7 @@ The multiplication
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -4144,7 +4299,92 @@ reference "thm:multiplyUnbalancedMatrices"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:costKernelBasisReverse"
+
+\end_inset
+
+Given an input matrix 
+\begin_inset Formula $\mathbf{M}\in\mathbb{K}\left[x\right]^{k\times n}$
+\end_inset
+
+, a shift 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
+\end_inset
+
+, and an upper bound 
+\begin_inset Formula $\xi\in\mathbb{Z}$
+\end_inset
+
+ such that 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\sum\rdeg_{\vec{s}}\mathbf{M}\le\xi$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\sum\vec{s}\le\xi$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Itemize
+and any 
+\begin_inset Formula $\left(\mathbf{M},-\vec{s}\right)$
+\end_inset
+
+-kernel basis having row degrees bounded by 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, or equivalently, having 
+\begin_inset Formula $-\vec{s}$
+\end_inset
+
+-column degrees bounded by 0.
+\end_layout
+
+\end_deeper
+\begin_layout Lemma
+Then 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasisReverse"
+
+\end_inset
+
+ costs 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+ field operations to compute a 
+\begin_inset Formula $\left(\mathbf{M},-\vec{s}\right)$
+\end_inset
+
+-kernel basis.
+\end_layout
+
+\begin_layout Lemma
+Note that 
+\begin_inset Formula $\xi$
+\end_inset
+
+ can be simply set to 
+\begin_inset Formula $\sum\vec{s}$
 \end_inset
 
 .
@@ -4156,7 +4396,7 @@ A right factor
 \end_inset
 
  satisfying 
-\begin_inset Formula $\mathbf{TG}=\mathbf{F}$
+\begin_inset Formula $\mathbf{F}=\mathbf{TG}$
 \end_inset
 
  for a column basis 
@@ -4164,10 +4404,11 @@ A right factor
 \end_inset
 
  can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)=O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
+ 
 \end_layout
 
 \begin_layout Section
@@ -4187,7 +4428,7 @@ With a right factor
 \begin_inset Formula $\mathbf{T}$
 \end_inset
 
-, where 
+ using the equation 
 \begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
 \end_inset
 
@@ -4426,8 +4667,8 @@ Let
 \end_layout
 
 \begin_layout Proof
-First, the matrix 
-\begin_inset Formula $\begin{bmatrix}I\\
+Note first that the matrix 
+\begin_inset Formula $\begin{bmatrix}-I\\
 \mathbf{T}^{T}
 \end{bmatrix}$
 \end_inset
@@ -4436,16 +4677,25 @@ First, the matrix
 \begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]$
 \end_inset
 
- and is unimodularly equivalent to any other kernel basis.
- Hence we must have 
-\begin_inset Formula $\begin{bmatrix}V\\
-\bar{\mathbf{T}}
-\end{bmatrix}=\begin{bmatrix}I\\
+ and is therefore unimodularly equivalent to any other kernel basis.
+ Hence any other kernel basis has the form 
+\begin_inset Formula $\begin{bmatrix}-I\\
 \mathbf{T}^{T}
-\end{bmatrix}V$
+\end{bmatrix}U=\begin{bmatrix}V\\
+\bar{\mathbf{T}}
+\end{bmatrix}$
 \end_inset
 
-, which gives 
+, with 
+\begin_inset Formula $U$
+\end_inset
+
+ and 
+\begin_inset Formula $V=-U$
+\end_inset
+
+ unimodular.
+ Thus 
 \begin_inset Formula $\mathbf{T}=\left(\bar{\mathbf{T}}V^{-1}\right)^{T}$
 \end_inset
 
@@ -4462,7 +4712,7 @@ First, the matrix
 \begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
 \end_inset
 
--kernel basis to be the same degree as 
+-kernel basis to be degree 0, the same degree as 
 \begin_inset Formula $I$
 \end_inset
 
@@ -4549,42 +4799,277 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 .
 \end_layout
 
-\begin_layout Standard
-Now to compute 
-\begin_inset Note Note
-status collapsed
+\begin_layout Example
+Let 
+\begin_inset Formula 
+\[
+\mathbf{F}=\left[\begin{array}{cccc}
+x^{2} & x^{2} & x+x^{2} & 1+x^{2}\\
+1+x+x^{2} & x^{2} & 1+x^{2} & 1+x^{2}
+\end{array}\right]
+\]
 
-\begin_layout Plain Layout
-\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
 \end_inset
 
--basis
+with 
+\begin_inset Formula 
+\[
+\mathbf{G}=\left[\begin{array}{cccc}
+1 & 0 & 1 & 0\\
+\noalign{\medskip}x & {x}^{2} & 0 & 1+{x}^{2}
+\end{array}\right]
+\]
+
+\end_inset
+
+being a minimal left kernel basis of a right kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ In order to compute the column basis 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{G}$
+\end_inset
+
+, first we can determine 
+\begin_inset Formula $\cdeg\mathbf{T}\le\vec{t}=\left[2,0\right]$
+\end_inset
+
+ from Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:colBasisdegreeBoundByRdegOfRightFactor"
+
+\end_inset
+
+.
+ Then we can compute a 
+\begin_inset Formula $\left[0,0,-\vec{t}\right]$
+\end_inset
+
+-minimal left kernel basis of 
+\begin_inset Formula $\begin{bmatrix}\mathbf{F}\\
+\mathbf{G}
+\end{bmatrix}$
+\end_inset
+
+.
+ The matrix 
+\begin_inset Formula 
+\[
+\left[V,\bar{\mathbf{T}}\right]=\left[\begin{array}{cccc}
+\noalign{\medskip}1 & 0 & x+{x}^{2} & 1\\
+1 & 1 & 1+x & 0
+\end{array}\right]
+\]
+
+\end_inset
+
+is such a left kernel basis.
+ A column basis can then be computed as by 
+\begin_inset Formula 
+\[
+\mathbf{T}=V^{-1}\bar{\mathbf{T}}=\left[\begin{array}{cc}
+x+x^{2} & 1\\
+1+{x}^{2} & 1
+\end{array}\right].
+\]
+
+\end_inset
+
+
 \end_layout
 
+\begin_layout Standard
+In order to compute a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}^{*}\right)$
 \end_inset
 
-a 
-\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
-\end_inset
-
--kernel basis efficiently, notice we have the same type of problem as in
- 
+ kernel basis efficiently, we notice that we have the same type of problem
+ as in Section 
 \begin_inset CommandInset ref
-LatexCommand formatted
+LatexCommand ref
 reference "sec:computeRightFactor"
 
 \end_inset
 
-, and so 
+ and hence we can again use Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:minimalNullspaceBasisReverse"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:costOfKernelBasisReversedForLeftFactor"
+
+\end_inset
+
+A 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}^{*}\right)$
+\end_inset
+
+-kernel basis can be computed using 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "alg:minimalNullspaceBasisReverse"
 
 \end_inset
 
- works here as well.
- With a 
-\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}'\right)$
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s=\xi/n$
+\end_inset
+
+ is the average column degree of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ as before.
+ 
+\end_layout
+
+\begin_layout Proof
+Just use the algorithm with input 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{t}^{*},\xi\right)$
+\end_inset
+
+.
+ We can verify the conditions on the input are satisfied.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+To see that 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\sum\rdeg_{\vec{t}^{*}}\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]\le\xi$
+\end_inset
+
+, note that from 
+\begin_inset Formula $\vec{t}=-\rdeg_{-\vec{s}}\mathbf{G}$
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnDegreesRowDegreesSymmetry"
+
+\end_inset
+
+ 
+\begin_inset Formula $\cdeg_{\vec{t}}\mathbf{G}\le\vec{s}$
+\end_inset
+
+, or equivalently, 
+\begin_inset Formula $\rdeg_{\vec{t}}\mathbf{G}^{T}\le\vec{s}$
+\end_inset
+
+.
+ Since we also have 
+\begin_inset Formula $\rdeg\mathbf{F}^{T}\le\vec{s}$
+\end_inset
+
+, it follows that 
+\begin_inset Formula $\rdeg_{\vec{t}^{*}}\left[\mathbf{F}^{T},\mathbf{G}^{T}\right]\le\vec{s}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+The second condition 
+\begin_inset Formula $\sum\vec{t}^{*}\le\xi$
+\end_inset
+
+ follows from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:colBasisdegreeBoundByRdegOfRightFactor"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+The third condition holds since 
+\begin_inset Formula $\begin{bmatrix}-I\\
+\mathbf{T}^{T}
+\end{bmatrix}$
+\end_inset
+
+ is a kernel basis with row degrees bounded by 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\vec{t}^{*}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+With a 
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],-\vec{t}^{*}\right)$
 \end_inset
 
 -kernel basis 
@@ -4593,18 +5078,18 @@ reference "alg:minimalNullspaceBasisReverse"
 \end{bmatrix}$
 \end_inset
 
- computed, a column basis can now be easily computed by 
-\begin_inset Formula $\mathbf{T}=\left(\bar{\mathbf{T}}V^{-1}\right)^{T}$
+ computed, a column basis is then given by 
+\begin_inset Formula $\mathbf{T}~=~\left(\bar{\mathbf{T}}V^{-1}\right)^{T}$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Standard
-We now have a complete algorithm for computing a column basis, given in
+The complete algorithm for computing a column basis is then given in Algorithm
  
 \begin_inset CommandInset ref
-LatexCommand formatted
+LatexCommand ref
 reference "alg:colBasis"
 
 \end_inset
@@ -4615,12 +5100,11 @@ reference "alg:colBasis"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-preview true
-filename "algorithmColumnBasis.lyx"
+filename "AlgorithmColumnBasis.lyx"
 
 \end_inset
 
-
+ 
 \end_layout
 
 \begin_layout Theorem
@@ -4639,7 +5123,57 @@ A column basis
 \end_inset
 
  can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s=\xi/n$
+\end_inset
+
+ is the average column degree of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ as before.
+ 
+\end_layout
+
+\begin_layout Proof
+The cost is dominated by the cost of the three kernel basis computations
+ in the algorithm.
+ The first one is handled by the algorithm from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "za2012"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:costGeneral"
+
+\end_inset
+
+, while the remaining two are handled by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasisReverse"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:costKernelBasisReverse"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:costOfKernelBasisReversedForLeftFactor"
+
 \end_inset
 
 .
@@ -4830,6 +5364,7 @@ When the input matrix
 \end_inset
 
  is computed.
+ 
 \end_layout
 
 \begin_layout Lemma
@@ -4846,17 +5381,21 @@ At step
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\left(\sum\cdeg\mathbf{F}_{i}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)$
+\begin_inset Formula $O^{\sim}\left(m^{\omega}(s_{i}+s_{i+1})/2\right)$
 \end_inset
 
- field operations.
+ field operations, where 
+\begin_inset Formula $s_{i}=\left(\sum\cdeg\mathbf{F}_{i}\right)/m$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Proof
-From 
+From Lemma 
 \begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:colBasisDegreeBoundByInputDegrees"
+LatexCommand ref
+reference "lem:colBasisdegreeBoundByRdegOfRightFactor"
 
 \end_inset
 
@@ -4877,8 +5416,14 @@ reference "lem:colBasisDegreeBoundByInputDegrees"
 \end_inset
 
 .
- The lemma then follows by combining this with the result that a column
- basis 
+ The lemma then follows by combining this with the result from Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:columnBasisCost1"
+
+\end_inset
+
+ that a column basis 
 \begin_inset Formula $\mathbf{T}_{i}$
 \end_inset
 
@@ -4887,17 +5432,18 @@ reference "lem:colBasisDegreeBoundByInputDegrees"
 \end_inset
 
  can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\left(\sum\cdeg\mathbf{T}_{i-1}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)$
+\begin_inset Formula $O^{\sim}\left(m^{\omega}\bar{s}\right)$
 \end_inset
 
- from 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "thm:columnBasisCost1"
+, where 
+\begin_inset Formula 
+\[
+\bar{s}=\left(\sum\cdeg\mathbf{T}_{i-1}+\sum\cdeg\mathbf{F}_{i+1}\right)/2m\le\left(s_{i}+s_{i+1}\right)/2.
+\]
 
 \end_inset
 
-.
+ 
 \end_layout
 
 \begin_layout Theorem
@@ -4912,7 +5458,11 @@ A column basis of
 \end_inset
 
  can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(m^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s=\left(\sum\cdeg\mathbf{F}\right)/n$
 \end_inset
 
 .
@@ -4922,9 +5472,9 @@ A column basis of
 Summing up the cost of all the column basis computations, 
 \begin_inset Formula 
 \begin{eqnarray*}
- &  & \sum_{i=1}^{n/m-1}O^{\sim}\left(m^{\omega-1}\left(\sum\cdeg\mathbf{F}_{i}+\sum\cdeg\mathbf{F}_{i+1}\right)\right)\\
- & \subset & O^{\sim}\left(m^{\omega-1}\left(2\sum\cdeg\mathbf{F}\right)\right)\\
- & = & O^{\sim}\left(m^{\omega-1}\xi\right)
+ &  & \sum_{i=1}^{n/m-1}O^{\sim}\left(m^{\omega}\left(s_{i}+s_{i+1}\right)/2\right)\\
+ &  & ~~~~~~~~~~~~~\subset O^{\sim}\left(m^{\omega}\left(\sum_{i=1}^{n/m}s_{i}\right)/(n/m)\right)\\
+ &  & ~~~~~~~~~~~~~=O^{\sim}\left(m^{\omega}s\right).
 \end{eqnarray*}
 
 \end_inset
@@ -4950,6 +5500,7 @@ In this section, the computational efficiency is improved by reducing the
  The computational complexity of using order basis computation to reduce
  the column dimension would remain the same, but in practice it maybe more
  efficient since order basis computations are simpler.
+ 
 \end_layout
 
 \begin_layout Section
@@ -5130,6 +5681,97 @@ reference "lem:predictableColumnReducedness"
 
 , which is a square nonsingular matrix of degree 
 \begin_inset Formula $d$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Example
+To column reduce 
+\begin_inset Formula 
+\[
+\mathbf{F}=\left[\begin{array}{cc}
+{x}^{2} & 1+x+{x}^{2}\\
+\noalign{\medskip}{x}^{2} & {x}^{2}\\
+\noalign{\medskip}x+{x}^{2} & 1+{x}^{2}\\
+\noalign{\medskip}1+{x}^{2} & 1+{x}^{2}
+\end{array}\right],
+\]
+
+\end_inset
+
+we factor 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\[
+\mathbf{F}=\mathbf{G}\mathbf{T}=\left[\begin{array}{cc}
+1 & x\\
+\noalign{\medskip}0 & {x}^{2}\\
+\noalign{\medskip}1 & 0\\
+\noalign{\medskip}0 & 1+{x}^{2}
+\end{array}\right]\left[\begin{array}{cc}
+x+{x}^{2} & 1+{x}^{2}\\
+\noalign{\medskip}1 & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+ as before with a column reduced 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+.
+ The column degrees of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ 
+\begin_inset Formula $\cdeg\mathbf{G}=\left[0,2\right]$
+\end_inset
+
+.
+ So we compute 
+\begin_inset Formula $\left[0,2\right]$
+\end_inset
+
+-column reduced form 
+\begin_inset Formula $\mathbf{T}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\mathbf{T}'=\left[\begin{array}{cc}
+1+x & x+{x}^{2}\\
+\noalign{\medskip}0 & 1
+\end{array}\right].
+\]
+
+\end_inset
+
+ Now 
+\begin_inset Formula 
+\[
+\mathbf{G}\mathbf{T}'=\left[\begin{array}{cc}
+1+x & {x}^{2}\\
+\noalign{\medskip}0 & {x}^{2}\\
+\noalign{\medskip}1+x & x+{x}^{2}\\
+\noalign{\medskip}0 & 1+{x}^{2}
+\end{array}\right]
+\]
+
+\end_inset
+
+ is a column reduced form of 
+\begin_inset Formula $\mathbf{F}$
 \end_inset
 
 .
