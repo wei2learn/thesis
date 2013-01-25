@@ -83,7 +83,7 @@ Given a matrix
 \begin_inset Formula $n>m$
 \end_inset
 
- and its column degrees bounded by the entries of a vector 
+ and column degrees 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -236,8 +236,17 @@ If
 
 \end_inset
 
+ Unimodular completion is a useful basic operation in matrix computations
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "newman1972"
+
+\end_inset
+
+.
  Our goal is to do this with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}s\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
  field operations, where 
@@ -267,9 +276,10 @@ status collapsed
 \end_inset
 
 
-\end_layout
+\begin_inset Note Note
+status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Unimodular completion also provides another way of computing column bases.
  To compute a column basis of 
 \begin_inset Formula $\mathbf{A}$
@@ -315,6 +325,11 @@ reference "lem:unimodular_kernel_columnBasis"
  can be done efficiently using the algorithms from earlier chapters, while
  an efficient way of computing unimodular completion is provided in this
  chapter.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -499,12 +514,55 @@ r column bases, we assume for simplicity this is the case with our input
 \end_inset
 
  to be full rank.
- For other matrices without unimodular column bases, we will see later that
- our method computes a matrix completion for a row basis of 
+ For other matrices without unimodular column bases, our method still works
+ directly to compute a matrix completion for a right factor of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- with its column basis factor removed.
+ that has its column basis factor removed.
+ In other words, let 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ be factored as 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\mathbf{R}$
+\end_inset
+
+ as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:matrixGCD"
+
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ is the remaining right factor, the our method always works to compute a
+ unimodular completion of 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+.
+ In the special case where 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is unimodular, the unimodular completion computed is also a unimodular
+ completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2011,7 +2069,7 @@ Let
 \end_inset
 
  be a 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis, where 
@@ -2135,12 +2193,12 @@ name "lem:unimodularComputationByRows"
 
 \end_inset
 
-Let 
+Let the matrix 
 \begin_inset Formula $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$
 \end_inset
 
 .
- Let 
+ Let the matrix 
 \begin_inset Formula $\mathbf{M}$
 \end_inset
 
@@ -2152,21 +2210,24 @@ Let
 \begin_inset Formula $\cdeg_{\vec{s}}\mathbf{M}=\vec{b}$
 \end_inset
 
-.
- Let 
+ and be partitioned as 
 \begin_inset Formula $\mathbf{M}=\left[\mathbf{M}_{1},\mathbf{M}_{2}\right]$
 \end_inset
 
 .
  Let 
-\begin_inset Formula $\mathbf{P}_{1}=\left[\mathbf{N}_{1},\mathbf{Q}_{1}\right]$
+\begin_inset Formula $\mathbf{P}_{1}$
 \end_inset
 
  be a 
-\begin_inset Formula $\left(\mathbf{M}_{1}^{T},\cdeg_{\vec{s}}\mathbf{M}_{1}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}_{1}^{T},\cdeg_{\vec{s}}\mathbf{M}_{1}+1,-\vec{s}\right)$
 \end_inset
 
--basis, where 
+-basis and be partitioned as 
+\begin_inset Formula $\mathbf{P}_{1}=\left[\mathbf{N}_{1},\mathbf{Q}_{1}\right]$
+\end_inset
+
+, where 
 \begin_inset Formula $\mathbf{N}_{1}$
 \end_inset
 
@@ -2188,14 +2249,18 @@ Let
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{P}_{2}=\left[\mathbf{N}_{2},\mathbf{Q}_{2}\right]$
+\begin_inset Formula $\mathbf{P}_{2}$
 \end_inset
 
  be a 
-\begin_inset Formula $\left(\mathbf{M}_{2}^{T}\mathbf{N}_{1},\cdeg_{\vec{s}}\mathbf{M}_{2}+\left[1,\dots,1\right],\vec{t}\right)$
+\begin_inset Formula $\left(\mathbf{M}_{2}^{T}\mathbf{N}_{1},\cdeg_{\vec{s}}\mathbf{M}_{2}+1,\vec{t}\right)$
 \end_inset
 
--basis, where 
+-basis and be partitioned as 
+\begin_inset Formula $\mathbf{P}_{2}=\left[\mathbf{N}_{2},\mathbf{Q}_{2}\right]$
+\end_inset
+
+, where 
 \begin_inset Formula $\mathbf{N}_{2}$
 \end_inset
 
@@ -2981,7 +3046,7 @@ Let
 
  as before.
  Then the columns of any 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis with 
@@ -3047,12 +3112,12 @@ Note that
 
 , a full-rank matrix by assumption).
  Hence 
-\begin_inset Formula $\cdeg\mathbf{N}^{T}\mathbf{M}\le\cdeg\mathbf{F}^{r}\mathbf{M}\le\cdeg_{\vec{s}}\mathbf{M}=\vec{b}<\vec{b}+\left[1,\dots,1\right]$
+\begin_inset Formula $\cdeg\mathbf{N}^{T}\mathbf{M}\le\cdeg\mathbf{F}^{r}\mathbf{M}\le\cdeg_{\vec{s}}\mathbf{M}=\vec{b}<\vec{b}+1$
 \end_inset
 
 .
  Now since a 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis has order greater than 
@@ -3183,7 +3248,7 @@ reference "lem:mutualMinimalNullspaceBasisDegrees"
 \end_inset
 
 , or 
-\begin_inset Formula $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=0$
+\begin_inset Formula $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=0$
 \end_inset
 
 .
@@ -3192,24 +3257,24 @@ reference "lem:mutualMinimalNullspaceBasisDegrees"
 \end_inset
 
  is nonzero and has order 
-\begin_inset Formula $\left(\mathbf{F},\vec{b}+\left[1,\dots,1\right]\right)$
+\begin_inset Formula $\left(\mathbf{F},\vec{b}+1\right)$
 \end_inset
 
 , we have 
-\begin_inset Formula $\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}\ge\left[0,\dots,0\right]$
+\begin_inset Formula $\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}\ge\left[0,\dots,0\right]$
 \end_inset
 
 , implying 
-\begin_inset Formula $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}\ge0$
+\begin_inset Formula $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}\ge0$
 \end_inset
 
 .
  It follows that 
-\begin_inset Formula $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=0$
+\begin_inset Formula $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=0$
 \end_inset
 
 , hence 
-\begin_inset Formula $\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$
+\begin_inset Formula $\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$
 \end_inset
 
  or 
@@ -3255,7 +3320,7 @@ Let
 \end_inset
 
  be a 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis.
@@ -3324,7 +3389,7 @@ reference "lem:nullspaceBasisOrderBasisContainsNullspaceBasis"
 \end_inset
 
 , or 
-\begin_inset Formula $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=0$
+\begin_inset Formula $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=0$
 \end_inset
 
 .
@@ -3333,24 +3398,24 @@ reference "lem:nullspaceBasisOrderBasisContainsNullspaceBasis"
 \end_inset
 
  is nonzero and has order 
-\begin_inset Formula $\left(\mathbf{F},\vec{b}+\left[1,\dots,1\right]\right)$
+\begin_inset Formula $\left(\mathbf{F},\vec{b}+1\right)$
 \end_inset
 
 , we have 
-\begin_inset Formula $\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}\ge\left[0,\dots,0\right]$
+\begin_inset Formula $\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}\ge\left[0,\dots,0\right]$
 \end_inset
 
 , implying 
-\begin_inset Formula $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}\ge0$
+\begin_inset Formula $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}\ge0$
 \end_inset
 
 .
  It follows that 
-\begin_inset Formula $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=0$
+\begin_inset Formula $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=0$
 \end_inset
 
 , hence 
-\begin_inset Formula $\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$
+\begin_inset Formula $\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$
 \end_inset
 
 .
@@ -3363,7 +3428,7 @@ Since
 
 \begin_layout Proof
 or equivalently, 
-\begin_inset Formula $\rdeg\mathbf{M}^{T}\mathbf{P}_{2}=\vec{b}+\left[1,\dots,1\right]$
+\begin_inset Formula $\rdeg\mathbf{M}^{T}\mathbf{P}_{2}=\vec{b}+1$
 \end_inset
 
 .
@@ -3450,7 +3515,7 @@ We know that
 
 \begin_layout Standard
 We are now ready to look at the algorithm for computing a 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis, given in 
@@ -3550,50 +3615,14 @@ reference "sec:computeRightFactor"
 \end_inset
 
 -row degrees in the range 
-\begin_inset Formula $\left[0,2\xi/k\right]$
+\begin_inset Formula 
+\[
+\left[0,2\xi/k\right],\ (2\xi/k,4\xi/k],\ (4\xi/k,8\xi/k],\ ...,\ (\xi/4,\xi/2],\ (\xi/2,\xi].
+\]
+
 \end_inset
 
-, 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $(2\xi/k,4\xi/k],$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- 
-\begin_inset Formula $(4\xi/k,8\xi/k],\ ...,$
-\end_inset
-
- 
-\begin_inset Formula $(\xi/4,\xi/2],$
-\end_inset
-
- 
-\begin_inset Formula $(\xi/2,\xi].$
-\end_inset
-
-Let 
+ Let 
 \begin_inset Formula $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
 \end_inset
 
@@ -4249,7 +4278,7 @@ Let
 \end_inset
 
  be a 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis as before.
@@ -4346,7 +4375,7 @@ To compute a unimodular completion of
 \end_inset
 
  are bounded by 
-\begin_inset Formula $\left[1,\dots,1\right]$
+\begin_inset Formula $1$
 \end_inset
 
  since the 
@@ -4473,11 +4502,11 @@ reference "alg:umab"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 , where 
-\begin_inset Formula $d=\xi/n$
+\begin_inset Formula $s=\xi/n$
 \end_inset
 
 .
@@ -4513,7 +4542,7 @@ Note that
 \end_inset
 
  has lower order than any 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
+\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$
 \end_inset
 
 -basis 
@@ -4586,7 +4615,7 @@ To compute the product
 \end_inset
 
  are bounded by 
-\begin_inset Formula $\left[1,\dots,1\right]$
+\begin_inset Formula $1$
 \end_inset
 
 , we can use 
@@ -4601,7 +4630,7 @@ reference "thm:multiplyUnbalancedMatrices"
 \end_inset
 
 , which has column degrees bounded by 
-\begin_inset Formula $\vec{s}+\left[1,\dots,1\right]$
+\begin_inset Formula $\vec{s}+1$
 \end_inset
 
 , and 
@@ -4666,7 +4695,7 @@ are bounded by that of
 \end_inset
 
 ), which in turn are bounded by
-\begin_inset Formula $\left[1,\dots,1\right]$
+\begin_inset Formula $1$
 \end_inset
 
 
@@ -4741,7 +4770,11 @@ Continue this process, at step
 
 -kernel basis.
  Let 
-\begin_inset Formula $\mathbf{R}=\left[\mathbf{Q}_{1},\tilde{\mathbf{N}}_{1}\mathbf{Q}_{2},\dots,\tilde{\mathbf{N}}_{\log k-2}\mathbf{Q}_{\log k-1},\tilde{\mathbf{N}}_{\log k-1}\mathbf{Q}_{\log k}\right]$
+\begin_inset Formula 
+\[
+\mathbf{R}=\left[\mathbf{Q}_{1},\tilde{\mathbf{N}}_{1}\mathbf{Q}_{2},\dots,\tilde{\mathbf{N}}_{\log k-2}\mathbf{Q}_{\log k-1},\tilde{\mathbf{N}}_{\log k-1}\mathbf{Q}_{\log k}\right]
+\]
+
 \end_inset
 
 , and 
@@ -4796,7 +4829,7 @@ The multiplications
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -4841,7 +4874,7 @@ reference "thm:multiplyUnbalancedMatrices"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)=O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -4853,7 +4886,7 @@ The multiplication
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -4892,7 +4925,7 @@ reference "thm:multiplyUnbalancedMatrices"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -4904,7 +4937,7 @@ The multiplication
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -4916,7 +4949,7 @@ We know
 \end_inset
 
 , or equivalently, 
-\begin_inset Formula $\rdeg\mathbf{Q}_{i}\le\vec{s}_{i}+\left[1,\dots,1\right]$
+\begin_inset Formula $\rdeg\mathbf{Q}_{i}\le\vec{s}_{i}+1$
 \end_inset
 
 .
@@ -4979,7 +5012,7 @@ reference "thm:multiplyUnbalancedMatrices"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -4991,7 +5024,7 @@ A unimodular completion of
 \end_inset
 
  can be computed with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
  field operations.

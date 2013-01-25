@@ -166,12 +166,30 @@ plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis
 \DeclareMathOperator{\mnbrp}{minimalKernelBasisWithRankProfile}
 \DeclareMathOperator{\colBasis}{colBasis}
 \DeclareMathOperator{\rankProfile}{rankProfile}
-\def\mab{\qopname\relax n{OrderBasis}}
-\def\mnbrs{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
-\def\mmab{\qopname\relax n{FastBasis}}
-\def\umab{\qopname\relax n{UnbalancedFastBasis}}
-\def\mnb{\qopname\relax n{MinimalKernelBasis ~ }}
+\def\mab{\qopname\relax n{orderBasis}}
+\def\mnbrs{\qopname\relax n{minimalNullspacerBasisRankSensitive}}
+\def\mmab{\qopname\relax n{fastOrderBasis}}
+\def\umab{\qopname\relax n{unbalancedFastOrderBasis}}
+\def\mnb{\qopname\relax n{minimalKernelBasis ~ }}
 \newcommand{\bb}{\\}
+%\newrefformat{chap}{chapr \ref{#1}}
+\newrefformat{lem}{Lemma~\ref{#1}}
+\newrefformat{thm}{Theorem~\ref{#1}}
+\newrefformat{cha}{Chapter~\ref{#1}}
+\newrefformat{chap}{Chapter~\ref{#1}}
+\newrefformat{sec}{Section~\ref{#1}}
+\newrefformat{rem}{Remark~\ref{#1}}
+\newrefformat{fac}{Fact~\ref{#1}}
+\newrefformat{sub}{Subsection~\ref{#1}}
+\newrefformat{cor}{Corollary~\ref{#1}}
+\newrefformat{cond}{Condition~\ref{#1}}
+\newrefformat{con}{Conjecture~\ref{#1}}
+\newrefformat{def}{Definition~\ref{#1}}
+\newrefformat{pro}{Proposition~\ref{#1}}
+\newrefformat{alg}{Algorithm~\ref{#1}}
+\newrefformat{exm}{Example~\ref{#1}}
+\newrefformat{line}{line~\ref{#1}}
+
 
 
 %======================================================================
@@ -1436,32 +1454,57 @@ Acknowledgments
 \end_layout
 
 \begin_layout Standard
-Thanks 
+Thanks to my supervisor, George Labahn, for supporting me and providing
+ me with the opportunity and the freedom to explore in this fascinating
+ world of polynomial matrix computation.
+ Also thanks to my other committee members, Mark Giesbrecht, Cameron Stewart,
+ Arne Storjohann, and Gilles Villard for reading this thesis.
+ Thanks especially to Arne, whose accomplishments and magical abilities
+ to come up with new ideas have always amazed me and influenced my work.
+ 
 \begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-to my supervisor George Labahn for providing me with the opportunity to
- explore in this exciting field, and for his patience and the longtime support
- that made this work possible.
- Also thanks to Arne Storjohann, whose accomplishments and magical abilities
- have always amazed me and influenced my work.
- When I was lost and was losing confidence several years ago.
- Arne's work opened the door to my work on order basis computation, which
- also helped me to restore my confidence.
-\end_layout
-
-\begin_layout Plain Layout
-Thanks to my committee members, George, Arne, and Mark for reading this
- thesis.
-\end_layout
-
-\begin_layout Plain Layout
-Thanks to all my friends in Waterloo, especially my longtime roommate Zhirong,
- my resourceful academic brother Reinhold, and my close friends Wei Li and
- Jun Chen, for many fun conversations and memorable activities.
+I have learned so much from Arne's research papers and from Arne's feedback
+ on my own work.
  
 \end_layout
+
+\end_inset
+
+Thanks to Gilles for flying all the way to Canada from France to attend
+ my defense and for all the encouraging words.
+ Thanks to Mark for the helpful comments on this thesis.
+\end_layout
+
+\begin_layout Standard
+Thanks to all my friends in Waterloo, especially my longtime roommate and
+ good friend Zhirong Li, my resourceful academic brother Reinhold Burger,
+ and my good friends Wei Li and Jun Chen, for all the fun conversations
+ and memorable activities.
+ 
+\end_layout
+
+\begin_layout Standard
+I am grateful for having a wonderful family that made everything in my life
+ possible.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+would like to thank my family for so many years of patience and trust.
+ I owe everything to you.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Plain Layout
 This has been a rewarding adventure for myself.
@@ -1502,7 +1545,12 @@ Dedication
 
 \begin_layout Standard
 \noindent
-To 
+To my parents and my sister, for always believing in me
+\end_layout
+
+\begin_layout Standard
+\noindent
+To my daughter, for bringing new energy and joy
 \begin_inset Note Note
 status collapsed
 
@@ -1513,7 +1561,12 @@ my father, mother, wife, daughter, and sister.
 
 \end_inset
 
- 
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+To my wife, for patience and support
 \begin_inset Newpage newpage
 \end_inset
 
@@ -1534,23 +1587,14 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
-\begin_inset FloatList table
+\begin_inset FloatList algorithm
 
-\end_inset
-
-
-\begin_inset Newpage newpage
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset FloatList figure
-
-\end_inset
-
-
 \begin_inset Newpage newpage
 \end_inset
 

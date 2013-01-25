@@ -76,7 +76,99 @@ Column Basis
 \end_layout
 
 \begin_layout Standard
-In this Chapter, we consider the problem of computing a column basis of
+Column bases are fundamental constructions in polynomial matrix algebra.
+ As an example, when the row dimension is one (i.e.
+ 
+\begin_inset Formula $m=1$
+\end_inset
+
+), then finding a column basis coincides with finding a greatest common
+ divisor (GCD) of all the polynomials in the matrix.
+ Similarly, the nonzero columns of column reduced forms, Popov normal forms,
+ and Hermite normal forms are all column bases satisfying additional degree
+ constraints.
+ A column reduced form gives a special column basis whose column degrees
+ are the smallest possible, while Popov and Hermite forms are special column
+ reduced or shifted column reduced forms satisfying additional conditions
+ that make them unique.
+ Efficient column basis computation immediately leads to fast computation
+ for such core procedures as determining matrix GCDs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "BL2000"
+
+\end_inset
+
+, column reduced forms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "BVP:1988"
+
+\end_inset
+
+ and Popov forms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "villard96"
+
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ with any dimension and rank.
+ Column basis computation 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%in this paper 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+also provides a deterministic alternative to randomized lattice compression
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li:2006,storjohann-villard:2005"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+While column bases are produced by column reduced, Popov and Hermite forms
+ and considerable work has been done on computing such forms, for example
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bcl:2006,beelen:1988,Giorgi2003,GSSV2012,sarkar2011,SS2011"
+
+\end_inset
+
+.
+ However most of these existing algorithms require that the input matrices
+ be square nonsingular and so start with existing column bases.
+ It is however pointed out in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sarkar2011,SS2011"
+
+\end_inset
+
+ that randomization can be used to relax the square nonsingular requirement.
+\end_layout
+
+\begin_layout Standard
+In this chapter, we consider the problem of computing a column basis of
  an input matrix 
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
@@ -85,65 +177,39 @@ In this Chapter, we consider the problem of computing a column basis of
 \begin_inset Formula $n\ge m$
 \end_inset
 
- and column degrees bounded by a shift 
+ and column degrees 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
 .
- An efficient way of computing a column basis immediately leads to efficient
- computations of matrix GCDs, column reduced forms and Popov forms of 
+ we give a fast, deterministic algorithm for the computation of a column
+ basis for 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- with any dimension and rank.
- Note that the existing algorithms from 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Giorgi2003"
-
+ having complexity 
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}s\right)$
 \end_inset
 
-, 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "GSSV2012"
-
+ field operations in 
+\begin_inset Formula $\mathbb{K}$
 \end_inset
 
-, 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "SS2011"
-
+ with 
+\begin_inset Formula $s$
 \end_inset
 
-, and 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "sarkar2011"
-
-\end_inset
-
- for computing column reduced forms and Popov forms require that the input
- matrices be square nonsingular or full-column rank.
- As in the previous chapters, 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- will always be our input matrix in this chapter, and 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
- will be a shift with entries that bound the column degrees of 
+ being the average average column degree of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
 .
-\end_layout
+ 
+\begin_inset Note Note
+status collapsed
 
-\begin_layout Standard
-Column basis is a generalization of polynomial GCDs.
- Recall that a column basis 
+\begin_layout Plain Layout
+Recall that a column basis 
 \begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
 \end_inset
 
@@ -160,40 +226,34 @@ Column basis is a generalization of polynomial GCDs.
 \end_inset
 
 .
- From 
+ 
+\end_layout
+
+\end_inset
+
+To compute a column basis, we know from 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "cor:unimodularlyReduceToColumnBasis"
 
 \end_inset
 
-, we know any matrix 
+ that any matrix polynomial 
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- can be unimodularly transformed to a column basis
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-, as it can be unimodularly transformed to a column reduced form that contains
- a column basis
-\end_layout
-
-\end_inset
-
- by repeatedly working with the leading column coefficient matrices.
- But computing a column basis this way can be expensive, as we need to work
- with up to 
+ can be unimodularly transformed to a column basis by repeatedly working
+ with the leading column coefficient matrices.
+ However this method of computing a column basis can be expensive.
+ Indeed one needs to work with up to 
 \begin_inset Formula $\sum\vec{s}$
 \end_inset
 
- such coefficient matrices, which would involve up to 
+ such coefficient matrices, which could involve up to 
 \begin_inset Formula $\sum\vec{s}$
 \end_inset
 
  polynomial matrix multiplications.
- 
 \begin_inset Note Note
 status collapsed
 
@@ -2559,7 +2619,7 @@ Given a matrix
 \end_inset
 
  is an 
-\begin_inset Formula $\left(\mathbf{A},\vec{v}+\left[1,\dots,1\right],-\vec{u}\right)$
+\begin_inset Formula $\left(\mathbf{A},\vec{v}+1,-\vec{u}\right)$
 \end_inset
 
 -basis.
@@ -3709,7 +3769,11 @@ with
 \end_inset
 
  Let 
-\begin_inset Formula $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
+\begin_inset Formula 
+\[
+\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]
+\]
+
 \end_inset
 
  with the same dimension as the row dimension of 
@@ -3718,7 +3782,11 @@ with
 
 .
  Let 
-\begin_inset Formula $\vec{\sigma}=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]$
+\begin_inset Formula 
+\[
+\vec{\sigma}=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]
+\]
+
 \end_inset
 
  be the order in the order basis computation.
@@ -4759,7 +4827,7 @@ To compute a
 
 \begin_layout Lemma
 Any 
-\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+\left[1,\dots,1\right],-\vec{t}'\right)$
+\begin_inset Formula $\left(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{s}+1,-\vec{t}'\right)$
 \end_inset
 
 -basis contain a 

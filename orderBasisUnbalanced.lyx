@@ -66,7 +66,7 @@ theorems-chap
 \begin_body
 
 \begin_layout Chapter
-Unbalanced Shifts
+Order Basis with Unbalanced Shifts
 \end_layout
 
 \begin_layout Standard
@@ -176,7 +176,7 @@ reference "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 \end_inset
 
  which gives hope for efficient computation.
- In the following, we look at two special cases of unbalanced shift.
+ In the following, we look at two special cases of unbalanced shifts.
  In the first case where the input shift 
 \begin_inset Formula $\vec{s}$
 \end_inset
@@ -275,7 +275,7 @@ reference "con:unbalanced1"
 \end_inset
 
 -basis can be computed with 
-\begin_inset Formula $O\left(n^{\omega}\bar{\M}(d)\log\sigma)\right)=O\left(n^{\omega}d\log d\log\log d\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O\left(n^{\omega}\M(a)\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}a\right)$
 \end_inset
 
  field operations.
@@ -585,11 +585,10 @@ th column
  Let 
 \begin_inset Formula 
 \[
-\mathbf{E}=\left[\begin{array}{ccccc|ccc|ccccccc}
-1 & x^{r_{1}} & x^{r_{1}+\beta} & \cdots & x^{r_{1}+(q_{1}-2)\beta} &  &  & \\
-\hline  &  &  &  &  & \ddots &  & \\
- &  &  &  &  &  & \  & \ddots\\
-\hline  &  &  &  &  &  &  &  & 1 & x^{r_{n}} & x^{r_{n}+\beta} & \cdots & x^{r_{n}+(q_{n}-2)\beta}
+\mathbf{E}=\left[\begin{array}{ccccc|c|ccccccc}
+1 & x^{r_{1}} & x^{r_{1}+\beta} & \cdots & x^{r_{1}+(q_{1}-2)\beta} & \\
+\hline  &  &  &  &  & \ddots\\
+\hline  &  &  &  &  &  & 1 & x^{r_{n}} & x^{r_{n}+\beta} & \cdots & x^{r_{n}+(q_{n}-2)\beta}
 \end{array}\right]_{n\times\bar{n}}.
 \]
 
@@ -621,7 +620,11 @@ reference "thm:correctHighDegreeElements"
 \end_inset
 
  Thus by setting 
-\begin_inset Formula $\beta\in\Theta\left(m\sigma/n\right)=\Theta\left(d\right)$
+\begin_inset Formula $\beta\in\Theta\left(a\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $a=m\sigma/n$
 \end_inset
 
 , we can make 
@@ -630,13 +633,13 @@ reference "thm:correctHighDegreeElements"
 
 .
  Furthermore, by also setting 
-\begin_inset Formula $\alpha\in\Theta\left(d\right)$
+\begin_inset Formula $\alpha\in\Theta\left(a\right)$
 \end_inset
 
 , we have a balanced shift problem since 
 \begin_inset Formula 
 \[
-\max\bar{s}-\min\bar{s}\le-\min\bar{s}\le\alpha+\beta\in\Theta(d).
+\max\bar{s}-\min\bar{s}\le-\min\bar{s}\le\alpha+\beta\in\Theta(a).
 \]
 
 \end_inset
@@ -653,7 +656,7 @@ reference "alg:mab"
 \end_inset
 
 -basis with cost 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
 \end_inset
 
  in this case.
@@ -765,9 +768,15 @@ reference "exm:StorjohannTransformation"
 
 .
  Then we get the transformed input 
+\begin_inset Formula $\bar{\mathbf{F}}=$
+\end_inset
+
+ 
+\size small
+
 \begin_inset Formula 
 \begin{align*}
-\bar{\mathbf{F}}=[ & x+x^{2}+x^{3}+x^{4}+x^{5}+x^{6},\,~1+x+x^{5}+x^{6}+x^{7},\,~x+x^{2}+x^{6}+x^{7}+x^{8},\\
+[ & x+x^{2}+x^{3}+x^{4}+x^{5}+x^{6},\,~1+x+x^{5}+x^{6}+x^{7},\,~x+x^{2}+x^{6}+x^{7}+x^{8},\\
  & 1+x^{2}+x^{4}+x^{5}+x^{6}+x^{7},\,~x+x^{3}+x^{5}+x^{6}+x^{7}+x^{8},\,~x^{2}+x^{4}+x^{6}+x^{7}+x^{8}+x^{9},\\
  & x^{3}+x^{5}+x^{7}+x^{8}+x^{9}+x^{10},\,~1+x+x^{3}+x^{7},\,~x+x^{2}+x^{4}+x^{8},\\
  & x^{2}+x^{3}+x^{5}+x^{9},\,~x^{3}+x^{4}+x^{6}+x^{10},\,~x^{4}+x^{5}+x^{7}+x^{11}]
@@ -775,6 +784,8 @@ reference "exm:StorjohannTransformation"
 
 \end_inset
 
+
+\size default
  having 
 \begin_inset Formula $12$
 \end_inset
@@ -865,9 +876,39 @@ reference "exm:StorjohannTransformation"
 
 -basis element.
  Comparing 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{E}\bar{\mathbf{P}}=$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\size footnotesize
+
 \begin_inset Formula 
 \[
-\mathbf{E}\bar{\mathbf{P}}=\left[{\begin{array}{cccccccccccc}
+\left[{\begin{array}{cccccccccccc}
 0 & ~0~ & ~0~ & 0 & ~0~ & 0 & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~1~\\
 x & 1 & x & 0 & 1 & x^{2} & x^{2} & x^{2} & x^{2} & x^{2} & 0 & 0\\
 x+x^{2}+x^{3}+x^{4} & 1 & x & 1+x+x^{2}+x^{3} & 1 & 1+x+x^{3} & x^{2} & x^{2} & x^{2} & x^{2} & 0 & 1\\
@@ -877,6 +918,8 @@ x+x^{2}+x^{3}+x^{4} & 1 & x & 1+x+x^{2}+x^{3} & 1 & 1+x+x^{3} & x^{2} & x^{2} & 
 
 \end_inset
 
+
+\size default
  to a 
 \begin_inset Formula $(\mathbf{F},8,\vec{s})$
 \end_inset
@@ -1010,7 +1053,7 @@ We now work towards establishing the correspondence between the high degree
 \end_inset
 
 .
- A useful link is provided by the following a matrix .
+ A useful link is provided by the following matrix.
 \end_layout
 
 \begin_layout Standard
@@ -1818,9 +1861,10 @@ th entry
 
  we get 
 \begin_inset Formula 
-\[
-\deg w_{i}=\max\left\{ \deg\bar{w}_{i,0},\deg\bar{w}_{i,1}+r_{i},\deg\bar{w}_{i,2}+r_{i}+\beta,\dots,\deg\bar{w}_{i,q_{i}-2}+r_{i}+(q_{i}-2)\beta\right\} .
-\]
+\begin{align*}
+ & \deg w_{i}\\
+= & \max\left\{ \deg\bar{w}_{i,0},\deg\bar{w}_{i,1}+r_{i},\deg\bar{w}_{i,2}+r_{i}+\beta,\dots,\deg\bar{w}_{i,q_{i}-2}+r_{i}+(q_{i}-2)\beta\right\} .
+\end{align*}
 
 \end_inset
 
@@ -3162,7 +3206,7 @@ reference "con:unbalancedCondition"
 \end_inset
 
 , then a 
-\begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)_{-cd}$
+\begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)_{-ca}$
 \end_inset
 
 -basis has at most 
@@ -3174,7 +3218,7 @@ reference "con:unbalancedCondition"
 
 \begin_layout Proof
 Since 
-\begin_inset Formula $d=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$
+\begin_inset Formula $a=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$
 \end_inset
 
  under condition (
@@ -3193,7 +3237,7 @@ reference "con:unbalancedCondition"
 \end_inset
 
  less than or equal to 
-\begin_inset Formula $-cd$
+\begin_inset Formula $-ca$
 \end_inset
 
 .
@@ -3210,7 +3254,7 @@ reference "thm:zeroHighShiftEntries"
 
 -basis are the ones corresponding to (with the same indices as) the shift
  entries that are less than or equal to 
-\begin_inset Formula $-cd$
+\begin_inset Formula $-ca$
 \end_inset
 
 .
@@ -3286,7 +3330,7 @@ reference "con:unbalancedCondition"
 \end_inset
 
 -basis can be computed with cost 
-\begin_inset Formula $O\left(n^{\omega}\M(d)\log\sigma\right)\subset O^{\sim}(n^{\omega}d)$
+\begin_inset Formula $O\left(n^{\omega}\M(a)\log\sigma\right)\subset O^{\sim}(n^{\omega}a)$
 \end_inset
 
 .
@@ -3296,11 +3340,11 @@ reference "con:unbalancedCondition"
 \begin_layout Proof
 We give the following constructive proof.
  Initially, we set transformation parameters 
-\begin_inset Formula $\alpha_{1}=\beta_{1}=2d$
+\begin_inset Formula $\alpha_{1}=\beta_{1}=2a$
 \end_inset
 
  with 
-\begin_inset Formula $d=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$
+\begin_inset Formula $a=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$
 \end_inset
 
 .
@@ -3340,7 +3384,7 @@ reference "thm:correctHighDegreeElements"
 \end_inset
 
 -degree exceeding 
-\begin_inset Formula $-\alpha_{1}=-2d$
+\begin_inset Formula $-\alpha_{1}=-2a$
 \end_inset
 
 .
@@ -3392,7 +3436,7 @@ reference "thm:zeroHighShiftEntries"
 
  entries.
  The average degree of the new problem is 
-\begin_inset Formula $d_{2}~=~m\sigma/n_{2}$
+\begin_inset Formula $a_{2}~=~m\sigma/n_{2}$
 \end_inset
 
 .
@@ -3408,7 +3452,7 @@ For the second iteration, we set
 \end_inset
 
  to 
-\begin_inset Formula $2d_{2}$
+\begin_inset Formula $2a_{2}$
 \end_inset
 
 .
@@ -3445,7 +3489,7 @@ reference "alg:mab"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O\left(n_{2}^{\omega}\M(d_{2})\log\sigma\right)$
+\begin_inset Formula $O\left(n_{2}^{\omega}\M(a_{2})\log\sigma\right)$
 \end_inset
 
  as the shift 
@@ -3466,7 +3510,7 @@ reference "alg:mab"
 \end_inset
 
 , we set 
-\begin_inset Formula $\alpha_{i}=\beta_{i}=2d_{i}=2m\sigma/n_{i}$
+\begin_inset Formula $\alpha_{i}=\beta_{i}=2a_{i}=2m\sigma/n_{i}$
 \end_inset
 
 .
@@ -3486,10 +3530,10 @@ reference "alg:mab"
 -basis can be computed with a cost of 
 \begin_inset Formula 
 \begin{align*}
-O\left(n_{i}^{\omega}\M\left(d_{i}\right)\log\sigma\right) & \subset O\left(\left(2^{-i}n\right)^{\omega}\M\left(2^{i}d\right)\log\sigma\right)\\
- & \subset O\left(\left(2^{-i}n\right)^{\omega}\M\left(2^{i}\right)\M\left(d\right)\log\sigma\right)\\
- & \subset O\left(\left(2^{-i}n\right)^{\omega}\left(2^{i}\right)^{\omega-1}\M\left(d\right)\log\sigma\right)\\
- & \subset O\left(2^{-i}n^{\omega}\M(d)\log\sigma\right).
+O\left(n_{i}^{\omega}\M\left(a_{i}\right)\log\sigma\right) & \subset O\left(\left(2^{-i}n\right)^{\omega}\M\left(2^{i}a\right)\log\sigma\right)\\
+ & \subset O\left(\left(2^{-i}n\right)^{\omega}\M\left(2^{i}\right)\M\left(a\right)\log\sigma\right)\\
+ & \subset O\left(\left(2^{-i}n\right)^{\omega}\left(2^{i}\right)^{\omega-1}\M\left(a\right)\log\sigma\right)\\
+ & \subset O\left(2^{-i}n^{\omega}\M(a)\log\sigma\right).
 \end{align*}
 
 \end_inset
@@ -3543,9 +3587,10 @@ O\left(n_{i}^{\omega}\M\left(d_{i}\right)\log\sigma\right) & \subset O\left(\lef
 
  iterations, so the overall cost is 
 \begin_inset Formula 
-\[
-O\left(\sum_{i=1}^{\log(n/m)}\left(2^{-i}n^{\omega}\M(d)\log\sigma\right)\right)=O\left(n^{\omega}\M(d)\log\sigma\sum_{i=1}^{\log(n/m)}2^{-i}\right)\subset O\left(n^{\omega}\M(d)\log\sigma\right)
-\]
+\begin{align*}
+O\left(\sum_{i=1}^{\log(n/m)}\left(2^{-i}n^{\omega}\M(a)\log\sigma\right)\right) & =O\left(n^{\omega}\M(a)\log\sigma\sum_{i=1}^{\log(n/m)}2^{-i}\right)\\
+ & \subset O\left(n^{\omega}\M(a)\log\sigma\right)
+\end{align*}
 
 \end_inset
 
@@ -3597,7 +3642,7 @@ reference "con:unbalancedCondition"
 \end_inset
 
  remains 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
 \end_inset
 
 , and the entire computation still uses at most 

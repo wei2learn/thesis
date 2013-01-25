@@ -95,20 +95,20 @@ reference "alg:colBasis"
 \end_inset
 
 ) can compute the rank with a cost of 
-\begin_inset Formula $O^{\sim}(m^{\omega-1}\xi)$
+\begin_inset Formula $O^{\sim}(nm^{\omega-1}s)$
 \end_inset
 
  field operations, where 
-\begin_inset Formula $\xi$
+\begin_inset Formula $s$
 \end_inset
 
- is the sum of the column degrees of 
+ is the average column degree of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
 .
  However, we would like to refine this cost to 
-\begin_inset Formula $O^{\sim}\left(mr^{\omega-2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(nmr^{\omega-2}s\right)$
 \end_inset
 
 , where 
@@ -693,7 +693,7 @@ reference "alg:rankProfile"
 \end_inset
 
  is 
-\begin_inset Formula $O^{\sim}\left(\xi mr^{\omega-2}\right)$
+\begin_inset Formula $O^{\sim}\left(nmr^{\omega-2}s\right)$
 \end_inset
 
  field operations for computing a rank profile of 
@@ -718,7 +718,7 @@ Let
 \end_inset
 
  is 
-\begin_inset Formula $O^{\sim}\left(r_{i}^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(r_{i}^{\omega-1}ns\right)$
 \end_inset
 
  field operations for the column basis and the kernel basis with rank profile
@@ -726,7 +726,7 @@ Let
  The total cost is then 
 \begin_inset Formula 
 \[
-\sum O^{\sim}\left(r_{i}^{\omega-1}\xi\right)=O^{\sim}\left(\xi\sum r_{i}^{\omega-1}\right).
+\sum O^{\sim}\left(r_{i}^{\omega-1}ns\right)=O^{\sim}\left(ns\sum r_{i}^{\omega-1}\right).
 \]
 
 \end_inset
@@ -759,7 +759,7 @@ Let
  Hence 
 \begin_inset Formula 
 \[
-\sum O^{\sim}\left(r_{i}^{\omega-1}\xi\right)=O^{\sim}\left(\xi\sum r_{i}^{\omega-1}\right)=O^{\sim}\left(\xi mr^{\omega-2}\right).
+\sum O^{\sim}\left(r_{i}^{\omega-1}ns\right)=O^{\sim}\left(ns\sum r_{i}^{\omega-1}\right)=O^{\sim}\left(nmr^{\omega-2}s\right).
 \]
 
 \end_inset
@@ -859,7 +859,7 @@ reference "cor:costOfMinimalNullspaceBasis"
 \end_inset
 
 , after a cost of 
-\begin_inset Formula $O^{\sim}\left(\xi mr^{\omega-2}\right)=O^{\sim}\left(nmr^{\omega-2}d\right)$
+\begin_inset Formula $O^{\sim}\left(nmr^{\omega-2}d\right)$
 \end_inset
 
  to compute the rank profile.

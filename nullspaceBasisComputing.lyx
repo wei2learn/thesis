@@ -139,7 +139,11 @@ We require that the shift
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- component-wise.
+, that is, 
+\begin_inset Formula $\vec{s}\ge\cdeg\mathbf{F}$
+\end_inset
+
+.
  For example, we can set each entry of 
 \begin_inset Formula $\vec{s}$
 \end_inset
@@ -221,7 +225,12 @@ reference "sub:boundsBasedOnShift"
 \end_inset
 
 .
- In the remainder of this thesis, when we say a list 
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the remainder of this thesis, we say a list 
 \begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]$
 \end_inset
 
@@ -229,32 +238,16 @@ reference "sub:boundsBasedOnShift"
 \begin_inset Formula $\vec{t}=\left[t_{1},\dots,t_{n}\right]$
 \end_inset
 
- or if we write 
+ if 
 \begin_inset Formula $\vec{s}\ge\vec{t}$
 \end_inset
 
-, we mean 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
- bound 
-\begin_inset Formula $\vec{t}$
-\end_inset
-
- component-wise, that is, each 
-\begin_inset Formula $s_{i}\ge t_{i}$
-\end_inset
-
- for each 
-\begin_inset Formula $i$
-\end_inset
-
- in 
-\begin_inset Formula $\left\{ 1,\dots,n\right\} $
-\end_inset
-
 .
- 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -296,7 +289,7 @@ Let
 \begin_inset Formula $\vec{s}$
 \end_inset
 
--minimal null space basis 
+-minimal kernel space basis 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
@@ -310,7 +303,7 @@ Let
 \end_inset
 
 , we improve this later to 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)=O^{\sim}\left(n^{\omega-1}\rho\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)$
 \end_inset
 
 .
@@ -1485,7 +1478,7 @@ key "Giorgi2003"
 \end_inset
 
  is balanced, then we can compute this with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\rho\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}ms\right)$
 \end_inset
 
  using the algorithm from 
@@ -1898,7 +1891,23 @@ Let
  have such unbalanced degrees.
  To efficiently multiply these matrices, we provide the following theorem,
  whose proof we defer until the end of this section.
- 
+ In the following, let 
+\begin_inset Formula $t=\xi/m$
+\end_inset
+
+ and 
+\begin_inset Formula $s$
+\end_inset
+
+ be the average of the largest 
+\begin_inset Formula $m$
+\end_inset
+
+ entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ as before.
 \end_layout
 
 \begin_layout Theorem
@@ -1912,8 +1921,12 @@ name "thm:multiplyUnbalancedMatrices"
 \begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
+ with 
+\begin_inset Formula $m\le n$
+\end_inset
+
 , 
-\begin_inset Formula $\vec{s}$
+\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
 \end_inset
 
  a shift with entries bounding the column degrees of 
@@ -1959,7 +1972,7 @@ name "thm:multiplyUnbalancedMatrices"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}(nm^{\omega-2}\xi)$
+\begin_inset Formula $O^{\sim}(nm^{\omega-1}t)$
 \end_inset
 
 .
@@ -2551,7 +2564,7 @@ The multiplication of
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}\left(nm^{\omega-2}\xi\right)$
+\begin_inset Formula $O^{\sim}(nm^{\omega-1}t)$
 \end_inset
 
 .
@@ -3286,7 +3299,7 @@ name "lem:multiplyingP2Q"
 
 \end_inset
 
-The multiplication of 
+The matrices 
 \begin_inset Formula $\mathbf{P}_{2}$
 \end_inset
 
@@ -3294,8 +3307,8 @@ The multiplication of
 \begin_inset Formula $\mathbf{Q}$
 \end_inset
 
- can be done with a cost of 
-\begin_inset Formula $O^{\sim}\left(nm^{\omega-2}\xi\right)$
+ can be multiplied with a cost of 
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}t\right)$
 \end_inset
 
 .
@@ -3400,7 +3413,7 @@ reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
 
  is 
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
 bounded by the sum of the column degrees of 
@@ -3464,7 +3477,11 @@ reference "thm:multiplyUnbalancedMatrices"
 
 .
  So each multiplication costs 
-\begin_inset Formula $O^{\sim}(m^{\omega-1}\xi)$
+\begin_inset Formula $O^{\sim}(m^{\omega}t)$
+\end_inset
+
+, where 
+\begin_inset Formula $t=\xi/m$
 \end_inset
 
 .
@@ -3473,7 +3490,7 @@ reference "thm:multiplyUnbalancedMatrices"
 \end_inset
 
  block rows costs 
-\begin_inset Formula $O^{\sim}\left(nm^{\omega-2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}t\right)$
 \end_inset
 
 .
@@ -3692,11 +3709,7 @@ The column degrees of
 \begin_inset Formula $\mathbf{F}\mathbf{P}/x^{\sigma}$
 \end_inset
 
- are 
-\begin_inset Newline newline
-\end_inset
-
-bounded component-wise by 
+ are bounded component-wise by 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -4482,7 +4495,7 @@ reference "thm:continueComputingNullspaceBasisByRows"
  Again, we need to check that these computations can be done efficiently.
  In the following, 
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset CommandInset ref
@@ -4532,7 +4545,7 @@ reference "thm:multiplyUnbalancedMatrices"
 
 .
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Lemma
 \begin_inset CommandInset label
@@ -4572,7 +4585,15 @@ reference "lem:boundOnDegreesOfFA"
 
 \end_inset
 
+ Note that 
+\begin_inset Formula $t=\xi/m$
+\end_inset
 
+ is a bound on the average of the entries of 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Lemma
@@ -4591,7 +4612,7 @@ The multiplication of
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}(m^{\omega-1}\xi)$
+\begin_inset Formula $O^{\sim}(m^{\omega}t)$
 \end_inset
 
 .
@@ -4623,7 +4644,7 @@ The multiplication of
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}(m^{\omega-1}\xi)$
+\begin_inset Formula $O^{\sim}(m^{\omega}t)$
 \end_inset
 
 .
@@ -4888,7 +4909,7 @@ reference "alg:minimalNullspaceBasisWithRankProfile"
 \end_inset
 
  is 
-\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\xi\right)=O^{\sim}\left(m^{\omega-1}\rho\right)$
+\begin_inset Formula $O^{\sim}\left(m^{\omega}s\right)$
 \end_inset
 
  field operations.
@@ -4927,6 +4948,10 @@ We may assume
 \end_inset
 
 .
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
  Note that 
 \begin_inset Formula $\rho\in\Theta\left(\xi\right)$
 \end_inset
@@ -4936,7 +4961,11 @@ We may assume
 \end_inset
 
 .
- Then the order basis computation at 
+\end_layout
+
+\end_inset
+
+ The order basis computation at 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "line:orderBasis"
@@ -4944,7 +4973,7 @@ reference "line:orderBasis"
 \end_inset
 
  costs 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)=O^{\sim}\left(m^{\omega-1}\rho\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)=O^{\sim}\left(m^{\omega}s\right)$
 \end_inset
 
 .
@@ -4963,7 +4992,7 @@ reference "line:multiplyP2Q"
 \end_inset
 
  cost 
-\begin_inset Formula $O^{\sim}\left(nm^{\omega-2}\xi\right)=O^{\sim}\left(m^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}t\right)=O^{\sim}\left(m^{\omega}s\right)$
 \end_inset
 
 .
@@ -4982,25 +5011,25 @@ reference "line:multiplyN1N2"
 \end_inset
 
  cost 
-\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(m^{\omega}t\right)=O^{\sim}\left(m^{\omega}s\right)$
 \end_inset
 
 .
  Let 
-\begin_inset Formula $g(m,\xi)$
+\begin_inset Formula $g(m)$
 \end_inset
 
  be the computational cost of the original problem.
  Then we have the recurrence relation 
 \begin_inset Formula 
 \[
-g(m,\xi)\in O^{\sim}(m^{\omega-1}\xi)+g(m/2,\xi)+g(m/2,\xi),
+g(m)\in O^{\sim}(m^{\omega}s)+g(m/2)+g(m/2),
 \]
 
 \end_inset
 
  with the base case 
-\begin_inset Formula $g(1,\xi)\in O^{\sim}\left(\xi\right)$
+\begin_inset Formula $g(1)\in O^{\sim}\left(s\right)$
 \end_inset
 
 , the cost of just an order basis computation at 
@@ -5008,7 +5037,7 @@ g(m,\xi)\in O^{\sim}(m^{\omega-1}\xi)+g(m/2,\xi)+g(m/2,\xi),
 \end_inset
 
  This gives 
-\begin_inset Formula $g(m,\xi)\in O^{\sim}(m^{\omega-1}\xi)$
+\begin_inset Formula $g(m)\in O^{\sim}(m^{\omega}s)$
 \end_inset
 
  field operations as the cost of the algorithm.
@@ -5074,7 +5103,11 @@ reference "thm:costLowColDimension"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\xi\right)\in O^{\sim}\left(n^{\omega}s\right)$
+\begin_inset Formula $O^{\sim}\left(m^{\omega}t\right)\subset O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $t=\xi/m\le ns/m$
 \end_inset
 
 .
@@ -5147,7 +5180,7 @@ reference "line:multiplyP2Q"
 \begin_inset Formula $O^{\sim}\left(nm^{\omega-1}s\right)$
 \end_inset
 
- as shown in 
+ as shown below in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:multiplyFP2WithUniformShift"

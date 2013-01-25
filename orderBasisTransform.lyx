@@ -673,7 +673,7 @@ reference "thm:mainTheorem"
 \end_layout
 
 \begin_layout Standard
-We first look at the correspondence bettween the elements of 
+We first look at the correspondence between the elements of 
 \begin_inset Formula $\left\langle \left(\mathbf{F},\sigma,\vec{s}\right)\right\rangle _{\tau}$
 \end_inset
 
@@ -1120,11 +1120,21 @@ The next lemma shows a
 \end_inset
 
 -basis.
- This well-formed 
+ This
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ well-formed
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Formula $(\mathbf{F}',\vec{\omega},\vec{s'})$
 \end_inset
 
--basis restricts the elements of 
+-basis has a structure that restricts the elements of 
 \begin_inset Formula $\langle(\mathbf{F}',\vec{\omega},\vec{s'})\rangle$
 \end_inset
 
@@ -2340,19 +2350,25 @@ reference "exm:StorjohannTransformation"
 \begin_inset Formula $\check{\mathbf{F}}$
 \end_inset
 
- is given by 
+ is given by
+\size scriptsize
+
 \begin_inset Formula 
-\begin{align*}
- & \left[{\begin{array}{cccccr}
+\[
+\left[{\begin{array}{cccccr}
 x+x^{2}+x^{3}+x^{4}+x^{5}+x^{6} & \ 1+x+x^{5}+x^{6}+x^{7}\  & 1+x^{2}+x^{6}+x^{7} & \ 1+x+x^{3}+x^{7}\  & 0\  & 0\\
 1+x+x^{2}+x^{3} & x^{3} & 1+x^{2}+x^{3} & x & 1\  & 0\\
 1+x+x^{2} & x+x^{2}+x^{3} & 1+x+x^{2}+x^{3} & x^{3} & 0\  & 1
-\end{array}}\right],
-\end{align*}
+\end{array}}\right]
+\]
 
 \end_inset
 
- and a 
+
+\end_layout
+
+\begin_layout Example
+and a 
 \begin_inset Formula $\left(\mathbf{F}',\left[8,4,4\right],\vec{0}\right)$
 \end_inset
 
@@ -3170,7 +3186,7 @@ If
 \begin_inset Formula $(\bar{\mathbf{F}}^{\left(i\right)},2\delta^{\left(i\right)},\vec{s}^{\left(i\right)})_{\delta^{\left(i-1\right)}-1}$
 \end_inset
 
--basis and the matrix of the top 
+-basis and the matrix consists of the top 
 \begin_inset Formula $n$
 \end_inset
 

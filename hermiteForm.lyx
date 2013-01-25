@@ -607,11 +607,10 @@ status collapsed
 \begin_inset Formula 
 \begin{eqnarray*}
 \mathbf{E} & = & [\tilde{\mathbf{E}},\dots,\tilde{\mathbf{E}}^{\left(n\right)}]\\
- & = & \left[\begin{array}{ccccc|ccc|ccccccc}
-1 & x^{s_{1}-q_{1}d} & \cdots & x^{s_{1}-2d} & x^{s_{1}-d} &  &  & \\
-\hline  &  &  &  &  & \ddots &  & \\
- &  &  &  &  &  & \  & \ddots\\
-\hline  &  &  &  &  &  &  &  & 1 & x^{s_{n}-q_{n}d} & \cdots & x^{s_{n}-2d} & x^{s_{n}-d}
+ & = & \left[\begin{array}{ccccc|c|ccccccc}
+1 & x^{s_{1}-q_{1}d} & \cdots & x^{s_{1}-2d} & x^{s_{1}-d} & \\
+\hline  &  &  &  &  & \ddots\\
+\hline  &  &  &  &  &  & 1 & x^{s_{n}-q_{n}d} & \cdots & x^{s_{n}-2d} & x^{s_{n}-d}
 \end{array}\right]_{n\times\bar{n}},
 \end{eqnarray*}
 
@@ -750,12 +749,16 @@ Note that we can construct a
 \end_inset
 
 -kernel basis 
-\begin_inset Formula $\mathbf{A}=\begin{bmatrix}\mathbf{U} & 0\\
+\begin_inset Formula 
+\[
+\mathbf{A}=\begin{bmatrix}\mathbf{U} & 0\\
 \mathbf{H}_{\mathbf{E}} & \mathbf{N}_{\mathbf{E}}
-\end{bmatrix}$
+\end{bmatrix},
+\]
+
 \end_inset
 
-, where 
+where 
 \begin_inset Formula $\mathbf{U}$
 \end_inset
 
@@ -2012,7 +2015,7 @@ th row of
 \end_layout
 
 \begin_layout Proof
-Since the first term of equation (
+Since the first term of Equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:division"
@@ -2042,9 +2045,10 @@ reference "eq:division"
 .
  If we now reverse the coefficients, we get 
 \begin_inset Formula 
-\[
-\colRev\left(I,0,k\right)=\colRev(\mathbf{F}^{r},0,\vec{d})\cdot\colRev\left(\left(\bar{\mathbf{F}}\mod x^{k-\vec{d}}\right),\vec{d},k\right)+\colRev\left(x^{k-d}\mathbf{C},0,k\right),
-\]
+\begin{eqnarray*}
+ &  & \colRev\left(I,0,k\right)\\
+ & = & \colRev(\mathbf{F}^{r},0,\vec{d})\cdot\colRev\left(\left(\bar{\mathbf{F}}\mod x^{k-\vec{d}}\right),\vec{d},k\right)+\colRev\left(x^{k-d}\mathbf{C},0,k\right),
+\end{eqnarray*}
 
 \end_inset
 
@@ -2728,7 +2732,7 @@ A Hermite normal form of
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
- can be computed with a cost of 
+ can be computed deterministically with a cost of 
 \family roman
 \series medium
 \shape up

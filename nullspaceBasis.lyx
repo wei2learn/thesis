@@ -148,9 +148,9 @@ Minimal kernel bases can be directly computed via order basis computation.
 \end_inset
 
  using the algorithm from 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "za2009"
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:OrderBasis"
 
 \end_inset
 

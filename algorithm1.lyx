@@ -140,7 +140,7 @@ Input:
 \begin_inset Formula $\sigma\in\mathbb{Z}_{\ge0}$
 \end_inset
 
-,
+, 
 \begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
 \end_inset
 
@@ -177,7 +177,7 @@ Output:
 \end_inset
 
 -basis 
-\begin_inset Formula $\mathbf{P}\in K\left[x\right]^{n\times n}$
+\begin_inset Formula $\mathbf{P}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
  and 
@@ -488,7 +488,7 @@ status collapsed
 \end_inset
 
  with 
-\begin_inset Formula $\bar{\mathbf{P}}_{1}^{\left(i\right)}\in K\left[x\right]^{n\times k^{\left(i\right)}}$
+\begin_inset Formula $\bar{\mathbf{P}}_{1}^{\left(i\right)}\in\mathbb{K}\left[x\right]^{n\times k^{\left(i\right)}}$
 \end_inset
 
 ;
@@ -685,7 +685,15 @@ status collapsed
 \end_inset
 
 
-\begin_inset Formula $\mbox{ // w:=v[k..l] means that w receives a slice of v whose indices range from k to l}$
+\begin_inset Formula $\mbox{ // \ensuremath{w:=v[k..l]} means that w receives a slice of v }$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\mbox{ // whose indices range from \ensuremath{k} to \ensuremath{l}}$
 \end_inset
 
 

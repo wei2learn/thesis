@@ -170,7 +170,7 @@ If the shift
 \end_inset
 
  is balanced, that is, 
-\begin_inset Formula $\max\vec{s}\in O(d)$
+\begin_inset Formula $\max\vec{s}\in O(a)$
 \end_inset
 
  assuming 
@@ -209,7 +209,7 @@ reference "sub:Unbalanced-Output"
 
 .
  For the balanced case, the average column degree is bounded by 
-\begin_inset Formula $cd=cm\sigma/n$
+\begin_inset Formula $ca=cm\sigma/n$
 \end_inset
 
  for some constant 
@@ -226,12 +226,12 @@ reference "sub:Unbalanced-Output"
 \end_inset
 
  reaches 
-\begin_inset Formula $cd$
+\begin_inset Formula $ca$
 \end_inset
 
  is therefore a constant.
  That is, 
-\begin_inset Formula $\delta^{\left(\lambda\right)}=2^{\lambda}d\ge cd>\delta^{\left(\lambda-1\right)}$
+\begin_inset Formula $\delta^{\left(\lambda\right)}=2^{\lambda}a\ge ca>\delta^{\left(\lambda-1\right)}$
 \end_inset
 
  and hence 
@@ -287,7 +287,7 @@ reference "alg:mab"
 \end_inset
 
 -basis with a cost of 
-\begin_inset Formula $O\left(n^{\omega}\bar{\M}(d)\log\sigma)\right)=O\left(n^{\omega}d\log d\log\log d\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula $O\left(n^{\omega}\M(a)\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}a\right)$
 \end_inset
 
   field operations.
@@ -302,7 +302,7 @@ The computational cost depends on the degree, the row dimension, and the
 \end_inset
 
  is 
-\begin_inset Formula $2^{i}d$
+\begin_inset Formula $2^{i}a$
 \end_inset
 
  at iteration 
@@ -319,7 +319,7 @@ The computational cost depends on the degree, the row dimension, and the
 \end_inset
 
 , which is less than 
-\begin_inset Formula $\sigma/(2^{i}d)=n/(2^{i}m)$
+\begin_inset Formula $\sigma/(2^{i}a)=n/(2^{i}m)$
 \end_inset
 
  at iteration 
@@ -427,7 +427,7 @@ The matrices
 \end_inset
 
  have degree 
-\begin_inset Formula $O(2^{i}d)$
+\begin_inset Formula $O(2^{i}a)$
 \end_inset
 
  and dimensions 
@@ -440,16 +440,16 @@ The matrices
 
 .
  The multiplication cost is therefore 
-\begin_inset Formula $2^{i}\MM(n/2^{i},2^{i}d)$
+\begin_inset Formula $2^{i}\MM(n/2^{i},2^{i}a)$
 \end_inset
 
  field operations, which is bounded by
 \begin_inset Formula 
 \begin{align}
-2^{i}\MM(n/2^{i},2^{i}d) & \in O\left(2^{i}\left(n/2^{i}\right)^{\omega}\M(2^{i}d)\right)\nonumber \\
- & \subset O\left(n^{\omega}\left(2^{i}\right)^{1-\omega}\M\left(2^{i}\right)\M(d)\right)\label{eq:separateMultiplication}\\
- & \subset O\left(n^{\omega}\left(2^{i}\right)^{1-\omega}\left(2^{i}\right)^{\omega-1}\M(d)\right)\label{eq:MultiplicationToExponent}\\
- & \subset O\left(n^{\omega}\M(d)\right).\nonumber 
+2^{i}\MM(n/2^{i},2^{i}a) & \in O\left(2^{i}\left(n/2^{i}\right)^{\omega}\M(2^{i}a)\right)\nonumber \\
+ & \subset O\left(n^{\omega}\left(2^{i}\right)^{1-\omega}\M\left(2^{i}\right)\M(a)\right)\label{eq:separateMultiplication}\\
+ & \subset O\left(n^{\omega}\left(2^{i}\right)^{1-\omega}\left(2^{i}\right)^{\omega-1}\M(a)\right)\label{eq:MultiplicationToExponent}\\
+ & \subset O\left(n^{\omega}\M(a)\right).\nonumber 
 \end{align}
 
 \end_inset
@@ -462,7 +462,7 @@ reference "eq:separateMultiplication"
 \end_inset
 
 ) follows from 
-\begin_inset Formula $\M(ab)\in O\left(\M(a)\M(b)\right)$
+\begin_inset Formula $\M(st)\in O\left(\M(s)\M(t)\right)$
 \end_inset
 
 .
@@ -490,7 +490,7 @@ The matrices
 \end_inset
 
  of the second multiplication have the same degree 
-\begin_inset Formula $O(2^{i}d)$
+\begin_inset Formula $O(2^{i}a)$
 \end_inset
 
  and dimensions 
@@ -502,7 +502,7 @@ The matrices
 \end_inset
 
  and can also be multiplied with a cost of 
-\begin_inset Formula $O\left(n^{\omega}\M(d)\right)$
+\begin_inset Formula $O\left(n^{\omega}\M(a)\right)$
 \end_inset
 
  field operations.
@@ -511,7 +511,7 @@ The matrices
 \end_inset
 
  iterations is therefore 
-\begin_inset Formula $O\left(n^{\omega}\M(d)\log(n/m)\right)$
+\begin_inset Formula $O\left(n^{\omega}\M(a)\log(n/m)\right)$
 \end_inset
 
 .
@@ -531,7 +531,7 @@ The input matrix
 \end_inset
 
  and the order of the problem is 
-\begin_inset Formula $2\delta^{\left(i\right)}\in O(2^{i}d)$
+\begin_inset Formula $2\delta^{\left(i\right)}\in O(2^{i}a)$
 \end_inset
 
 .
@@ -540,7 +540,7 @@ The input matrix
 \end_inset
 
  is 
-\begin_inset Formula $O\left(\left(n/2^{i}\right)^{\omega}\M\left(2^{i}d\right)\log\left(2^{i}d\right)\right)$
+\begin_inset Formula $O\left(\left(n/2^{i}\right)^{\omega}\M\left(2^{i}a\right)\log\left(2^{i}a\right)\right)$
 \end_inset
 
 .
@@ -551,11 +551,11 @@ The input matrix
  iterations is bounded by 
 \begin_inset Formula 
 \begin{align*}
- & O\left(\sum_{i=1}^{\infty}\left(\left(n/2^{i}\right)^{\omega}\M\left(2^{i}d\right)\log\left(2^{i}d\right)\right)\right)\\
-\subset & O\left(\sum_{i=1}^{\infty}\left(\left(n/2^{i}\right)^{\omega}\M\left(2^{i}\right)\log\left(2^{i}\right)\M\left(d\right)\log\left(d\right)\right)\right)\\
-\subset & O\left(\sum_{i=1}^{\infty}\left(n^{\omega}\left(2^{i}\right)^{-\omega}\left(2^{i}\right)^{\omega-1}\M\left(d\right)\log\left(d\right)\right)\right)\\
-\subset & O\left(n^{\omega}\M\left(d\right)\log\left(d\right)\sum_{i=1}^{\infty}\left(2^{-i}\right)\right)\\
-\subset & O\left(n^{\omega}\M\left(d\right)\log\left(d\right)\right).
+ & O\left(\sum_{i=1}^{\infty}\left(\left(n/2^{i}\right)^{\omega}\M\left(2^{i}a\right)\log\left(2^{i}a\right)\right)\right)\\
+\subset & O\left(\sum_{i=1}^{\infty}\left(\left(n/2^{i}\right)^{\omega}\M\left(2^{i}\right)\log\left(2^{i}\right)\M\left(a\right)\log\left(a\right)\right)\right)\\
+\subset & O\left(\sum_{i=1}^{\infty}\left(n^{\omega}\left(2^{i}\right)^{-\omega}\left(2^{i}\right)^{\omega-1}\M\left(a\right)\log\left(a\right)\right)\right)\\
+\subset & O\left(n^{\omega}\M\left(a\right)\log\left(a\right)\sum_{i=1}^{\infty}\left(2^{-i}\right)\right)\\
+\subset & O\left(n^{\omega}\M\left(a\right)\log\left(a\right)\right).
 \end{align*}
 
 \end_inset
@@ -572,7 +572,7 @@ Finally, extracting an order basis by LSP factorization costs
  Combining the above gives 
 \begin_inset Formula 
 \[
-O\left(n^{\omega}\M\left(d\right)\log(n/m)+n^{\omega}\M\left(d\right)\log d\right)=O\left(n^{\omega}\M\left(d\right)\log\sigma)\right)
+O\left(n^{\omega}\M\left(a\right)\log(n/m)+n^{\omega}\M\left(a\right)\log a\right)=O\left(n^{\omega}\M\left(a\right)\log\sigma)\right)
 \]
 
 \end_inset

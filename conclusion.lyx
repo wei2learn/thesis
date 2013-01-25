@@ -76,9 +76,19 @@ name "sec:Future-Research"
 In this thesis, we have presented efficient deterministic algorithms for
  a number of polynomial matrix computation problems, including the computation
  of order basis, minimal nullspace basis, matrix inverse, column basis,
- unimodular completion, determinant, and Hermite normal form.
- The algorithm for nullspace basis computation also immediately allows us
- to solve linear systems.
+ unimodular completion, determinant, Hermite normal form, rank, and rank
+ profile.
+ The algorithm for kernel basis computation also immediately gives us a
+ new way to solve linear systems.
+ An existing efficient deterministic method for solving linear systems was
+ given by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "GSSV2012"
+
+\end_inset
+
+.
  The algorithm for column basis also immediately allows us to compute matrix
  GCD, column reduced forms and Popov normal forms for matrices of any dimension.
  
@@ -107,7 +117,7 @@ We first gave algorithms for computing a shifted order basis of an
 \end_inset
 
  the first algorithm determines an order basis with a cost of 
-\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
+\begin_inset Formula $O^{\sim}(n^{\omega}a)$
 \end_inset
 
  field operations in 
@@ -115,12 +125,11 @@ We first gave algorithms for computing a shifted order basis of an
 \end_inset
 
 , where 
-\begin_inset Formula $\omega$
+\begin_inset Formula $a=m\sigma/n.$
 \end_inset
 
- is the exponent of matrix multiplication.
- Here an input shift is balanced when 
-\begin_inset Formula $\max(\vec{s})-\min(\vec{s})\in O(m\sigma/n)$
+ We then provided a method to refine the cost to 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
 \end_inset
 
 .
@@ -299,7 +308,7 @@ status collapsed
 
 We have presented a second algorithm which balances the high degree rows
  and computes an order basis also using 
-\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+\begin_inset Formula $O^{\sim}(n^{\omega}a)$
 \end_inset
 
  field operations in the case that the shift is unbalanced but satisfies
@@ -418,27 +427,27 @@ Here the soft-
 \end_inset
 
  whose entries bound the corresponding column degrees of the input matrix.
- In this case if 
-\begin_inset Formula $\rho$
-\end_inset
-
- is the sum of the 
-\begin_inset Formula $m$
-\end_inset
-
- largest entries of 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
-, then a 
+ In this case a 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
 -minimal right nullspace basis can be computed with a cost of 
-\begin_inset Formula $O^{\sim}(n^{\omega}\rho/m)$
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
 \end_inset
 
- field operations.
+ field operations, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average of the largest 
+\begin_inset Formula $m$
+\end_inset
+
+ entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
  
 \end_layout
 
@@ -450,20 +459,20 @@ Order basis computation and nullspace basis computation were then applied
 \end_inset
 
  was then given with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
 \end_inset
 
  field operations, where 
-\begin_inset Formula $\xi$
+\begin_inset Formula $s$
 \end_inset
 
- is the sum of column or row degrees of the input matrix.
+ is the average of the column or row degrees of the input matrix.
  The inverse represented alternatively by a product of 
 \begin_inset Formula $\left\lceil \log n\right\rceil $
 \end_inset
 
  matrices costs only 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
  to compute.
@@ -473,14 +482,14 @@ Order basis computation and nullspace basis computation were then applied
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(m^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(m^{\omega}ns\right)$
 \end_inset
 
 , where 
-\begin_inset Formula $\xi$
+\begin_inset Formula $s$
 \end_inset
 
- is the sum of column degrees of the input matrix.
+ is again the average column degree of the input matrix.
  Next, an algorithm was presented for computing an unimodular completion
  of an input matrix in 
 \begin_inset Formula $\mathbb{K}\left[x\right]^{m\times n}$
@@ -491,27 +500,31 @@ Order basis computation and nullspace basis computation were then applied
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 , where 
-\begin_inset Formula $\xi$
+\begin_inset Formula $s$
 \end_inset
 
- is the sum of column degrees of the input matrix.
+ is the average of the 
+\begin_inset Formula $m$
+\end_inset
+
+ largest column degrees of the input matrix.
  Then an algorithm for computing the determinant of an input matrix in 
 \begin_inset Formula $\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
  was given, where 
-\begin_inset Formula $\xi$
+\begin_inset Formula $s$
 \end_inset
 
- is the sum of column or row degrees of the input matrix.
+ is the average column or row degree of the input matrix.
  Then we looked at an algorithm for computing the Hermite normal form of
  a degree 
 \begin_inset Formula $d$
@@ -532,11 +545,16 @@ Order basis computation and nullspace basis computation were then applied
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(mr^{\omega-2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(mr^{\omega-2}ns\right)$
 \end_inset
 
-, and then applied the rank profile algorithm to rank-sensitive computation
- of minimal kernel basis to obtain a cost of 
+, where 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average column degree of the input matrix, and then applied the
+ rank profile algorithm to rank-sensitive computation of minimal kernel
+ basis to obtain a cost of 
 \begin_inset Formula $O^{\sim}(nmr^{\omega-2}d+n^{\omega-1}rd)$
 \end_inset
 
@@ -544,14 +562,16 @@ Order basis computation and nullspace basis computation were then applied
 \end_layout
 
 \begin_layout Standard
-For all these problems, our algorithms are not only essentially optimal,
- but in most cases they also solve more general versions of these problems
- than previous algorithms.
- More specifically, the computational costs are stated with the  sum of
- the column degrees of the input matrix, which is more precise and tighter
- than using just degrees.
+We reduce all these problems to polynomial matrix multiplications.
+ The computational costs of our algorithms are then similar to the costs
+ of multiplying matrices, whose dimensions match the input matrix dimensions
+ in the original problems, and whose degrees equal the average column degrees
+ of the original input matrices in most cases.
+ The use of the average column degrees instead of the commonly used matrix
+ degrees, or equivalently the maximum column degrees, makes our computational
+ costs more precise and tighter.
  In addition, the shifted minimal bases computed by our algorithms are more
- general than the standard minimal bases.
+ general than the standard minimal base.
 \begin_inset Note Note
 status collapsed
 

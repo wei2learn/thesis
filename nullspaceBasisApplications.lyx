@@ -119,8 +119,8 @@ key "storjohann:2008"
 
 \end_inset
 
- gave another algorithm with a similar cost, but the algorithm is randomized
- Las Vegas.
+ gave another algorithm that works for general input matrices and with a
+ similar cost, but the algorithm is randomized Las Vegas.
  In the following, we show that Jeannerod and Villard's algorithm can be
  improved to handle any matrix with a cost of 
 \begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
@@ -128,18 +128,42 @@ key "storjohann:2008"
 
  using new results from this thesis.
  The algorithm given here is still deterministic.
- In fact, an additional improvement of our algorithm is that it is more
- general, as its computational cost is given in terms of the sum of the
- column (or row) degrees.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+An additional improvement of our algorithm is that it is more general, as
+ its computational cost is given in terms of the sum of the column (or row)
+ degrees.
+\end_layout
+
+\end_inset
+
  If 
 \begin_inset Formula $\xi$
 \end_inset
 
  is the minimum of the sum of the column degrees and the sum of the row
- degrees of the input matrix, then the inverse can be computed with 
-\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right).$
+ degrees of the input matrix and 
+\begin_inset Formula $s=\xi/n$
 \end_inset
 
+ is the average, then the inverse can be computed with 
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
+\end_inset
+
+.
+ Note that 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "GSSV2012"
+
+\end_inset
+
+ has also provided a method that can be used by some existing algorithms
+ for polynomial matrix computation problems including matrix inverse, to
+ obtain a cost stated in terms of the average column degrees.
  In the following, we assume without loss of generality that the sum of
  the column degrees is the minimum sum.
 \end_layout
@@ -205,7 +229,7 @@ reference "line:multiplyFN"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
 \end_inset
 
 .
@@ -214,7 +238,7 @@ reference "line:multiplyFN"
 \end_inset
 
  takes only 
-\begin_inset Formula $O(n\xi\log n)$
+\begin_inset Formula $O(n^{2}s\log n)$
 \end_inset
 
  space, but the product 
@@ -222,7 +246,7 @@ reference "line:multiplyFN"
 \end_inset
 
  takes 
-\begin_inset Formula $O(n^{2}\xi)$
+\begin_inset Formula $O(n^{3}s)$
 \end_inset
 
  space.
@@ -250,7 +274,7 @@ reference "line:nullspaceBasisComputation"
 \end_inset
 
  costs 
-\begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
 \end_inset
 
 .
@@ -278,7 +302,7 @@ reference "line:multiplyFN"
 \end_inset
 
  cost 
-\begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
 \end_inset
 
 .
@@ -334,34 +358,44 @@ reference "alg:matrixInverse"
 \end_inset
 
  costs 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
  field operations to compute an inverse of a nonsingular matrix 
 \begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 , where 
 \begin_inset Formula $\xi$
 \end_inset
 
  is the minimum of the sum of the column degrees and the sum of the row
- degrees of the input matrix.
+ degrees of the input matrix
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Proof
 If the sum of the row degrees is smaller, we can just transpose the matrix.
  Let the cost be 
-\begin_inset Formula $g(n,\xi)$
+\begin_inset Formula $g(n)$
 \end_inset
 
 .
  Then we have the following recurrence relation:
 \begin_inset Formula 
 \begin{eqnarray*}
-g(n,\xi) & \in & O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi)\\
- & \in & O^{\sim}(n^{\omega-1}\xi)+2g(\left\lceil n/2\right\rceil ,\xi)\\
- & \in & O^{\sim}(n^{\omega-1}\xi).
+g(n) & \in & O^{\sim}(n^{\omega}s)+g(\left\lceil n/2\right\rceil )+g(\left\lfloor n/2\right\rfloor )\\
+ & \in & O^{\sim}(n^{\omega}s)+2g(\left\lceil n/2\right\rceil )\\
+ & \in & O^{\sim}(n^{\omega}s).
 \end{eqnarray*}
 
 \end_inset
@@ -429,7 +463,7 @@ The multiplications
 \end_inset
 
  can be done with a cost of 
-\begin_inset Formula $O^{\sim}(n^{2}\xi)$
+\begin_inset Formula $O^{\sim}(n^{3}s)$
 \end_inset
 
  .
@@ -621,7 +655,7 @@ reference "thm:multiplyUnbalancedMatrices"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 .
@@ -678,7 +712,7 @@ reference "lem:boundOnDegreesOfFA"
 \end_inset
 
  cost 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
 , with the sum of 
@@ -863,11 +897,12 @@ Repeating this process, we multiply
 \begin_inset Formula $j$
 \end_inset
 
-th in 
-\begin_inset Formula $\mathbf{A}_{j+1}$
+th block in 
+\begin_inset Formula $\mathbf{A}_{i+1}$
 \end_inset
 
-, then as before, the 
+.
+ Then as before, the 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
@@ -897,7 +932,7 @@ th column block in
 \end_inset
 
 th block in 
-\begin_inset Formula $\mathbf{A}_{j+1}$
+\begin_inset Formula $\mathbf{A}_{i+1}$
 \end_inset
 
  is bounded by 
@@ -918,7 +953,11 @@ th block in
 \end_inset
 
  cost 
-\begin_inset Formula $O^{\sim}\left(2^{j}2^{j}\left(n/2^{j}\right)^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(2^{i}2^{i}\left(n/2^{i}\right)^{\omega-1}2^{i}u\right)=O^{\sim}\left(\left(2^{i}\right)^{3-\omega}n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $u=\xi/2^{i}=ns/2^{i}$
 \end_inset
 
 .
@@ -927,7 +966,7 @@ th block in
 \end_inset
 
  we get 
-\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
 \end_inset
 
  as desired.
@@ -942,11 +981,11 @@ reference "alg:matrixInverse"
 \end_inset
 
  costs only 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
 \end_inset
 
- to compute the inverse and it represents the inverse with 
-\begin_inset Formula $O\left(n\xi\log n\right)$
+ and represents the inverse with 
+\begin_inset Formula $O\left(n^{2}s\log n\right)$
 \end_inset
 
  space.

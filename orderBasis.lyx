@@ -65,7 +65,7 @@ theorems-chap
 \begin_body
 
 \begin_layout Chapter
-Order Basis
+Order Basis with Balanced Shifts
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:OrderBasis"
@@ -76,8 +76,8 @@ name "chap:OrderBasis"
 \end_layout
 
 \begin_layout Standard
-In this chapter, we give algorithms for computing a shifted order basis
- of an 
+In this chapter and the next chapter we give algorithms for computing a
+ shifted order basis of an 
 \begin_inset Formula $m\times n$
 \end_inset
 
@@ -98,8 +98,9 @@ In this chapter, we give algorithms for computing a shifted order basis
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- the first algorithm determines an order basis with a cost of 
-\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
+ the algorithm in this chapter determines an order basis with a cost of
+ 
+\begin_inset Formula $O^{\sim}(n^{\omega}a)$
 \end_inset
 
  field operations in 
@@ -110,9 +111,13 @@ In this chapter, we give algorithms for computing a shifted order basis
 \begin_inset Formula $\omega$
 \end_inset
 
- is the exponent of matrix multiplication.
- Here an input shift is balanced when 
-\begin_inset Formula $\max(\vec{s})-\min(\vec{s})\in O(m\sigma/n)$
+ is the exponent of matrix multiplication and 
+\begin_inset Formula $a=m\sigma/n$
+\end_inset
+
+.
+ Here, an input shift is balanced when 
+\begin_inset Formula $\max(\vec{s})-\min(\vec{s})\in O(a)$
 \end_inset
 
 .
@@ -210,11 +215,27 @@ This extends earlier work of Storjohann which only determines a subset of
 \end_inset
 
  field operations for 
-\begin_inset Formula $\delta\ge\lceil m\sigma/n\rceil$
+\begin_inset Formula $\delta\ge\lceil a\rceil$
 \end_inset
 
 .
- While the first algorithm addresses the case when the column degrees of
+ In the end of this chapter, we show how a more refined cost of 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
+\end_inset
+
+ instead of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
+\end_inset
+
+ field operations can be achieved when the shifts are balanced.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+While the first algorithm addresses the case when the column degrees of
  a complete order basis are unbalanced given a balanced input shift, it
  is not efficient in the case when an unbalanced shift results in the row
  degrees also becoming unbalanced.
@@ -345,8 +366,13 @@ This extends the earlier work by the authors from ISSAC'09.
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-In this Chapter, we assume, without any loss of generality, that 
+In this chapter, we assume, without any loss of generality, that 
 \begin_inset Formula $n/m$
 \end_inset
 
@@ -364,7 +390,7 @@ In this Chapter, we assume, without any loss of generality, that
 \end_layout
 
 \begin_layout Standard
-We first give a brief description of Storjohann's transformation for computer
+We first give a brief description of Storjohann's transformation for computing
  a partial order basis.
  
 \begin_inset Note Comment
@@ -678,7 +704,11 @@ I used
 \end_inset
 
  for 
-\begin_inset Formula $\delta\ge\left\lceil m\sigma/n\right\rceil $
+\begin_inset Formula $\delta\ge\left\lceil a\right\rceil $
+\end_inset
+
+, where 
+\begin_inset Formula $a=m\sigma/n$
 \end_inset
 
 .
@@ -709,11 +739,11 @@ I used
 \begin_inset Formula $m$
 \end_inset
 
- rows for the remainder of the paper.
+ rows for the remainder of this chapter.
 \end_layout
 
 \begin_layout Standard
-Clearly a 
+Clearly an 
 \begin_inset Formula $(\bar{\mathbf{F}},2\delta,\vec{s'})$
 \end_inset
 
@@ -755,7 +785,7 @@ Note that there is no need to set the degree parameter
 \end_inset
 
  to less than 
-\begin_inset Formula $\left\lceil m\sigma/n\right\rceil $
+\begin_inset Formula $\left\lceil a\right\rceil $
 \end_inset
 
 , as this produces fewer basis elements without a better cost.
@@ -777,7 +807,7 @@ Note that there is no need to set the degree parameter
 \end_inset
 
 , which requires 
-\begin_inset Formula $\delta=\Theta\left(\left\lceil m\sigma/n\right\rceil \right)$
+\begin_inset Formula $\delta=\Theta\left(a\right)$
 \end_inset
 
 .
@@ -794,10 +824,10 @@ Note that there is no need to set the degree parameter
 \end_inset
 
 , hence 
-\begin_inset Formula $d=mn\sigma/n^{2}=m\sigma/n$
+\begin_inset Formula $a=mn\sigma/n^{2}=m\sigma/n$
 \end_inset
 
- is the average degree of each entry of 
+ is the average size of each entry of 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -815,7 +845,7 @@ Note that there is no need to set the degree parameter
 
  rows.
  Choosing 
-\begin_inset Formula $\delta=\Theta\left(\left\lceil d\right\rceil \right)$
+\begin_inset Formula $\delta=\Theta\left(a\right)$
 \end_inset
 
 , the cost of computing a 
@@ -823,11 +853,30 @@ Note that there is no need to set the degree parameter
 \end_inset
 
 -basis is then 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil d\right\rceil \right)=O^{\sim}\left(n^{\omega}\left\lceil m\sigma/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
 \end_inset
 
 .
- The ceiling function here is used to take care of the case of 
+ In the first part of this chapter, we use the average size 
+\begin_inset Formula $a=m\sigma/n$
+\end_inset
+
+ in the asymptotic cost notation.
+ Therefore, 
+\begin_inset Formula $a$
+\end_inset
+
+ is assumed to be tending to infinity, which means 
+\begin_inset Formula $m\sigma>n$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The ceiling function here is used to take care of the case of 
 \begin_inset Formula $m\sigma\in o(n)$
 \end_inset
 
@@ -849,6 +898,11 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -1377,11 +1431,11 @@ reference "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 \end_inset
 
  and the average column degree is therefore bounded by 
-\begin_inset Formula $d=m\sigma/n$
+\begin_inset Formula $a=m\sigma/n$
 \end_inset
 
 .
- In the first part of this paper, we consider a slightly more general case,
+ In the first part of this thesis, we consider a slightly more general case,
  when the shift 
 \begin_inset Formula $\vec{s}$
 \end_inset
@@ -1406,7 +1460,27 @@ A shift
 \end_inset
 
  is balanced if 
-\begin_inset Formula $\max\vec{s}-\min\vec{s}\in O(d)=O(m\sigma/n)$
+\begin_inset Formula $\max\vec{s}-\min\vec{s}\in O(a)$
+\end_inset
+
+ or if 
+\begin_inset Formula $\max\vec{s}-\min\vec{s}\in O(m\sigma/n)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Note that we only need to use the second definition using 
+\begin_inset Formula $\max\vec{s}-\min\vec{s}\in O(m\sigma/n)$
+\end_inset
+
+ when we discuss the more refined cost in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:removeCeilingFunction"
+
 \end_inset
 
 .
@@ -1423,7 +1497,7 @@ By assuming
 \end_inset
 
  is balanced if 
-\begin_inset Formula $\max\vec{s}\in O(d)$
+\begin_inset Formula $\max\vec{s}\in O(a)$
 \end_inset
 
 .
@@ -1435,12 +1509,12 @@ reference "lem:boundOfSumOfShiftedDegreesOfOrderBasis"
 \end_inset
 
  implies 
-\begin_inset Formula $\sum\left(\vec{t}\right)\le m\sigma+\sum\left(\vec{s}\right)\in O\left(m\sigma+nd\right)=O\left(m\sigma\right)$
+\begin_inset Formula $\sum\left(\vec{t}\right)\le m\sigma+\sum\left(\vec{s}\right)\in O\left(m\sigma+na\right)=O\left(m\sigma\right)$
 \end_inset
 
 .
  Hence the average column degree of the output basis remains 
-\begin_inset Formula $O\left(d\right)$
+\begin_inset Formula $O\left(a\right)$
 \end_inset
 
 .
@@ -1577,7 +1651,7 @@ The fact that a
 \end_inset
 
  while its average column degree is 
-\begin_inset Formula $O\left(m\sigma/n\right)$
+\begin_inset Formula $O\left(a\right)$
 \end_inset
 
  implies that an order basis can have quite unbalanced column degrees, especiall

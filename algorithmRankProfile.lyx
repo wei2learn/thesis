@@ -82,8 +82,18 @@ status open
 \begin_inset Formula $\rankProfile(\mathbf{F})$
 \end_inset
 
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 : Compute a rank profile of 
 \begin_inset Formula $\mathbf{F}$
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 

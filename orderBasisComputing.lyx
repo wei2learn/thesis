@@ -509,9 +509,13 @@ reference "exm:StorjohannTransformation"
 
 .
  The residual 
+\begin_inset Formula $\mathbf{F}'^{(2)}\bar{\mathbf{P}}^{(1)}=$
+\end_inset
+
+ 
 \begin_inset Formula 
 \[
-\mathbf{F}'^{(2)}\bar{\mathbf{P}}^{(1)}=\left[{\begin{array}{rcccccccccc}
+\left[{\begin{array}{rcccccccccc}
 0 & \  & x^{8} & \  & x^{6}+x^{9} & \  & x^{4}+x^{6}+x^{9} & \  & x^{6}+x^{8}+x^{9}+x^{10} & \  & x^{5}+x^{8}\\
 0 &  & 0 &  & x^{5} &  & x^{4}+x^{6} &  & x^{4}+x^{6} &  & x^{5}+x^{6}\\
 0 &  & x^{4} &  & x^{5} &  & x^{5} &  & x^{4}+x^{5}+x^{6} &  & x^{4}
@@ -1379,7 +1383,7 @@ With a
 \end_inset
 
 -basis.
- Continue, using the computed 
+ Continue this, using the computed 
 \begin_inset Formula $(\bar{\mathbf{F}}^{\left(i-1\right)},2\delta^{\left(i-1\right)},\vec{s}^{\left(i-1\right)})$
 \end_inset
 

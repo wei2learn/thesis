@@ -82,11 +82,21 @@ status open
 \begin_inset Formula $\mnb(\mathbf{F},\vec{s})$
 \end_inset
 
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 : Compute a 
 \begin_inset Formula $\vec{s}$
 \end_inset
 
 -minimal kernel Basis
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

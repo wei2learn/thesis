@@ -66,7 +66,7 @@ theorems-chap
 \begin_body
 
 \begin_layout Section
-The Case 
+More Refined Cost and the Case 
 \begin_inset Formula $m\sigma\in o(n)$
 \end_inset
 
@@ -84,13 +84,35 @@ name "sec:removeCeilingFunction"
 \end_layout
 
 \begin_layout Standard
-We have been assuming 
-\begin_inset Formula $m\sigma\in\Omega(n)$
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:balancedCost"
+
 \end_inset
 
- so far.
- With this assumption, we can transform the original problem with dimension
- 
+ states the cost of computing a 
+\begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)$
+\end_inset
+
+-basis as 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $a=m\sigma/n$
+\end_inset
+
+.
+ In this cost, 
+\begin_inset Formula $a$
+\end_inset
+
+ is assumed to tend to infinity, which means 
+\begin_inset Formula $m\sigma>n$
+\end_inset
+
+.
+ This allows us to transform the original problem with dimension 
 \begin_inset Formula $m\times n$
 \end_inset
 
@@ -103,21 +125,26 @@ We have been assuming
 \end_inset
 
  and degree 
-\begin_inset Formula $\Theta(d)=\Theta(m\sigma/n)$
+\begin_inset Formula $\Theta(a)=\Theta(m\sigma/n)$
 \end_inset
 
 , allowing order basis computation to be efficient with a final cost of
  
-\begin_inset Formula $O^{\sim}(n^{\omega}d)$
+\begin_inset Formula $O^{\sim}(n^{\omega}a)$
 \end_inset
 
 .
- However, if 
-\begin_inset Formula $m\sigma\in o(n)$
+ However, if we attempt to state the cost as 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
 \end_inset
 
-, the average degree 
-\begin_inset Formula $d=m\sigma/n\in o(1)$
+, the case of 
+\begin_inset Formula $m\sigma\in o\left(n\right)$
+\end_inset
+
+ becomes problematic and requires special attention.
+ In this case, the average degree 
+\begin_inset Formula $a=m\sigma/n\in o(1)$
 \end_inset
 
  but 
@@ -130,18 +157,18 @@ We have been assuming
 
  is the maximum possible row dimension of our transformed problems.
  In other words, we cannot obtain a nearly square transformed problem for
- our algorithms to behave efficiently.
- In this case, our algorithms still require 
-\begin_inset Formula $O^{\sim}(n^{\omega}$
-\end_inset
-
-
-\begin_inset Formula $\left\lceil d\right\rceil )=O^{\sim}(n^{\omega})$
+ our algorithms to behave efficiently, which means our algorithms still
+ require 
+\begin_inset Formula $O^{\sim}(n^{\omega})$
 \end_inset
 
  field operations.
  We now look how this cost can be improved to 
-\begin_inset Formula $O^{\sim}(n^{\omega}d)=O^{\sim}(n^{\omega-1}m\sigma)$
+\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
+\end_inset
+
+ in the case of 
+\begin_inset Formula $m\sigma\in o\left(n\right)$
 \end_inset
 
 .
@@ -672,7 +699,7 @@ reference "alg:mab"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(\left(m\sigma\right)^{\omega}\right)=O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+\begin_inset Formula $O^{\sim}\left(\left(m\sigma\right)^{\omega}\right)\subset O^{\sim}\left(n^{\omega-1}m\sigma\right)$
 \end_inset
 
 .
@@ -714,7 +741,20 @@ The last thing to check is making sure that the multiplications for computing
 \end_inset
 
 .
- This allows us to remove the assumption of 
+ This allows us to refine the cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+ to 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+remove the assumption of 
 \begin_inset Formula $m\sigma\in\Omega(n)$
 \end_inset
 
@@ -732,6 +772,11 @@ reference "thm:balancedCost"
 .
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Theorem
 \begin_inset CommandInset label
 LatexCommand label
@@ -739,6 +784,11 @@ name "thm:orderBasisCostCeilingRemoved"
 
 \end_inset
 
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 When 
 \begin_inset Formula $m\sigma\in o(n)$
 \end_inset
@@ -747,19 +797,24 @@ When
 \begin_inset Formula $\vec{s}$
 \end_inset
 
- is balanced, a 
+ is balanced, a
+\end_layout
+
+\end_inset
+
+A 
 \begin_inset Formula $\left(\mathbf{F},\sigma,\vec{s}\right)$
 \end_inset
 
 -basis can be computed with a cost of 
-\begin_inset Formula $O\left(n^{\omega}\bar{\M}(d)\log\sigma)\right)=O\left(n^{\omega}d\log d\log\log d\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
+\begin_inset Formula 
+\[
+O\left(n^{\omega}\M(m\sigma/n)\log\sigma)\right)\subset O^{\sim}\left(n^{\omega-1}m\sigma\right)
+\]
+
 \end_inset
 
- field operations, where 
-\begin_inset Formula $d=m\sigma/n$
-\end_inset
-
-.
+ field operations.
  
 \begin_inset Note Comment
 status collapsed

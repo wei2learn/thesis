@@ -149,7 +149,7 @@ status collapsed
 \end_inset
 
  Input: 
-\begin_inset Formula $\mathbf{F}\in K\left[x\right]^{m\times n}$
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
 , 
@@ -193,7 +193,7 @@ status collapsed
 \end_inset
 
  Output: 
-\begin_inset Formula $\mathbf{P}\in K\left[x\right]^{n\times n}$
+\begin_inset Formula $\mathbf{P}\in\mathbb{K}\left[x\right]^{n\times n}$
 \end_inset
 
 , an 

@@ -42,7 +42,7 @@ theorems-chap
 \use_indices false
 \paperorientation portrait
 \suppress_date false
-\use_refstyle 1
+\use_refstyle 0
 \index Index
 \shortcut idx
 \color #008000
@@ -884,7 +884,17 @@ status collapsed
 \end_layout
 
 \begin_layout Section
-Shifted Degrees and Their Sums
+Shifted Degrees
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ and Their Sums
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1385,7 +1395,7 @@ key "Storjohann:2006"
 \begin_inset Formula $\mathbf{f}$
 \end_inset
 
- and order 
+ and a large enough order 
 \begin_inset Formula $\sigma$
 \end_inset
 
@@ -1393,15 +1403,19 @@ key "Storjohann:2006"
 \begin_inset Formula $O\left(n\right)\times O\left(n\right)$
 \end_inset
 
- input matrix and an order 
-\begin_inset Formula $O\left(\left\lceil \sigma/n\right\rceil \right)$
+ input matrix and an order about 
+\begin_inset Formula $2\sigma/n$
 \end_inset
 
 .
- Combining this conversion with the method of Giorgi et al.
+ Using this conversion, the method of Giorgi et al.
  can then be used effectively for problems with small row dimensions to
  achieve a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}\left\lceil m\sigma/n\right\rceil \right)$
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $a=m\sigma/n$
 \end_inset
 
 .
@@ -1415,7 +1429,7 @@ However, while order bases of the original problem can have degree up to
 
 , the nature of Storjohann's conversion limits the degree of an order basis
  of the converted problem to 
-\begin_inset Formula $O\left(\left\lceil m\sigma/n\right\rceil \right)$
+\begin_inset Formula $O\left(a\right)$
 \end_inset
 
  in order to be computationally efficient.
@@ -1423,7 +1437,7 @@ However, while order bases of the original problem can have degree up to
  order basis.
  Rather, in order to achieve efficiency, it only computes a partial order
  basis containing basis elements with degrees within 
-\begin_inset Formula $O\left(\left\lceil m\sigma/n\right\rceil \right)$
+\begin_inset Formula $O\left(a\right)$
 \end_inset
 
 , referred to by Storjohann as a 
@@ -1495,18 +1509,28 @@ reference "chap:OrderBasis"
 
  we present algorithms which compute an entire order basis with a cost of
  
-\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
+\begin_inset Formula $O^{\sim}(n^{\omega}a)$
 \end_inset
 
- field operations when 
+ field operations
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ when 
 \begin_inset Formula $n\in O\left(m\sigma\right)$
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 .
  The algorithms differ depending on the nature of the degree shift required
  for the reduced order basis.
- In the first case we use a transformation that can be considered as an
- extension of Storjohann's transformation.
+ In the first case we use a transformation that can be considered an extension
+ of Storjohann's transformation.
  This new transformation provides a way to extend the results from one transform
 ed problem to another transformed problem of a higher degree.
  This enables us to use an idea from the null space basis algorithm found
@@ -1529,11 +1553,16 @@ key "storjohann-villard:2005"
 \begin_layout Standard
 In order to compute an order basis efficiently, the first algorithm requires
  that the degree shifts are balanced.
+ A balanced shift means 
+\begin_inset Formula $\max\vec{s}-\min\vec{s}\in O\left(m\sigma/n\right)$
+\end_inset
+
+.
  In the case where the shift is not balanced, the row degrees of the basis
  can also become unbalanced in addition to the unbalanced column degrees.
  We give a second algorithm that balances the high degree rows and uses
  
-\begin_inset Formula $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+\begin_inset Formula $O^{\sim}(n^{\omega}a)$
 \end_inset
 
  field operations when the shift 
@@ -1585,16 +1614,37 @@ reference "chap:OrderBasis"
 
 \end_inset
 
-, we discuss how the assumption of 
-\begin_inset Formula $n\in O\left(m\sigma\right)$
-\end_inset
-
- can be removed while an order basis can still be computed with a cost of
- 
+, we discuss how a more refined cost of 
 \begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
 \end_inset
 
- field operations when the shifts are balanced.
+ instead of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
+\end_inset
+
+ field operations can be achieved when the shifts are balanced.
+ Note that the cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
+\end_inset
+
+ is less refined as it assumes that 
+\begin_inset Formula $a=m\sigma/n$
+\end_inset
+
+ tends to infinity in the big 
+\begin_inset Formula $O$
+\end_inset
+
+ notation.
+ However, 
+\begin_inset Formula $m\sigma/n$
+\end_inset
+
+ can be arbitrary in the cost 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}m\sigma)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1679,7 +1729,11 @@ key "beelen:1988,varga:1994,Oara:1997"
 \begin_inset Formula $O(m^{2}nd^{3})$
 \end_inset
 
-.
+, where 
+\begin_inset Formula $d$
+\end_inset
+
+ is the degree of the input matrix.
  Resultant methods convert the kernel basis computation of the matrix polynomial
  
 \begin_inset Formula $\mathbf{F}$
@@ -1704,7 +1758,7 @@ key "storjohann-villard:2005"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(nmr^{\omega-1}\right)$
+\begin_inset Formula $O^{\sim}\left(nmr^{\omega-2}d\right)$
 \end_inset
 
  where 
@@ -1721,7 +1775,7 @@ key "storjohann-villard:2005"
 
  is the power of fast matrix multiplication.
  These linearly independent elements do not in general form a basis for
- the kernel, as they generally do not generate all the elements in the kernel.
+ the kernel, as they may not generate all the elements in the kernel.
  A set of any such 
 \begin_inset Formula $n-r$
 \end_inset

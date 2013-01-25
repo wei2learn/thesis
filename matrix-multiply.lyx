@@ -460,7 +460,11 @@ mathbf{B}$
 \end_inset
 
 with a cost of 
-\begin_inset Formula $O^{\sim}(nm^{\omega-2}\xi)$
+\begin_inset Formula $O^{\sim}(nm^{\omega-1}t)$
+\end_inset
+
+, where 
+\begin_inset Formula $t=\xi/m$
 \end_inset
 
 .
@@ -494,6 +498,10 @@ For simplicity we assume
 
 -column degrees of its columns.
  Let 
+\begin_inset Formula $t=\xi/m=ns/m$
+\end_inset
+
+ and 
 \begin_inset Formula 
 \[
 \mathbf{B}=\left[\begin{array}{ccccc}
@@ -528,23 +536,23 @@ For simplicity we assume
 \end_inset
 
 -column degrees in the range 
-\begin_inset Formula $\left[0,2\xi/m\right]$
+\begin_inset Formula $\left[0,2t\right]$
 \end_inset
 
 , 
-\begin_inset Formula $(2\xi/m,4\xi/m]$
+\begin_inset Formula $(2t,4t]$
 \end_inset
 
 , 
-\begin_inset Formula $(4\xi/m,8\xi/m]$
+\begin_inset Formula $(4t,8t]$
 \end_inset
 
 , ...,
-\begin_inset Formula $(\xi/4,\xi/2]$
+\begin_inset Formula $(tm/4,tm/2]$
 \end_inset
 
 , 
-\begin_inset Formula $(\xi/2,\theta]$
+\begin_inset Formula $(tm/2,\theta]$
 \end_inset
 
 , respectively.
@@ -670,19 +678,19 @@ with
 \end_inset
 
  having entries in the range 
-\begin_inset Formula $\left[0,2\xi/m\right]$
+\begin_inset Formula $\left[0,2t\right]$
 \end_inset
 
 , 
-\begin_inset Formula $(2\xi/m,4\xi/m]$
+\begin_inset Formula $(2t,4t]$
 \end_inset
 
 , 
-\begin_inset Formula $(4\xi/m,8\xi/m]$
+\begin_inset Formula $(4t,8t]$
 \end_inset
 
 , ..., 
-\begin_inset Formula $(\xi/2,\xi]$
+\begin_inset Formula $(tm/2,tm]$
 \end_inset
 
  respectively.
@@ -724,7 +732,7 @@ Notice that
 
  must be zero.
  Otherwise, as 
-\begin_inset Formula $\vec{s}_{j}>\xi/2^{j}\ge\xi/2^{i-1}$
+\begin_inset Formula $\vec{s}_{j}>tm/2^{j}\ge tm/2^{i-1}$
 \end_inset
 
 , the 
@@ -736,7 +744,7 @@ Notice that
 \end_inset
 
  would exceed 
-\begin_inset Formula $\xi/2^{i-1}$
+\begin_inset Formula $tm/2^{i-1}$
 \end_inset
 
 , a contradiction since by definition the 
@@ -748,7 +756,7 @@ Notice that
 \end_inset
 
  is bounded by 
-\begin_inset Formula $\xi/2^{i-1}$
+\begin_inset Formula $tm/2^{i-1}$
 \end_inset
 
  when 
@@ -864,7 +872,7 @@ First consider the multiplication
 \end_inset
 
  with degree less than 
-\begin_inset Formula $\delta\in\Theta(\xi/2^{j})$
+\begin_inset Formula $\delta\in\Theta(tm/2^{j})$
 \end_inset
 
  and column dimension 
@@ -923,8 +931,8 @@ First consider the multiplication
 , with a cost of 
 \begin_inset Formula 
 \begin{align*}
-O^{\sim}\left((m/2^{j})\left(2^{j}\right)^{\omega}\xi/2^{j}\right) & =O^{\sim}\left(\left(2^{j}\right)^{\omega-2}m\xi\right).\\
- & \subset O^{\sim}\left(m^{\omega-1}\xi\right)\subset O^{\sim}(nm^{\omega-2}\xi)
+O^{\sim}\left((m/2^{j})\left(2^{j}\right)^{\omega}tm/2^{j}\right) & =O^{\sim}\left(\left(2^{j}\right)^{\omega-2}m^{2}t\right)\\
+ & \subset O^{\sim}\left(m^{\omega}t\right).
 \end{align*}
 
 \end_inset
@@ -950,12 +958,12 @@ O^{\sim}\left((m/2^{j})\left(2^{j}\right)^{\omega}\xi/2^{j}\right) & =O^{\sim}\l
 \end_inset
 
 , and their degrees are 
-\begin_inset Formula $O\left(\xi/m\right)$
+\begin_inset Formula $O\left(t\right)$
 \end_inset
 
 .
  Hence they can be multiplied with a cost of 
-\begin_inset Formula $O^{\sim}\left((n/m)m^{\omega}(\xi/m)\right)=O^{\sim}\left(nm^{\omega-2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left((n/m)m^{\omega}t\right)=O^{\sim}\left(nm^{\omega-1}t\right)$
 \end_inset
 
 .
@@ -968,7 +976,7 @@ O^{\sim}\left((m/2^{j})\left(2^{j}\right)^{\omega}\xi/2^{j}\right) & =O^{\sim}\l
 \end_inset
 
  and costs 
-\begin_inset Formula $O(m\xi)$
+\begin_inset Formula $O(m^{2}t)$
 \end_inset
 
 .
@@ -985,10 +993,14 @@ O^{\sim}\left((m/2^{j})\left(2^{j}\right)^{\omega}\xi/2^{j}\right) & =O^{\sim}\l
 \end_inset
 
  steps costs 
-\begin_inset Formula $O^{\sim}\left(nm^{\omega-2}\xi\right)$
+\begin_inset Formula 
+\[
+O^{\sim}\left(m^{\omega}t\right)+O^{\sim}\left(nm^{\omega-1}t\right)+O(m^{2}t)=O^{\sim}\left(nm^{\omega-1}t\right).
+\]
+
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Proof
@@ -1019,15 +1031,15 @@ Next we multiply
 \end_inset
 
  also costs 
-\begin_inset Formula $O^{\sim}\left(nm^{\omega-2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}t\right).$
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Proof
 Continuing to doing this, gives a costs of 
-\begin_inset Formula $O^{\sim}\left(nm^{\omega-2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}t\right)$
 \end_inset
 
  to multiply 
@@ -1069,7 +1081,7 @@ Continuing to doing this, gives a costs of
 \end_inset
 
  is therefore 
-\begin_inset Formula $O^{\sim}\left(nm^{\omega-2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(nm^{\omega-1}t\right)$
 \end_inset
 
  to multiply 

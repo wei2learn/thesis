@@ -124,7 +124,7 @@ key "storjohann-villard:2005"
 \end_layout
 
 \begin_layout Section
-Notations
+Notation
 \end_layout
 
 \begin_layout Standard
@@ -200,11 +200,11 @@ Lists For two lists
 \end_inset
 
 , let 
-\begin_inset Formula $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]\in\mathbb{Z}^{n}$
+\begin_inset Formula $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]$
 \end_inset
 
  and 
-\begin_inset Formula $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]\in\mathbb{Z}^{n}$
+\begin_inset Formula $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]$
 \end_inset
 
  be the lists consists of the entries of 
@@ -378,18 +378,51 @@ Integer For a list
 .
 \end_layout
 
+\begin_layout Example
+Let 
+\begin_inset Formula $\mathbf{A}=\left[1,x^{2}\right]$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{B}=\left[x,1\right]$
+\end_inset
+
+, we can write 
+\begin_inset Formula $\cdeg\mathbf{A}>\cdeg\mathbf{B}$
+\end_inset
+
+, since the sorted lists of column degrees of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ are 
+\begin_inset Formula $\left[0,2\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\left[0,1\right]$
+\end_inset
+
+ respectively.
+\end_layout
+
 \begin_layout Section
 Model of Computation
 \end_layout
 
 \begin_layout Standard
-The computational cost in this paper is analyzed by bounding the number
+The computational cost in this thesis is analyzed by bounding the number
  of arithmetic operations (additions, subtractions, multiplications, and
  divisions) in the coefficient field 
 \begin_inset Formula $\mathbb{K}$
 \end_inset
 
  on an algebraic random access machine.
+ We reduce all the problems to polynomial matrix multiplications.
  We use 
 \begin_inset Formula $\MM(n,d)$
 \end_inset
@@ -413,7 +446,7 @@ The computational cost in this paper is analyzed by bounding the number
 
 .
  We assume that 
-\begin_inset Formula $\M(ab)\in O\left(\M(a)\M(b)\right)$
+\begin_inset Formula $\M(st)\in O\left(\M(s)\M(t)\right)$
 \end_inset
 
  and 
@@ -451,7 +484,7 @@ We define a cost function
 \end_inset
 
  We take 
-\begin_inset Formula $\MM(n,d)\in O\left(n^{\omega}\M(d)\right)$
+\begin_inset Formula $\MM(n,d)\in O\left(n^{\omega}\M(d)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
 \end_inset
 
 .
@@ -464,6 +497,231 @@ key "vonzurgathen"
 
  for more details and reference about the cost of polynomial multiplication
  and matrix multiplication.
+\end_layout
+
+\begin_layout Section
+Computational Cost in Terms of Average Degrees
+\end_layout
+
+\begin_layout Standard
+In this thesis, we often state the computational costs in terms of the average
+ column degrees, in contrast to the matrix degrees that are also the maximum
+ column degrees typically used in the literature.
+ For example, the cost of a problem involving an input matrix with dimension
+ 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ and column degrees 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]$
+\end_inset
+
+ is usually 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $s=\sum\vec{s}/n$
+\end_inset
+
+ is the average column degree of the input matrix.
+ This is similar to the cost of multiplying two matrices with dimension
+ 
+\begin_inset Formula $n$
+\end_inset
+
+ and degree 
+\begin_inset Formula $s$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+It is tempting to also write the cost as 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ with 
+\begin_inset Formula $\xi=\sum\vec{s}$
+\end_inset
+
+ being the sum of the column degrees.
+ However, note that if 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is asymptotically much smaller than 
+\begin_inset Formula $n$
+\end_inset
+
+, such as 
+\begin_inset Formula $\xi\in O\left(\log\left(n\right)\right)$
+\end_inset
+
+, this cost becomes 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\right)$
+\end_inset
+
+, which is incorrect since this is smaller than the size of the input matrix.
+ This issue is caused by the subtleties involving the use of degree as the
+ size while the degree of a polynomial is not quite the same as its size.
+ There are two differences to be noted.
+ First, a degree 0 polynomial does not have size 0.
+ It still has one coefficient, which is one field element to store.
+ Another exception is the zero polynomial, whose degree is sometimes defined
+ as 
+\begin_inset Formula $-\infty$
+\end_inset
+
+ or 
+\begin_inset Formula $-1$
+\end_inset
+
+ depending on the context.
+ But a negative size does not make much sense.
+ 
+\end_layout
+
+\begin_layout Standard
+There are two ways to address this issue.
+ First, instead of using the degree in the cost, we can use the actual number
+ of coefficients, which is 
+\begin_inset Formula 
+\[
+\begin{cases}
+0 & \mbox{if }p=0\\
+1+\deg p & \mbox{if }\deg p\ge0,
+\end{cases}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $p$
+\end_inset
+
+ is a polynomial, a polynomial vector, or a polynomial matrix.
+ For example, a column vector with column degree 2 then has 3 column coefficient
+s.
+ Then 
+\begin_inset Formula $\xi$
+\end_inset
+
+ in the cost represents the sum of the number of column coefficients for
+ all the columns.
+\end_layout
+
+\begin_layout Standard
+Perhaps the easiest way is to just use the average column degrees 
+\begin_inset Formula $s=\sum\vec{s}/n$
+\end_inset
+
+ in the cost, and state the cost as 
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
+\end_inset
+
+.
+ Then the above issue no longer exists because the cost 
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
+\end_inset
+
+ is similar to the cost of multiplying two matrices of dimension 
+\begin_inset Formula $n$
+\end_inset
+
+ and degree 
+\begin_inset Formula $s$
+\end_inset
+
+, with 
+\begin_inset Formula $s$
+\end_inset
+
+ assumed to tend to infinity in the asymptotic Big-
+\begin_inset Formula $O$
+\end_inset
+
+ notation, hence degree zero or zero polynomials are no longer an issue.
+ For simplicity, this is the approach we take in this thesis.
+ We describe the cost in terms of the average column degrees instead of
+ the sum of the column degrees.
+ But keep in mind that the first approach can be used to give a more refined
+ cost.
+\end_layout
+
+\begin_layout Standard
+For order basis computation problems considered in this thesis, a problem
+ with a dimension 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ input matrix and order 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $a=m\sigma/n$
+\end_inset
+
+ can be viewed as the average size of the rows if we treat the original
+ input matrix as a square matrix by appending 
+\begin_inset Formula $n-m$
+\end_inset
+
+ zero rows.
+ If the cost is stated as 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+\end_inset
+
+ in the case of 
+\begin_inset Formula $m\sigma\in o\left(n\right)$
+\end_inset
+
+, we have a similar issue as before, as we may obtain a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\right)$
+\end_inset
+
+.
+ This cost may seem strange, as it is less than the cost of multiplying
+ two matrices of dimension 
+\begin_inset Formula $n$
+\end_inset
+
+ and degree 0.
+ However, it does not contradict with the input size, which is 
+\begin_inset Formula $O(nm\sigma)=o(n^{2})$
+\end_inset
+
+.
+ In fact, when we consider the case of order basis computation with balanced
+ shift, we indeed provide a way to handle the case of 
+\begin_inset Formula $m\sigma\in o\left(n\right)$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+\end_inset
+
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:removeCeilingFunction"
+
+\end_inset
+
+ of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:OrderBasis"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -696,7 +954,7 @@ The lemma follows from the fact
 \begin_inset Formula $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$
 \end_inset
 
- has degree bounded by 0 (Note that the negative degrees are define here
+ has degree no more than 0 (Note that the negative degrees are defined here
  by setting
 \begin_inset Formula $\deg x^{-d}=-d$
 \end_inset
@@ -706,8 +964,8 @@ The lemma follows from the fact
 \end_inset
 
 .
- If one wishes to avoid this negative degrees, one can simply shift the
- degrees up by multiplying the matrix by 
+ If one wishes to avoid negative degrees, one can simply shift the degrees
+ up by multiplying the matrix by 
 \begin_inset Formula $x^{a}$
 \end_inset
 
@@ -718,6 +976,48 @@ The lemma follows from the fact
 ).
  Note the symmetry between the shifted row degrees and the shifted column
  degrees.
+\end_layout
+
+\begin_layout Example
+Let 
+\begin_inset Formula $\mathbf{A}=\begin{bmatrix}1,x^{2}\end{bmatrix}$
+\end_inset
+
+, 
+\begin_inset Formula $\vec{u}=\left[1\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{v}=\left[2,4\right]$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\cdeg_{\vec{u}}\mathbf{A}=\left[1,3\right]\le\vec{v}$
+\end_inset
+
+, and 
+\begin_inset Formula $\rdeg_{-\vec{v}}\mathbf{A}=\left[-2\right]\le-\vec{u}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\vec{u}=\left[1\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{v}=[1,1]$
+\end_inset
+
+, then 
+\begin_inset Formula $\cdeg_{\vec{u}}\mathbf{A}=\left[1,3\right]\nleq\vec{v}$
+\end_inset
+
+, and 
+\begin_inset Formula $\rdeg_{-\vec{v}}\mathbf{A}=\left[1\right]\nleq-\vec{u}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Lemma
@@ -973,11 +1273,11 @@ A square matrix in
 unimodular
 \emph default
  if its determinant is in 
-\begin_inset Formula $\mathbb{K}$
+\begin_inset Formula $\mathbb{K}\backslash\left\{ 0\right\} $
 \end_inset
 
 .
- A matrix in 
+ Equivalently, a matrix in 
 \family roman
 \series medium
 \shape up
@@ -1154,7 +1454,7 @@ Column Basis
 \end_layout
 
 \begin_layout Standard
-The column module of a matrix 
+The column module of a nonzero matrix 
 \begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
@@ -1235,6 +1535,41 @@ status collapsed
 
  has full-rank since basis elements must be linearly independent.
  In addition, any two bases for the same module are unimodularly equivalent.
+\end_layout
+
+\begin_layout Example
+If 
+\begin_inset Formula $\mathbf{A}=\begin{bmatrix}1 & 1+x\\
+x & x+x^{2}
+\end{bmatrix}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{T}=\begin{bmatrix}1\\
+x
+\end{bmatrix}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+, as 
+\begin_inset Formula $\mathbf{A}=\mathbf{T}\left[1,1+x\right]$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The column basis of a zero matrix is defined as the empty set.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Lemma
@@ -1358,6 +1693,13 @@ Since
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\noindent
+A column basis is not unique and indeed any column basis right multiplied
+ by a unimodular polynomial matrix gives another column basis.
+ As a result, a column basis can have arbitrarily high degree
 \end_layout
 
 \begin_layout Section
@@ -1577,97 +1919,6 @@ Then
 .
 \end_layout
 
-\begin_layout Corollary
-\begin_inset CommandInset label
-LatexCommand label
-name "cor:unimodularlyReduceToColumnBasis"
-
-\end_inset
-
-Any matrix 
-\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
- can be unimodularly transformed to 
-\begin_inset Formula $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
- with a full rank matrix 
-\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
-\end_inset
-
-, that is, 
-\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]$
-\end_inset
-
- for some unimodular matrix 
-\begin_inset Formula $\mathbf{U}$
-\end_inset
-
-.
- Any such matrix 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- is a column basis of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Proof
-We can just repeatedly apply 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:columnOperationToReduceDegree"
-
-\end_inset
-
-.
- From 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:columnReducedLeadingCoefficient"
-
-\end_inset
-
-, this eventually gives a column reduced form that contains a column basis.
- The matrix 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- is a column basis of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- since its columns are linearly independent and the 
-\begin_inset Formula $m\times n$
-\end_inset
-
- matrix 
-\begin_inset Formula $\left[0,\mathbf{T}\right]$
-\end_inset
-
- is unimodularly equivalent with 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-, implying 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- each has columns that generate the same 
-\begin_inset Formula $\mathbb{F}\left[x\right]$
-\end_inset
-
--module.
-\end_layout
-
 \begin_layout Standard
 The leading column coefficient matrix can also help to determine the degree
  of the matrix.
@@ -1802,13 +2053,13 @@ It is still not always possible to order two lists of integer degrees, as
 \end_inset
 
 .
- Fortunately, although the lists of column degrees of the set of unimodular
- equivalent matrices are not well-ordered, there always exists some matrices
- with the 
+ Although the lists of column degrees of the set of unimodular equivalent
+ matrices are not well-ordered, there always exists some matrices with the
+ 
 \emph on
 minimal
 \emph default
- column degrees, as shown below by 
+ column degrees, as shown below below by 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:matrixGCDlowerDegrees"
@@ -2026,7 +2277,7 @@ reference "lem:matrixGCDlowerDegrees"
 The existence of matrices with minimal column degrees allows us to define
  
 \emph on
-column reducedness.
+column reduced.
 \end_layout
 
 \begin_layout Definition
@@ -2075,9 +2326,18 @@ column reduced
 \end_layout
 
 \begin_layout Definition
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Note that the nonzero columns of a column reduced matrix form a column basis.
  So computing a column reduced form is at least as hard as computing a column
  basis.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Definition
@@ -2256,6 +2516,180 @@ reference "lem:fullRankLeadingCoefficientAndDegreeOfDetermant"
 \end_layout
 
 \begin_layout Standard
+We can show that the nonzero columns of a column reduced matrix are linearly
+ independent, which means they form a column basis.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:columnReducedNonzeroColumnsLinearlyIndependent"
+
+\end_inset
+
+The nonzero columns of a column reduced matrix are linearly independent.
+\end_layout
+
+\begin_layout Proof
+If the nonzero columns of a matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ are not linearly independent, then the matrix 
+\begin_inset Formula $\mathbf{A}^{\prime}$
+\end_inset
+
+ consists of the nonzero columns of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\mathbf{A}^{\prime}\mathbf{p}=0$
+\end_inset
+
+ for some polynomial vector 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{a}=\cdeg\mathbf{A}^{\prime}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{A}^{\prime}\mathbf{p}=\left(\mathbf{A}^{\prime}x^{-\vec{a}}\right)\cdot\left(x^{\vec{a}}\mathbf{p}\right)=0$
+\end_inset
+
+, which requires 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}^{\prime}x^{-\vec{a}}\right)\lcoeff\left(x^{\vec{a}}\mathbf{p}\right)=0$
+\end_inset
+
+, implying 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}^{\prime}x^{-\vec{a}}\right)=\lcoeff\left(\mathbf{A}^{\prime}\right)$
+\end_inset
+
+ is not full rank, hence 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is not column reduced by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnReducedLeadingCoefficient"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "cor:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+Any matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ can be unimodularly transformed to 
+\begin_inset Formula $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with a full rank matrix 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]$
+\end_inset
+
+ for some unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ Any such matrix 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We can just repeatedly apply the unimodular transformation from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+.
+ By 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnReducedLeadingCoefficient"
+
+\end_inset
+
+, this eventually gives a column reduced form 
+\begin_inset Formula $\left[0,\mathbf{T}^{\prime}\right]$
+\end_inset
+
+, which has linearly independent nonzero columns 
+\begin_inset Formula $\mathbf{T}^{\prime}$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnReducedNonzeroColumnsLinearlyIndependent"
+
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{T}^{\prime}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ since its columns are linearly independent and the 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrix 
+\begin_inset Formula $\left[0,\mathbf{T}^{\prime}\right]$
+\end_inset
+
+ is unimodularly equivalent with 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, implying 
+\begin_inset Formula $\mathbf{T}^{\prime}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ each has columns that generate the same 
+\begin_inset Formula $\mathbb{F}\left[x\right]$
+\end_inset
+
+-module.
+\end_layout
+
+\begin_layout Standard
 In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -2291,19 +2725,28 @@ name "lem:predictableDegree"
 
 \end_inset
 
-If 
-\begin_inset Formula $\mathbf{A}$
+Let 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
- is a full-rank 
+ be a 
 \begin_inset Formula $\vec{u}$
 \end_inset
 
--column reduced matrix with 
+-column reduced matrix with no zero columns and with 
 \begin_inset Formula $\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$
 \end_inset
 
-, then 
+.
+ Then a matrix 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ has 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+-column degrees 
 \begin_inset Formula $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
 \end_inset
 
@@ -2312,6 +2755,7 @@ If
 \end_inset
 
 .
+ 
 \end_layout
 
 \begin_layout Proof
@@ -2444,7 +2888,7 @@ Let
 \end_layout
 
 \begin_layout Definition
-We say a vector of polynomials 
+We say a column vector of polynomials 
 \begin_inset Formula $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$
 \end_inset
 

@@ -394,13 +394,6 @@ RETURN
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "line:nullspaceBasisComputation"
-
-\end_inset
-
-
 \begin_inset Flex STATE
 status open
 
@@ -414,6 +407,13 @@ status open
 
 ;
 \end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "line:nullspaceBasisComputation"
 
 \end_inset
 
@@ -520,13 +520,6 @@ endif
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "line:multiplyFN"
-
-\end_inset
-
-
 \begin_inset Flex STATE
 status open
 
@@ -540,6 +533,13 @@ status open
 
 ;
 \end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "line:multiplyFN"
 
 \end_inset
 
@@ -583,13 +583,6 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "line:multiplyNG"
-
-\end_inset
-
-
 \begin_inset Flex STATE
 status open
 
