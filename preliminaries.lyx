@@ -124,6 +124,12 @@ key "storjohann-villard:2005"
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Notation"
+
+\end_inset
+
 Notation
 \end_layout
 
@@ -538,7 +544,7 @@ In this thesis, we often state the computational costs in terms of the average
 \end_layout
 
 \begin_layout Standard
-It is tempting to also write the cost as 
+It may be tempting to also write the cost as 
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
 \end_inset
 
@@ -564,69 +570,94 @@ It is tempting to also write the cost as
 \end_inset
 
 , which is incorrect since this is smaller than the size of the input matrix.
- This issue is caused by the subtleties involving the use of degree as the
- size while the degree of a polynomial is not quite the same as its size.
- There are two differences to be noted.
- First, a degree 0 polynomial does not have size 0.
- It still has one coefficient, which is one field element to store.
- Another exception is the zero polynomial, whose degree is sometimes defined
- as 
-\begin_inset Formula $-\infty$
-\end_inset
+ This issue is caused by the subtleties involved with using degrees to measure
+ the size of input matrices.
+ 
+\begin_inset Note Note
+status collapsed
 
- or 
-\begin_inset Formula $-1$
-\end_inset
-
- depending on the context.
- But a negative size does not make much sense.
+\begin_layout Plain Layout
+while there a couple of pitfalls associated with this.
  
 \end_layout
 
+\end_inset
+
+In particular, a degree 0 polynomial does not have size 0.
+ It still has one coefficient, or one field element to store.
+ The zero polynomial is even more problematic.
+ Its size is zero but its degree is often defined as 
+\begin_inset Formula $-\infty$
+\end_inset
+
+, certainly not zero.
+\end_layout
+
 \begin_layout Standard
-There are two ways to address this issue.
- First, instead of using the degree in the cost, we can use the actual number
- of coefficients, which is 
+One simple way to address this issue is to use the actual number of coefficients
+ instead of the degree to measure the size of a polynomial.
+ The number of coefficients of a polynomial 
+\begin_inset Formula $p$
+\end_inset
+
+ is 
 \begin_inset Formula 
 \[
 \begin{cases}
 0 & \mbox{if }p=0\\
-1+\deg p & \mbox{if }\deg p\ge0,
+1+\deg p & \mbox{if }\deg p\ge0.
 \end{cases}
 \]
 
 \end_inset
 
-where 
-\begin_inset Formula $p$
-\end_inset
-
- is a polynomial, a polynomial vector, or a polynomial matrix.
- For example, a column vector with column degree 2 then has 3 column coefficient
-s.
- Then 
+This can be applied to polynomial vectors and polynomial matrices as well.
+ For example, a polynomial column vector with column degree 2 then has 3
+ column coefficients.
+ Then we can use 
 \begin_inset Formula $\xi$
 \end_inset
 
- in the cost represents the sum of the number of column coefficients for
- all the columns.
+ in the cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ to represent the sum of the number of column coefficients for all columns
+ of the input matrix, which must be at least the number of nonzero columns.
+ If we assume the zero columns are removed form the input matrix, then 
+\begin_inset Formula $\xi$
+\end_inset
+
+ must be at least 
+\begin_inset Formula $n$
+\end_inset
+
+ , so 
+\begin_inset Formula $n^{\omega-1}\xi$
+\end_inset
+
+ must be at least 
+\begin_inset Formula $n^{\omega}$
+\end_inset
+
+, and a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\right)$
+\end_inset
+
+ is not possible.
 \end_layout
 
 \begin_layout Standard
-Perhaps the easiest way is to just use the average column degrees 
+Perhaps a even easier way is to just use the average column degrees 
 \begin_inset Formula $s=\sum\vec{s}/n$
 \end_inset
 
- in the cost, and state the cost as 
+ in the cost.
+ The cost 
 \begin_inset Formula $O^{\sim}(n^{\omega}s)$
 \end_inset
 
-.
- Then the above issue no longer exists because the cost 
-\begin_inset Formula $O^{\sim}(n^{\omega}s)$
-\end_inset
-
- is similar to the cost of multiplying two matrices of dimension 
+ is then similar to the cost of multiplying two matrices of dimension 
 \begin_inset Formula $n$
 \end_inset
 
@@ -634,38 +665,70 @@ Perhaps the easiest way is to just use the average column degrees
 \begin_inset Formula $s$
 \end_inset
 
-, with 
+.
+ The use of 
 \begin_inset Formula $s$
 \end_inset
 
- assumed to tend to infinity in the asymptotic Big-
+ in the asymptotic Big-
 \begin_inset Formula $O$
 \end_inset
 
- notation, hence degree zero or zero polynomials are no longer an issue.
- For simplicity, this is the approach we take in this thesis.
- We describe the cost in terms of the average column degrees instead of
- the sum of the column degrees.
- But keep in mind that the first approach can be used to give a more refined
- cost.
+ notation assumes 
+\begin_inset Formula $s$
+\end_inset
+
+ tends to infinity, hence the problematic cases of zero polynomials and
+ degree zero polynomials no longer exist.
+ For simplicity, this is the approach we take in this thesis, that is, for
+ most problems we describe the costs in terms of the average column degrees
+ instead of the sum of the column degrees.
+ But keep in mind that the first approach can always be used to give a more
+ refined cost, as 
+\begin_inset Formula $\sum\vec{s}/n$
+\end_inset
+
+ in the first approach is not assumed to tend to infinity, but can be an
+ arbitrary rational number not less than one.
 \end_layout
 
 \begin_layout Standard
-For order basis computation problems considered in this thesis, a problem
- with a dimension 
+For order basis computations considered in this thesis, however, the sizes
+ are more appropriately measured using order instead of column degrees.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ This is because all the column degrees are equal in an order basis computation
+ problem, as they all correspond to the order.
+ Instead, f
+\end_layout
+
+\end_inset
+
+ For a input matrix with dimension 
 \begin_inset Formula $m\times n$
 \end_inset
 
- input matrix and order 
-\begin_inset Formula $\sigma$
+ satisfying 
+\begin_inset Formula $m\le n$
 \end_inset
 
- is computed with a cost of 
+ and order 
+\begin_inset Formula $\sigma,$
+\end_inset
+
+ we use 
+\begin_inset Formula $a=m\sigma/n$
+\end_inset
+
+ in the cost 
 \begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
 \end_inset
 
-, where 
-\begin_inset Formula $a=m\sigma/n$
+ for computing an order basis.
+ Here 
+\begin_inset Formula $a$
 \end_inset
 
  can be viewed as the average size of the rows if we treat the original
@@ -678,28 +741,41 @@ For order basis computation problems considered in this thesis, a problem
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
 \end_inset
 
- in the case of 
+ instead of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
+\end_inset
+
+, then we have a similar situation as before.
+ In the case of 
 \begin_inset Formula $m\sigma\in o\left(n\right)$
 \end_inset
 
-, we have a similar issue as before, as we may obtain a cost of 
+ such as 
+\begin_inset Formula $m\sigma\in O\left(\log\left(n\right)\right)$
+\end_inset
+
+, the cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+\end_inset
+
+ again becomes 
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}\right)$
 \end_inset
 
-.
- This cost may seem strange, as it is less than the cost of multiplying
- two matrices of dimension 
+, which is again less than the cost of multiplying two matrices of dimension
+ 
 \begin_inset Formula $n$
 \end_inset
 
  and degree 0.
- However, it does not contradict with the input size, which is 
-\begin_inset Formula $O(nm\sigma)=o(n^{2})$
+ However, this time it does not violate the upper bound based on the input
+ size, which is at most 
+\begin_inset Formula $nm\sigma\in o(n^{2})$
 \end_inset
 
 .
- In fact, when we consider the case of order basis computation with balanced
- shift, we indeed provide a way to handle the case of 
+ In fact, for the case of order basis computation with balanced shift, we
+ do provide a way to handle this case of 
 \begin_inset Formula $m\sigma\in o\left(n\right)$
 \end_inset
 
@@ -707,7 +783,8 @@ For order basis computation problems considered in this thesis, a problem
 \begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
 \end_inset
 
- in 
+.
+ This is given in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "sec:removeCeilingFunction"
@@ -955,7 +1032,7 @@ The lemma follows from the fact
 \end_inset
 
  has degree no more than 0 (Note that the negative degrees are defined here
- by setting
+ by setting 
 \begin_inset Formula $\deg x^{-d}=-d$
 \end_inset
 
@@ -1534,7 +1611,24 @@ status collapsed
 \end_inset
 
  has full-rank since basis elements must be linearly independent.
- In addition, any two bases for the same module are unimodularly equivalent.
+ Therefore, a column basis 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ can always be obtained from the unimodular matrix that transforms 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{A}\mathbf{U}=\left[0,\mathbf{T}\right]$
+\end_inset
+
+ with a full rank 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+.
+ A row basis is defined in a similar way as column basis.
 \end_layout
 
 \begin_layout Example
@@ -1569,7 +1663,19 @@ The column basis of a zero matrix is defined as the empty set.
 
 \end_inset
 
+Note also that the right factor 
+\begin_inset Formula $\left[1,1+x\right]$
+\end_inset
 
+ here also turns out to be a row basis of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Any two bases for the matrix are unimodularly equivalent.
 \end_layout
 
 \begin_layout Lemma
@@ -1658,41 +1764,6 @@ Any column of
 \end_inset
 
  to be unimodular.
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Lemma
-Any matrix 
-\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
- can be always unimodularly transformed to 
-\begin_inset Formula $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
- with a full rank matrix 
-\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
-\end_inset
-
-.
- This matrix 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- is a column basis of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Proof
-Since 
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1920,8 +1991,277 @@ Then
 \end_layout
 
 \begin_layout Standard
+As one would expect, 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ can only be full rank if 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is full rank.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:fullRankLcoeffImpliesFullRank"
+
+\end_inset
+
+If a matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ is not full rank, then 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ is also not full rank.
+\end_layout
+
+\begin_layout Proof
+If 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is not full rank, then it satisfies 
+\begin_inset Formula $\mathbf{A}\mathbf{p}=0$
+\end_inset
+
+ for some nonzero 
+\begin_inset Formula $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{a}=\cdeg\mathbf{A}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{A}\mathbf{p}=\left(\mathbf{A}x^{-\vec{a}}\right)\cdot\left(x^{\vec{a}}\mathbf{p}\right)=0$
+\end_inset
+
+, which requires the leading coefficient of 
+\begin_inset Formula $\left(\mathbf{A}x^{-\vec{a}}\right)\cdot\left(x^{\vec{a}}\mathbf{p}\right)$
+\end_inset
+
+ to be zero, that is, 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}x^{-\vec{a}}\right)\lcoeff\left(x^{\vec{a}}\mathbf{p}\right)=0$
+\end_inset
+
+, implying 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}x^{-\vec{a}}\right)=\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ is not full rank.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+If the nonzero columns of a matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ are not linearly independent, then the matrix 
+\begin_inset Formula $\mathbf{A}^{\prime}$
+\end_inset
+
+ consists of the nonzero columns of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\mathbf{A}^{\prime}\mathbf{p}=0$
+\end_inset
+
+ for some polynomial vector 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{a}=\cdeg\mathbf{A}^{\prime}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{A}^{\prime}\mathbf{p}=\left(\mathbf{A}^{\prime}x^{-\vec{a}}\right)\cdot\left(x^{\vec{a}}\mathbf{p}\right)=0$
+\end_inset
+
+, which requires 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}^{\prime}x^{-\vec{a}}\right)\lcoeff\left(x^{\vec{a}}\mathbf{p}\right)=0$
+\end_inset
+
+, implying 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}^{\prime}x^{-\vec{a}}\right)=\lcoeff\left(\mathbf{A}^{\prime}\right)$
+\end_inset
+
+ is not full rank, hence 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is not column reduced by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:columnReducedLeadingCoefficient"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+One consequence of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:fullRankLcoeffImpliesFullRank"
+
+\end_inset
+
+ is that a column basis can always be obtained by applying the unimodular
+ transformation from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "cor:unimodularlyReduceToColumnBasis"
+
+\end_inset
+
+Any matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ can be unimodularly transformed to 
+\begin_inset Formula $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with a full rank matrix 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{A}\mathbf{U}=\left[0,\mathbf{T}\right]$
+\end_inset
+
+ for some unimodular matrix 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+.
+ Any such matrix 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We can just repeatedly apply the unimodular transformation from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+.
+ By 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:fullRankLcoeffImpliesFullRank"
+
+\end_inset
+
+, this can eventually gives a matrix 
+\begin_inset Formula $\left[0,\mathbf{T}\right]$
+\end_inset
+
+ with a full rank 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+, implying that 
+\begin_inset Formula $\mathbf{T}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ Then 
+\begin_inset Formula $\mathbf{T}^{\prime}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ since its columns are linearly independent and the 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrix 
+\begin_inset Formula $\left[0,\mathbf{T}^{\prime}\right]$
+\end_inset
+
+ is unimodularly equivalent with 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, implying 
+\begin_inset Formula $\mathbf{T}^{\prime}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ each has columns that generate the same 
+\begin_inset Formula $\mathbb{F}\left[x\right]$
+\end_inset
+
+-module.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The leading column coefficient matrix can also help to determine the degree
- of the matrix.
+ of the determinant of the matrix.
 \end_layout
 
 \begin_layout Lemma
@@ -1970,8 +2310,8 @@ The degree of the determinant of a matrix
 \end_layout
 
 \begin_layout Proof
-The determinant is the sum of products, with each product involving exactly
- one entry from each column.
+The determinant can be defined as a sum of products, with each product involving
+ exactly one entry from each column.
  So the largest possible degree of each product is 
 \family roman
 \series medium
@@ -2035,8 +2375,19 @@ The determinant is the sum of products, with each product involving exactly
 \end_layout
 
 \begin_layout Standard
-It is still not always possible to order two lists of integer degrees, as
- in the case of matrices 
+It is still not always possible to order two lists of integer degrees using
+ the comparison described in 
+\begin_inset Quotes eld
+\end_inset
+
+'
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Notation"
+
+\end_inset
+
+, as in the case of matrices 
 \begin_inset Formula $\left[x,x^{2},x^{2}\right]$
 \end_inset
 
@@ -2083,15 +2434,16 @@ name "lem:matrixGCDlowerDegrees"
 
 \end_inset
 
-Given any two right unimodularly equivalent matrices 
-\begin_inset Formula $\mathbf{A}$
+Given any two unimodularly equivalent matrices 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
  and 
-\begin_inset Formula $\mathbf{B}$
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
-, the matrix 
+.
+ The matrix 
 \begin_inset Formula $\left[\mathbf{A},\mathbf{B}\right]$
 \end_inset
 
@@ -2100,7 +2452,7 @@ Given any two right unimodularly equivalent matrices
 \end_inset
 
  with a matrix 
-\begin_inset Formula $\mathbf{C}$
+\begin_inset Formula $\mathbf{C}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
 
  that is unimodularly equivalent to both 
@@ -2169,15 +2521,30 @@ If
 \begin_inset Formula $\mathbf{B}$
 \end_inset
 
-, we can compute a matrix 
+, we can repeatedly apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:fullRankLcoeffImpliesFullRank"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+ to compute a matrix 
 \begin_inset Formula $\mathbf{C}$
 \end_inset
 
- the column degrees of 
-\begin_inset Formula $\mathbf{C}$
+ that has 
+\begin_inset Formula $r$
 \end_inset
 
- are bounded by the column degrees of the 
+ nonzero linearly independent columns with column degrees bounded by the
+ column degrees of the 
 \begin_inset Formula $r$
 \end_inset
 
@@ -2185,11 +2552,27 @@ If
 \begin_inset Formula $\left[\mathbf{A},\mathbf{B}\right]$
 \end_inset
 
- with the smallest column degrees, as higher degree columns can be reduced
- using 
+ with the smallest column degrees
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+, as higher degree columns can be reduced using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:fullRankLcoeffImpliesFullRank"
+
+\end_inset
+
+ and 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -2265,7 +2648,8 @@ reference "lem:matrixGCDlowerDegrees"
 
 \end_inset
 
- to matrices that are right unimodularly equivalent to 
+ to the nonzero columns of the matrices that are right unimodularly equivalent
+ to 
 \begin_inset Formula $\mathbf{F}$
 \end_inset
 
@@ -2340,18 +2724,209 @@ Note that the nonzero columns of a column reduced matrix form a column basis.
 
 \end_layout
 
-\begin_layout Definition
-The leading column coefficient matrix provides a useful test for being column
- reduced.
+\begin_layout Standard
+The following results show that the leading column coefficient matrix provides
+ a useful test for being column reduced.
 \end_layout
 
 \begin_layout Lemma
 \begin_inset CommandInset label
 LatexCommand label
-name "lem:columnReducedLeadingCoefficient"
+name "lem:predictableDegree0"
 
 \end_inset
 
+If 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ has a full rank leading column coefficient matrix 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg\mathbf{A}=\vec{v}$
+\end_inset
+
+.
+ Then a matrix 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ has 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $\cdeg\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+T
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+he leading coefficient matrix 
+\begin_inset Formula $B$
+\end_inset
+
+ of 
+\begin_inset Formula $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ has no zero column if and only if the leading column coefficient matrix
+ 
+\begin_inset Formula $AB$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=\mathbf{A}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ has no zero column, in other words, 
+\begin_inset Formula $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $\left[0,\dots,0\right]$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $\mathbf{A}\mathbf{B}^{-\vec{w}}$
+\end_inset
+
+ has column degrees 
+\begin_inset Formula $\left[0,\dots,0\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "cor:fullColumnRankLeadingCoefficientMatrixImpliesColumnReduced"
+
+\end_inset
+
+If 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ has a full rank leading column coefficient matrix, then 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is column reduced.
+ 
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $\vec{v}=\cdeg\mathbf{A}$
+\end_inset
+
+.
+ Any unimodular matrix 
+\begin_inset Formula $\mathbf{U}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ must satisfy 
+\begin_inset Formula $\cdeg_{\vec{v}}\mathbf{U}\ge\vec{v}$
+\end_inset
+
+.
+ Then by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:predictableDegree0"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\cdeg\left(\mathbf{A}\mathbf{U}\right)=\cdeg_{\vec{v}}\mathbf{U}\ge\vec{v}=\cdeg\mathbf{A}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Corollary
+\begin_inset CommandInset label
+LatexCommand label
+name "cor:columnReducedLeadingCoefficient"
+
+\end_inset
+
+A matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with no zero columns is 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column reduced if and only if 
+\begin_inset Formula $\lcoeff\left(x^{\vec{u}}\mathbf{A}\right)$
+\end_inset
+
+ has full column rank.
+\end_layout
+
+\begin_layout Proof
+This follows from 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnOperationToReduceDegree"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:fullColumnRankLeadingCoefficientMatrixImpliesColumnReduced"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Lemma
 A matrix 
 \begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 \end_inset
@@ -2432,7 +3007,111 @@ reference "lem:columnOperationToReduceDegree"
 \begin_inset Formula $\lcoeff\left(\mathbf{A}\right)$
 \end_inset
 
- is full-rank but not column reduced.
+ is full-rank.
+ Then 
+\end_layout
+
+\begin_layout Proof
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+but 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is not column reduced.
+ Let 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ be a unimodularly equivalent column reduced matrix, which exists from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:minimalUnimodularEquivalentMatrix"
+
+\end_inset
+
+, then 
+\begin_inset Formula $\cdeg\mathbf{A}>\cdeg\mathbf{B}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ be the unimodular matrix satisfying 
+\begin_inset Formula $\mathbf{A}\mathbf{U}=\mathbf{B}$
+\end_inset
+
+.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+Let 
+\begin_inset Formula $\vec{a}=\cdeg\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $ $
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{A}\mathbf{U}=\left(\mathbf{A}x^{-\vec{a}}\right)\cdot\left(x^{\vec{a}}\mathbf{U}\right)=\mathbf{B}$
+\end_inset
+
+, which requires the the leading coefficient of 
+\begin_inset Formula $\left(\mathbf{A}x^{-\vec{a}}\right)\cdot\left(x^{\vec{a}}\mathbf{p}\right)$
+\end_inset
+
+ to be zero, that is, 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}x^{-\vec{a}}\right)\lcoeff\left(x^{\vec{a}}\mathbf{p}\right)=0$
+\end_inset
+
+, implying 
+\begin_inset Formula $\lcoeff\left(\mathbf{A}x^{-\vec{a}}\right)=\lcoeff\left(\mathbf{A}\right)$
+\end_inset
+
+ is not full rank
+\end_layout
+
+\begin_layout Proof
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+but 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is not column reduced.
  Let 
 \begin_inset Formula $\mathbf{B}$
 \end_inset
@@ -2471,11 +3150,15 @@ reference "cor:minimalUnimodularEquivalentMatrix"
 \end_inset
 
  such that 
+\begin_inset Formula $\lcoeff\left(\bar{\mathbf{A}}\right)$
+\end_inset
+
+ is nonsingular.
+ Then 
 \begin_inset Formula $\cdeg\bar{\mathbf{A}}=\cdeg\mathbf{A}$
 \end_inset
 
-.
- Then 
+, and 
 \begin_inset Formula $\bar{\mathbf{B}}=\bar{\mathbf{A}}\mathbf{U}$
 \end_inset
 
@@ -2515,178 +3198,9 @@ reference "lem:fullRankLeadingCoefficientAndDegreeOfDetermant"
 , a contradiction.
 \end_layout
 
-\begin_layout Standard
-We can show that the nonzero columns of a column reduced matrix are linearly
- independent, which means they form a column basis.
-\end_layout
-
-\begin_layout Lemma
-\begin_inset CommandInset label
-LatexCommand label
-name "lem:columnReducedNonzeroColumnsLinearlyIndependent"
-
 \end_inset
 
-The nonzero columns of a column reduced matrix are linearly independent.
-\end_layout
 
-\begin_layout Proof
-If the nonzero columns of a matrix 
-\begin_inset Formula $\mathbf{A}$
-\end_inset
-
- are not linearly independent, then the matrix 
-\begin_inset Formula $\mathbf{A}^{\prime}$
-\end_inset
-
- consists of the nonzero columns of 
-\begin_inset Formula $\mathbf{A}$
-\end_inset
-
- satisfies 
-\begin_inset Formula $\mathbf{A}^{\prime}\mathbf{p}=0$
-\end_inset
-
- for some polynomial vector 
-\begin_inset Formula $\mathbf{p}$
-\end_inset
-
-.
- Let 
-\begin_inset Formula $\vec{a}=\cdeg\mathbf{A}^{\prime}$
-\end_inset
-
-.
- Then 
-\begin_inset Formula $\mathbf{A}^{\prime}\mathbf{p}=\left(\mathbf{A}^{\prime}x^{-\vec{a}}\right)\cdot\left(x^{\vec{a}}\mathbf{p}\right)=0$
-\end_inset
-
-, which requires 
-\begin_inset Formula $\lcoeff\left(\mathbf{A}^{\prime}x^{-\vec{a}}\right)\lcoeff\left(x^{\vec{a}}\mathbf{p}\right)=0$
-\end_inset
-
-, implying 
-\begin_inset Formula $\lcoeff\left(\mathbf{A}^{\prime}x^{-\vec{a}}\right)=\lcoeff\left(\mathbf{A}^{\prime}\right)$
-\end_inset
-
- is not full rank, hence 
-\begin_inset Formula $\mathbf{A}$
-\end_inset
-
- is not column reduced by 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:columnReducedLeadingCoefficient"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Corollary
-\begin_inset CommandInset label
-LatexCommand label
-name "cor:unimodularlyReduceToColumnBasis"
-
-\end_inset
-
-Any matrix 
-\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
- can be unimodularly transformed to 
-\begin_inset Formula $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
- with a full rank matrix 
-\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
-\end_inset
-
-, that is, 
-\begin_inset Formula $\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]$
-\end_inset
-
- for some unimodular matrix 
-\begin_inset Formula $\mathbf{U}$
-\end_inset
-
-.
- Any such matrix 
-\begin_inset Formula $\mathbf{T}$
-\end_inset
-
- is a column basis of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Proof
-We can just repeatedly apply the unimodular transformation from 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:columnOperationToReduceDegree"
-
-\end_inset
-
-.
- By 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:columnReducedLeadingCoefficient"
-
-\end_inset
-
-, this eventually gives a column reduced form 
-\begin_inset Formula $\left[0,\mathbf{T}^{\prime}\right]$
-\end_inset
-
-, which has linearly independent nonzero columns 
-\begin_inset Formula $\mathbf{T}^{\prime}$
-\end_inset
-
- by 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:columnReducedNonzeroColumnsLinearlyIndependent"
-
-\end_inset
-
-.
- Then 
-\begin_inset Formula $\mathbf{T}^{\prime}$
-\end_inset
-
- is a column basis of 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- since its columns are linearly independent and the 
-\begin_inset Formula $m\times n$
-\end_inset
-
- matrix 
-\begin_inset Formula $\left[0,\mathbf{T}^{\prime}\right]$
-\end_inset
-
- is unimodularly equivalent with 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
-, implying 
-\begin_inset Formula $\mathbf{T}^{\prime}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{F}$
-\end_inset
-
- each has columns that generate the same 
-\begin_inset Formula $\mathbb{F}\left[x\right]$
-\end_inset
-
--module.
 \end_layout
 
 \begin_layout Standard
@@ -2759,6 +3273,14 @@ Let
 \end_layout
 
 \begin_layout Proof
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "cor:columnReducedLeadingCoefficient"
+
+\end_inset
+
+, 
 \begin_inset Formula $\vec{u}$
 \end_inset
 
@@ -2783,7 +3305,35 @@ Let
 \end_inset
 
  has linearly independent columns.
- Now the leading coefficient matrix 
+ Now the result follows by using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:predictableDegree0"
+
+\end_inset
+
+ on 
+\begin_inset Formula $x^{\vec{u}}\mathbf{A}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ leading coefficient matrix 
 \begin_inset Formula $B$
 \end_inset
 
@@ -2817,6 +3367,11 @@ Let
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

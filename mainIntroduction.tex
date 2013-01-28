@@ -1,66 +1,65 @@
 
 \chapter{Introduction}
 
-In this thesis, we present efficient algorithms for a number of problems
-involving matrices of univariate power series or polynomials over
-a field. The first problem we consider is the computation of order
-bases, which can be viewed as the most fundamental among all the problems
-considered in this thesis, since order basis computation is used by
-the algorithms for all other problems. The second problem, minimal
-kernel basis computation, provides another essential tool used by
-the algorithms for the remaining problems, including the computation
-of matrix inverse, determinant, column basis, unimodular completion,
-and Hermite normal form. The algorithm for kernel basis computation
-also immediately allows us to solve linear systems. The algorithm
-for column basis also immediately allows us to compute matrix GCDs,
-column reduced forms and Popov normal forms for matrices of any dimension. 
-
-
+In this thesis, we present efficient deterministic algorithms for
+a number of problems involving matrices of univariate power series
+or polynomials over a field. The first problem we consider is the
+computation of order bases, which can be viewed as the most fundamental
+among all the problems considered in this thesis, since order basis
+computation is used by the algorithms for all other problems. The
+second problem, minimal kernel basis computation, provides another
+essential tool used by the algorithms for the remaining problems,
+including the computation of matrix inverse, determinant, column basis,
+unimodular completion, Hermite normal form, rank and rank profile.
+The algorithm for kernel basis computation also immediately allows
+us to efficiently solve linear systems. The algorithm for column basis
+also allows us to efficiently compute matrix GCDs, column reduced
+forms and Popov normal forms for matrices of any dimension and any
+rank. 
 
 Let us first look at order bases and kernel bases in more detail.
 
 Let $\mathbf{F}\in\mathbb{K}\left[\left[x\right]\right]^{m\times n}$
 be a matrix of power series over a field $\mathbb{K}$. Given a nonnegative
 integer $\sigma$, we say a vector $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$
-of polynomials gives an \emph{order} $\sigma$ approximation of $\mathbf{F}$,
-or $\mathbf{p}$ has order $\left(\mathbf{F},\sigma\right)$, if 
+of polynomials has order $\left(\mathbf{F},\sigma\right)$, if 
 \[
 \mathbf{F}\cdot\mathbf{p}\equiv\mathbf{0}\mod x^{\sigma},
 \]
  that is, the first $\sigma$ terms of $\mathbf{F}\cdot\mathbf{p}$
-are zero. Historically such problems date back to their use in Hermite's
-proof of the transcendence of $e$ in 1873. In 1893 Padé, a student
-of Hermite, formalized the concepts introduced by Hermite and defined
-what is now known as Hermite-Padé approximants (where $m=1$), Padé
-approximants (where $m=1,n=2$) and simultaneous Padé approximants
-(where $\mathbf{F}$ has a special structure). Such rational approximations
-also specified degree constraints on the polynomials $\mathbf{p}$
-and had their order conditions related to these degree constraints.
-Additional order problems include vector and matrix versions of rational
-approximation, partial realizations of matrix sequences and vector
-rational reconstruction just to name a few (cf. the references in
-\citet{BL1997}). As an example, the factorization of differential
-operators algorithm of \citet{vanHoeij} makes use of vector Hermite-Padé
-approximation to reconstruct differential factorizations over rational
-functions from factorizations of differential operators over power
-series domains.
+are zero. Historically the problem of finding such vectors dates back
+to their use in Hermite's proof of the transcendence of $e$ in 1873.
+In 1893 Padé, a student of Hermite, formalized the concepts introduced
+by Hermite and defined what is now known as Hermite-Padé approximants
+(where $m=1$), Padé approximants (where $m=1,n=2$) and simultaneous
+Padé approximants (where $\mathbf{F}$ has a special structure). Such
+rational approximations also specified degree constraints on the polynomials
+$\mathbf{p}$ and had their order conditions related to these degree
+constraints. Additional cases of such order problems include vector
+and matrix versions of rational approximation, partial realizations
+of matrix sequences and vector rational reconstruction just to name
+a few (cf. the references in \citet{BL1997}). As an example, the
+factorization of differential operators algorithm of \citet{vanHoeij}
+makes use of vector Hermite-Padé approximation to reconstruct differential
+factorizations over rational functions from factorizations of differential
+operators over power series domains.
 
 The set of all such order $\left(\mathbf{F},\sigma\right)$ approximations
 forms a module over $\mathbb{K}\left[x\right]$. An {\em order basis}
-- or minimal approximant basis or $\sigma$-basis - is a basis of
-this module having a type of minimal degree property (called reduced
-order basis in \citep{BL1997}). The minimal degree property parameterizes
-solutions to an order problem by the degrees of the columns of the
-order basis. In the case of rational approximation, order bases can
-be viewed as a natural generalization of the Padé table of a power
-series \citep{gravesmorris} since they are able to describe {\em
-all} solutions to such problems given particular degree bounds. They
-can even be used to show the well known block structure of the Padé
-and related Rational Interpolation tables \citep{BL1997}. Order bases
-are used in such diverse applications as the inversion of structured
-matrices \citep{La92}, normal forms of matrix polynomials \citep{BLV:1999,BLV:jsc06},
-and other important problems in matrix polynomial arithmetic including
-matrix inversion, determinant and kernel computation \citep{Giorgi2003,storjohann-villard:2005}.
+-- or minimal approximant basis or $\sigma$-basis -- is a basis of
+this module having a type of minimal degree property (called a reduced
+order basis in \citep{BL1997}). More details on this minimality property
+is given in the next chapter.  In the case of rational approximation,
+order bases can be viewed as a natural generalization of the Padé
+table of a power series \citep{gravesmorris} since they are able
+to describe {\em all} solutions to such problems given particular
+degree bounds. They can even be used to show the well known block
+structure of the Padé and related Rational Interpolation tables \citep{BL1997}.
+Order bases are used in such diverse applications as the inversion
+of structured matrices \citep{La92}, normal forms of matrix polynomials
+\citep{BLV:1999,BLV:jsc06}, and other important problems in matrix
+polynomial arithmetic including matrix inversion, column reduction,
+determinant and nullspace basis computation \citep{Giorgi2003,storjohann-villard:2005,jv2006,jeannerod-villard:05}.
 \begin{comment}
 In our case we also allow the minimal degree property to include a
 shift $\vec{s}$. Such a shift is important, for example, for matrix
@@ -112,18 +111,19 @@ In most applications one is interested in finding a {\em minimal
 kernel basis} of $\mathbf{F}$ in $\mathbb{K}\left[x\right]^{n}$
 \citep{forney:1975}. A kernel basis $\mathbf{N}$ of $\mathbf{F}$
 is said to be minimal if it has the minimal possible column degrees
-among all right kernel bases. This is also often referred to as a
-{\em minimal polynomial basis}. Examples where minimality are needed
-include the right coprime matrix factorization problem and the problem
-of column reducing a polynomial matrix. As an example, finding a basis
-for the kernel corresponding to the right matrix fraction problem
-(\ref{rightfactor}) finds a matrix fraction while a minimal kernel
-basis finds such a fraction in reduced form having a minimal column
-degree denominator (needed for example in minimal partial realization
-problems). 
+among all right kernel bases. More details on this minimality is given
+in \prettyref{sec:minimality}. A minimal kernel basis is also often
+referred to as a {\em minimal polynomial basis}. Examples where
+minimality are needed include the right coprime matrix factorization
+problem and the problem of column reducing a polynomial matrix. As
+an example, finding a basis for the kernel corresponding to the right
+matrix fraction problem (\ref{rightfactor}) finds a matrix fraction
+while a minimal kernel basis finds such a fraction in reduced form
+having a minimal column degree denominator (needed for example in
+minimal partial realization problems). 
 
 
-\section{Shifted Degrees and Their Sums}
+\section{Shifted Degrees}
 
 The standard way to measure the size of a matrix is to use its dimension
 and its degree. A major complication in many polynomial matrix computation
@@ -131,18 +131,18 @@ problems is that the degrees of the intermediate results or the output
 can be much larger than the input. This seems to prevent these problems
 to be computed efficiently, since the size of the intermediate results
 and the size of the output provides lower bounds on the computational
-cost of any algorithm.  But  it is possible that the degree just
-may not be the best choice to be used in these computations. In this
-thesis, instead of the standard degrees, we use the more general shifted
-degrees to guide the computations, and use the sum of the shifted
-degrees to measure the size of polynomial matrices. We will see that
-the shifted degree is in fact a more natural choice, as it guides
-the computation so that the sizes of the output and the intermediate
-results are indeed bounded by the size as the input for all these
-problems.  Closely examination of the shifted degrees reveals new
-structures of the problems in this thesis, leading to better understanding
-of the problems, and allowing the development of simple and efficient
-algorithms. 
+cost of any algorithm.  But  it is possible that the matrix degree
+just may not be the best choice to be used in these computations.
+In this thesis, instead of the standard matrix degrees, we use the
+more general shifted column degrees to guide the computations, and
+use the sum of the shifted column degrees to measure the size of polynomial
+matrices. We will see that the shifted column degree is in fact a
+more natural choice, as it guides the computation so that the sizes
+of the output and the intermediate results are indeed bounded by the
+size as the input for all these problems.  Closely examination of
+the shifted degrees reveals new structures of the problems in this
+thesis, leading to better understanding of the problems, and allowing
+the development of simple and efficient algorithms. 
 
 \begin{comment}
 Although the degree is simple and seems natural, 
@@ -167,9 +167,9 @@ in this section.
 
 
 For a column vector $\mathbf{p}=\left[p_{1},\dots,p_{n}\right]^{T}$
-of univariate polynomials over a field $\mathbb{K}$, its column degree
-is just the maximum of the degrees of the entries of $\mathbf{p}$,
-that is, 
+of univariate polynomials over a field $\mathbb{K}$, its column degree,
+denoted by $\cdeg\mathbf{p}$, is just the maximum of the degrees
+of the entries of $\mathbf{p}$, that is, 
 \[
 \cdeg\mathbf{p}=\max_{1\le i\le n}\deg p_{i}.
 \]
@@ -181,7 +181,7 @@ $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$, or the
 \emph{$\vec{s}$-column degree} of $\mathbf{p}$ is
 
 \[
-\cdeg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
+\cdeg_{\vec{s}}\mathbf{p}=\max_{1\le i\le n}[\deg p_{i}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
 \]
  where 
 \[
@@ -198,7 +198,7 @@ the shifted column degree specializes to the standard column degree.
 The shifted row degree of a row vector \textbf{$\mathbf{q}$ }is defined
 in the same way.
 \[
-\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg p^{\left(i\right)}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
+\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg q_{i}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
 \]
 
 
@@ -241,65 +241,70 @@ that of \citet{BeLa94} which converts the matrix problem into a vector
 problem of higher order (which they called the Power Hermite-Padé
 problem). Their divide and conquer algorithm has complexity of $O^{\sim}(n^{2}m\sigma+nm^{2}\sigma)$
 field operations. As usual, the soft-$O$ notation $O^{\sim}$ is
-simply Big-$O$ with polylogarithmic factors $(\log(nm\sigma))^{O(1)}$
+simply Big-$O$ with polylogarithmic multiplicative factors $(\log(nm\sigma))^{O(1)}$
 omitted. By working more directly on the input $m\times n$ input
 matrix, \citet{Giorgi2003} give a divide and conquer method with
-cost $O^{\sim}\left(n^{\omega}\sigma\right)$ arithmetic operations.
-Their method is very efficient if $m$ is close to the size of $n$
-but can be improved if $m$ is small.
+cost $O^{\sim}\left(n^{\omega}\sigma\right)$ arithmetic operations
+when $m\le n$. Their method is very efficient if the row dimension
+$m$ is close to the size of the column dimension $n$ but can be
+improved if $m$ is much smaller than $n$. As a general note, we
+assume $m\le n$ throughout thesis unless explicitly stated otherwise.
+In \prettyref{chap:rank}, however, an algorithm for rank profile
+computation can often be used to reduce a problem with $m>n$ to a
+problem with $m\le n$.
 
 In a novel construction, \citet{Storjohann:2006} effectively reverses
 the approach of Beckermann and Labahn. Namely, rather than convert
 a high dimension matrix order problem into a lower dimension vector
 problem of higher order, Storjohann converts a low dimension problem
 to a high dimension problem with lower order. For example, computing
-an order basis for a $1\times n$ vector input $\mathbf{f}$ and order
-$\sigma$ can be converted to a problem of order basis computation
-with an $O\left(n\right)\times O\left(n\right)$ input matrix and
-an order $O\left(\left\lceil \sigma/n\right\rceil \right)$. Combining
-this conversion with the method of Giorgi et al. can then be used
-effectively for problems with small row dimensions to achieve a cost
-of $O^{\sim}\left(n^{\omega}\left\lceil m\sigma/n\right\rceil \right)$.
+an order basis for a $1\times n$ vector input $\mathbf{f}$ and a
+large enough order $\sigma$ can be converted to a problem of order
+basis computation with an $O\left(n\right)\times O\left(n\right)$
+input matrix and an order about $2\sigma/n$. Using this conversion,
+the method of Giorgi et al. can then be used effectively for problems
+with small row dimensions to achieve a cost of $O^{\sim}\left(n^{\omega}a\right)$,
+where $a=m\sigma/n$.
 
 However, while order bases of the original problem can have degree
 up to $\sigma$, the nature of Storjohann's conversion limits the
-degree of an order basis of the converted problem to $O\left(\left\lceil m\sigma/n\right\rceil \right)$
+degree of an order basis of the converted problem to $O\left(a\right)$
 in order to be computationally efficient. In other words, this approach
-does not in general compute a complete order basis. Rather, in order
+does not, in general, compute a complete order basis. Rather, in order
 to achieve efficiency, it only computes a partial order basis containing
-basis elements with degrees within $O\left(\left\lceil m\sigma/n\right\rceil \right)$,
-referred to by Storjohann as a {\em minbasis}. Fast methods for
-computing a minbasis are particularly useful for certain problems,
-for example, in the case of inversion of structured block matrices
-where one needs only precisely the minbasis \citep{La92}. However,
-in other applications, such as those arising in polynomial matrix
-arithmetic, one needs a complete basis which specifies all solutions
-of a given order, not just those within a particular degree bound
-(cf. \citet{BL1997}).
+basis elements with degrees within $O\left(a\right)$, referred to
+by Storjohann as a {\em minbasis}. Fast methods for computing a
+minbasis are particularly useful for certain problems, for example,
+in the case of inversion of structured block matrices where one needs
+only precisely the minbasis \citep{La92}. However, in other applications,
+such as those arising in polynomial matrix arithmetic, one needs a
+complete basis which specifies all solutions of a given order, not
+just those within a particular degree bound (cf. \citet{BL1997}).
 
-In \chapref{OrderBasis} we present algorithms which compute an entire
-order basis with a cost of $O^{\sim}(n^{\omega-1}m\sigma)$ field
-operations when $n\in O\left(m\sigma\right)$. The algorithms differ
-depending on the nature of the degree shift required for the reduced
-order basis. In the first case we use a transformation that can be
-considered as an extension of Storjohann's transformation. This new
-transformation provides a way to extend the results from one transformed
-problem to another transformed problem of a higher degree. This enables
-us to use an idea from the null space basis algorithm found in \citep{storjohann-villard:2005}
-in order to achieve efficient computation. At each iteration, basis
-elements within a specified degree bound are computed via a Storjohann
-transformed problem. Then the partial result is used to simplify the
-next Storjohann transformed problem of a higher degree, allowing basis
-elements within a higher degree bound to be computed efficiently.
-This is repeated until all basis elements are computed.
+In \prettyref{chap:OrderBasis} we present algorithms which compute
+an entire order basis with a cost of $O^{\sim}(n^{\omega}a)$ field
+operations. The algorithms differ depending on the nature of the
+degree shift required for the reduced order basis. In the first case
+we use a transformation that can be considered an extension of Storjohann's
+transformation. This new transformation provides a way to extend the
+results from one transformed problem to another transformed problem
+of a higher degree. This enables us to use an idea from the null space
+basis algorithm found in \citep{storjohann-villard:2005} in order
+to achieve efficient computation. At each iteration, basis elements
+within a specified degree bound are computed via a Storjohann transformed
+problem. Then the partial result is used to simplify the next Storjohann
+transformed problem of a higher degree, allowing basis elements within
+a higher degree bound to be computed efficiently. This is repeated
+until all basis elements are computed.
 
 In order to compute an order basis efficiently, the first algorithm
-requires that the degree shifts are balanced. In the case where the
-shift is not balanced, the row degrees of the basis can also become
-unbalanced in addition to the unbalanced column degrees. We give a
-second algorithm that balances the high degree rows and uses $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
-field operations when the shift $\vec{s}$ is unbalanced but satisfies
-the condition $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma$.
+requires that the degree shifts are balanced. A balanced shift means
+$\max\vec{s}-\min\vec{s}\in O\left(m\sigma/n\right)$. In the case
+where the shift is not balanced, the row degrees of the basis can
+also become unbalanced in addition to the unbalanced column degrees.
+We give a second algorithm that balances the high degree rows and
+uses $O^{\sim}(n^{\omega}a)$ field operations when the shift $\vec{s}$
+is unbalanced but satisfies the condition $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma$.
 This condition essentially allows us to locate the high degree unbalanced
 rows that need to be balanced. %
 \begin{comment}
@@ -316,22 +321,24 @@ This results in a new problem with smaller dimension and higher degree.
 The same process is repeated again on this new problem in order to
 compute the elements with the next highest shifted degrees.
 
-At the end of \chapref{OrderBasis}, we discuss how the assumption
-of $n\in O\left(m\sigma\right)$ can be removed while an order basis
-can still be computed with a cost of $O^{\sim}(n^{\omega-1}m\sigma)$
-field operations when the shifts are balanced.
+At the end of \prettyref{chap:OrderBasis}, we discuss how a more
+refined cost of $O^{\sim}(n^{\omega-1}m\sigma)$ instead of $O^{\sim}\left(n^{\omega}a\right)$
+field operations can be achieved when the shifts are balanced. Note
+that the cost $O^{\sim}\left(n^{\omega}a\right)$ is less refined
+as it assumes that $a=m\sigma/n$ tends to infinity in the big $O$
+notation. However, $m\sigma/n$ can be arbitrary in the cost $O^{\sim}(n^{\omega-1}m\sigma)$.
 
 Some results on order basis computation have appeared in \citep{za2009,ZL2012}.
 
 \begin{comment}
 The remaining paper is structured as follows. Basic definitions and
-properties of order bases are given in the next section. \secref{transform}
+properties of order bases are given in the next section. \prettyref{sec:transform}
 provides an extension to Storjohann's transformation to allow higher
 degree basis elements to be computed. Based on this new transformation,
-\secref{Order-Basis-Computation} establishes a link between two Storjohann
-transformed problems of different degrees, from which an recursive
-method and then an iterative algorithm are derived. The time complexity
-is analyzed in the next section. After this, \chapref{Unbalanced-Shift}
+\prettyref{sec:Order-Basis-Computation} establishes a link between
+two Storjohann transformed problems of different degrees, from which
+an recursive method and then an iterative algorithm are derived. The
+time complexity is analyzed in the next section. After this, \prettyref{chap:Unbalanced-Shift}
 describes an algorithm which handles problems with a type of unbalanced
 shift. This is followed by a conclusion along with a description for
 topics for future research. 
@@ -350,25 +357,26 @@ convert a kernel basis computation problem to one of larger matrix
 size but having polynomial degree one. In this case a minimal kernel
 basis is determined from the computation of the Kronecker canonical
 form, with efficient algorithms given by \citet{beelen:1988,varga:1994,Oara:1997}.
-The cost of these algorithms is $O(m^{2}nd^{3})$. Resultant methods
-convert the kernel basis computation of the matrix polynomial $\mathbf{F}$
-into a block Toeplitz kernel problem with much higher dimension with
-the resulting complexity again being high. In \citep{storjohann-villard:2005}
-the authors give a randomized Las Vegas algorithm for computing a
-set of $n-r$ linearly independent elements in the kernel of $\mathbf{F}$
-with a cost of $O^{\sim}\left(nmr^{\omega-1}\right)$ where $O^{\sim}$
+The cost of these algorithms is $O(m^{2}nd^{3})$, where $d$ is the
+degree of the input matrix. Resultant methods convert the kernel basis
+computation of the matrix polynomial $\mathbf{F}$ into a block Toeplitz
+kernel problem with much higher dimension with the resulting complexity
+again being high. In \citep{storjohann-villard:2005} the authors
+give a randomized Las Vegas algorithm for computing a set of $n-r$
+linearly independent elements in the kernel of $\mathbf{F}$ with
+a cost of $O^{\sim}\left(nmr^{\omega-2}d\right)$ where $O^{\sim}$
 is the same as Big-$O$ but without log factors and where $\omega$
 is the power of fast matrix multiplication. These linearly independent
-elements do not in general form a basis for the kernel, as they generally
-do not generate all the elements in the kernel. A set of any such
-$n-r$ linearly independent elements only form a basis for the $\mathbb{F}\left(x\right)$-vector
+elements do not in general form a basis for the kernel, as they may
+not generate all the elements in the kernel. A set of any such $n-r$
+linearly independent elements only form a basis for the $\mathbb{F}\left(x\right)$-vector
 space $\left\{ \mathbf{p}\in\mathbb{K}\left(x\right)^{n}~|~\mathbf{F}\mathbf{p}=0\right\} $
 when the ring $\mathbb{K}\left[x\right]$ is extended to the field
 $\mathbb{K}\left(x\right)$.
 
 
 
-In \chapref{NullspaceBasis} we present a deterministic algorithm
+In \prettyref{chap:NullspaceBasis} we present a deterministic algorithm
 for computing a minimal kernel basis with a cost of $O^{\sim}\left(n^{\omega-1}md\right)$
 field operations in $\mathbb{K}$. The same algorithm can also compute
 a $\vec{s}$-minimal kernel basis of $\mathbf{F}$ with a cost of
@@ -399,7 +407,7 @@ Some results on kernel basis computation have appeared in \citep{za2012}.
 The remainder of this paper is structured as follows. Basic definitions
 and properties of order bases and kernel bases are given in the next
 section. The details of our kernel basis computation and a formal
-statement of the algorithm can be found in \secref{Nullspace-Basis-Computation}.
+statement of the algorithm can be found in \prettyref{sec:Nullspace-Basis-Computation}.
 A complexity analysis of the algorithm is provided in the following
 section. The paper ends with a conclusion and topics for future research. 
 \end{comment}
@@ -410,14 +418,14 @@ section. The paper ends with a conclusion and topics for future research.
 
 The remainder of this thesis is structured as follows. Basic definitions
 and properties are given in the next chapter. The details of our order
-basis computation can be found in \chapref{OrderBasis}. Kernel basis
-computation is described in \chapref{NullspaceBasis}.  \chapref{Matrix-inverse}
-discusses the algorithm for computing matrix inverse. \chapref{Matrix-GCD}
-discusses the computation of column bases. Unimodular completion is
-then discussed in \chapref{Unimodular-Completion}. Then we look at
-determinant computation in \chapref{determinant}, Hermite normal
-form computation in \chapref{hermite}, and rank profile and rank-sensitive
-computations in \chapref{rank}. %
+basis computation can be found in \prettyref{chap:OrderBasis}. Kernel
+basis computation is described in \prettyref{chap:NullspaceBasis}.
+ \prettyref{chap:Matrix-inverse} discusses the algorithm for computing
+matrix inverse. \prettyref{chap:Matrix-GCD} discusses the computation
+of column bases. Unimodular completion is then discussed in \prettyref{chap:Unimodular-Completion}.
+Then we look at determinant computation in \prettyref{chap:determinant},
+Hermite normal form computation in \prettyref{chap:hermite}, and
+rank profile and rank-sensitive computations in \prettyref{chap:rank}.
 \begin{comment}
 The paper ends with a conclusion and topics for future research. 
 \end{comment}

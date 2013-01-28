@@ -950,7 +950,7 @@ reference "alg:hermiteDiagonal"
 \end_inset
 
  is an associate of the determinant, that is, the product equals 
-\begin_inset Formula $a\det\mathbf{F}$
+\begin_inset Formula $c\det\mathbf{F}$
 \end_inset
 
  for some 
@@ -1437,7 +1437,7 @@ key "storjohann:phd2000"
 \end_inset
 
  on 
-\begin_inset Formula $\bar{F}$
+\begin_inset Formula $V_{U}$
 \end_inset
 
  with a cost of 

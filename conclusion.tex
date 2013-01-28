@@ -4,19 +4,20 @@
 In this thesis, we have presented efficient deterministic algorithms
 for a number of polynomial matrix computation problems, including
 the computation of order basis, minimal nullspace basis, matrix inverse,
-column basis, unimodular completion, determinant, and Hermite normal
-form. The algorithm for nullspace basis computation also immediately
-allows us to solve linear systems. The algorithm for column basis
-also immediately allows us to compute matrix GCD, column reduced forms
-and Popov normal forms for matrices of any dimension. 
+column basis, unimodular completion, determinant, Hermite normal form,
+rank, and rank profile. The algorithm for kernel basis computation
+also immediately gives us a new way to solve linear systems. An existing
+efficient deterministic method for solving linear systems was given
+by \citet{GSSV2012}. The algorithm for column basis also immediately
+allows us to compute matrix GCD, column reduced forms and Popov normal
+forms for matrices of any dimension. 
 
 We first gave algorithms for computing a shifted order basis of an
 $m\times n$ matrix of power series over a field $\mathbb{K}$ with
 $m\le n$. For a given order $\sigma$ and balanced shift $\vec{s}$
-the first algorithm determines an order basis with a cost of $O^{\sim}(n^{\omega-1}m\sigma)$
-field operations in $\mathbb{K}$, where $\omega$ is the exponent
-of matrix multiplication. Here an input shift is balanced when $\max(\vec{s})-\min(\vec{s})\in O(m\sigma/n)$.
-%Here $O^{\sim}$
+the first algorithm determines an order basis with a cost of $O^{\sim}(n^{\omega}a)$
+field operations in $\mathbb{K}$, where $a=m\sigma/n.$ We then provided
+a method to refine the cost to $O^{\sim}(n^{\omega-1}m\sigma)$. %Here $O^{\sim}$
 %is just $O$ with log factors omitted and 
 %$\MM\left(n,d\right)$ denotes
 %the cost of multiplying two polynomial matrices with dimension $n$
@@ -34,7 +35,7 @@ the row degrees also becoming unbalanced. %The column degrees of a complete basi
 %is unbalanced, the row degrees of the basis can also be unbalanced
 %in addition to the unbalanced column degrees. For this, we present
 We have presented a second algorithm which balances the high degree
-rows and computes an order basis also using $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
+rows and computes an order basis also using $O^{\sim}(n^{\omega}a)$
 field operations in the case that the shift is unbalanced but satisfies
 the condition $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma$.%
 \begin{comment}
@@ -73,40 +74,44 @@ $\omega$ is the exponent of matrix multiplication.
 {} The same algorithm also works in the more general situation on computing
 a shifted minimal nullspace basis, with a given degree shift $\vec{s}\in\mathbb{Z}^{n}$
 whose entries bound the corresponding column degrees of the input
-matrix. In this case if $\rho$ is the sum of the $m$ largest entries
-of $\vec{s}$, then a $\vec{s}$-minimal right nullspace basis can
-be computed with a cost of $O^{\sim}(n^{\omega}\rho/m)$ field operations. 
+matrix. In this case a $\vec{s}$-minimal right nullspace basis can
+be computed with a cost of $O^{\sim}(n^{\omega}s)$ field operations,
+where $s$ is the average of the largest $m$ entries of $\vec{s}$. 
 
 Order basis computation and nullspace basis computation were then
 applied to the remaining problems. An algorithm for computing the
 inverse of an matrix in $\mathbb{K}\left[x\right]^{n\times n}$ was
-then given with a cost of $O^{\sim}\left(n^{2}\xi\right)$ field operations,
-where $\xi$ is the sum of column or row degrees of the input matrix.
-The inverse represented alternatively by a product of $\left\lceil \log n\right\rceil $
-matrices costs only $O^{\sim}\left(n^{\omega-1}\xi\right)$ to compute.
+then given with a cost of $O^{\sim}\left(n^{3}s\right)$ field operations,
+where $s$ is the average of the column or row degrees of the input
+matrix. The inverse represented alternatively by a product of $\left\lceil \log n\right\rceil $
+matrices costs only $O^{\sim}\left(n^{\omega}s\right)$ to compute.
 We then discussed the computation of a column basis of an input matrix
-in $\mathbb{K}\left[x\right]^{m\times n}$ with a cost of $O^{\sim}\left(m^{\omega-1}\xi\right)$,
-where $\xi$ is the sum of column degrees of the input matrix. Next,
-an algorithm was presented for computing an unimodular completion
+in $\mathbb{K}\left[x\right]^{m\times n}$ with a cost of $O^{\sim}\left(m^{\omega}ns\right)$,
+where $s$ is again the average column degree of the input matrix.
+Next, an algorithm was presented for computing an unimodular completion
 of an input matrix in $\mathbb{K}\left[x\right]^{m\times n}$, $m<n$
-with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$, where $\xi$
-is the sum of column degrees of the input matrix. Then an algorithm
-for computing the determinant of an input matrix in $\mathbb{K}\left[x\right]^{n\times n}$
-with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$ was given,
-where $\xi$ is the sum of column or row degrees of the input matrix.
-Then we looked at an algorithm for computing the Hermite normal form
-of a degree $d$ input matrix in $\mathbb{K}\left[x\right]^{n\times n}$
+with a cost of $O^{\sim}\left(n^{\omega}s\right)$, where $s$ is
+the average of the $m$ largest column degrees of the input matrix.
+Then an algorithm for computing the determinant of an input matrix
+in $\mathbb{K}\left[x\right]^{n\times n}$ with a cost of $O^{\sim}\left(n^{\omega}s\right)$
+was given, where $s$ is the average column or row degree of the input
+matrix. Then we looked at an algorithm for computing the Hermite normal
+form of a degree $d$ input matrix in $\mathbb{K}\left[x\right]^{n\times n}$
 with a cost of $O^{\sim}\left(n^{\omega}d\right)$. Finally, we provided
 algorithms for rank-sensitive computations of the rank and rank profile
 of an input matrix in $\mathbb{K}\left[x\right]^{m\times n}$ with
-a cost of $O^{\sim}\left(mr^{\omega-2}\xi\right)$, and then applied
-the rank profile algorithm to rank-sensitive computation of minimal
-kernel basis to obtain a cost of $O^{\sim}(nmr^{\omega-2}d+n^{\omega-1}rd)$.
+a cost of $O^{\sim}\left(mr^{\omega-2}ns\right)$, where $s$ is the
+average column degree of the input matrix, and then applied the rank
+profile algorithm to rank-sensitive computation of minimal kernel
+basis to obtain a cost of $O^{\sim}(nmr^{\omega-2}d+n^{\omega-1}rd)$.
 
-For all these problems, our algorithms are not only essentially optimal,
-but in most cases they also solve more general versions of these problems
-than previous algorithms. More specifically, the computational costs
-are stated with the  sum of the column degrees of the input matrix,
-which is more precise and tighter than using just degrees. In addition,
-the shifted minimal bases computed by our algorithms are more general
-than the standard minimal bases.
+We reduce all these problems to polynomial matrix multiplications.
+The computational costs of our algorithms are then similar to the
+costs of multiplying matrices, whose dimensions match the input matrix
+dimensions in the original problems, and whose degrees equal the average
+column degrees of the original input matrices in most cases. The use
+of the average column degrees instead of the commonly used matrix
+degrees, or equivalently the maximum column degrees, makes our computational
+costs more precise and tighter. In addition, the shifted minimal bases
+computed by our algorithms are more general than the standard minimal
+base.

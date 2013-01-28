@@ -73,7 +73,7 @@
 \usepackage{ifthen}
 
 \newboolean{ElectronicVersion}
-\setboolean{ElectronicVersion}{false} % CHANGE THIS AS REQUIRED
+\setboolean{ElectronicVersion}{true} % CHANGE THIS AS REQUIRED
 
 % allows easy specifying of the page layout
 \usepackage{geometry}
@@ -1592,6 +1592,19 @@ LatexCommand tableofcontents
 \end_inset
 
 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{chapter}{List of Algorithms}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1803,6 +1816,19 @@ filename "conclusion.lyx"
 LatexCommand bibtex
 bibfiles "paper"
 options "plainnat"
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{chapter}{Bibliography}
+\end_layout
 
 \end_inset
 

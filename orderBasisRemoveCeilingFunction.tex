@@ -1,19 +1,24 @@
 
-\section{The Case $m\sigma\in o(n)$}
+\section{More Refined Cost and the Case $m\sigma\in o(n)$}
 
 \label{sec:removeCeilingFunction}
 
-We have been assuming $m\sigma\in\Omega(n)$ so far. With this assumption,
-we can transform the original problem with dimension $m\times n$
+\prettyref{thm:balancedCost} states the cost of computing a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
+as $O^{\sim}\left(n^{\omega}a\right)$, where $a=m\sigma/n$. In this
+cost, $a$ is assumed to tend to infinity, which means $m\sigma>n$.
+This allows us to transform the original problem with dimension $m\times n$
 and degree $\sigma$ to one with dimension $\Theta(n)\times\Theta(n)$
-and degree $\Theta(d)=\Theta(m\sigma/n)$, allowing order basis computation
-to be efficient with a final cost of $O^{\sim}(n^{\omega}d)$. However,
-if $m\sigma\in o(n)$, the average degree $d=m\sigma/n\in o(1)$ but
-$1$ is the lowest possible degree and $m\sigma$ is the maximum possible
-row dimension of our transformed problems. In other words, we cannot
-obtain a nearly square transformed problem for our algorithms to behave
-efficiently. In this case, our algorithms still require $O^{\sim}(n^{\omega}$$\left\lceil d\right\rceil )=O^{\sim}(n^{\omega})$
-field operations. We now look how this cost can be improved to $O^{\sim}(n^{\omega}d)=O^{\sim}(n^{\omega-1}m\sigma)$.
+and degree $\Theta(a)=\Theta(m\sigma/n)$, allowing order basis computation
+to be efficient with a final cost of $O^{\sim}(n^{\omega}a)$. However,
+if we attempt to state the cost as $O^{\sim}\left(n^{\omega-1}m\sigma\right)$,
+the case of $m\sigma\in o\left(n\right)$ becomes problematic and
+requires special attention. In this case, the average degree $a=m\sigma/n\in o(1)$
+but $1$ is the lowest possible degree and $m\sigma$ is the maximum
+possible row dimension of our transformed problems. In other words,
+we cannot obtain a nearly square transformed problem for our algorithms
+to behave efficiently, which means our algorithms still require $O^{\sim}(n^{\omega})$
+field operations. We now look how this cost can be improved to $O^{\sim}(n^{\omega-1}m\sigma)$
+in the case of $m\sigma\in o\left(n\right)$.
 
 
 \subsection{Balanced Case}
@@ -120,7 +125,7 @@ basis $U_{0}$ has at least $n-m\sigma$ columns. Therefore $V$ has
 at most $m\sigma$ columns.\end{proof}
 \end{comment}
 {} We can therefore compute a $\left(\mathbf{F}PV,\sigma\right)$-basis
-using \prettyref{alg:mab} with a cost of $O^{\sim}\left(\left(m\sigma\right)^{\omega}\right)=O^{\sim}\left(n^{\omega-1}m\sigma\right)$.
+using \prettyref{alg:mab} with a cost of $O^{\sim}\left(\left(m\sigma\right)^{\omega}\right)\subset O^{\sim}\left(n^{\omega-1}m\sigma\right)$.
 
 The last thing to check is making sure that the multiplications for
 computing the residual $\mathbf{F}PV$, and for combining the results
@@ -129,13 +134,15 @@ can all be done efficiently, which is not difficult since $P$ is
 a permutation matrix, and $V$ consists of an identity matrix and
 zeros. Therefore, the $(\mathbf{F},\sigma)$-basis $P\left[V\mathbf{Q},U_{0}\right]$
 can be computed with a cost of $O^{\sim}\left(n^{\omega-1}m\sigma\right)$.
-This allows us to remove the assumption of $m\sigma\in\Omega(n)$,
-and to extend \prettyref{thm:balancedCost} to the situation of $m\sigma\in o(n)$.
+This allows us to refine the cost $O^{\sim}\left(n^{\omega}d\right)$
+to $O^{\sim}\left(n^{\omega-1}m\sigma\right)$.
 \begin{thm}
-\label{thm:orderBasisCostCeilingRemoved}When $m\sigma\in o(n)$ and
-the shift $\vec{s}$ is balanced, a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
-can be computed with a cost of $O\left(n^{\omega}\bar{\M}(d)\log\sigma)\right)=O\left(n^{\omega}d\log d\log\log d\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
-field operations, where $d=m\sigma/n$. %
+\label{thm:orderBasisCostCeilingRemoved}A $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
+can be computed with a cost of 
+\[
+O\left(n^{\omega}\M(m\sigma/n)\log\sigma)\right)\subset O^{\sim}\left(n^{\omega-1}m\sigma\right)
+\]
+ field operations. %
 \begin{comment}
 Should easily work for the second unbalanced case as well. But need
 to write it out.

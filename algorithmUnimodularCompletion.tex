@@ -6,11 +6,11 @@ does not correspond to the rank. For these reasons, we do not pursue
 rank sensitive computations for order basis. 
 \end{comment}
 \begin{algorithm}[t]
-\caption{$\unimodularCompletion(\mathbf{F},\vec{s})$}
+\caption{$\unimodularCompletion(\mathbf{F})$}
 \label{alg:unimodularCompletion}
 
-\begin{algorithmic}
-[1]\REQUIRE{$\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$ with full row
+\begin{algorithmic}[1]
+\REQUIRE{$\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$ with full row
 rank; $\vec{s}$ is initially set to the column degrees of $\mathbf{F}$.
 It keeps track of the degrees.}
 
@@ -18,6 +18,8 @@ It keeps track of the degrees.}
 such that $\begin{bmatrix}\mathbf{F}\\
 \mathbf{G}
 \end{bmatrix}$ is unimodular.}
+
+\STATE{$\vec{s}:=\cdeg\mathbf{F}$;}
 
 \STATE{$\mathbf{F}^{r}:=\rowRev\left(\mathbf{F},-\vec{s},0\right)$;}
 

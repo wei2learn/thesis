@@ -102,11 +102,10 @@ For the transformed problem, the shift $\vec{s}$ becomes $\bar{s}=[\tilde{s}_{1}
 and the identity matrix becomes
 \begin{eqnarray*}
 \mathbf{E} & = & [\tilde{\mathbf{E}},\dots,\tilde{\mathbf{E}}^{\left(n\right)}]\\
- & = & \left[\begin{array}{ccccc|ccc|ccccccc}
-1 & x^{s_{1}-q_{1}d} & \cdots & x^{s_{1}-2d} & x^{s_{1}-d} &  &  & \\
-\hline  &  &  &  &  & \ddots &  & \\
- &  &  &  &  &  & \  & \ddots\\
-\hline  &  &  &  &  &  &  &  & 1 & x^{s_{n}-q_{n}d} & \cdots & x^{s_{n}-2d} & x^{s_{n}-d}
+ & = & \left[\begin{array}{ccccc|c|ccccccc}
+1 & x^{s_{1}-q_{1}d} & \cdots & x^{s_{1}-2d} & x^{s_{1}-d} & \\
+\hline  &  &  &  &  & \ddots\\
+\hline  &  &  &  &  &  & 1 & x^{s_{n}-q_{n}d} & \cdots & x^{s_{n}-2d} & x^{s_{n}-d}
 \end{array}\right]_{n\times\bar{n}},
 \end{eqnarray*}
  with the new column dimension $\bar{n}$ satisfying 
@@ -130,9 +129,13 @@ $-\vec{s}$-column degrees 0, allowing us to recover $\mathbf{H}$
 from $\mathbf{E}\bar{\mathbf{B}}_{0}$ using \prettyref{lem:recoverH}.\end{lem}
 \begin{proof}
 Note that we can construct a $\left(\left[\mathbf{F},-\mathbf{E}\right],\left[-\vec{u},-\bar{s}\right]\right)$-kernel
-basis $\mathbf{A}=\begin{bmatrix}\mathbf{U} & 0\\
+basis 
+\[
+\mathbf{A}=\begin{bmatrix}\mathbf{U} & 0\\
 \mathbf{H}_{\mathbf{E}} & \mathbf{N}_{\mathbf{E}}
-\end{bmatrix}$, where $\mathbf{U}$ is the unimodular matrix satisfying $\mathbf{F}\mathbf{U}=\mathbf{H}$,
+\end{bmatrix},
+\]
+where $\mathbf{U}$ is the unimodular matrix satisfying $\mathbf{F}\mathbf{U}=\mathbf{H}$,
 $\mathbf{H}_{\mathbf{E}}$ is the matrix $\mathbf{H}$ expanded according
 to $\mathbf{E}$, so that $\mathbf{H}_{\mathbf{E}}$ has row degrees
 $\bar{s}$ and $\mathbf{H}_{\mathbf{E}}\mathbf{E}=\mathbf{H}$, and
@@ -254,13 +257,14 @@ of $\bar{\mathbf{F}}$ $\mod$ $x^{k-d_{i}}$ for each row $i$. Then
 $\mathbf{C}^{r}=\colRev\left(x^{k-d}\mathbf{C},0,k\right)$ has degree
 less than $d$ and satisfies \textup{$x^{k}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r}$.}\end{lem}
 \begin{proof}
-Since the first term of \eqref{eq:division} has degree less than
-$k$, the the degree of $x^{k-d}\mathbf{C}$ must be also less than
-$k$, or equivalently, the degree of $\mathbf{C}$ must be less than
-$d$. If we now reverse the coefficients, we get 
-\[
-\colRev\left(I,0,k\right)=\colRev(\mathbf{F}^{r},0,\vec{d})\cdot\colRev\left(\left(\bar{\mathbf{F}}\mod x^{k-\vec{d}}\right),\vec{d},k\right)+\colRev\left(x^{k-d}\mathbf{C},0,k\right),
-\]
+Since the first term of Equation (\ref{eq:division}) has degree less
+than $k$, the the degree of $x^{k-d}\mathbf{C}$ must be also less
+than $k$, or equivalently, the degree of $\mathbf{C}$ must be less
+than $d$. If we now reverse the coefficients, we get 
+\begin{eqnarray*}
+ &  & \colRev\left(I,0,k\right)\\
+ & = & \colRev(\mathbf{F}^{r},0,\vec{d})\cdot\colRev\left(\left(\bar{\mathbf{F}}\mod x^{k-\vec{d}}\right),\vec{d},k\right)+\colRev\left(x^{k-d}\mathbf{C},0,k\right),
+\end{eqnarray*}
  that is, 
 \[
 x^{k}I=\mathbf{F}\cdot\left(*\right)+\mathbf{C}^{r},
@@ -331,6 +335,6 @@ $2d$, which costs $O^{\sim}\left(n^{\omega}d\right)$ field operations.
 With the remainder $\mathbf{R}$ computed, we can now compute a $\left(\left[\mathbf{F},-\mathbf{R}\right],\left[-\bar{u},-\bar{s}\right]\right)$-kernel
 basis that can be used to recover the Hermite normal form using \prettyref{lem:reduceToRemainder}.
 \begin{thm}
-A Hermite normal form of $\mathbf{F}$ can be computed with a cost
-of \textup{$O^{\sim}\left(n^{\omega}d\right)$ field operations.}\end{thm}
+A Hermite normal form of $\mathbf{F}$ can be computed deterministically
+with a cost of \textup{$O^{\sim}\left(n^{\omega}d\right)$ field operations.}\end{thm}
 

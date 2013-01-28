@@ -2,12 +2,16 @@
 \chapter{\label{chap:determinant}Diagonal Entries of Hermite Normal Form
 and Determinant}
 
-In this Chapter, we consider the problem of computing a determinant
-of a nonsingular input matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
-with column degrees bounded by a shift $\vec{s}$. The computation
-is done by using the column basis and kernel basis computation to
-compute the diagonal entries of the Hermite form of $\mathbf{F}$,
-and then multiply these diagonal entries.
+In this chapter, we consider the problem of computing the diagonal
+entries of the Hermite normal form and the determinant of a nonsingular
+input matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+with column degrees $\vec{s}$. \citet{storjohann:2002,storjohann:2003}
+gave an efficient Las Vegas for computing the determinant. Here we
+give a efficient deterministic algorithm that costs $O^{\sim}\left(n^{\omega}s\right)$
+field operations, where $s=\sum\vec{s}/n$ The computation is done
+by using the column basis and kernel basis computation to compute
+the diagonal entries of the Hermite form of $\mathbf{F}$, and then
+multiply these diagonal entries.
 
 Consider unimodularly transforming $\mathbf{F}$ to 
 \begin{equation}
@@ -75,8 +79,8 @@ which may have very large degrees and cannot be computed efficiently.
 and $\mathbf{G}_{2}$ independently without computing the unimodular
 matrix. $\mathbf{G}_{1}$ can be computed using the method from \prettyref{chap:Matrix-GCD},
 while the kernel basis computation from \prettyref{chap:NullspaceBasis}
-can be used to compute a kernel basis $\mathbf{N}_{1}$ of $\mathbf{F}_{U}$,
-which can then be used to compute $\mathbf{G}_{2}=\mathbf{F}_{D}\mathbf{N}_{1}$.
+can be used to compute a kernel basis $\mathbf{N}$ of $\mathbf{F}_{U}$,
+which can then be used to compute $\mathbf{G}_{2}=\mathbf{F}_{D}\mathbf{N}$.
 
 After $\mathbf{G}_{1}$ and $\mathbf{G}_{2}$ are computed, we can
 repeat the same process on each of these two matrices, which now have
@@ -86,14 +90,80 @@ of computing the diagonal entries gives \prettyref{alg:hermiteDiagonal}
 \input{algorithmHermiteDiagonalEntries.tex}
 
 
+\section{Computing the Determinant}
+
+The product of the diagonal entries computed from \prettyref{alg:hermiteDiagonal}
+is an associate of the determinant, that is, the product equals $c\det\mathbf{F}$
+for some $c\in\mathbb{K}$, since the unimodular matrices that eliminate
+the top right blocks may not have its determinant equal to 1. Therefore,
+to get the determinant of $\mathbf{F}$, we need to scale the product
+of the diagonal entries by $c^{-1}$, where $c$ is the determinant
+of the unimodular matrix that transforms $\mathbf{F}$ to the diagonal
+entries from the algorithm.
+
+
+\begin{lem}
+\label{lem:scalingToDeterminant}Let $\mathbf{U}=\left[\mathbf{U}_{L},\mathbf{U}_{R}\right]$
+be a unimodular that eliminates the top right block of $\mathbf{F}$
+as before, that is, 
+\[
+\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}\begin{bmatrix}\mathbf{U}_{L} & \mathbf{U}_{R}\end{bmatrix}=\begin{bmatrix}\mathbf{G}_{1} & 0\\
+* & \mathbf{G}_{2}
+\end{bmatrix}=\mathbf{G}.
+\]
+ Let $\mathbf{V}=\begin{bmatrix}\mathbf{V}_{U}\\
+\mathbf{V}_{D}
+\end{bmatrix}=\mathbf{U}^{-1}$. Let $U_{R}=\mathbf{U}_{R}\mod x$, $V_{U}=\mathbf{V}_{U}\mod x$,
+and $U_{L}^{*}\in\mathbb{K}^{n\times*}$ is a matrix that gives a
+unimodular completion $U^{*}=\left[U_{L}^{*},U_{R}\right]$ of $U_{R}$
+with $\det U^{*}=a\in\mathbb{K}$. Then $\det\mathbf{F}=\det\mathbf{G}\det\left(V_{U}U_{L}^{*}\right)/a$.\end{lem}
+\begin{proof}
+Since $\det\mathbf{F}=\det\mathbf{G}\det\mathbf{V}$, we just need
+to show that $\det\mathbf{V}=\det\left(V_{U}U_{L}^{*}\right)/a$.
+In fact, we just need to check the degree 0 coefficient matrix $V=\mathbf{V}\mod x$
+to show that $\det V=\det\left(V_{U}U_{L}^{*}\right)/a$, since $\mathbf{V}$
+is unimodular, which makes $\det V=\det\mathbf{V}$. Consider now
+\begin{eqnarray*}
+\det V\det U^{*} & = & \det\left(VU^{*}\right)\\
+ & = & \det\left(\begin{bmatrix}V_{U}\\
+V_{D}
+\end{bmatrix}\begin{bmatrix}U_{L}^{*} & U_{R}\end{bmatrix}\right)\\
+ & = & \det\left(\begin{bmatrix}V_{U}U_{L}^{*} & 0\\
+* & I
+\end{bmatrix}\right)\\
+ & = & \det\left(V_{U}U_{L}^{*}\right),
+\end{eqnarray*}
+ hence $\det V=\det\left(V_{U}U_{L}^{*}\right)/a$.
+\end{proof}
+\prettyref{lem:scalingToDeterminant} requires us to compute a unimodular
+completion of a matrix $U_{R}$, which is a very simple special case
+of the unimodular completion from \prettyref{chap:Unimodular-Completion}
+and can be obtained easily from the unimodular matrix that transforms
+$V_{U}$ to its reduced column echelon form. Such unimodular matrix
+can be computed using the Gauss Jordan transform algorithm from \citet{storjohann:phd2000}
+on $V_{U}$ with a cost of $O\left(nm^{\omega-1}\right)$.
+
+We can now compute the actual determinant of $\mathbf{F}$ by simply
+computing the scaling factor at each step. The updated algorithm that
+also computes the scaling factor is given in \prettyref{alg:hermiteDiagonalWithScalingFactor}.
+
+\input{algorithmDeterminant.tex}
+
+
+
+
 \section{Computational Cost}
 
-Let us look at the computational cost of \prettyref{alg:hermiteDiagonal}. 
+Let us look at the computational cost of \prettyref{alg:hermiteDiagonal}
+and \prettyref{alg:hermiteDiagonalWithScalingFactor}. 
 \begin{thm}
-\prettyref{alg:hermiteDiagonal} costs $O^{\sim}\left(n^{\omega-1}\xi\right)$
-field operations to compute the diagonal entries for the Hermite normal
-form of a nonsingular matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$,
-where $\xi$ is the sum of the column degrees \end{thm}
+\prettyref{alg:hermiteDiagonal} and \prettyref{alg:hermiteDiagonalWithScalingFactor}
+cost $O^{\sim}\left(n^{\omega}s\right)$ field operations to compute
+the diagonal entries for the Hermite normal form of a nonsingular
+matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$, where
+$s$ is the average column degree of $\mathbf{F}$. \end{thm}
 \begin{proof}
 The three main operations are computing a column basis of $\mathbf{F}_{U}$,
 computing a kernel basis $\mathbf{N}$ of $\mathbf{F}_{U}$, and the
@@ -101,39 +171,44 @@ matrix multiplication $\mathbf{F}_{D}\mathbf{N}$.
 
 For the column basis computation, by \prettyref{thm:columnBasisCost1}
 we know that a column basis $\mathbf{G}_{1}$ of $\mathbf{F}_{U}$
-can be computed with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right).$
+can be computed with a cost of $O^{\sim}\left(n^{\omega}s\right).$
 By \prettyref{lem:colBasisDegreeBoundByInputDegrees} the column degrees
 of the computed column basis $\mathbf{G}_{1}$ are also bounded by
 the original column degrees $\vec{s}$.
 
-For the kernel basis computation, it also costs $O^{\sim}\left(n^{\omega-1}\xi\right)$
+For the kernel basis computation, it also costs $O^{\sim}\left(n^{\omega}s\right)$
 to compute a $\vec{s}$-minimal kernel basis $\mathbf{N}$ of $\mathbf{F}_{U}$
 from \prettyref{thm:costLowColDimension}. The sum of the $\vec{s}$-column
-degrees of the output kernel basis $\mathbf{N}$ is bounded by $\xi$
+degrees of the output kernel basis $\mathbf{N}$ is bounded by $\sum\vec{s}$
 by \prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBasis}.
 
 Finally for the matrix multiplication $\mathbf{F}_{D}\mathbf{N}$,
 since the sum of the column degrees of $\mathbf{F}_{D}$ and the sum
 of the $\vec{s}$-column degrees of $\mathbf{N}$ are both bounded
-by $\xi$, \prettyref{thm:multiplyUnbalancedMatrices} applies and
-the multiplication can be done with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$.
+by $\sum\vec{s}$, \prettyref{thm:multiplyUnbalancedMatrices} applies
+and the multiplication can be done with a cost of $O^{\sim}\left(n^{\omega}s\right)$.
 
-Now if we let the cost of \prettyref{alg:hermiteDiagonal} be $g(n,\xi)$
-for a input matrix of dimension $n$ with $\xi$ bounding the sum
-of its column degrees, then we have the recurrence relation
+Now if we let the cost of \prettyref{alg:hermiteDiagonal} be $g(n)$
+for a input matrix of dimension $n$, then we have the recurrence
+relation
 \[
-g(n,\xi)\in O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi),
+g(n)\in O^{\sim}(n^{\omega-1})+g(\left\lceil n/2\right\rceil )+g(\left\lfloor n/2\right\rfloor ),
 \]
  which is the same as in \prettyref{thm:inverseCost} for computing
-the matrix inverse. Therefore, we also get $g(n,\xi)=O^{\sim}(n^{\omega-1}\xi)$
-as in the inverse computation.\end{proof}
+the matrix inverse. Therefore, we also get $g(n)=O^{\sim}(n^{\omega}s)$
+as in the inverse computation.
+
+The only extra cost of \prettyref{alg:hermiteDiagonalWithScalingFactor}
+is the cost unimodular completion of $U_{R}$, which is just $O\left(n^{\omega}\right)$.
+So it has the same cost as \prettyref{alg:hermiteDiagonal}. \end{proof}
 \begin{cor}
 The determinant of a nonsingular matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
-can be computed with a cost of $O^{\sim}(n^{\omega-1}\xi)$ field
-operations, where $\xi$ is the minimum of the sum of the column degrees
-and the sum of the row degrees of the input matrix.\end{cor}
+can be computed with a cost of $O^{\sim}(n^{\omega}s)$ field operations,
+where $s$ is the minimum of the average column degree and the average
+row degree of the input matrix.\end{cor}
 \begin{proof}
-Just use \prettyref{alg:hermiteDiagonal} to compute the diagonal
-entries of the Hermite normal form of either $\mathbf{F}$ or $\mathbf{F}^{T}$,
-and then multiply the diagonal entries.\end{proof}
+We can just use \prettyref{alg:hermiteDiagonalWithScalingFactor}
+to compute the diagonal entries of the Hermite normal form of either
+$\mathbf{F}$ or $\mathbf{F}^{T}$ with the scaling factor, and then
+multiply the diagonal entries with the scaling factor.\end{proof}
 

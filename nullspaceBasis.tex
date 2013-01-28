@@ -13,8 +13,8 @@ can have degree up to $md$. In that case the order $\sigma$ would
 need to be set to $d+md$ in the order basis computation in order
 to fully compute a minimal kernel basis. The fastest method of computing
 such a $\left(\mathbf{F},d+md\right)$-basis would cost $O^{\sim}\left(n^{\omega-1}m^{2}d\right)$
-using the algorithm from \citep{za2009}. We can see from this cost
-that there is room for improvement when $m$ is large. For example,
+using the algorithm from \chapref{OrderBasis}. We can see from this
+cost that there is room for improvement when $m$ is large. For example,
 in the worst case when $m\in\Theta\left(n\right)$, this cost would
 be $O^{\sim}\left(n^{\omega+1}d\right)$. This points to a root cause
 for the inefficiency in this approach. Namely, when $m$ is large,

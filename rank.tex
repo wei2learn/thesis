@@ -7,14 +7,15 @@ profile of an input matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$,
 which also immediately gives us the rank. If $n\ge m$, the rank can
 already be computed by either kernel basis computation or column basis
 computation from the earlier chapters. The column basis computation
-(\prettyref{alg:colBasis}) can compute the rank with a cost of $O^{\sim}(m^{\omega-1}\xi)$
-field operations, where $\xi$ is the sum of the column degrees of
-$\mathbf{F}$. However, we would like to refine this cost to $O^{\sim}\left(mr^{\omega-2}\xi\right)$,
+(\prettyref{alg:colBasis}) can compute the rank with a cost of $O^{\sim}(nm^{\omega-1}s)$
+field operations, where $s$ is the average column degree of $\mathbf{F}$.
+However, we would like to refine this cost to $O^{\sim}\left(nmr^{\omega-2}s\right)$,
 where $r$ is the rank of $\mathbf{F}$. We also would like to compute
-a row rank profile with the same cost.
+a row rank profile with the same cost. An efficient Las Vegas algorithm
+for computing rank was given by \citet{storjohann-villard:2005}.
 
 We use the following approach to achieve the desired cost. We first
-modify our kernel basis algorithm, \prettyref{alg:minimalNullspaceBasisWithRankProfile},
+modify our kernel basis algorithm, \prettyref{alg:minimalNullspaceBasis},
 slightly to allow the rank profile to be computed along with a kernel
 basis. Then we do a series of computations with increasing number
 of rows from $\mathbf{F}$. For each set of rows we do successive
@@ -89,15 +90,15 @@ for computing the rank profile of $\mathbf{F}$.
 
 The main remaining task is to analyze the computational cost of \prettyref{alg:rankProfile}. 
 \begin{thm}
-The cost of \prettyref{alg:rankProfile} is $O^{\sim}\left(\xi mr^{\omega-2}\right)$
+The cost of \prettyref{alg:rankProfile} is $O^{\sim}\left(nmr^{\omega-2}s\right)$
 field operations for computing a rank profile of $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$.\end{thm}
 \begin{proof}
 Let $r_{i}$ be the number of rows in the new block considered at
-step $i$. Then the cost at step $i$ is $O^{\sim}\left(r_{i}^{\omega-1}\xi\right)$
+step $i$. Then the cost at step $i$ is $O^{\sim}\left(r_{i}^{\omega-1}ns\right)$
 field operations for the column basis and the kernel basis with rank
 profile computation. The total cost is then 
 \[
-\sum O^{\sim}\left(r_{i}^{\omega-1}\xi\right)=O^{\sim}\left(\xi\sum r_{i}^{\omega-1}\right).
+\sum O^{\sim}\left(r_{i}^{\omega-1}ns\right)=O^{\sim}\left(ns\sum r_{i}^{\omega-1}\right).
 \]
  We also know that $\sum r_{i}=m$, and the maximum of $r_{i}$ is
 the rank $r$ of $\mathbf{F}$. Note that 
@@ -106,7 +107,7 @@ the rank $r$ of $\mathbf{F}$. Note that
 \]
  Hence 
 \[
-\sum O^{\sim}\left(r_{i}^{\omega-1}\xi\right)=O^{\sim}\left(\xi\sum r_{i}^{\omega-1}\right)=O^{\sim}\left(\xi mr^{\omega-2}\right).
+\sum O^{\sim}\left(r_{i}^{\omega-1}ns\right)=O^{\sim}\left(ns\sum r_{i}^{\omega-1}\right)=O^{\sim}\left(nmr^{\omega-2}s\right).
 \]
 
 \end{proof}
@@ -137,8 +138,8 @@ slightly improve \prettyref{cor:costOfMinimalNullspaceBasis} on the
 cost of kernel basis computation with a matrix of degree $d$, by
 using only the linearly independent rows from $\mathbf{F}$, hence
 reducing the row dimension of the input matrix from $m$ to $r$,
-after a cost of $O^{\sim}\left(\xi mr^{\omega-2}\right)=O^{\sim}\left(nmr^{\omega-2}d\right)$
-to compute the rank profile. 
+after a cost of $O^{\sim}\left(nmr^{\omega-2}d\right)$ to compute
+the rank profile. 
 \begin{thm}
 Given a matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$with
 degree $d$, a minimal kernel basis of $\mathbf{F}$ can be computed

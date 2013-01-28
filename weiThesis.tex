@@ -1,4 +1,4 @@
-%% LyX 2.0.4 created this file.  For more info, see http://www.lyx.org/.
+%% LyX 2.0.5.1 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
 \documentclass[12pt,english,letterpaper,titlepage,oneside,final]{report}
 \usepackage[T1]{fontenc}
@@ -21,10 +21,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
 
-\AtBeginDocument{\providecommand\chapref[1]{\ref{chap:#1}}}
+\let\pr@chap=\pr@cha
 \AtBeginDocument{\providecommand\secref[1]{\ref{sec:#1}}}
 \AtBeginDocument{\providecommand\lemref[1]{\ref{lem:#1}}}
-\let\pr@chap=\pr@cha
+\AtBeginDocument{\providecommand\chapref[1]{\ref{chap:#1}}}
 \floatstyle{ruled}
 \newfloat{algorithm}{tbp}{loa}[chapter]
 \providecommand{\algorithmname}{Algorithm}
@@ -59,14 +59,14 @@
 \else
 \newtheorem{thm}{\protect\theoremname}[chapter]
 \fi
+  \theoremstyle{definition}
+  \newtheorem{example}[thm]{\protect\examplename}
   \theoremstyle{plain}
   \newtheorem{lem}[thm]{\protect\lemmaname}
   \theoremstyle{plain}
   \newtheorem{cor}[thm]{\protect\corollaryname}
   \theoremstyle{definition}
   \newtheorem{defn}[thm]{\protect\definitionname}
-  \theoremstyle{definition}
-  \newtheorem{example}[thm]{\protect\examplename}
  \usepackage{algolyx}
  \usepackage{algolyx}
   \theoremstyle{remark}
@@ -142,7 +142,7 @@
 \usepackage{ifthen}
 
 \newboolean{ElectronicVersion}
-\setboolean{ElectronicVersion}{false} % CHANGE THIS AS REQUIRED
+\setboolean{ElectronicVersion}{true} % CHANGE THIS AS REQUIRED
 
 % allows easy specifying of the page layout
 \usepackage{geometry}
@@ -230,16 +230,35 @@ plainpages=false,         pdfpagelabels=true,         pdftitle=UW\ LaTeX\ Thesis
 \DeclareMathOperator{\rowRev}{rowRev}
 \DeclareMathOperator{\unimodularCompletion}{unimodularCompletion}
 \DeclareMathOperator{\hermiteDiagonal}{hermiteDiagonal}
+\DeclareMathOperator{\hermiteDiagonalWithScale}{hermiteDiagonalWithScale}
 \DeclareMathOperator{\mnbr}{minimaKernelBasisReversed}
 \DeclareMathOperator{\mnbrp}{minimalKernelBasisWithRankProfile}
 \DeclareMathOperator{\colBasis}{colBasis}
 \DeclareMathOperator{\rankProfile}{rankProfile}
-\def\mab{\qopname\relax n{OrderBasis}}
-\def\mnbrs{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
-\def\mmab{\qopname\relax n{FastBasis}}
-\def\umab{\qopname\relax n{UnbalancedFastBasis}}
-\def\mnb{\qopname\relax n{MinimalKernelBasis ~ }}
+\def\mab{\qopname\relax n{orderBasis}}
+\def\mnbrs{\qopname\relax n{minimalNullspacerBasisRankSensitive}}
+\def\mmab{\qopname\relax n{fastOrderBasis}}
+\def\umab{\qopname\relax n{unbalancedFastOrderBasis}}
+\def\mnb{\qopname\relax n{minimalKernelBasis ~ }}
 \newcommand{\bb}{\\}
+%\newrefformat{chap}{chapr \ref{#1}}
+\newrefformat{lem}{Lemma~\ref{#1}}
+\newrefformat{thm}{Theorem~\ref{#1}}
+\newrefformat{cha}{Chapter~\ref{#1}}
+\newrefformat{chap}{Chapter~\ref{#1}}
+\newrefformat{sec}{Section~\ref{#1}}
+\newrefformat{rem}{Remark~\ref{#1}}
+\newrefformat{fac}{Fact~\ref{#1}}
+\newrefformat{sub}{Subsection~\ref{#1}}
+\newrefformat{cor}{Corollary~\ref{#1}}
+\newrefformat{cond}{Condition~\ref{#1}}
+\newrefformat{con}{Conjecture~\ref{#1}}
+\newrefformat{def}{Definition~\ref{#1}}
+\newrefformat{pro}{Proposition~\ref{#1}}
+\newrefformat{alg}{Algorithm~\ref{#1}}
+\newrefformat{exm}{Example~\ref{#1}}
+\newrefformat{line}{line~\ref{#1}}
+
 
 
 %======================================================================
@@ -352,30 +371,47 @@ for polynomial matrix computation problems, including the computation
 of order basis, minimal kernel basis, matrix inverse, column basis,
 unimodular completion, determinant, Hermite normal form, rank and
 rank profile for matrices of univariate polynomials over a field.
-The algorithm for kernel basis computation also immediately allows
-us to solve linear systems. The algorithm for column basis also immediately
-allows us to compute matrix GCDs, column reduced forms, and Popov
-normal forms for matrices of any dimension. 
+The algorithm for kernel basis computation also immediately provides
+an efficient deterministic algorithm for solving linear systems. The
+algorithm for column basis also gives efficient deterministic algorithms
+for computing matrix GCDs, column reduced forms, and Popov normal
+forms for matrices of any dimension and any rank. 
 
-
-
-For all these problems, our algorithms are not only essentially optimal,
-but in most cases they also solve more general versions of these problems
-than previous algorithms. More specifically, the computational costs
-are often stated with the sums of the column degrees or the average
-column degrees of the input matrices, which are more precise and tighter
-than the matrix degrees, or equivalently, the maximum column degrees,
-previously used in the literature. In addition, the shifted minimal
-bases computed by our algorithms are more general than the standard
-minimal bases.
-
-\noindent \newpage{}
+We reduce all these problems to polynomial matrix multiplications.
+The computational costs of our algorithms are then similar to the
+costs of multiplying matrices, whose dimensions match the input matrix
+dimensions in the original problems, and whose degrees equal the average
+column degrees of the original input matrices in most cases. The use
+of the average column degrees instead of the commonly used matrix
+degrees, or equivalently the maximum column degrees, makes our computational
+costs more precise and tighter. In addition, the shifted minimal bases
+computed by our algorithms are more general than the standard minimal
+bases.\newpage{}
 
 \begin{center}
 \textbf{Acknowledgments}
 \par\end{center}
 
-Thanks 
+Thanks to my supervisor, George Labahn, for supporting me and providing
+me with the opportunity and the freedom to explore in this fascinating
+world of polynomial matrix computation. Also thanks to my other committee
+members, Mark Giesbrecht, Cameron Stewart, Arne Storjohann, and Gilles
+Villard for reading this thesis. Thanks especially to Arne, whose
+accomplishments and magical abilities to come up with new ideas have
+always amazed me and influenced my work. Thanks to Gilles for flying
+all the way to Canada from France to attend my defense and for all
+the encouraging words. Thanks to Mark for the helpful comments on
+this thesis.
+
+Thanks to all my friends in Waterloo, especially my longtime roommate
+and good friend Zhirong Li, my resourceful academic brother Reinhold
+Burger, and my good friends Wei Li and Jun Chen, for all the fun conversations
+and memorable activities. 
+
+I am grateful for having a wonderful family that made everything in
+my life possible.
+
+
 
 \noindent \newpage{}
 
@@ -383,14 +419,17 @@ Thanks
 \textbf{Dedication}
 \par\end{center}
 
-\noindent To  \newpage{}
+\noindent To my parents and my sister, for always believing in me
+
+\noindent To my daughter, for bringing new energy and joy
+
+\noindent To my wife, for patience and support\newpage{}
 
 \tableofcontents{}\newpage{}
 
-\listoftables
-\newpage{}
+\listof{algorithm}{List of Algorithms}
+\addcontentsline{toc}{chapter}{List of Algorithms}
 
-\listoffigures
 \newpage{}\pagenumbering{arabic}
 
 \doublespacing
@@ -425,5 +464,5 @@ Thanks
 
 \bibliographystyle{plainnat}
 \bibliography{paper}
-
+\addcontentsline{toc}{chapter}{Bibliography}
 \end{document}

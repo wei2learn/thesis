@@ -121,6 +121,14 @@ reference "alg:colBasis"
 
 .
  We also would like to compute a row rank profile with the same cost.
+ An efficient Las Vegas algorithm for computing rank was given by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "storjohann-villard:2005"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -128,7 +136,7 @@ We use the following approach to achieve the desired cost.
  We first modify our kernel basis algorithm, 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasisWithRankProfile"
+reference "alg:minimalNullspaceBasis"
 
 \end_inset
 

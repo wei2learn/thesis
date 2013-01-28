@@ -1373,6 +1373,28 @@ key "Giorgi2003"
 \end_inset
 
 .
+ As a general note, we assume 
+\begin_inset Formula $m\le n$
+\end_inset
+
+ throughout thesis unless explicitly stated otherwise.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:rank"
+
+\end_inset
+
+, however, an algorithm for rank profile computation can often be used to
+ reduce a problem with 
+\begin_inset Formula $m>n$
+\end_inset
+
+ to a problem with 
+\begin_inset Formula $m\le n$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard

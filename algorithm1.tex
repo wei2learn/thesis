@@ -5,11 +5,11 @@
 \label{alg:mab} 
 \begin{algor}
 \item [{{*}}] \textbf{Input:} $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$,
-$\sigma\in\mathbb{Z}_{\ge0}$,$\vec{s}\in\mathbb{Z}^{n}$ satisfying
+$\sigma\in\mathbb{Z}_{\ge0}$, $\vec{s}\in\mathbb{Z}^{n}$ satisfying
 $n\ge m,$ $n/m$ and $\sigma$ are powers of 2, $m\sigma\in\Omega(n)$
 and $\min\left(\vec{s}\right)=0$ 
 \item [{{*}}] \textbf{Output:} a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
-$\mathbf{P}\in K\left[x\right]^{n\times n}$ and $\deg_{\vec{s}}\mathbf{P}$
+$\mathbf{P}\in\mathbb{K}\left[x\right]^{n\times n}$ and $\deg_{\vec{s}}\mathbf{P}$
 \item [{{*}}]~\end{algor}
 \begin{algor}[1]
 \item [{{*}}] \textbf{if }$2m\ge n$ \textbf{then return} $\mab\left(\mathbf{F},\sigma,\vec{s}\right);$ 
@@ -26,7 +26,7 @@ in increasing order;
 \item [{{{*}}}] $k^{\left(i\right)}:=$ number of entries of $\vec{a}^{\left(i\right)}$
 less than $\delta^{\left(i\right)}$;
 \item [{{*}}] $[\bar{\mathbf{P}}_{1}^{\left(i\right)},\bar{\mathbf{P}}_{2}^{\left(i\right)}]:=\bar{\mathbf{P}}^{\left(i\right)}$
-with $\bar{\mathbf{P}}_{1}^{\left(i\right)}\in K\left[x\right]^{n\times k^{\left(i\right)}}$;
+with $\bar{\mathbf{P}}_{1}^{\left(i\right)}\in\mathbb{K}\left[x\right]^{n\times k^{\left(i\right)}}$;
 \item [{{while}}] $\columnDimension(\bar{\mathbf{P}}_{1}^{\left(i\right)})<n$ 
 \item [{{{*}}}] $i:=i+1;$ $\delta^{\left(i\right)}:=2\delta^{\left(i-1\right)};$
 $l^{\left(i\right)}:=(l^{\left(i-1\right)}-1)/2;$ 
@@ -35,7 +35,8 @@ $l^{\left(i\right)}:=(l^{\left(i-1\right)}-1)/2;$
 \item [{{{*}}}] \label{line:matrixProduct1}$\mathbf{G}^{\left(i\right)}:=\bar{\mathbf{F}}^{\left(i\right)}\hat{\mathbf{P}}_{2}^{\left(i-1\right)};$ 
 \item [{{{*}}}] $\vec{b}^{\left(i-1\right)}:=\vec{t}^{\left(i-1\right)}[k^{\left(i-1\right)}+1\dots n+m(l^{\left(i-1\right)}-1)];$
 \\
-$\mbox{ // w:=v[k..l] means that w receives a slice of v whose indices range from k to l}$
+$\mbox{ // \ensuremath{w:=v[k..l]}means that w receives a slice of v }$\\
+$\mbox{ // whose indices range from \ensuremath{k}to \ensuremath{l}}$
 \item [{{{*}}}] \label{line:orderBasisComputation}$[\mathbf{Q}^{\left(i\right)},\vec{a}^{\left(i\right)}]:=\mab(\mathbf{G}^{\left(i\right)},2\delta^{\left(i\right)},\vec{b}^{\left(i-1\right)});$ 
 \item [{{{*}}}] Sort the columns of $\mathbf{Q}^{\left(i\right)}$ and
 $\vec{a}^{\left(i\right)}$ by $\vec{a}^{\left(i\right)}=\deg_{\vec{b}^{\left(i-1\right)}}\mathbf{Q}^{\left(i\right)}$

@@ -2,9 +2,8 @@
 \chapter{\label{chap:Unimodular-Completion}Unimodular Completion}
 
 Given a matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
-with $n>m$ and its column degrees bounded by the entries of a vector
-$\vec{s}$, we consider the problem of efficiently computing a matrix
-$\mathbf{G}\in\mathbb{K}\left[x\right]^{(n-m)\times n}$ %
+with $n>m$ and column degrees $\vec{s}$, we consider the problem
+of efficiently computing a matrix $\mathbf{G}\in\mathbb{K}\left[x\right]^{(n-m)\times n}$
 \begin{comment}
 with $\left(-\vec{s}\right)$-minimal rows 
 \end{comment}
@@ -34,19 +33,10 @@ A unimodular completion that is not minimal is $\left[x^{9},1\right]$.
 If $\mathbf{F}=\left[x,x^{2}\right]$, then a $\left(-\vec{s}\right)$-minimal
 completion that maintains the generalized determinant is again $\left[0,1\right]$.\end{example}
 \end{comment}
-{} Our goal is to do this with a cost of $O^{\sim}\left(n^{\omega-1}s\right)$
+{} Unimodular completion is a useful basic operation in matrix computations
+\citep{newman1972}. Our goal is to do this with a cost of $O^{\sim}\left(n^{\omega}s\right)$
 field operations, where $s$ is the average of the $m$ largest column
 degrees of $\mathbf{F}$.
-
-Unimodular completion also provides another way of computing column
-bases. To compute a column basis of $\mathbf{A}$, we can compute
-a right kernel basis $\mathbf{B}$ of $\mathbf{A}$. If $\mathbf{C}^{T}$
-is a unimodular completion of $\mathbf{B}^{T}$, then \prettyref{lem:unimodular_kernel_columnBasis}
-tells us that $\mathbf{A}\mathbf{C}$ is a column basis of $\mathbf{A}$.
-Note that the kernel basis computation and the multiplication $\mathbf{AC}$
-can be done efficiently using the algorithms from earlier chapters,
-while an efficient way of computing unimodular completion is provided
-in this chapter.
 
 Before discussing the computation of a unimodular completion, we need
 to check the existence of unimodular completion for a given matrix.
@@ -76,8 +66,15 @@ Since a unimodular completion is only possible for input matrices
 with unimodular column bases, we assume for simplicity this is the
 case with our input matrix $\mathbf{F}$. This also requires $\mathbf{F}$
 to be full rank. For other matrices without unimodular column bases,
-we will see later that our method computes a matrix completion for
-a row basis of $\mathbf{F}$ with its column basis factor removed.
+our method still works directly to compute a matrix completion for
+a right factor of $\mathbf{F}$ that has its column basis factor removed.
+In other words, let $\mathbf{F}$ be factored as $\mathbf{F}=\mathbf{T}\mathbf{R}$
+as in \prettyref{lem:matrixGCD}, where $\mathbf{T}$ is a column
+basis of $\mathbf{F}$ and $\mathbf{R}$ is the remaining right factor,
+the our method always works to compute a unimodular completion of
+$\mathbf{R}$. In the special case where $\mathbf{T}$ is unimodular,
+the unimodular completion computed is also a unimodular completion
+of $\mathbf{F}$.
 
 The proof of \prettyref{lem:unimodularCompletionCondition} shows
 that a unimodular completion of $\mathbf{F}$ can be obtained from
@@ -402,9 +399,9 @@ reverse the coefficients of a kernel basis of $\mathbf{F}$.
 \label{lem:unimodularComputation}Let $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$
 and $\mathbf{M}$ be a $(\mathbf{F}^{r},\vec{s})$-kernel basis with
 $\cdeg_{\vec{s}}\mathbf{M}=\vec{b}$. Let $\mathbf{P}=\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]$
-be a $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$-basis,
-where $\mathbf{P}_{1}$ consists of all columns $\mathbf{p}$ with
-$\cdeg_{-\vec{s}}\mathbf{p}\le0$. If $\mathbf{P}_{2}^{r}=\colRev\left(\mathbf{P}_{2},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{2}\right)$,
+be a $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$-basis, where
+$\mathbf{P}_{1}$ consists of all columns $\mathbf{p}$ with $\cdeg_{-\vec{s}}\mathbf{p}\le0$.
+If $\mathbf{P}_{2}^{r}=\colRev\left(\mathbf{P}_{2},-\vec{s},\cdeg_{-\vec{s}}\mathbf{P}_{2}\right)$,
 then $\left[\mathbf{F}^{T},\mathbf{P}_{2}^{r}\right]$ is a unimodular
 matrix.\end{lem}
 \begin{proof}
@@ -423,15 +420,16 @@ compute a unimodular completion of $\mathbf{F}$. To improve the computational
 efficiency, we can in fact separate the rows of $\mathbf{M}^{T}$
 and just work with one subset of rows at a time. 
 \begin{lem}
-\label{lem:unimodularComputationByRows}Let $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$.
-Let $\mathbf{M}$ be a $(\mathbf{F}^{r},\vec{s})$-kernel basis with
-$\cdeg_{\vec{s}}\mathbf{M}=\vec{b}$. Let $\mathbf{M}=\left[\mathbf{M}_{1},\mathbf{M}_{2}\right]$.
-Let $\mathbf{P}_{1}=\left[\mathbf{N}_{1},\mathbf{Q}_{1}\right]$ be
-a $\left(\mathbf{M}_{1}^{T},\cdeg_{\vec{s}}\mathbf{M}_{1}+\left[1,\dots,1\right],-\vec{s}\right)$-basis,
+\label{lem:unimodularComputationByRows}Let the matrix $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$.
+Let the matrix $\mathbf{M}$ be a $(\mathbf{F}^{r},\vec{s})$-kernel
+basis with $\cdeg_{\vec{s}}\mathbf{M}=\vec{b}$ and be partitioned
+as $\mathbf{M}=\left[\mathbf{M}_{1},\mathbf{M}_{2}\right]$. Let $\mathbf{P}_{1}$
+be a $\left(\mathbf{M}_{1}^{T},\cdeg_{\vec{s}}\mathbf{M}_{1}+1,-\vec{s}\right)$-basis
+and be partitioned as $\mathbf{P}_{1}=\left[\mathbf{N}_{1},\mathbf{Q}_{1}\right]$,
 where $\mathbf{N}_{1}$ consists of all columns $\mathbf{p}$ of $\mathbf{P}_{1}$
 with $\cdeg_{-\vec{s}}\mathbf{p}\le0$. Let $\vec{t}=\cdeg_{-\vec{s}}\mathbf{N}_{1}$
-and $\mathbf{P}_{2}=\left[\mathbf{N}_{2},\mathbf{Q}_{2}\right]$ be
-a $\left(\mathbf{M}_{2}^{T}\mathbf{N}_{1},\cdeg_{\vec{s}}\mathbf{M}_{2}+\left[1,\dots,1\right],\vec{t}\right)$-basis,
+and $\mathbf{P}_{2}$ be a $\left(\mathbf{M}_{2}^{T}\mathbf{N}_{1},\cdeg_{\vec{s}}\mathbf{M}_{2}+1,\vec{t}\right)$-basis
+and be partitioned as $\mathbf{P}_{2}=\left[\mathbf{N}_{2},\mathbf{Q}_{2}\right]$,
 where $\mathbf{N}_{2}$ consists of all columns $\mathbf{p}$ of $\mathbf{P}_{2}$
 with $\cdeg_{-\vec{t}}\mathbf{p}\le0$. Let $\mathbf{R}=\left[\mathbf{N}_{1}\mathbf{Q}_{2},\mathbf{Q}_{1}\right]$
 and $\mathbf{R}^{r}=\colRev\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right)$.
@@ -543,12 +541,12 @@ and for the kernel basis $\mathbf{P}_{1}$ in $\mathbf{P}$, we know
 $\sum\cdeg_{-\vec{s}}\mathbf{P}_{1}=\sum\vec{b}-\sum\vec{s}$ from
 \prettyref{lem:mutualMinimalNullspaceBasisDegrees}. Therefore, $\sum\cdeg_{-\vec{s}}\mathbf{P}_{2}=n-m$.
 It follows that $\sum\cdeg_{-\vec{b}}\mathbf{M}^{T}\mathbf{P}_{2}\le\sum\cdeg_{-\vec{s}}\mathbf{P}_{2}=n-m$,
-or $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=0$.
-But since $\mathbf{P}_{2}$ is nonzero and has order $\left(\mathbf{F},\vec{b}+\left[1,\dots,1\right]\right)$,
-we have $\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}\ge\left[0,\dots,0\right]$,
-implying $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}\ge0$.
-It follows that $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=0$,
-hence $\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$
+or $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=0$. But since
+$\mathbf{P}_{2}$ is nonzero and has order $\left(\mathbf{F},\vec{b}+1\right)$,
+we have $\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}\ge\left[0,\dots,0\right]$,
+implying $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}\ge0$.
+It follows that $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=0$,
+hence $\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$
 or $\cdeg_{-\vec{b}}\mathbf{M}^{T}\mathbf{P}_{2}=\left[1,\dots,1\right]$.
 Combining this with $\sum\cdeg_{-\vec{b}}\mathbf{M}^{T}\mathbf{P}_{2}\le\sum\cdeg_{-\vec{s}}\mathbf{P}_{2}=n-m$
 we then get $\cdeg_{-\vec{s}}\mathbf{P}_{2}=\left[1,\dots,1\right]$.
@@ -557,7 +555,7 @@ we then get $\cdeg_{-\vec{s}}\mathbf{P}_{2}=\left[1,\dots,1\right]$.
 \begin{lem}
 Let $\mathbf{F}^{r}=\rowRev\left(\mathbf{F},-\vec{s},0\right)$ and
 $\mathbf{M}$ be a $(\mathbf{F}^{r},\vec{s})$-kernel basis with $\cdeg_{\vec{s}}\mathbf{M}=\vec{b}$
-as before. Let $\mathbf{P}$ be a $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$-basis.
+as before. Let $\mathbf{P}$ be a $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$-basis.
 Then $\mathbf{M}^{T}\mathbf{P}$ has row degrees $\vec{b}+[1,\dots,1]$.
 In other words, the row degrees are the same as the order.\end{lem}
 \begin{proof}
@@ -568,16 +566,16 @@ We know that $\sum\cdeg_{-\vec{s}}\mathbf{P}=-\sum\vec{s}+\sum\vec{b}+n-m$
 and for the kernel basis $\mathbf{P}_{1}$ in $\mathbf{P}$, we know
 $\sum\cdeg_{-\vec{s}}\mathbf{P}_{1}=\sum\vec{b}-\sum\vec{s}$. Therefore,
 $\sum\cdeg_{-\vec{s}}\mathbf{P}_{2}=n-m$. It follows that $\sum\cdeg_{-\vec{b}}\mathbf{M}^{T}\mathbf{P}_{2}\le\sum\cdeg_{-\vec{s}}\mathbf{P}_{2}=n-m$,
-or $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=0$.
-But since $\mathbf{P}_{2}$ is nonzero and has order $\left(\mathbf{F},\vec{b}+\left[1,\dots,1\right]\right)$,
-we have $\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}\ge\left[0,\dots,0\right]$,
-implying $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}\ge0$.
-It follows that $\sum\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=0$,
-hence $\cdeg_{-\vec{b}-\left[1,\dots,1\right]}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$. 
+or $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=0$. But since
+$\mathbf{P}_{2}$ is nonzero and has order $\left(\mathbf{F},\vec{b}+1\right)$,
+we have $\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}\ge\left[0,\dots,0\right]$,
+implying $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}\ge0$.
+It follows that $\sum\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=0$,
+hence $\cdeg_{-\vec{b}-1}\mathbf{M}^{T}\mathbf{P}_{2}=\left[0,\dots,0\right]$. 
 
 Since 
 
-or equivalently, $\rdeg\mathbf{M}^{T}\mathbf{P}_{2}=\vec{b}+\left[1,\dots,1\right]$.
+or equivalently, $\rdeg\mathbf{M}^{T}\mathbf{P}_{2}=\vec{b}+1$.
 
 We know that $\mathbf{M}^{T}$ has an identity matrix GCD, hence by
 \prettyref{lem:CoprimeFullRankConstantCoefficientMatrix} $\mathbf{M}^{T}\mod x$
@@ -599,7 +597,7 @@ that of $\mathbf{F}^{T}$ and no more than $0$.\end{proof}
 \end{comment}
 
 
-We are now ready to look at the algorithm for computing a $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$-basis,
+We are now ready to look at the algorithm for computing a $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$-basis,
 given in \prettyref{alg:unimodularCompletion}.  We follow the same
 process as in \prettyref{sec:computeRightFactor}. We assume without
 loss of generality that the rows of $\mathbf{M}^{T}$ are arranged
@@ -610,9 +608,11 @@ of its rows. Let
 \mathbf{M}^{T}=\left[\mathbf{M}_{1}^{T},\mathbf{M}_{2}^{T},\cdots,\mathbf{M}_{\log k-1}^{T},\mathbf{M}_{\log k}^{T}\right]
 \]
  with $\mathbf{M}_{\log k},\mathbf{M}_{\log k-1},\cdots,\mathbf{M}_{2},\mathbf{M}_{1}$
-having $\vec{s}$-row degrees in the range $\left[0,2\xi/k\right]$,
-$(2\xi/k,4\xi/k],$ $(4\xi/k,8\xi/k],\ ...,$ $(\xi/4,\xi/2],$ $(\xi/2,\xi].$Let
-$\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
+having $\vec{s}$-row degrees in the range 
+\[
+\left[0,2\xi/k\right],\ (2\xi/k,4\xi/k],\ (4\xi/k,8\xi/k],\ ...,\ (\xi/4,\xi/2],\ (\xi/2,\xi].
+\]
+ Let $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
 with the same dimension as the row dimension of $\mathbf{M}_{i}$.
 Let $\vec{\sigma}=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]$
 be the order in the order basis computation. For simplicity, instead
@@ -653,8 +653,7 @@ $\mathbf{Q}$ such that $\mathbf{A}\mathbf{Q}=\left[x^{\vec{v}},0\right]$.
 But the equality hold in the special case here.
 \begin{lem}
 Let $\mathbf{P}=\left[\mathbf{P}_{1},\mathbf{P}_{2}\right]$ be a
-$\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$-basis
-as before. 
+$\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$-basis as before. 
 \end{lem}
 The only component we need to consider 
 
@@ -668,9 +667,9 @@ $\bar{\mathbf{P}}$, which would contain a complete kernel basis $\bar{\mathbf{F}
 of $\bar{\mathbf{N}}$ since the row degrees of $\bar{\mathbf{N}}\bar{\mathbf{F}}$
 are bounded by the corresponding entries of $\vec{b}$ and $\order(\bar{\mathbf{N}},\bar{\mathbf{P}})$
 is greater than $\vec{b}$ component-wise . Note that the $-\vec{s}$-column
-degrees of $\bar{\mathbf{P}}$ are bounded by $\left[1,\dots,1\right]$
-since the $-\vec{s}$-row degrees of $\bar{\mathbf{F}}^{T}$ are bounded
-by that of $\mathbf{F}$, which are bounded by 0.
+degrees of $\bar{\mathbf{P}}$ are bounded by $1$ since the $-\vec{s}$-row
+degrees of $\bar{\mathbf{F}}^{T}$ are bounded by that of $\mathbf{F}$,
+which are bounded by 0.
 \begin{lem}
 Given $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$ with $\cdeg\mathbf{F}\le\vec{s}$
 (or equivalently, $\rdeg_{-\vec{s}}\mathbf{F}\le0$). If $\mathbf{N}$
@@ -689,13 +688,13 @@ basis%
  with $\cdeg_{-\vec{s}_{1}}\mathbf{N}_{1}\le0$
 \end{comment}
 . This computation can be done using \prettyref{alg:umab} with a
-cost of $O^{\sim}\left(n^{\omega}d\right)$, where $d=\xi/n$. 
+cost of $O^{\sim}\left(n^{\omega}s\right)$, where $s=\xi/n$. 
 
 Let $\tilde{\mathbf{N}}_{1}=\mathbf{N}_{1}$. Let $\vec{s}_{2}=-\cdeg_{-\vec{s}}\mathbf{N}_{1}$
 and $\vec{t}_{2}=-\cdeg_{-\vec{s}}\mathbf{Q}_{1}$. %
 \begin{comment}
 Note that $-\vec{s}_{1}\le-[\vec{s}_{2},\vec{t}_{2}]\le\left[0,\dots,0,1,\dots1\right]$
-component-wise, since $\mathbf{P}_{1}$ has lower order than any $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$-basis
+component-wise, since $\mathbf{P}_{1}$ has lower order than any $\left(\mathbf{M}^{T},\vec{b}+1,-\vec{s}\right)$-basis
 $\mathbf{P}$ hence generates $\mathbf{P}$. Therefore, $\cdeg_{-\vec{s}}\mathbf{P}_{1}\le\cdeg_{-\vec{s}}\mathbf{P}\le\left[0,\dots,0,1,\dots1\right]$. 
 \end{comment}
 {} We then compute an $\left(\hat{\mathbf{M}}_{2}\tilde{\mathbf{N}}_{1},\vec{\sigma}_{2},-\vec{s}_{2}\right)$-basis
@@ -715,8 +714,11 @@ Continue this process, at step $i$, we compute an $\left(\hat{\mathbf{M}}_{i}\ti
 $\mathbf{P}_{i}=\left[\mathbf{N}_{i},\mathbf{Q}_{i}\right]$. Let
 $\tilde{\mathbf{N}}_{i}=\prod_{j=1}^{i}\mathbf{N}_{i}=\tilde{\mathbf{N}}_{i-1}\mathbf{N}_{i}$.
 Note that $\tilde{\mathbf{N}}_{\log k}$ is a $\left(\mathbf{M},-\vec{s}\right)$-kernel
-basis. Let $\mathbf{R}=\left[\mathbf{Q}_{1},\tilde{\mathbf{N}}_{1}\mathbf{Q}_{2},\dots,\tilde{\mathbf{N}}_{\log k-2}\mathbf{Q}_{\log k-1},\tilde{\mathbf{N}}_{\log k-1}\mathbf{Q}_{\log k}\right]$,
-and $\mathbf{R}^{r}=\colRev\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right)$,
+basis. Let 
+\[
+\mathbf{R}=\left[\mathbf{Q}_{1},\tilde{\mathbf{N}}_{1}\mathbf{Q}_{2},\dots,\tilde{\mathbf{N}}_{\log k-2}\mathbf{Q}_{\log k-1},\tilde{\mathbf{N}}_{\log k-1}\mathbf{Q}_{\log k}\right]
+\]
+, and $\mathbf{R}^{r}=\colRev\left(\mathbf{R},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}\right)$,
 then from \prettyref{lem:unimodularComputationByRows} we can conclude
 that $\left[\mathbf{F}^{T},\mathbf{R}^{r}\right]$ is a unimodular
 matrix. 
@@ -727,37 +729,37 @@ We still need to check the cost of the multiplications $\hat{\mathbf{M}}_{i}\til
 $\tilde{\mathbf{N}}_{i-1}\mathbf{N}_{i}$, and $\tilde{\mathbf{N}}_{i-1}\mathbf{Q}_{i}$. 
 \begin{lem}
 The multiplications $\hat{\mathbf{M}}_{i}\tilde{\mathbf{N}}_{i-1}$
-can be done with a cost of $O^{\sim}\left(n^{\omega}d\right)$.\end{lem}
+can be done with a cost of $O^{\sim}\left(n^{\omega}s\right)$.\end{lem}
 \begin{proof}
 The dimension of $\hat{\mathbf{M}}_{i}$ is bounded by $2^{i-1}\times n$
 and $\sum\rdeg_{\vec{s}}\hat{\mathbf{M}}_{i}\le2^{i-1}\cdot\xi/2^{i-1}=\xi$.
 We also have $\cdeg_{-\vec{s}}\tilde{\mathbf{N}}_{i-1}\le0$, or equivalently,
 $\rdeg\tilde{\mathbf{N}}_{i-1}\le\vec{s}$. We can now use \prettyref{thm:multiplyUnbalancedMatrices}
 to multiply $\tilde{\mathbf{N}}_{i-1}^{T}$ and $\hat{\mathbf{M}}_{i}^{T}$
-with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)=O^{\sim}\left(n^{\omega}d\right)$.\end{proof}
+with a cost of $O^{\sim}\left(n^{\omega}s\right)$.\end{proof}
 \begin{lem}
 The multiplication $\tilde{\mathbf{N}}_{i-1}\mathbf{N}_{i}$ can be
-done with a cost of $O^{\sim}\left(n^{\omega}d\right)$.\end{lem}
+done with a cost of $O^{\sim}\left(n^{\omega}s\right)$.\end{lem}
 \begin{proof}
 We know $\cdeg_{-\vec{s}}\tilde{\mathbf{N}}_{i-1}=-\vec{s}_{i}$,
 and $\cdeg_{-\vec{s}_{i}}\mathbf{N}_{i}=-\vec{s}_{i+1}\le0.$ In other
 words, $\rdeg\mathbf{N}_{i}\le\vec{s}_{i}$, and $\rdeg_{\vec{s}_{i}}\tilde{\mathbf{N}}_{i-1}\le\vec{s}$,
 hence we can again use \prettyref{thm:multiplyUnbalancedMatrices}
 to multiply $\mathbf{N}_{i}^{T}$ and $\tilde{\mathbf{N}}_{i-1}^{T}$
-with a cost of $O^{\sim}\left(n^{\omega}d\right)$.\end{proof}
+with a cost of $O^{\sim}\left(n^{\omega}s\right)$.\end{proof}
 \begin{lem}
 The multiplication $\tilde{\mathbf{N}}_{i-1}\mathbf{Q}_{i}$ can be
-done with a cost of $O^{\sim}\left(n^{\omega}d\right)$.\end{lem}
+done with a cost of $O^{\sim}\left(n^{\omega}s\right)$.\end{lem}
 \begin{proof}
 We know $\cdeg_{-\vec{s}_{i}}\mathbf{Q}_{i}\le\max\cdeg_{\vec{s}}\mathbf{P}=1$,
-or equivalently, $\rdeg\mathbf{Q}_{i}\le\vec{s}_{i}+\left[1,\dots,1\right]$.
-But we also know that this $\mathbf{Q}_{i}$ from the order basis
-computation has a factor $xI$. Therefore, $\rdeg\left(\mathbf{Q}_{i}/x\right)\le\vec{s}_{i}$.
+or equivalently, $\rdeg\mathbf{Q}_{i}\le\vec{s}_{i}+1$. But we also
+know that this $\mathbf{Q}_{i}$ from the order basis computation
+has a factor $xI$. Therefore, $\rdeg\left(\mathbf{Q}_{i}/x\right)\le\vec{s}_{i}$.
 In addition, $\rdeg_{\vec{s}_{i}}\tilde{\mathbf{N}}_{i-1}\le\vec{s}$
 as before. So we can again use \prettyref{thm:multiplyUnbalancedMatrices}
 to multiply $\mathbf{Q}_{i}^{T}$ and $\tilde{\mathbf{N}}_{i-1}^{T}$
-with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$.\end{proof}
+with a cost of $O^{\sim}\left(n^{\omega}s\right)$.\end{proof}
 \begin{thm}
 A unimodular completion of $\mathbf{F}$ can be computed with a cost
-of $O^{\sim}\left(n^{\omega-1}\xi\right)$ field operations.\end{thm}
+of $O^{\sim}\left(n^{\omega}s\right)$ field operations.\end{thm}
 

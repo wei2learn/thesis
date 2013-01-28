@@ -9,8 +9,8 @@ rank sensitive computations for order basis.
 \caption{$\inv(\mathbf{F},\vec{s})$}
 \label{alg:matrixInverse}
 
-\begin{algorithmic}
-[1]\REQUIRE{$\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$; $\vec{s}$ is
+\begin{algorithmic}[1]
+\REQUIRE{$\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$; $\vec{s}$ is
 initially set to the column degrees of $\mathbf{F}$. It keeps track
 of the degrees.}
 
@@ -25,7 +25,7 @@ if $\mathbf{F}$ is nonsingular, or fail if $\mathbf{F}$ is singular.}
 
 
 \STATE{$\left[\mathbf{F}_{1}^{T},\mathbf{F}_{2}^{T}\right]:=\mathbf{F}^{T}$
-with $\mathbf{F}_{1}$ consists of the top $\left\lceil n\right\rceil $
+with $\mathbf{F}_{1}$ consists of the top $\left\lceil n/2\right\rceil $
 rows of $\mathbf{F}$;}
 
 \STATE{\textbf{if }$\mathbf{F}=0$ \textbf{then} fail \textbf{endif};}
@@ -47,7 +47,7 @@ rows of $\mathbf{F}$;}
 \end{comment}
 
 
-\label{line:nullspaceBasisComputation}\STATE{$\mathbf{N}_{1}:=\mnb(\mathbf{F}_{1},\vec{s})$;$\mathbf{N}_{2}:=\mnb(\mathbf{F}_{2},\vec{s})$;}
+\STATE{$\mathbf{N}_{1}:=\mnb(\mathbf{F}_{1},\vec{s})$;$\mathbf{N}_{2}:=\mnb(\mathbf{F}_{2},\vec{s})$;}\label{line:nullspaceBasisComputation}
 
 \begin{comment}
 \IF{$\columnDimension(\mathbf{N}_{1})\ne\left\lfloor n\right\rfloor $
@@ -57,18 +57,18 @@ rows of $\mathbf{F}$;}
 \end{comment}
 
 
-\STATE{\textbf{if }$\columnDimension(\mathbf{N}_{1})\ne\left\lfloor n\right\rfloor $
-\OR{} $\columnDimension(\mathbf{N}_{2})\ne\left\lceil n\right\rceil $
+\STATE{\textbf{if }$\columnDimension(\mathbf{N}_{1})\ne\left\lfloor n/2\right\rfloor $
+\OR{} $\columnDimension(\mathbf{N}_{2})\ne\left\lceil n/2\right\rceil $
 \textbf{then} fail; \textbf{endif};}
 
-\label{line:multiplyFN}\STATE{$\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$;$\mathbf{R}_{2}:=\mathbf{F}_{2}\mathbf{N}_{1}$;}
+\STATE{$\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$;$\mathbf{R}_{2}:=\mathbf{F}_{2}\mathbf{N}_{1}$;}\label{line:multiplyFN}
 
-\STATE{$\left\{ \mathcal{A}^{(1)},\mathbf{H}_{1}\right\} :=\inv(\mathbf{R}_{1},\deg_{\vec{s}}\mathbf{N}_{2})$;
-$\left\{ \mathcal{A}^{(2)},\mathbf{H}_{2}\right\} :=\inv(\mathbf{R}_{2},\deg_{\vec{s}}\mathbf{N}_{1})$;}
+\STATE{$\left\{ \mathcal{A}^{(1)},\mathbf{H}_{1}\right\} :=\inv(\mathbf{R}_{1},\cdeg_{\vec{s}}\mathbf{N}_{2})$;
+$\left\{ \mathcal{A}^{(2)},\mathbf{H}_{2}\right\} :=\inv(\mathbf{R}_{2},\cdeg_{\vec{s}}\mathbf{N}_{1})$;}
 
 \STATE{$\mathcal{A}:=\left[\left[\mathbf{N}_{2},\mathbf{N}_{1}\right],\diag(\mathcal{A}_{1}^{(1)},\mathcal{A}_{1}^{(2)}),\dots,\diag(\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(1)},\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(2)})\right]$}
 
-\label{line:multiplyNG}\STATE{\textbf{return} $\left\{ \mathcal{A},\diag\left([\mathbf{H}_{1},\mathbf{H}_{2}]\right)\right\} $;}
+\STATE{\textbf{return} $\left\{ \mathcal{A},\diag\left([\mathbf{H}_{1},\mathbf{H}_{2}]\right)\right\} $;}
 \end{algorithmic}
 \end{algorithm}
 

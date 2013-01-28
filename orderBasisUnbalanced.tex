@@ -1,5 +1,5 @@
 
-\chapter{Unbalanced Shifts}
+\chapter{Order Basis with Unbalanced Shifts}
 
 \label{chap:Unbalanced-Shift}
 
@@ -21,7 +21,7 @@ $\sigma$. Recall that \prettyref{lem:boundOfSumOfShiftedDegreesOfOrderBasis}
 states that for any shift $\vec{s}$, there exists a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
 still having a total size bounded by $nm\sigma$ which gives hope
 for efficient computation. In the following, we look at two special
-cases of unbalanced shift. In the first case where the input shift
+cases of unbalanced shifts. In the first case where the input shift
 $\vec{s}$ satisfies $\sum_{i=1}^{n}(\vec{s}_{i}-\min(\vec{s}))\in O(m\sigma)$,
 the sum of the column degrees of a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
 is still in $O(m\sigma)$, which allows us to use \prettyref{alg:mab}
@@ -48,7 +48,7 @@ In this case, \prettyref{alg:mab} works efficiently as before.
 \begin{lem}
 If the shift $\vec{s}$ satisfies condition (\ref{con:unbalanced1}),
 then a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis can be computed
-with $O\left(n^{\omega}\bar{\M}(d)\log\sigma)\right)=O\left(n^{\omega}d\log d\log\log d\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}d\right)$
+with $O\left(n^{\omega}\M(a)\log\sigma)\right)\subset O^{\sim}\left(n^{\omega}a\right)$
 field operations. 
 \end{lem}
 From \prettyref{lem:boundOfSumOfShiftedDegreesOfOrderBasis}, we know
@@ -139,11 +139,10 @@ with the new column dimension $\bar{n}$ satisfies $\bar{n}=\sum_{i=1}^{n}q_{i}$.
 Note that every entry of the new shift $\bar{s}$ is an integer from
 $-\alpha-\beta$ to $0$. Let 
 \[
-\mathbf{E}=\left[\begin{array}{ccccc|ccc|ccccccc}
-1 & x^{r_{1}} & x^{r_{1}+\beta} & \cdots & x^{r_{1}+(q_{1}-2)\beta} &  &  & \\
-\hline  &  &  &  &  & \ddots &  & \\
- &  &  &  &  &  & \  & \ddots\\
-\hline  &  &  &  &  &  &  &  & 1 & x^{r_{n}} & x^{r_{n}+\beta} & \cdots & x^{r_{n}+(q_{n}-2)\beta}
+\mathbf{E}=\left[\begin{array}{ccccc|c|ccccccc}
+1 & x^{r_{1}} & x^{r_{1}+\beta} & \cdots & x^{r_{1}+(q_{1}-2)\beta} & \\
+\hline  &  &  &  &  & \ddots\\
+\hline  &  &  &  &  &  & 1 & x^{r_{n}} & x^{r_{n}+\beta} & \cdots & x^{r_{n}+(q_{n}-2)\beta}
 \end{array}\right]_{n\times\bar{n}}.
 \]
  Then $\bar{\mathbf{F}}=\mathbf{F}\mathbf{E}$. Storjohann's second
@@ -154,15 +153,15 @@ new dimension
 \[
 \bar{n}=\sum_{i=1}^{n}q_{i}\le n+\sum_{i=1}^{n}-s_{i}/\beta\le m\sigma/\beta+n.
 \]
- Thus by setting $\beta\in\Theta\left(m\sigma/n\right)=\Theta\left(d\right)$,
+ Thus by setting $\beta\in\Theta\left(a\right)$, where $a=m\sigma/n$,
 we can make $\bar{n}\in\Theta\left(n\right)$. Furthermore, by also
-setting $\alpha\in\Theta\left(d\right)$, we have a balanced shift
+setting $\alpha\in\Theta\left(a\right)$, we have a balanced shift
 problem since 
 \[
-\max\bar{s}-\min\bar{s}\le-\min\bar{s}\le\alpha+\beta\in\Theta(d).
+\max\bar{s}-\min\bar{s}\le-\min\bar{s}\le\alpha+\beta\in\Theta(a).
 \]
  Hence \prettyref{alg:mab} can compute a $\left(\bar{\mathbf{F}},\sigma,\bar{s}\right)$-basis
-with cost $O^{\sim}\left(n^{\omega}d\right)$ in this case.
+with cost $O^{\sim}\left(n^{\omega}a\right)$ in this case.
 
 With a $\left(\bar{\mathbf{F}},\sigma,\bar{s}\right)$-basis $\bar{\mathbf{P}}\in\mathbb{K}\left[x\right]^{\bar{n}\times\bar{n}}$
 computed, let us now consider $\mathbf{E}\bar{\mathbf{P}}\in\mathbb{K}\left[x\right]^{n\times\bar{n}}$.
@@ -179,14 +178,14 @@ computed a partial $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis.
 \begin{example}
 \label{exm:unbalancedShift} Let us use the same input as in \prettyref{exm:StorjohannTransformation},
 but with shift $\vec{s}=[0,-3,-5,-6]$, and parameters $\alpha=\beta=1$.
-Then we get the transformed input 
+Then we get the transformed input $\bar{\mathbf{F}}=$ {\small{
 \begin{align*}
-\bar{\mathbf{F}}=[ & x+x^{2}+x^{3}+x^{4}+x^{5}+x^{6},\,~1+x+x^{5}+x^{6}+x^{7},\,~x+x^{2}+x^{6}+x^{7}+x^{8},\\
+[ & x+x^{2}+x^{3}+x^{4}+x^{5}+x^{6},\,~1+x+x^{5}+x^{6}+x^{7},\,~x+x^{2}+x^{6}+x^{7}+x^{8},\\
  & 1+x^{2}+x^{4}+x^{5}+x^{6}+x^{7},\,~x+x^{3}+x^{5}+x^{6}+x^{7}+x^{8},\,~x^{2}+x^{4}+x^{6}+x^{7}+x^{8}+x^{9},\\
  & x^{3}+x^{5}+x^{7}+x^{8}+x^{9}+x^{10},\,~1+x+x^{3}+x^{7},\,~x+x^{2}+x^{4}+x^{8},\\
  & x^{2}+x^{3}+x^{5}+x^{9},\,~x^{3}+x^{4}+x^{6}+x^{10},\,~x^{4}+x^{5}+x^{7}+x^{11}]
 \end{align*}
- having $12$ components, and $\bar{s}=[0,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2]$.
+}} having $12$ components, and $\bar{s}=[0,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2]$.
 In this case $r_{1}=r_{2}=r_{3}=r_{4}=1$, $q_{1}=1$, $q_{2}=2$,
 $q_{3}=4$, $q_{4}=5$ and the transformation matrix is 
 \[
@@ -217,16 +216,16 @@ $q_{3}=4$, $q_{4}=5$ and the transformation matrix is
  with $\bar{s}$-degrees $[-1,-2,-2,-2,-1,-1,-1,-1,-1,-1,-1,0]$.
 Only the last column has $\bar{s}$-degree exceeding $-\alpha=-1$
 and so is the only column guaranteed to give a correct $(\mathbf{F},8,\vec{s})$-basis
-element. Comparing 
+element. Comparing $\mathbf{E}\bar{\mathbf{P}}=$ {\footnotesize{
 \[
-\mathbf{E}\bar{\mathbf{P}}=\left[{\begin{array}{cccccccccccc}
+\left[{\begin{array}{cccccccccccc}
 0 & ~0~ & ~0~ & 0 & ~0~ & 0 & ~0~ & ~0~ & ~0~ & ~0~ & ~0~ & ~1~\\
 x & 1 & x & 0 & 1 & x^{2} & x^{2} & x^{2} & x^{2} & x^{2} & 0 & 0\\
 x+x^{2}+x^{3}+x^{4} & 1 & x & 1+x+x^{2}+x^{3} & 1 & 1+x+x^{3} & x^{2} & x^{2} & x^{2} & x^{2} & 0 & 1\\
 0 & x & x^{2} & 1+x^{3}+x^{4} & x & 1+x^{4} & x^{3} & x^{3} & x^{3} & x^{3} & 0 & 1
 \end{array}}\right]
 \]
- to a $(\mathbf{F},8,\vec{s})$-basis 
+}} to a $(\mathbf{F},8,\vec{s})$-basis 
 \[
 \mathbf{P}=\left[{\begin{array}{cccc}
 ~0~ & 0 & 0 & ~1~\\
@@ -273,7 +272,7 @@ We now work towards establishing the correspondence between the high
 degree columns of a $\left(\bar{\mathbf{F}},\sigma,\bar{s}\right)$-basis
 whose $\bar{s}$-degrees exceed $-\alpha$ and those of a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
 whose $\vec{s}$-degrees exceed $-\alpha$. A useful link is provided
-by the following a matrix .
+by the following matrix.
 
 Set 
 \[
@@ -460,9 +459,10 @@ as before. Thus we just need to consider the case $q_{i}>1$, where
 the shifts for $\bar{\mathbf{w}}_{i}$ are $-\alpha-\beta$. Since
 $w_{i}=\bar{w}_{i,0}+\bar{w}_{i,1}x^{r_{i}}+\bar{w}_{i,2}x^{r_{i}+\beta}+\cdots+\bar{w}_{i,q_{i}-1}x^{r_{i}+(q_{i}-2)\beta},$
 we get 
-\[
-\deg w_{i}=\max\left\{ \deg\bar{w}_{i,0},\deg\bar{w}_{i,1}+r_{i},\deg\bar{w}_{i,2}+r_{i}+\beta,\dots,\deg\bar{w}_{i,q_{i}-2}+r_{i}+(q_{i}-2)\beta\right\} .
-\]
+\begin{align*}
+ & \deg w_{i}\\
+= & \max\left\{ \deg\bar{w}_{i,0},\deg\bar{w}_{i,1}+r_{i},\deg\bar{w}_{i,2}+r_{i}+\beta,\dots,\deg\bar{w}_{i,q_{i}-2}+r_{i}+(q_{i}-2)\beta\right\} .
+\end{align*}
  Then 
 \begin{eqnarray*}
 \deg w_{i}+s_{i} & = & \deg w_{i}-r_{i}-\alpha-\beta(q_{i}-1)\\
@@ -683,15 +683,15 @@ in the subsequent computation of the remaining basis elements.\end{example}
 \begin{cor}
 \label{cor:numberBasisElements}If the shift $\vec{s}$ satisfies
 condition (\ref{con:unbalancedCondition}) and $c$ is a constant
-greater than or equal to $1$, then a $\left(\mathbf{F},\sigma,\vec{s}\right)_{-cd}$-basis
+greater than or equal to $1$, then a $\left(\mathbf{F},\sigma,\vec{s}\right)_{-ca}$-basis
 has at most $n/c$ basis elements.\end{cor}
 \begin{proof}
-Since $d=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$ under condition (\ref{con:unbalancedCondition}),
+Since $a=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$ under condition (\ref{con:unbalancedCondition}),
 there cannot be more than $n/c$ entries of $\vec{s}$ less than or
-equal to $-cd$. By \prettyref{thm:zeroHighShiftEntries}, the only
+equal to $-ca$. By \prettyref{thm:zeroHighShiftEntries}, the only
 possible nonzero rows of a $\left(\mathbf{F},\sigma,\vec{s}\right)_{-cd}$-basis
 are the ones corresponding to (with the same indices as) the shift
-entries that are less than or equal to $-cd$. Hence there cannot
+entries that are less than or equal to $-ca$. Hence there cannot
 be more than $n/c$ nonzero rows and at most $n/c$ columns, as the
 columns are linearly independent. 
 \end{proof}
@@ -706,15 +706,15 @@ more basis elements.
 \begin{thm}
 \label{thm:unbalancedOrderBasisCost}If the shift $\vec{s}$ satisfies
 condition (\ref{con:unbalancedCondition}), then a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
-can be computed with cost $O\left(n^{\omega}\bar{\M}(d)\log\sigma\right)=O(n^{\omega}d\log d\log\log d\log\sigma)\subset O^{\sim}(n^{\omega}d)$. \end{thm}
+can be computed with cost $O\left(n^{\omega}\M(a)\log\sigma\right)\subset O^{\sim}(n^{\omega}a)$. \end{thm}
 \begin{proof}
 We give the following constructive proof. Initially, we set transformation
-parameters $\alpha_{1}=\beta_{1}=2d$ with $d=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$.
+parameters $\alpha_{1}=\beta_{1}=2a$ with $a=m\sigma/n\ge-\sum_{i=1}^{n}s_{i}/n$.
 \prettyref{alg:mab} works efficiently on the transformed problem
 as the shift $\bar{s}^{\left(1\right)}$ is balanced and the dimension
 of $\bar{\mathbf{F}}_{1}$ remains $O\left(n\right)$. By \prettyref{thm:correctHighDegreeElements}
 this gives the basis elements of $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
-with $\vec{s}$-degree exceeding $-\alpha_{1}=-2d$. By \prettyref{cor:numberBasisElements},
+with $\vec{s}$-degree exceeding $-\alpha_{1}=-2a$. By \prettyref{cor:numberBasisElements},
 the number of basis elements remaining to be computed is at most $n/2$,
 hence the number of elements correctly computed is at least $n/2$.
 By \prettyref{thm:zeroHighShiftEntries}, this also allows us to remove
@@ -722,26 +722,28 @@ at least half of the columns from the input $\mathbf{F}$ and correspondingly
 at least half of the rows from the output for the remaining problem.
 Thus the new input matrix $\mathbf{F}_{2}$ has a new column dimension
 $n_{2}\le n/2$ and the corresponding shift $\vec{s}^{\left(2\right)}$
-has $n_{2}$ entries. The average degree of the new problem is $d_{2}~=~m\sigma/n_{2}$.
+has $n_{2}$ entries. The average degree of the new problem is $a_{2}~=~m\sigma/n_{2}$.
 
 For the second iteration, we set $\alpha_{2}$ and $\beta_{2}$ to
-$2d_{2}$. Since 
+$2a_{2}$. Since 
 \[
 \alpha_{2}=2m\sigma/n_{2}\ge-2\sum_{i=1}^{n}s_{i}/n_{2}\ge-2\sum_{i=1}^{n_{2}}s_{i}^{\left(2\right)}/n_{2},
 \]
  this allows us to reduce the dimension $n_{3}$ of $\mathbf{F}_{3}$
 to at most $n_{2}/2$ after finishing computing a $\left(\bar{\mathbf{F}}_{2},\sigma,\bar{s}^{\left(2\right)}\right)_{-\alpha_{1}}$-basis.
 Again, this can be done using \prettyref{alg:mab} with a cost of
-$O\left(n_{2}^{\omega}\bar{\M}(d_{2})\log\sigma\right)$ as the shift
-$\bar{a}_{2}$ is balanced and the dimension of $\bar{\mathbf{F}}_{2}$
-is $O\left(n_{2}\right)$. Repeating this process, at iteration $i$,
-we set $\alpha_{i}=\beta_{i}=2d_{i}=2m\sigma/n_{i}$. The transformed
-problem has a balanced shift $\bar{a}_{i}$ and column dimension $O\left(n_{i}\right)$.
-So a $\left(\bar{\mathbf{F}}_{i},\sigma,\bar{s}^{\left(i\right)}\right)_{-\alpha_{i-1}}$-basis
+$O\left(n_{2}^{\omega}\M(a_{2})\log\sigma\right)$ as the shift $\bar{a}_{2}$
+is balanced and the dimension of $\bar{\mathbf{F}}_{2}$ is $O\left(n_{2}\right)$.
+Repeating this process, at iteration $i$, we set $\alpha_{i}=\beta_{i}=2a_{i}=2m\sigma/n_{i}$.
+The transformed problem has a balanced shift $\bar{a}_{i}$ and column
+dimension $O\left(n_{i}\right)$. So a $\left(\bar{\mathbf{F}}_{i},\sigma,\bar{s}^{\left(i\right)}\right)_{-\alpha_{i-1}}$-basis
 can be computed with a cost of 
-\[
-O\left(n_{i}^{\omega}\bar{\M}\left(d_{i}\right)\log\sigma\right)\subset O\left(\left(2^{-i}n\right)^{\omega}\bar{\M}\left(2^{i}d\right)\log\sigma\right)\subset O\left(2^{-i}n^{\omega}\bar{\M}(d)\log\sigma\right).
-\]
+\begin{align*}
+O\left(n_{i}^{\omega}\M\left(a_{i}\right)\log\sigma\right) & \subset O\left(\left(2^{-i}n\right)^{\omega}\M\left(2^{i}a\right)\log\sigma\right)\\
+ & \subset O\left(\left(2^{-i}n\right)^{\omega}\M\left(2^{i}\right)\M\left(a\right)\log\sigma\right)\\
+ & \subset O\left(\left(2^{-i}n\right)^{\omega}\left(2^{i}\right)^{\omega-1}\M\left(a\right)\log\sigma\right)\\
+ & \subset O\left(2^{-i}n^{\omega}\M(a)\log\sigma\right).
+\end{align*}
  Since 
 \[
 \alpha_{i}=2m\sigma/n_{i}\ge-2\sum_{i=1}^{n}s_{i}/n_{i}\ge-2\sum_{i=1}^{n_{i}}s_{i}^{\left(i\right)}/n_{i},
@@ -754,9 +756,10 @@ the row dimension $m$, as an order basis can be efficiently computed
 in such case. Therefore, a complete $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
 can be computed in at most $\log(n/m)$ iterations, so the overall
 cost is 
-\[
-O\left(\sum_{i=1}^{\log(n/m)}\left(2^{-i}n^{\omega}\bar{\M}(d)\log\sigma\right)\right)=O\left(n^{\omega}\bar{\M}(d)\log\sigma\sum_{i=1}^{\log(n/m)}2^{-i}\right)\subset O\left(n^{\omega}\bar{\M}(d)\log\sigma\right)
-\]
+\begin{align*}
+O\left(\sum_{i=1}^{\log(n/m)}\left(2^{-i}n^{\omega}\M(a)\log\sigma\right)\right) & =O\left(n^{\omega}\M(a)\log\sigma\sum_{i=1}^{\log(n/m)}2^{-i}\right)\\
+ & \subset O\left(n^{\omega}\M(a)\log\sigma\right)
+\end{align*}
  field operations. 
 \end{proof}
 \input{algorithm2.tex} Finally, we remark that when the condition
@@ -765,5 +768,5 @@ so that $\sum_{i=1}^{n}-s_{i}\le cm\sigma$ for a constant $c$, we
 can still compute a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
 with the same complexity, by setting $\alpha_{i}=\beta_{i}=2cm\sigma/n_{i}$
 at each iteration $i$ and following the same procedure as above.
-The cost at each iteration $i$ remains $O^{\sim}\left(n^{\omega}d\right)$,
+The cost at each iteration $i$ remains $O^{\sim}\left(n^{\omega}a\right)$,
 and the entire computation still uses at most $\log(n/m)$ iterations. 

@@ -31,12 +31,13 @@ column dimension $k\in O\left(m\right)$ and the sum $\theta$ of
 its $\vec{s}$-column degrees satisfies $\theta\in O\left(\xi\right)$.
 The goal is to show that these polynomial matrices can be multiplied
 %Then we can multiply %$\mathbf{A}$ and $\mathbf{B}$ 
-with a cost of $O^{\sim}(nm^{\omega-2}\xi)$.
+with a cost of $O^{\sim}(nm^{\omega-1}t)$, where $t=\xi/m$.
 
 For simplicity we assume $m$ is a power of $2$, something which
 can be achieved by appending zero rows to $\mathbf{F}$. We divide
 the matrix $\mathbf{B}$ into $\log m$ column blocks according to
-the $\vec{s}$-column degrees of its columns. Let 
+the $\vec{s}$-column degrees of its columns. Let $t=\xi/m=ns/m$
+and 
 \[
 \mathbf{B}=\left[\begin{array}{ccccc}
 \mathbf{B}^{\left(\log m\right)} & \mathbf{B}^{\left(\log m-1\right)} & \cdots & \mathbf{B}^{\left(2\right)} & \mathbf{B}^{\left(1\right)}\end{array}\right],
@@ -44,9 +45,9 @@ the $\vec{s}$-column degrees of its columns. Let
  with $\mathbf{B}^{\left(\log m\right)}$, $\mathbf{B}^{\left(\log m-1\right)},$
 $\mathbf{B}^{\left(\log m-2\right)}$, ... , $\mathbf{B}^{\left(2\right)}$,
 $\mathbf{B}^{\left(1\right)}$ having $\vec{s}$-column degrees in
-the range $\left[0,2\xi/m\right]$, $(2\xi/m,4\xi/m]$, $(4\xi/m,8\xi/m]$,
-...,$(\xi/4,\xi/2]$, $(\xi/2,\theta]$, respectively. We will multiply
-$\mathbf{A}$ with each $\mathbf{B}^{\left(i\right)}$ separately.
+the range $\left[0,2t\right]$, $(2t,4t]$, $(4t,8t]$, ...,$(tm/4,tm/2]$,
+$(tm/2,\theta]$, respectively. We will multiply $\mathbf{A}$ with
+each $\mathbf{B}^{\left(i\right)}$ separately.
 
 We also divide the matrix $\mathbf{A}$ into $\log m$ column blocks
 and each matrix $\mathbf{B}^{\left(i\right)}$ into $\log m$ row
@@ -73,16 +74,16 @@ other assignments as well} \george{I think it is more readable this
 way.} 
 \end{comment}
 with $\vec{s}_{\log m},\vec{s}_{\log m-1},\dots,\vec{s}_{1}$ having
-entries in the range $\left[0,2\xi/m\right]$, $(2\xi/m,4\xi/m]$,
-$(4\xi/m,8\xi/m]$, ..., $(\xi/2,\xi]$ respectively. Also the column
-dimension of $\mathbf{A}_{j}$ and the row dimension of $\mathbf{B}_{j}^{\left(i\right)}$
-match that of $\vec{s}_{j}$ for $j$ from $1$ to $\log m$.
+entries in the range $\left[0,2t\right]$, $(2t,4t]$, $(4t,8t]$,
+..., $(tm/2,tm]$ respectively. Also the column dimension of $\mathbf{A}_{j}$
+and the row dimension of $\mathbf{B}_{j}^{\left(i\right)}$ match
+that of $\vec{s}_{j}$ for $j$ from $1$ to $\log m$.
 
 Notice that $\mathbf{B}_{(j)}^{(i)}$ for $i>j$ must be zero. Otherwise,
-as $\vec{s}_{j}>\xi/2^{j}\ge\xi/2^{i-1}$, the $\vec{s}$-column degree
-of $\mathbf{B}^{(i)}$ would exceed $\xi/2^{i-1}$, a contradiction
+as $\vec{s}_{j}>tm/2^{j}\ge tm/2^{i-1}$, the $\vec{s}$-column degree
+of $\mathbf{B}^{(i)}$ would exceed $tm/2^{i-1}$, a contradiction
 since by definition the $\vec{s}$-column degree of $\mathbf{B}^{(i)}$
-is bounded by $\xi/2^{i-1}$ when $i>1$. So $\mathbf{B}$ in fact
+is bounded by $tm/2^{i-1}$ when $i>1$. So $\mathbf{B}$ in fact
 has a block triangular shape 
 \[
 \mathbf{B}=\left[\begin{array}{cccc}
@@ -110,7 +111,7 @@ and $\mathbf{B}_{j}^{(1)}$. The column dimension of $\mathbf{A}_{j}$,
 which is the same as the row dimension of $\mathbf{B}_{j}^{(1)}$,
 is less than $2^{j}$. The degree of $\mathbf{B}_{j}^{(1)}$ is $O\left(\xi\right)$.
 To use fast multiplication, we expand $\mathbf{B}_{j}^{(1)}$ to a
-matrix $\bar{\mathbf{B}}_{j}^{(1)}$ with degree less than $\delta\in\Theta(\xi/2^{j})$
+matrix $\bar{\mathbf{B}}_{j}^{(1)}$ with degree less than $\delta\in\Theta(tm/2^{j})$
 and column dimension $q\in O(2^{j})$ as follows. Write 
 \[
 \mathbf{B}_{j}^{(1)}=\mathbf{B}_{j,0}^{(1)}+\mathbf{B}_{j,1}^{(1)}x^{\delta}+\dots+\mathbf{B}_{j,q-1}^{(1)}x^{\delta(q-1)}=\sum_{k=0}^{q-1}\mathbf{B}_{j,k}^{(1)}x^{\delta k}
@@ -124,27 +125,31 @@ Set
 for $j<\log m$, and $\bar{\mathbf{B}}_{j}^{(1)}$, which has dimension
 $O(2^{j})\times O(2^{j})$ for $j<\log m$, with a cost of 
 \begin{align*}
-O^{\sim}\left((m/2^{j})\left(2^{j}\right)^{\omega}\xi/2^{j}\right) & =O^{\sim}\left(\left(2^{j}\right)^{\omega-2}m\xi\right).\\
- & \subset O^{\sim}\left(m^{\omega-1}\xi\right)\subset O^{\sim}(nm^{\omega-2}\xi)
+O^{\sim}\left((m/2^{j})\left(2^{j}\right)^{\omega}tm/2^{j}\right) & =O^{\sim}\left(\left(2^{j}\right)^{\omega-2}m^{2}t\right)\\
+ & \subset O^{\sim}\left(m^{\omega}t\right).
 \end{align*}
  For $j=\log m$, $\mathbf{A}_{j}$ has dimension $m\times O\left(n\right)$,
 $\bar{\mathbf{B}}_{j}^{\left(1\right)}$ has dimension $O\left(n\right)\times O(m)$,
-and their degrees are $O\left(\xi/m\right)$. Hence they can be multiplied
-with a cost of $O^{\sim}\left((n/m)m^{\omega}(\xi/m)\right)=O^{\sim}\left(nm^{\omega-2}\xi\right)$.
+and their degrees are $O\left(t\right)$. Hence they can be multiplied
+with a cost of $O^{\sim}\left((n/m)m^{\omega}t\right)=O^{\sim}\left(nm^{\omega-1}t\right)$.
 Adding up the columns of $\mathbf{A}_{j}\bar{\mathbf{B}}_{j}^{(1)}$
-gives $\mathbf{A}_{j}\mathbf{B}_{j}^{(1)}$ and costs $O(m\xi)$.
+gives $\mathbf{A}_{j}\mathbf{B}_{j}^{(1)}$ and costs $O(m^{2}t)$.
 Therefore, multiplying $\mathbf{A}$ and $\mathbf{B}^{(1)}$ over
-$\log(m)$ steps costs $O^{\sim}\left(nm^{\omega-2}\xi\right)$.
+$\log(m)$ steps costs 
+\[
+O^{\sim}\left(m^{\omega}t\right)+O^{\sim}\left(nm^{\omega-1}t\right)+O(m^{2}t)=O^{\sim}\left(nm^{\omega-1}t\right).
+\]
+
 
 Next we multiply $\mathbf{A}$ with $\mathbf{B}^{(2)}$. We proceed
 in the same way as before, but notice that $\mathbf{A}_{1}\mathbf{B}_{1}^{(2)}$
 is no longer needed since $\mathbf{B}_{1}^{(2)}=0$. Multiplying $\mathbf{A}$
-and $\mathbf{B}^{(2)}$ also costs $O^{\sim}\left(nm^{\omega-2}\xi\right)$.
+and $\mathbf{B}^{(2)}$ also costs $O^{\sim}\left(nm^{\omega-1}t\right).$
 
-Continuing to doing this, gives a costs of $O^{\sim}\left(nm^{\omega-2}\xi\right)$
+Continuing to doing this, gives a costs of $O^{\sim}\left(nm^{\omega-1}t\right)$
 to multiply $\mathbf{A}$ with the columns $\mathbf{B}^{(i)}$ for
 $i$ from $1$ to $\log m$. As before, we recall that $\mathbf{B}_{(j)}^{(i)}=0$
 for $j>i$. The overall cost for $i$ from 1 to $\log m$ is therefore
-$O^{\sim}\left(nm^{\omega-2}\xi\right)$ to multiply $\mathbf{A}$
-and $\mathbf{B}$. \end{proof}
+$O^{\sim}\left(nm^{\omega-1}t\right)$ to multiply $\mathbf{A}$ and
+$\mathbf{B}$. \end{proof}
 

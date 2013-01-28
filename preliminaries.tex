@@ -22,7 +22,7 @@ degree is unbalanced.
 
 
 
-\section{Notations}
+\section{\label{sec:Notation}Notation}
 
 Since we are interested in computing bases with minimal degrees, it
 is useful to have convenient notations for comparing two lists of
@@ -32,10 +32,10 @@ compare two lists of column degrees from two matrices, we first sort
 each list in increasing order, and then do the comparison.
 \begin{description}
 \item [{Comparing~Unordered~Lists}] For two lists $\vec{a}\in\mathbb{Z}^{n}$
-and $\vec{b}\in\mathbb{Z}^{n}$, let $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]\in\mathbb{Z}^{n}$
-and $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]\in\mathbb{Z}^{n}$
-be the lists consists of the entries of $\vec{a}$ and $\vec{b}$
-but sorted in increasing order. 
+and $\vec{b}\in\mathbb{Z}^{n}$, let $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]$
+and $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]$ be the lists
+consists of the entries of $\vec{a}$ and $\vec{b}$ but sorted in
+increasing order. 
 \[
 \begin{cases}
 \vec{a}\ge\vec{b} & \mbox{if }\bar{a}_{i}\ge\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
@@ -54,23 +54,104 @@ and $c\in\mathbb{Z}$, we write $\vec{a}+c$ to denote $\vec{a}+\left[c,\dots,c\ri
 and similarly for $-$.
 \item [{Compare~a~List~with~a~Integer}] For a list $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
 and $c\in\mathbb{Z}$, we write $\vec{a}<c$ to denote $\vec{a}<\left[c,\dots,c\right]$,
-and similarly for $>,\le,\ge,=$.
-\end{description}
+and similarly for $>,\le,\ge,=$.\end{description}
+\begin{example}
+Let $\mathbf{A}=\left[1,x^{2}\right]$, and $\mathbf{B}=\left[x,1\right]$,
+we can write $\cdeg\mathbf{A}>\cdeg\mathbf{B}$, since the sorted
+lists of column degrees of $\mathbf{A}$ and $\mathbf{B}$ are $\left[0,2\right]$
+and $\left[0,1\right]$ respectively.
+\end{example}
 
 \section{Model of Computation}
 
-The computational cost in this paper is analyzed by bounding the number
-of arithmetic operations (additions, subtractions, multiplications,
+The computational cost in this thesis is analyzed by bounding the
+number of arithmetic operations (additions, subtractions, multiplications,
 and divisions) in the coefficient field $\mathbb{K}$ on an algebraic
-random access machine. We use $\MM(n,d)$ to denote the cost of multiplying
+random access machine. We reduce all the problems to polynomial matrix
+multiplications. We use $\MM(n,d)$ to denote the cost of multiplying
 two polynomial matrices with dimension $n$ and degree $d$, and $\M(n)$
 to denote the cost of multiplying two polynomials with degree $d$.
-We define a cost function $\bar{\M}(d)=d\log d\log\log d$, then $\bar{\M}(ab)\in O\left(\bar{\M}(a)\bar{\M}(b)\right)$
-and $\bar{\M}(n)\in O(n^{\omega-1})$. We take $\MM(n,d)\in O\left(n^{\omega}\M(d)\right)\subset O(n^{\omega}\bar{\M}(d))$,
+We assume that $\M(st)\in O\left(\M(s)\M(t)\right)$ and $\M(n)\in O(n^{\omega-1})$,
 where the multiplication exponent $\omega$ is assumed to satisfy
-$2<\omega\le3$. We refer to the book by \citet{vonzurgathen} for
-more details and reference about the cost of polynomial multiplication
-and matrix multiplication.
+$2<\omega\le3$. We take $\MM(n,d)\in O\left(n^{\omega}\M(d)\right)\subset O^{\sim}\left(n^{\omega}d\right)$.
+We refer to the book by \citet{vonzurgathen} for more details and
+reference about the cost of polynomial multiplication and matrix multiplication.
+
+
+\section{Computational Cost in Terms of Average Degrees}
+
+In this thesis, we often state the computational costs in terms of
+the average column degrees, in contrast to the matrix degrees that
+are also the maximum column degrees typically used in the literature.
+For example, the cost of a problem involving an input matrix with
+dimension $n\times n$ and column degrees $\vec{s}=\left[s_{1},\dots,s_{n}\right]$
+is usually $O^{\sim}\left(n^{\omega}s\right)$, where $s=\sum\vec{s}/n$
+is the average column degree of the input matrix. This is similar
+to the cost of multiplying two matrices with dimension $n$ and degree
+$s$.
+
+It may be tempting to also write the cost as $O^{\sim}\left(n^{\omega-1}\xi\right)$
+with $\xi=\sum\vec{s}$ being the sum of the column degrees. However,
+note that if $\xi$ is asymptotically much smaller than $n$, such
+as $\xi\in O\left(\log\left(n\right)\right)$, this cost becomes $O^{\sim}\left(n^{\omega-1}\right)$,
+which is incorrect since this is smaller than the size of the input
+matrix. This issue is caused by the subtleties involved with using
+degrees to measure the size of input matrices. In particular, a degree
+0 polynomial does not have size 0. It still has one coefficient, or
+one field element to store. The zero polynomial is even more problematic.
+Its size is zero but its degree is often defined as $-\infty$, certainly
+not zero.
+
+One simple way to address this issue is to use the actual number of
+coefficients instead of the degree to measure the size of a polynomial.
+The number of coefficients of a polynomial $p$ is 
+\[
+\begin{cases}
+0 & \mbox{if }p=0\\
+1+\deg p & \mbox{if }\deg p\ge0.
+\end{cases}
+\]
+This can be applied to polynomial vectors and polynomial matrices
+as well. For example, a polynomial column vector with column degree
+2 then has 3 column coefficients. Then we can use $\xi$ in the cost
+$O^{\sim}\left(n^{\omega-1}\xi\right)$ to represent the sum of the
+number of column coefficients for all columns of the input matrix,
+which must be at least the number of nonzero columns. If we assume
+the zero columns are removed form the input matrix, then $\xi$ must
+be at least $n$ , so $n^{\omega-1}\xi$ must be at least $n^{\omega}$,
+and a cost of $O^{\sim}\left(n^{\omega-1}\right)$ is not possible.
+
+Perhaps a even easier way is to just use the average column degrees
+$s=\sum\vec{s}/n$ in the cost. The cost $O^{\sim}(n^{\omega}s)$
+is then similar to the cost of multiplying two matrices of dimension
+$n$ and degree $s$. The use of $s$ in the asymptotic Big-$O$ notation
+assumes $s$ tends to infinity, hence the problematic cases of zero
+polynomials and degree zero polynomials no longer exist. For simplicity,
+this is the approach we take in this thesis, that is, for most problems
+we describe the costs in terms of the average column degrees instead
+of the sum of the column degrees. But keep in mind that the first
+approach can always be used to give a more refined cost, as $\sum\vec{s}/n$
+in the first approach is not assumed to tend to infinity, but can
+be an arbitrary rational number not less than one.
+
+For order basis computations considered in this thesis, however, the
+sizes are more appropriately measured using order instead of column
+degrees. For a input matrix with dimension $m\times n$ satisfying
+$m\le n$ and order $\sigma,$ we use $a=m\sigma/n$ in the cost $O^{\sim}\left(n^{\omega}a\right)$
+for computing an order basis. Here $a$ can be viewed as the average
+size of the rows if we treat the original input matrix as a square
+matrix by appending $n-m$ zero rows. If the cost is stated as $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+instead of $O^{\sim}\left(n^{\omega}a\right)$, then we have a similar
+situation as before. In the case of $m\sigma\in o\left(n\right)$
+such as $m\sigma\in O\left(\log\left(n\right)\right)$, the cost $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+again becomes $O^{\sim}\left(n^{\omega-1}\right)$, which is again
+less than the cost of multiplying two matrices of dimension $n$ and
+degree 0. However, this time it does not violate the upper bound based
+on the input size, which is at most $nm\sigma\in o(n^{2})$. In fact,
+for the case of order basis computation with balanced shift, we do
+provide a way to handle this case of $m\sigma\in o\left(n\right)$
+with a cost of $O^{\sim}\left(n^{\omega-1}m\sigma\right)$. This is
+given in \prettyref{sec:removeCeilingFunction} of \prettyref{chap:OrderBasis}.
 
 
 \section{Shifted Degrees}
@@ -93,12 +174,18 @@ matrix.
 \end{lem}
 \begin{proof}
 The lemma follows from the fact $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$
-has degree bounded by 0 (Note that the negative degrees are define
-here by setting$\deg x^{-d}=-d$ for $d\in\mathbb{Z}_{>0}$. If one
-wishes to avoid this negative degrees, one can simply shift the degrees
+has degree no more than 0 (Note that the negative degrees are defined
+here by setting $\deg x^{-d}=-d$ for $d\in\mathbb{Z}_{>0}$. If one
+wishes to avoid negative degrees, one can simply shift the degrees
 up by multiplying the matrix by $x^{a}$ for some large $a$). Note
 the symmetry between the shifted row degrees and the shifted column
 degrees.\end{proof}
+\begin{example}
+Let $\mathbf{A}=\begin{bmatrix}1,x^{2}\end{bmatrix}$, $\vec{u}=\left[1\right]$
+and $\vec{v}=\left[2,4\right]$. Then $\cdeg_{\vec{u}}\mathbf{A}=\left[1,3\right]\le\vec{v}$,
+and $\rdeg_{-\vec{v}}\mathbf{A}=\left[-2\right]\le-\vec{u}$. If $\vec{u}=\left[1\right]$
+and $\vec{v}=[1,1]$, then $\cdeg_{\vec{u}}\mathbf{A}=\left[1,3\right]\nleq\vec{v}$,
+and $\rdeg_{-\vec{v}}\mathbf{A}=\left[1\right]\nleq-\vec{u}$.\end{example}
 \begin{lem}
 \label{lem:productDegreeBound}If the $\vec{u}$-column degrees of
 $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$ are bounded by
@@ -144,9 +231,9 @@ from \prettyref{lem:productDegreeBound}.\end{proof}
 \section{Unimodular Matrices and Unimodular Transformations}
 
 A square matrix in $\mathbb{K}\left[x\right]^{n\times n}$ is said
-to be \emph{unimodular} if its determinant is in $\mathbb{K}$. A
-matrix in $\mathbb{K}\left[x\right]^{n\times n}$ is unimodular if
-and only if it has an inverse in $\mathbb{K}\left[x\right]^{n\times n}$.
+to be \emph{unimodular} if its determinant is in $\mathbb{K}\backslash\left\{ 0\right\} $.
+Equivalently, a matrix in $\mathbb{K}\left[x\right]^{n\times n}$
+is unimodular if and only if it has an inverse in $\mathbb{K}\left[x\right]^{n\times n}$.
 Therefore, a unimodular transformation can be undone by the multiplication
 with the inverse transformation matrix in $\mathbb{K}\left[x\right]^{n\times n}$.
 This allows us to talk about unimodular equivalence of the polynomial
@@ -161,7 +248,7 @@ $\mathbf{q}=\mathbf{B}\mathbf{U}\mathbf{p}$.
 
 \section{Column Basis}
 
-The column module of a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+The column module of a nonzero matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 is the $\mathbb{K}\left[x\right]$-module generated by the columns
 of $\mathbf{A}$, that is, this module contains all the column vectors
 that are $\mathbb{K}\left[x\right]$-linear combinations of the columns
@@ -169,8 +256,20 @@ of $\mathbf{A}$. A column basis of $\mathbf{A}$ is just a basis
 for this module. Any column basis of $\mathbf{A}$ can be represented
 as a matrix $\mathbf{T}$, whose columns are the basis elements. The
 matrix $\mathbf{T}$ has full-rank since basis elements must be linearly
-independent. In addition, any two bases for the same module are unimodularly
-equivalent.
+independent. Therefore, a column basis $\mathbf{T}$ can always be
+obtained from the unimodular matrix that transforms $\mathbf{A}$
+to $\mathbf{A}\mathbf{U}=\left[0,\mathbf{T}\right]$ with a full rank
+$\mathbf{T}$. A row basis is defined in a similar way as column basis.
+\begin{example}
+If $\mathbf{A}=\begin{bmatrix}1 & 1+x\\
+x & x+x^{2}
+\end{bmatrix}$, then $\mathbf{T}=\begin{bmatrix}1\\
+x
+\end{bmatrix}$ is a column basis of $\mathbf{A}$, as $\mathbf{A}=\mathbf{T}\left[1,1+x\right]$.
+Note also that the right factor $\left[1,1+x\right]$ here also turns
+out to be a row basis of $\mathbf{A}$.
+\end{example}
+Any two bases for the matrix are unimodularly equivalent.
 \begin{lem}
 \label{lem:basisEquivalence}If the matrices $\mathbf{T}_{1}$ and
 $\mathbf{T}_{2}$ are both column bases of $\mathbf{A}$, then $\mathbf{T}_{1}$
@@ -184,6 +283,10 @@ and $\mathbf{T}_{2}=\mathbf{T}_{2}\mathbf{U}\mathbf{V}$, implying
 $\mathbf{U}\mathbf{V}=\mathbf{V}\mathbf{U}=I$, which requires both
 $\mathbf{U}$ and $\mathbf{V}$ to be unimodular.
 \end{proof}
+\noindent A column basis is not unique and indeed any column basis
+right multiplied by a unimodular polynomial matrix gives another column
+basis. As a result, a column basis can have arbitrarily high degree
+
 
 \section{\label{sec:minimality}Minimality and Column Reducedness}
 
@@ -192,11 +295,11 @@ output matrix to be not only easy to describe, but also convenient
 to use. This usually means the column degrees or the more general
 shifted column degrees are small comparing to other matrices that
 are right unimodularly equivalent. For example a matrix $\mathbf{A}=\left[x,x^{2},x^{2}\right]$
-with column degrees $\left[1,2,2\right]$ can be unimodularly reduced
+with column degrees $\left[1,2,2\right]$ can be unimodularly transformed
 to a matrix $\mathbf{B}=\left[x,x,x^{2}\right]$ with column degrees
 $\left[1,1,2\right]$, which is more desirable with lower degrees. 
 
-To unimodularly reduce a matrix to one with lower column degrees,
+To unimodularly transform a matrix to one with lower column degrees,
 we can look at its\emph{ leading column coefficient matrix}, which
 is defined as follows. 
 \begin{defn}
@@ -241,25 +344,42 @@ Let
 \end{bmatrix}.
 \]
 Then $\mathbf{B}=\mathbf{A}\mathbf{U}$ has column degrees $\left[d_{1},\dots,d_{i-1},\bar{d}{}_{i},d_{i+1},\dots,d_{n}\right],$
-with $\bar{d}_{i}<d_{i}$.\end{proof}
+with $\bar{d}_{i}<d_{i}$.
+\end{proof}
+As one would expect, $\lcoeff\left(\mathbf{A}\right)$ can only be
+full rank if $\mathbf{A}$ is full rank.
+\begin{lem}
+\label{lem:fullRankLcoeffImpliesFullRank}If a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+is not full rank, then $\lcoeff\left(\mathbf{A}\right)$ is also not
+full rank.\end{lem}
+\begin{proof}
+If $\mathbf{A}$ is not full rank, then it satisfies $\mathbf{A}\mathbf{p}=0$
+for some nonzero $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$.
+Let $\vec{a}=\cdeg\mathbf{A}$. Then $\mathbf{A}\mathbf{p}=\left(\mathbf{A}x^{-\vec{a}}\right)\cdot\left(x^{\vec{a}}\mathbf{p}\right)=0$,
+which requires the leading coefficient of $\left(\mathbf{A}x^{-\vec{a}}\right)\cdot\left(x^{\vec{a}}\mathbf{p}\right)$
+to be zero, that is, $\lcoeff\left(\mathbf{A}x^{-\vec{a}}\right)\lcoeff\left(x^{\vec{a}}\mathbf{p}\right)=0$,
+implying $\lcoeff\left(\mathbf{A}x^{-\vec{a}}\right)=\lcoeff\left(\mathbf{A}\right)$
+is not full rank.
+\end{proof}
+One consequence of \prettyref{lem:columnOperationToReduceDegree}
+and \prettyref{lem:fullRankLcoeffImpliesFullRank} is that a column
+basis can always be obtained by applying the unimodular transformation
+from \prettyref{lem:columnOperationToReduceDegree}.
 \begin{cor}
-\label{cor:unimodularlyReduceToColumnBasis}Any matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\label{cor:unimodularlyReduceToColumnBasis}Any matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
 can be unimodularly transformed to $\left[0,\mathbf{T}\right]\in\mathbb{K}\left[x\right]^{m\times n}$
 with a full rank matrix $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$,
-that is, $\mathbf{F}\mathbf{U}=\left[0,\mathbf{T}\right]$ for some
+that is, $\mathbf{A}\mathbf{U}=\left[0,\mathbf{T}\right]$ for some
 unimodular matrix $\mathbf{U}$. Any such matrix $\mathbf{T}$ is
-a column basis of $\mathbf{F}$.\end{cor}
+a column basis of $\mathbf{A}$.\end{cor}
 \begin{proof}
-We can just repeatedly apply \prettyref{lem:columnOperationToReduceDegree}.
-From \prettyref{lem:columnReducedLeadingCoefficient}, this eventually
-gives a column reduced form that contains a column basis. The matrix
-$\mathbf{T}$ is a column basis of $\mathbf{F}$ since its columns
-are linearly independent and the $m\times n$ matrix $\left[0,\mathbf{T}\right]$
-is unimodularly equivalent with $\mathbf{F}$, implying $\mathbf{T}$
-and $\mathbf{F}$ each has columns that generate the same $\mathbb{F}\left[x\right]$-module.
+We can just repeatedly apply the unimodular transformation from \prettyref{lem:columnOperationToReduceDegree}.
+By \prettyref{lem:fullRankLcoeffImpliesFullRank}, this can eventually
+gives a matrix $\left[0,\mathbf{T}\right]$ with a full rank $\mathbf{T}$,
+implying that $\mathbf{T}$ is a column basis of $\mathbf{F}$.
 \end{proof}
 The leading column coefficient matrix can also help to determine the
-degree of the matrix.
+degree of the determinant of the matrix.
 \begin{lem}
 \label{lem:fullRankLeadingCoefficientAndDegreeOfDetermant}The degree
 of the determinant of a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times n}$
@@ -269,41 +389,43 @@ generally, for any shift $\vec{s}\in\mathbb{Z}^{n}$, $\deg\det\mathbf{A}\le\sum\
 If $\lcoeff\left(x^{\vec{s}}\mathbf{A}\right)$ is nonsingular, then
 $\deg\det\mathbf{A}=\sum\cdeg_{\vec{s}}\mathbf{A}-\sum\vec{s}$.\end{lem}
 \begin{proof}
-The determinant is the sum of products, with each product involving
-exactly one entry from each column. So the largest possible degree
-of each product is $\sum\cdeg\mathbf{A}$. For the second statement,
+The determinant can be defined as a sum of products, with each product
+involving exactly one entry from each column. So the largest possible
+degree of each product is $\sum\cdeg\mathbf{A}$. For the second statement,
 note that the coefficient of $\det\mathbf{A}$ corresponds to the
 largest possible degree $\sum\cdeg\mathbf{A}$ is $\det\lcoeff\left(\mathbf{A}\right)$.
 The more general results with shift can be shown by considering the
 the determinant of $x^{\vec{s}}\mathbf{A}$.
 \end{proof}
-It is still not always possible to order two lists of integer degrees,
-as in the case of matrices $\left[x,x^{2},x^{2}\right]$ and $\left[x,x,x^{3}\right]$
+It is still not always possible to order two lists of integer degrees
+using the comparison described in ``'\prettyref{sec:Notation}, as
+in the case of matrices $\left[x,x^{2},x^{2}\right]$ and $\left[x,x,x^{3}\right]$
 with column degrees $\left[1,2,2\right]$ and $\left[1,1,3\right]$.
-Fortunately, although the lists of column degrees of the set of unimodular
-equivalent matrices are not well-ordered, there always exists some
-matrices with the \emph{minimal} column degrees, as shown below by
-\prettyref{lem:matrixGCDlowerDegrees} and \prettyref{cor:minimalUnimodularEquivalentMatrix}.
+Although the lists of column degrees of the set of unimodular equivalent
+matrices are not well-ordered, there always exists some matrices with
+the \emph{minimal} column degrees, as shown below below by \prettyref{lem:matrixGCDlowerDegrees}
+and \prettyref{cor:minimalUnimodularEquivalentMatrix}.
 \begin{lem}
-\label{lem:matrixGCDlowerDegrees}Given any two right unimodularly
-equivalent matrices $\mathbf{A}$ and $\mathbf{B}$, the matrix $\left[\mathbf{A},\mathbf{B}\right]$
+\label{lem:matrixGCDlowerDegrees}Given any two unimodularly equivalent
+matrices $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$ and
+$\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times n}$. The matrix $\left[\mathbf{A},\mathbf{B}\right]$
 can be unimodularly reduced to $\left[0,\mathbf{C}\right]$ with a
-matrix $\mathbf{C}$ that is unimodularly equivalent to both $\mathbf{A}$
-and $\mathbf{B}$, and satisfies $\cdeg\mathbf{C}\le\cdeg\mathbf{A}$
-and $\cdeg\mathbf{C}\le\cdeg\mathbf{B}$. More generally, with a shift
-$\vec{s},$ the matrix $\left[\mathbf{A},\mathbf{B}\right]$ can be
-unimodularly reduced to $\left[0,\mathbf{D}\right]$ with a matrix
-$\mathbf{D}$ that is unimodularly equivalent to both $\mathbf{A}$
+matrix $\mathbf{C}\in\mathbb{K}\left[x\right]^{m\times n}$ that is
+unimodularly equivalent to both $\mathbf{A}$ and $\mathbf{B}$, and
+satisfies $\cdeg\mathbf{C}\le\cdeg\mathbf{A}$ and $\cdeg\mathbf{C}\le\cdeg\mathbf{B}$.
+More generally, with a shift $\vec{s},$ the matrix $\left[\mathbf{A},\mathbf{B}\right]$
+can be unimodularly reduced to $\left[0,\mathbf{D}\right]$ with a
+matrix $\mathbf{D}$ that is unimodularly equivalent to both $\mathbf{A}$
 and $\mathbf{B}$, and satisfies $\cdeg_{\vec{s}}\mathbf{D}\le\cdeg_{\vec{s}}\mathbf{A}$
 and $\cdeg_{\vec{s}}\mathbf{D}\le\cdeg_{\vec{s}}\mathbf{B}$. \end{lem}
 \begin{proof}
-If $r$ is the rank of $\mathbf{A}$ and $\mathbf{B}$, we can compute
-a matrix $\mathbf{C}$ the column degrees of $\mathbf{C}$ are bounded
-by the column degrees of the $r$ linear independent columns of $\left[\mathbf{A},\mathbf{B}\right]$
-with the smallest column degrees, as higher degree columns can be
-reduced using \prettyref{lem:columnOperationToReduceDegree}. For
-the more general result with shift, we can again multiply $x^{\vec{s}}$
-to the matrices.\end{proof}
+If $r$ is the rank of $\mathbf{A}$ and $\mathbf{B}$, we can repeatedly
+apply \prettyref{lem:fullRankLcoeffImpliesFullRank} and \prettyref{lem:columnOperationToReduceDegree}
+to compute a matrix $\mathbf{C}$ that has $r$ nonzero linearly independent
+columns with column degrees bounded by the column degrees of the $r$
+linear independent columns of $\left[\mathbf{A},\mathbf{B}\right]$
+with the smallest column degrees. For the more general result with
+shift, we can again multiply $x^{\vec{s}}$ to the matrices.\end{proof}
 \begin{cor}
 \label{cor:minimalUnimodularEquivalentMatrix}Given a matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 and a shift $\vec{s}\in\mathbb{Z}^{n}$. There exists a matrix $\mathbf{G}$
@@ -313,11 +435,12 @@ there exists a matrix $\mathbf{H}$ that is right unimodularly equivalent
 to $\mathbf{F}$ and $\cdeg_{\vec{s}}\mathbf{G}\le\cdeg_{\vec{s}}(\mathbf{F}\mathbf{U})$
 for any unimodular $\mathbf{U}$\end{cor}
 \begin{proof}
-Just repeatedly apply \prettyref{lem:matrixGCDlowerDegrees} to matrices
-that are right unimodularly equivalent to $\mathbf{F}$. 
+Just repeatedly apply \prettyref{lem:matrixGCDlowerDegrees} to the
+nonzero columns of the matrices that are right unimodularly equivalent
+to $\mathbf{F}$. 
 \end{proof}
 The existence of matrices with minimal column degrees allows us to
-define \emph{column reducedness.}
+define \emph{column reduced.}
 \begin{defn}
 A matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$ is said
 to be \emph{column reduced} if $\cdeg\mathbf{A}\le\cdeg\mathbf{A}\mathbf{U}$
@@ -326,52 +449,59 @@ $\vec{s}\in\mathbb{Z}^{n}$, a matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\t
 is said to be $\vec{s}$\emph{-column reduced} if $\cdeg_{\vec{s}}\mathbf{A}\le\cdeg_{\vec{s}}\mathbf{A}\mathbf{U}$
 for any unimodular matrix $\mathbf{U}$.
 
-Note that the nonzero columns of a column reduced matrix form a column
-basis. So computing a column reduced form is at least as hard as computing
-a column basis.
 
-The leading column coefficient matrix provides a useful test for being
-column reduced.\end{defn}
+\end{defn}
+The following results show that the leading column coefficient matrix
+provides a useful test for being column reduced.
 \begin{lem}
-\label{lem:columnReducedLeadingCoefficient}A matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
-with no zero columns is column reduced if and only if \textup{$\lcoeff\left(\mathbf{A}\right)$
-has full column rank.}\end{lem}
+\label{lem:predictableDegree0}If $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+has a full rank leading column coefficient matrix $\lcoeff\left(\mathbf{A}\right)$
+and $\cdeg\mathbf{A}=\vec{v}$. Then a matrix $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+has $\vec{v}$-column degrees $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
+if and only if $\cdeg\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$. \end{lem}
 \begin{proof}
-We just need to show that the full-rank $\lcoeff\left(\mathbf{A}\right)$
-implies a column reduced $\mathbf{A}$, since the other direction
-is covered in \prettyref{lem:columnOperationToReduceDegree}. Suppose
-$\lcoeff\left(\mathbf{A}\right)$ is full-rank but not column reduced.
-Let $\mathbf{B}$ be a unimodularly equivalent column reduced matrix,
-which exists from \prettyref{cor:minimalUnimodularEquivalentMatrix},
-then $\cdeg\mathbf{A}>\cdeg\mathbf{B}$. Let $\mathbf{U}$ be the
-unimodular matrix satisfying $\mathbf{A}\mathbf{U}=\mathbf{B}$. Let
-$\bar{\mathbf{A}}$ be a square matrix with $n$ rows chosen from
-$\mathbf{A}$ such that $\cdeg\bar{\mathbf{A}}=\cdeg\mathbf{A}$.
-Then $\bar{\mathbf{B}}=\bar{\mathbf{A}}\mathbf{U}$ is a matrix consisting
-of rows from $\mathbf{B}$ with the same indices. It follows that
-$\deg\det\bar{\mathbf{A}}=\deg\det\bar{\mathbf{B}}$. But $\cdeg\bar{\mathbf{B}}\le\cdeg\mathbf{B}<\cdeg\mathbf{A}=\cdeg\bar{\mathbf{A}}$,
-while from \prettyref{lem:fullRankLeadingCoefficientAndDegreeOfDetermant}
-$\deg\det\bar{\mathbf{B}}\le\sum\cdeg\bar{\mathbf{B}}$ and $\deg\det\bar{\mathbf{A}}=\sum\cdeg\bar{\mathbf{A}}$,
-which gives $\deg\det\bar{\mathbf{B}}<\deg\det\bar{\mathbf{A}}$,
-a contradiction.
+The leading coefficient matrix $B$ of $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+has no zero column if and only if the leading column coefficient matrix
+$AB$ of $\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=\mathbf{A}\mathbf{B}^{-\vec{w}}$
+has no zero column, in other words, $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
+has column degrees $\left[0,\dots,0\right]$ if and only if $\mathbf{A}\mathbf{B}^{-\vec{w}}$
+has column degrees $\left[0,\dots,0\right]$.\end{proof}
+\begin{cor}
+\label{cor:fullColumnRankLeadingCoefficientMatrixImpliesColumnReduced}If
+$\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$ has a full rank
+leading column coefficient matrix, then $\mathbf{A}$ is column reduced. \end{cor}
+\begin{proof}
+Let $\vec{v}=\cdeg\mathbf{A}$. Any unimodular matrix $\mathbf{U}\in\mathbb{K}\left[x\right]^{n\times n}$
+must satisfy $\cdeg_{\vec{v}}\mathbf{U}\ge\vec{v}$. Then by \prettyref{lem:predictableDegree0}
+\[
+\cdeg\left(\mathbf{A}\mathbf{U}\right)=\cdeg_{\vec{v}}\mathbf{U}\ge\vec{v}=\cdeg\mathbf{A}.
+\]
+\end{proof}
+\begin{cor}
+\label{cor:columnReducedLeadingCoefficient}A matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+with no zero columns is $\vec{u}$-column reduced if and only if $\lcoeff\left(x^{\vec{u}}\mathbf{A}\right)$
+has full column rank.\end{cor}
+\begin{proof}
+This follows from \prettyref{lem:columnOperationToReduceDegree} and
+\prettyref{cor:fullColumnRankLeadingCoefficientMatrixImpliesColumnReduced}.
+
+
 \end{proof}
 In \prettyref{lem:productDegreeBound}, when the matrix $\mathbf{A}$
 is $\vec{u}$-column reduced, the bound becomes an equality, which
 then gives the following lemma. This can be viewed as a stronger version
 of the predictable-degree property \citep{kailath:1980}.
 \begin{lem}
-\label{lem:predictableDegree}If $\mathbf{A}$ is a full-rank $\vec{u}$-column
-reduced matrix with $\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$, then $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
-if and only if $\cdeg_{\vec{u}}\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$.\end{lem}
+\label{lem:predictableDegree}Let $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+be a $\vec{u}$-column reduced matrix with no zero columns and with
+$\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$. Then a matrix $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+has $\vec{v}$-column degrees $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
+if and only if $\cdeg_{\vec{u}}\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$. \end{lem}
 \begin{proof}
-$\vec{u}$-column reduced means the leading column coefficient matrix
-$A$ of $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$ has linearly independent
-columns. Now the leading coefficient matrix $B$ of $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
-has no zero column if and only if the leading column coefficient matrix
-$AB$ of $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}x^{\vec{v}}\mathbf{B}^{-\vec{w}}=x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
-has no zero column, in other words, $x^{\vec{v}}\mathbf{B}^{-\vec{w}}$
-has column degrees $\left[0,\dots,0\right]$ if and only if $x^{\vec{u}}\mathbf{A}\mathbf{B}^{-\vec{w}}$
-has column degrees $\left[0,\dots,0\right]$.
+From \prettyref{cor:columnReducedLeadingCoefficient}, $\vec{u}$-column
+reduced means the leading column coefficient matrix $A$ of $x^{\vec{u}}\mathbf{A}x^{-\vec{v}}$
+has linearly independent columns. Now the result follows by using
+\prettyref{lem:predictableDegree0} on $x^{\vec{u}}\mathbf{A}$.
 \end{proof}
 We also have the following similar result on column reducedness.
 \begin{lem}
@@ -392,7 +522,7 @@ Let $\mathbb{K}$ be a field, $\mathbf{F}\in\mathbb{K}\left[\left[x\right]\right]
 a matrix of power series and $\vec{\sigma}=\left[\sigma_{1},\dots,\sigma_{m}\right]$
 a vector of non-negative integers. 
 \begin{defn}
-We say a vector of polynomials $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$
+We say a column vector of polynomials $\mathbf{p}\in\mathbb{K}\left[x\right]^{n\times1}$
 has \emph{order} $\left(\mathbf{F},\vec{\sigma}\right)$ (or \emph{order}
 $\vec{\sigma}$ with respect to $\mathbf{F}$) if $\mathbf{F}\cdot\mathbf{p}\equiv\mathbf{0}\mod x^{\vec{\sigma}}$,
 that is, 
@@ -403,8 +533,8 @@ that is,
 \end{bmatrix}\mathbf{r}
 \]
  for some $\mathbf{r}\in\mathbb{K}\left[\left[x\right]\right]^{m\times1}$.
-If $\vec{\sigma}=\left[\sigma,\dots,\sigma\right]$ is uniform, then
-we say that $\mathbf{p}$ has order $\left(\mathbf{F},\sigma\right).$
+If $\vec{\sigma}=\left[\sigma,\dots,\sigma\right]$ has entries uniformly
+equal to $\sigma$, then we say that $\mathbf{p}$ has order $\left(\mathbf{F},\sigma\right).$
 \begin{comment}
 The vector of power series $\mathbf{r}$ is called the order $\left(\mathbf{F},\sigma\right)$-residual
 of \textbf{$\mathbf{p}$}. 
@@ -419,7 +549,7 @@ minimal degrees (also referred to as a reduced order basis in \citep{BL1997}).
 
 
 
-An \emph{order basis} \citep{BeLa94,BL1997} $\mathbf{P}$ of $\mathbf{F}$
+An order basis \citep{BeLa94,BL1997} $\mathbf{P}$ of $\mathbf{F}$
 with order $\vec{\sigma}$ and shift $\vec{s}$, or simply an $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis,
 is a basis for the module $\left\langle \left(\mathbf{F},\vec{\sigma}\right)\right\rangle $
 \begin{comment}
@@ -428,7 +558,7 @@ is a basis for the module $\left\langle \left(\mathbf{F},\vec{\sigma}\right)\rig
 \]
 \end{comment}
 {} having minimal $\vec{s}$-column degrees. If $\vec{\sigma}=\left[\sigma,\dots,\sigma\right]$
-are constant vectors then we simply write $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis.
+is uniform then we simply write $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis.
 The precise definition of an $\left(\mathbf{F},\vec{\sigma},\vec{s}\right)$-basis
 is as follows.
 \begin{defn}

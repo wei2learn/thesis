@@ -6,50 +6,60 @@ does not correspond to the rank. For these reasons, we do not pursue
 rank sensitive computations for order basis. 
 \end{comment}
 \begin{algorithm}[t]
-\caption{$\mnbr(\mathbf{M},\vec{s})$}
+\caption{$\mnbr(\mathbf{M},\vec{s},\xi)$}
 \label{alg:minimalNullspaceBasisReverse}
 
-\begin{algorithmic}
-[1]\REQUIRE{$\mathbf{M}\in\mathbb{K}\left[x\right]^{k\times n}$ such that $\sum\rdeg_{\vec{s}}\mathbf{M}\le\sum\vec{s}$
-and a $\left(\mathbf{M},-\vec{s}\right)$-kernel basis has row degrees
-bounded by $\vec{s}$ (equivalently, $-\vec{s}$-column degrees bounded
-by 0).}
+\bigskip{}
+
+
+\begin{algorithmic}[1]
+\REQUIRE{$\mathbf{M}\in\mathbb{K}\left[x\right]^{k\times n}$ and $\vec{s}\in\mathbb{Z}_{\ge0}^{n}$
+such that $\sum\rdeg_{\vec{s}}\mathbf{M}\le\xi$, $\sum\vec{s}\le\xi$,
+and any $\left(\mathbf{M},-\vec{s}\right)$-kernel basis having row
+degrees bounded by $\vec{s}$ (equivalently, having $-\vec{s}$-column
+degrees bounded by 0).}
+
+\bigskip{}
+
 
 \ENSURE{$\mathbf{G}\in\mathbb{K}\left[x\right]^{n\times*}$, a $\left(\mathbf{M},-\vec{s}\right)$-kernel
 basis.}
 
+\bigskip{}
+
+
 \STATE{\textbf{$\left[\mathbf{M}_{1}^{T},\mathbf{M}_{2}^{T},\cdots,\mathbf{M}_{\log k-1}^{T},\mathbf{M}_{\log k}^{T}\right]:=\mathbf{M}^{T}$},
 with $\mathbf{M}_{\log k},\mathbf{M}_{\log k-1},\cdots,\mathbf{M}_{2},\mathbf{M}_{1}$
-having $\vec{s}$-row degrees in the range $\left[0,2\xi/k\right],(2\xi/k,4\xi/k],...,(\xi/4,\xi/2],(\xi/2,\xi].$\textbf{ }}
+having $\vec{s}$-row degrees in the range $\left[0,\frac{2\xi}{k}\right],(\frac{2\xi}{k},\frac{4\xi}{k}],...,(\frac{\xi}{4},\frac{\xi}{2}],(\frac{\xi}{2},\xi].$\textbf{ }}
 
 \FOR{$i$ \textbf{from $1$ to $\log k$ }} 
 
-\forbody{\STATE{$\vec{\sigma}_{i}:=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$,
-with the number of entries matches the row dimension of $\mathbf{M}_{i};$}}
+\forbody{\STATE{$\vec{\sigma}_{i}:=\left[\frac{\xi}{2^{i-1}}+1,\dots,\frac{\xi}{2^{i-1}}+1\right]$,
+number of entries matching the row dimension of $\mathbf{M}_{i};$}}
 
 \STATE{$\vec{\sigma}:=\left[\vec{\sigma}_{1},\vec{\sigma}_{2},\dots,\vec{\sigma}_{\log k}\right]$;}
 
-\STATE{$\hat{\mathbf{M}}:=x^{\vec{\sigma}-\vec{b}-1}\mathbf{M};$}
+\STATE{$\hat{\mathbf{N}}:=x^{\vec{\sigma}-\vec{b}-1}\mathbf{M};$}
 
-\STATE{$\mathbf{N}_{0}:=I_{n}$; $\tilde{\mathbf{N}}_{0}:=I_{n};$}
+\STATE{$\mathbf{G}_{0}:=I_{n}$; $\tilde{\mathbf{G}}_{0}:=I_{n};$}
 
 \FOR{$i$ \textbf{from $1$ to $\log k$ }} 
 
-\forbody{\STATE{$\vec{s}_{i}:=-\cdeg_{-\vec{s}}\mathbf{N}_{i-1};$ (note $\vec{s}_{1}=\vec{s}$)}
+\forbody{\STATE{$\vec{s}_{i}:=-\cdeg_{-\vec{s}}\mathbf{G}_{i-1};$ (note $\vec{s}_{1}=\vec{s}$)}
 
-\STATE{$\mathbf{P}_{i}:=\umab\left(\hat{\mathbf{M}}_{i}\tilde{\mathbf{N}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$; }
+\STATE{$\mathbf{P}_{i}:=\umab\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$; }
 
-\STATE{$\left[\mathbf{N}_{i},\mathbf{Q}_{i}\right]:=\mathbf{P}_{i}$, where
+\STATE{$\left[\mathbf{G}_{i},\mathbf{Q}_{i}\right]:=\mathbf{P}_{i}$, where
 $\mathbf{N}_{i}$ is a $\left(\hat{\mathbf{M}}_{i},-\vec{s}_{i}\right)$-kernel
 basis;}
 
-\STATE{$\tilde{\mathbf{N}_{i}}:=\tilde{\mathbf{N}}_{i-1}\cdot\mathbf{N}_{i};$ }
+\STATE{$\tilde{\mathbf{G}_{i}}:=\tilde{\mathbf{G}}_{i-1}\cdot\mathbf{G}_{i};$ }
 
 }
 
 
 
-\RETURN $\tilde{\mathbf{N}_{i}}$ 
+\RETURN $\tilde{\mathbf{G}_{i}}$ 
 \end{algorithmic}
 \end{algorithm}
 

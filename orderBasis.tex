@@ -1,12 +1,13 @@
 
-\chapter{Order Basis\label{chap:OrderBasis}}
+\chapter{Order Basis with Balanced Shifts\label{chap:OrderBasis}}
 
-In this chapter, we give algorithms for computing a shifted order
-basis of an $m\times n$ matrix of power series over a field $\mathbb{K}$
-with $m\le n$. For a given order $\sigma$ and balanced shift $\vec{s}$
-the first algorithm determines an order basis with a cost of $O^{\sim}(n^{\omega-1}m\sigma)$
-field operations in $\mathbb{K}$, where $\omega$ is the exponent
-of matrix multiplication. Here an input shift is balanced when $\max(\vec{s})-\min(\vec{s})\in O(m\sigma/n)$.
+In this chapter and the next chapter we give algorithms for computing
+a shifted order basis of an $m\times n$ matrix of power series over
+a field $\mathbb{K}$ with $m\le n$. For a given order $\sigma$
+and balanced shift $\vec{s}$ the algorithm in this chapter determines
+an order basis with a cost of $O^{\sim}(n^{\omega}a)$ field operations
+in $\mathbb{K}$, where $\omega$ is the exponent of matrix multiplication
+and $a=m\sigma/n$. Here, an input shift is balanced when $\max(\vec{s})-\min(\vec{s})\in O(a)$.
 %Here $O^{\sim}$
 %is just $O$ with log factors omitted and 
 %$\MM\left(n,d\right)$ denotes
@@ -14,48 +15,19 @@ of matrix multiplication. Here an input shift is balanced when $\max(\vec{s})-\m
 %and degree $d$. 
 This extends earlier work of Storjohann which only determines a subset
 of an order basis that is within a specified degree bound $\delta$
-using $O^{\sim}(n^{\omega}\delta)$ field operations for $\delta\ge\lceil m\sigma/n\rceil$.
-While the first algorithm addresses the case when the column degrees
-of a complete order basis are unbalanced given a balanced input shift,
-it is not efficient in the case when an unbalanced shift results in
-the row degrees also becoming unbalanced. %The column degrees of a complete basis may be unbalanced, which is
-%a major issue we address in the first algorithm. When the input shift
-%is unbalanced, the row degrees of the basis can also be unbalanced
-%in addition to the unbalanced column degrees. For this, we present
-We present a second algorithm which balances the high degree rows
-and computes an order basis also using $O^{\sim}(n^{\omega}\lceil m\sigma/n\rceil)$
-field operations in the case that the shift is unbalanced but satisfies
-the condition $\sum_{i=1}^{n}(\max(\vec{s})-\vec{s}_{i})\le m\sigma$.%
-\begin{comment}
-Every problem with any unbalanced shift can be in fact reduced to
-a problem with a shift that satisfying this condition if the degrees
-of a resulting order basis is known. 
-\end{comment}
-{} %
-\begin{comment}
-Many unbalanced shift problems can be in fact converted to problems
-satisfying this condition. 
-\end{comment}
-{} This condition essentially allows us to locate those high degree
-rows that need to be balanced. %
-\begin{comment}
-In more general unbalanced shift cases, this algorithm may not work
-well directly since we do not know in advance which are the high degree
-rows need to be balanced. But it may work efficiently if we have an
-effective way of estimating the resulting row degrees. 
-\end{comment}
-{} %
-\begin{comment}
-This extends the earlier work by the authors from ISSAC'09.
-\end{comment}
+using $O^{\sim}(n^{\omega}\delta)$ field operations for $\delta\ge\lceil a\rceil$.
+In the end of this chapter, we show how a more refined cost of $O^{\sim}(n^{\omega-1}m\sigma)$
+instead of $O^{\sim}\left(n^{\omega}a\right)$ field operations can
+be achieved when the shifts are balanced.
 
 
-In this Chapter, we assume, without any loss of generality, that $n/m$
+
+In this chapter, we assume, without any loss of generality, that $n/m$
 and $\sigma$ are powers of two. This can be achieved by padding zero
 rows to the input matrix and multiplying it by some power of $x$.
 
 We first give a brief description of Storjohann's transformation for
-computer a partial order basis. %
+computing a partial order basis. %
 \begin{comment}
 We then provide another transformation that allows us to extend the
 result from a lower order Storjohann's transformation to the result
@@ -81,18 +53,19 @@ a polynomial matrix with degree $\sigma-1$, as higher order terms
 are not needed in the computation. As such the total input size of
 an order basis problem is $mn\sigma$ coefficients. One can apply
 the method of \citet{Giorgi2003} directly, which gives a cost of
-\begin{align*}
-\sum_{i=0}^{\log\sigma}2^{i}\MM(n,2^{-i}\sigma)= & \sum_{i=0}^{\log\sigma}2^{-i}\sigma\MM(n,2^{i})\\
-\subset & O\left(\sum_{i=0}^{\log\sigma}2^{-i}n^{\omega}\sigma2^{i}\log2^{i}\log\log2^{i}\right)\\
-= & O\left(n^{\omega}\sigma\sum_{i=0}^{\log\sigma}i\log i\right)\\
-\subset & O\left(n^{\omega}\sigma\sum_{i=0}^{\log\sigma}\log\sigma\log\log\sigma\right)\\
-= & O\left(n^{\omega}\sigma\log^{2}\sigma\log\log\sigma\right)=O(n^{\omega}\bar{\M}(\sigma)\log\sigma),
-\end{align*}
- close to the cost of multiplying two matrices with dimension $n$
-and degree $\sigma$. Note that this cost is independent of the degree
-shift. This is very efficient if $m\in\Theta\left(n\right)$. However,
-for small $m$, say $m=1$ as in Hermite Padé approximation, the total
-input size is only $n\sigma$ coefficients. Matrix multiplication
+\begin{align}
+\sum_{i=0}^{\log\sigma}2^{i}\MM(n,2^{-i}\sigma)= & \sum_{i=0}^{\log\sigma}2^{-i}\sigma\MM(n,2^{i})\nonumber \\
+\subset & O\left(\sum_{i=0}^{\log\sigma}\sigma n^{\omega}\M\left(2^{i}\right)2^{-i}\right)\nonumber \\
+\subset & O\left(n^{\omega}\sum_{i=0}^{\log\sigma}\M\left(\sigma\right)\right)\label{eq:polynomialMultiplicationBound}\\
+= & O(n^{\omega}\M(\sigma)\log\sigma).\nonumber 
+\end{align}
+Equation (\ref{eq:polynomialMultiplicationBound}) follows from the
+fact $2^{i}\le\sigma$ implies $\M\left(2^{i}\right)2^{-i}\le\M\left(\sigma\right)/\sigma$.
+This cost is close to the cost of multiplying two matrices with dimension
+$n$ and degree $\sigma$. Note that this cost is independent of the
+degree shift. This is very efficient if $m\in\Theta\left(n\right)$.
+However, for small $m$, say $m=1$ as in Hermite Padé approximation,
+the total input size is only $n\sigma$ coefficients. Matrix multiplication
 cannot be used effectively on a such vector input.
 
 \citet{Storjohann:2006} provides a novel way to transform an order
@@ -135,38 +108,37 @@ $m\times m$. The overall dimension of $\bar{\mathbf{F}}$ is $ml\times(n+m(l-1))$
 Set $\vec{s'}=\left[\vec{s},0,\dots,0\right]$ ($\vec{s}$ followed
 by $m\left(l-1\right)$ $0$'s). A $({\bar{\mathbf{F}}},2\delta,\vec{s'})$-basis
 can then be computed by the method of Giorgi et al. with a cost of
-$O^{\sim}\left(n^{\omega}\delta\right)$ for $\delta\ge\left\lceil m\sigma/n\right\rceil $.
-This transformation of Storjohann can be viewed as a partial linearization
-of the original problem, where $\bar{\mathbf{F}}$ is analogous to
-the coefficient matrix of $\mathbf{F}$. Note that $\bar{\mathbf{F}}$
-has $l$ block rows each containing $m$ rows. We continue to use
-each block row to represent $m$ rows for the remainder of the paper.
+$O^{\sim}\left(n^{\omega}\delta\right)$ for $\delta\ge\left\lceil a\right\rceil $,
+where $a=m\sigma/n$. This transformation of Storjohann can be viewed
+as a partial linearization of the original problem, where $\bar{\mathbf{F}}$
+is analogous to the coefficient matrix of $\mathbf{F}$. Note that
+$\bar{\mathbf{F}}$ has $l$ block rows each containing $m$ rows.
+We continue to use each block row to represent $m$ rows for the remainder
+of this chapter.
 
-Clearly a $(\bar{\mathbf{F}},2\delta,\vec{s'})$-basis $\bar{\mathbf{P}}$
+Clearly an $(\bar{\mathbf{F}},2\delta,\vec{s'})$-basis $\bar{\mathbf{P}}$
 of the transformed problem is not a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis
 of the original problem, as $\bar{\mathbf{P}}$ has a higher dimension
 and lower degree. However, the first $n$ rows of the $(\bar{\mathbf{F}},2\delta,\vec{s'})_{\delta-1}$-basis
 contained in $\bar{\mathbf{P}}$ is a $\left(\mathbf{F},\sigma,\vec{s}\right)_{\delta-1}$-basis.
 
 Note that there is no need to set the degree parameter $\delta$ to
-less than $\left\lceil m\sigma/n\right\rceil $, as this produces
-fewer basis elements without a better cost. The lowest cost is achieved
-when $\bar{\mathbf{F}}$ is close to square so matrix multiplication
-can be used most effectively. This requires the number of block rows
-$l$ of $\bar{\mathbf{F}}$ to be close to $n/m$, which requires
-$\delta=\Theta\left(\left\lceil m\sigma/n\right\rceil \right)$. Recall
-that $mn\sigma$ is the total size of the original $m\times n$ input
-matrix $\mathbf{F}$, hence $d=mn\sigma/n^{2}=m\sigma/n$ is the average
-degree of each entry of $\mathbf{F}$ if the $m$ rows of $\mathbf{F}$
-are spread out over $n$ rows. Choosing $\delta=\Theta\left(\left\lceil d\right\rceil \right)$,
+less than $\left\lceil a\right\rceil $, as this produces fewer basis
+elements without a better cost. The lowest cost is achieved when $\bar{\mathbf{F}}$
+is close to square so matrix multiplication can be used most effectively.
+This requires the number of block rows $l$ of $\bar{\mathbf{F}}$
+to be close to $n/m$, which requires $\delta=\Theta\left(a\right)$.
+Recall that $mn\sigma$ is the total size of the original $m\times n$
+input matrix $\mathbf{F}$, hence $a=mn\sigma/n^{2}=m\sigma/n$ is
+the average size of each entry of $\mathbf{F}$ if the $m$ rows of
+$\mathbf{F}$ are spread out over $n$ rows. Choosing $\delta=\Theta\left(a\right)$,
 the cost of computing a $({\bar{\mathbf{F}}},2\delta,\vec{s'})$-basis
-is then $O^{\sim}\left(n^{\omega}\left\lceil d\right\rceil \right)=O^{\sim}\left(n^{\omega}\left\lceil m\sigma/n\right\rceil \right)$.
-The ceiling function here is used to take care of the case of $m\sigma\in o(n)$.
-For the remainder of the paper, we assume that $m\sigma\in\Omega(n)$
-in order to avoid the need for the ceiling function and so simplify
-the presentation. % avoid this case for simplicity. 
-Together with the assumption that $\sigma$ and $n/m$ are both powers
-of two, $m\sigma/n$ is then always a positive integer in this paper.
+is then $O^{\sim}\left(n^{\omega}a\right)$. In the first part of
+this chapter, we use the average size $a=m\sigma/n$ in the asymptotic
+cost notation. Therefore, $a$ is assumed to be tending to infinity,
+which means $m\sigma>n$. Together with the assumption that $\sigma$
+and $n/m$ are both powers of two, $m\sigma/n$ is then always a positive
+integer in this paper.
 
 %Let us now look at a concrete example that illustrate Storjohann's method. 
 
@@ -261,17 +233,21 @@ without loss of generality, that $\min\left(\vec{s}\right)=0$ so
 $\deg\mathbf{q}\le\deg_{\vec{s}}\mathbf{q}$ for any $\mathbf{q}\in\mathbb{K}\left[x\right]^{n}$.
 The situation is simpler if the shift $\vec{s}$ is uniform since
 then $\sum\vec{t}\le m\sigma$ by \lemref{boundOfSumOfShiftedDegreesOfOrderBasis}
-and the average column degree is therefore bounded by $d=m\sigma/n$.
-In the first part of this paper, we consider a slightly more general
+and the average column degree is therefore bounded by $a=m\sigma/n$.
+In the first part of this thesis, we consider a slightly more general
 case, when the shift $\vec{s}$ is \emph{balanced}, which is defined
 as follows. 
 \begin{defn}
-\label{def:balancedShift}A shift $\vec{s}$ is balanced if $\max\vec{s}-\min\vec{s}\in O(d)=O(m\sigma/n)$. 
+\label{def:balancedShift}A shift $\vec{s}$ is balanced if $\max\vec{s}-\min\vec{s}\in O(a)$
+or if $\max\vec{s}-\min\vec{s}\in O(m\sigma/n)$. 
 \end{defn}
-By assuming $\min\vec{s}=0$, $\vec{s}$ is balanced if $\max\vec{s}\in O(d)$.
+Note that we only need to use the second definition using $\max\vec{s}-\min\vec{s}\in O(m\sigma/n)$
+when we discuss the more refined cost in \secref{removeCeilingFunction}. 
+
+By assuming $\min\vec{s}=0$, $\vec{s}$ is balanced if $\max\vec{s}\in O(a)$.
 In this case, \lemref{boundOfSumOfShiftedDegreesOfOrderBasis} implies
-$\sum\left(\vec{t}\right)\le m\sigma+\sum\left(\vec{s}\right)\in O\left(m\sigma+nd\right)=O\left(m\sigma\right)$.
-Hence the average column degree of the output basis remains $O\left(d\right)$.
+$\sum\left(\vec{t}\right)\le m\sigma+\sum\left(\vec{s}\right)\in O\left(m\sigma+na\right)=O\left(m\sigma\right)$.
+Hence the average column degree of the output basis remains $O\left(a\right)$.
 
 %From the iterative algorithms for computing order basis, computing
 %a order basis to order $\sigma$ requires up to $\sigma$ iterations,
@@ -289,7 +265,7 @@ column degrees by exactly $m$.
 
 
 The fact that a $\left(\mathbf{F},\sigma,\vec{s}\right)$-basis can
-have degree up to $\sigma$ while its average column degree is $O\left(m\sigma/n\right)$
+have degree up to $\sigma$ while its average column degree is $O\left(a\right)$
 implies that an order basis can have quite unbalanced column degrees,
 especially if $m$ is small. A similar problem with unbalanced output
 is encountered in null space basis computation. \citet{storjohann-villard:2005}
