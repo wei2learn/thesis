@@ -134,24 +134,24 @@ approach can always be used to give a more refined cost, as $\sum\vec{s}/n$
 in the first approach is not assumed to tend to infinity, but can
 be an arbitrary rational number not less than one.
 
-For order basis computations considered in this thesis, however, the
-sizes are more appropriately measured using order instead of column
-degrees. For a input matrix with dimension $m\times n$ satisfying
-$m\le n$ and order $\sigma,$ we use $a=m\sigma/n$ in the cost $O^{\sim}\left(n^{\omega}a\right)$
-for computing an order basis. Here $a$ can be viewed as the average
-size of the rows if we treat the original input matrix as a square
-matrix by appending $n-m$ zero rows. If the cost is stated as $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
+For order basis computations considered in this thesis, it is more
+appropriate to measure the sizes using orders instead of column degrees.
+The size of a problem with dimension $m\times n$ and order $\sigma$
+is $O\left(mn\sigma\right)$. If $m\le n$, then the typical cost
+of our algorithms is $O^{\sim}\left(n^{\omega}a\right)$, where $a=m\sigma/n$
+can be viewed as the average size of the rows if we treat the original
+input matrix as a square matrix by appending $n-m$ zero rows. If
+the cost is stated as $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
 instead of $O^{\sim}\left(n^{\omega}a\right)$, then we have a similar
-situation as before. In the case of $m\sigma\in o\left(n\right)$
-such as $m\sigma\in O\left(\log\left(n\right)\right)$, the cost $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
-again becomes $O^{\sim}\left(n^{\omega-1}\right)$, which is again
-less than the cost of multiplying two matrices of dimension $n$ and
-degree 0. However, this time it does not violate the upper bound based
-on the input size, which is at most $nm\sigma\in o(n^{2})$. In fact,
-for the case of order basis computation with balanced shift, we do
-provide a way to handle this case of $m\sigma\in o\left(n\right)$
-with a cost of $O^{\sim}\left(n^{\omega-1}m\sigma\right)$. This is
-given in \prettyref{sec:removeCeilingFunction} of \prettyref{chap:OrderBasis}.
+situation as before. When $m\sigma\in o\left(n\right)$ such as $m\sigma\in O\left(\log\left(n\right)\right)$,
+the cost $O^{\sim}\left(n^{\omega-1}m\sigma\right)$ again becomes
+$O^{\sim}\left(n^{\omega-1}\right)$, which is again less than the
+cost of multiplying two matrices of dimension $n$ and degree 0. However,
+this time it does not violate the upper bound based on the input size,
+which is at most $nm\sigma\in o(n^{2})$. In fact, for order basis
+computation with balanced shift, we do provide a way, given in \prettyref{sec:removeCeilingFunction}
+of \prettyref{chap:OrderBasis}., to handle the case of $m\sigma\in o\left(n\right)$
+with a cost of $O^{\sim}\left(n^{\omega-1}m\sigma\right)$.
 
 
 \section{Shifted Degrees}

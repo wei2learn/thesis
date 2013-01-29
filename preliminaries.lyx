@@ -693,8 +693,8 @@ Perhaps a even easier way is to just use the average column degrees
 \end_layout
 
 \begin_layout Standard
-For order basis computations considered in this thesis, however, the sizes
- are more appropriately measured using order instead of column degrees.
+For order basis computations considered in this thesis, it is more appropriate
+ to measure the sizes using orders instead of column degrees.
 \begin_inset Note Note
 status collapsed
 
@@ -706,29 +706,29 @@ status collapsed
 
 \end_inset
 
- For a input matrix with dimension 
+ The size of a problem with dimension 
 \begin_inset Formula $m\times n$
 \end_inset
 
- satisfying 
+ and order 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is 
+\begin_inset Formula $O\left(mn\sigma\right)$
+\end_inset
+
+.
+ If 
 \begin_inset Formula $m\le n$
 \end_inset
 
- and order 
-\begin_inset Formula $\sigma,$
-\end_inset
-
- we use 
-\begin_inset Formula $a=m\sigma/n$
-\end_inset
-
- in the cost 
+, then the typical cost of our algorithms is 
 \begin_inset Formula $O^{\sim}\left(n^{\omega}a\right)$
 \end_inset
 
- for computing an order basis.
- Here 
-\begin_inset Formula $a$
+, where 
+\begin_inset Formula $a=m\sigma/n$
 \end_inset
 
  can be viewed as the average size of the rows if we treat the original
@@ -746,7 +746,7 @@ status collapsed
 \end_inset
 
 , then we have a similar situation as before.
- In the case of 
+ When 
 \begin_inset Formula $m\sigma\in o\left(n\right)$
 \end_inset
 
@@ -774,17 +774,8 @@ status collapsed
 \end_inset
 
 .
- In fact, for the case of order basis computation with balanced shift, we
- do provide a way to handle this case of 
-\begin_inset Formula $m\sigma\in o\left(n\right)$
-\end_inset
-
- with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
-\end_inset
-
-.
- This is given in 
+ In fact, for order basis computation with balanced shift, we do provide
+ a way, given in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "sec:removeCeilingFunction"
@@ -796,6 +787,14 @@ reference "sec:removeCeilingFunction"
 LatexCommand formatted
 reference "chap:OrderBasis"
 
+\end_inset
+
+., to handle the case of 
+\begin_inset Formula $m\sigma\in o\left(n\right)$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}m\sigma\right)$
 \end_inset
 
 .
