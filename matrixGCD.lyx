@@ -5210,9 +5210,9 @@ A column basis
 The cost is dominated by the cost of the three kernel basis computations
  in the algorithm.
  The first one is handled by the algorithm from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "za2012"
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:NullspaceBasis"
 
 \end_inset
 
