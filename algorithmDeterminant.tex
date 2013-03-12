@@ -1,0 +1,44 @@
+\begin{algorithm}[t]
+\caption{$\hermiteDiagonalWithScale(\mathbf{F})$}
+\label{alg:hermiteDiagonalWithScalingFactor}
+
+\begin{algorithmic}[1]
+\REQUIRE{$\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$ is nonsingular.
+}
+
+\ENSURE{$\mathbf{d}\in\mathbb{K}\left[x\right]^{n}$ a list of diagonal entries
+of the Hermite normal form of $\mathbf{F}$, and $c$ a scaling factor
+to be multiplied to obtain the determinant.}
+
+\STATE{$\begin{bmatrix}\mathbf{F}_{U}\\
+\mathbf{F}_{D}
+\end{bmatrix}:=\mathbf{F}$, with $\mathbf{F}_{U}$ consists of the top $\left\lceil n/2\right\rceil $
+rows of $\mathbf{F}$;}
+
+
+
+\STATE{\textbf{if }$n=1$ \textbf{then} \textbf{return} $\mathbf{F},1$;
+\textbf{endif};}
+
+\STATE{$\mathbf{G}_{1},\mathbf{U}_{R},\mathbf{V}_{L}:=\colBasis(\mathbf{F}_{U})$;
+(Here we make $\colBasis()$ also return the kernel bases it computed.)}
+
+
+
+
+
+\STATE{$\mathbf{G}_{2}:=\mathbf{F}_{D}\mathbf{U}_{R}$;}
+
+\STATE{$U_{R}:=\mathbf{U}_{R}\mod x$; $V_{U}:=\mathbf{V}_{U}\mod x$;}
+
+\STATE{compute $U_{L}^{*}\in\mathbb{K}^{n\times*}$ , a matrix that gives
+a unimodular completion $U^{*}=\left[U_{L}^{*},U_{R}\right]$;}
+
+\STATE{$\mathbf{d}_{1},c_{1}:=\hermiteDiagonalWithScale(\mathbf{G}_{1});$}
+
+\STATE{$\mathbf{d}_{2},c_{2}:=\hermiteDiagonalWithScale(\mathbf{G}_{2});$}
+
+\STATE{\textbf{return} $\left[\mathbf{d}_{1},\mathbf{d}_{2}\right],c_{1}c_{2}\det\left(V_{U}U_{L}^{*}\right)/\det(U)^{*}$;}
+\end{algorithmic}
+\end{algorithm}
+
