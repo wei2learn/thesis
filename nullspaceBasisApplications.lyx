@@ -309,7 +309,16 @@ reference "line:multiplyFN"
 \end_layout
 
 \begin_layout Proof
-From 
+Let 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ be the column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ From 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
@@ -384,8 +393,7 @@ status collapsed
 \end_layout
 
 \begin_layout Proof
-If the sum of the row degrees is smaller, we can just transpose the matrix.
- Let the cost be 
+Let the cost be 
 \begin_inset Formula $g(n)$
 \end_inset
 
@@ -851,7 +859,7 @@ Repeating this process, we multiply
 \end_inset
 
  from 1 to 
-\begin_inset Formula $\left\lfloor \log n\right\rfloor $
+\begin_inset Formula $\left\lceil \log n\right\rceil -1$
 \end_inset
 
 .
