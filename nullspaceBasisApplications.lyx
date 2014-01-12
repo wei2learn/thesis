@@ -286,6 +286,12 @@ Just use the earlier kernel basis algorithm with the shift set to the column
 \end_layout
 
 \begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:residualProducts"
+
+\end_inset
+
 The multiplications 
 \begin_inset Formula $\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$
 \end_inset
@@ -393,6 +399,52 @@ status collapsed
 \end_layout
 
 \begin_layout Proof
+If we let its cost on a subproblem be 
+\begin_inset Formula $g(m)$
+\end_inset
+
+ for the input matrix of dimension 
+\begin_inset Formula $m$
+\end_inset
+
+, then from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:productDegreeBound"
+
+\end_inset
+
+ and the proof of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:residualProducts"
+
+\end_inset
+
+ the sum of the column degrees of the input matrix is still bounded by 
+\begin_inset Formula $ns$
+\end_inset
+
+, but the average column is now 
+\begin_inset Formula $ns/m$
+\end_inset
+
+.
+ Then the cost 
+\begin_inset Formula 
+\begin{eqnarray*}
+g(m) & \in & O^{\sim}(m^{\omega}\left(ns/m\right))+g(\left\lceil m/2\right\rceil )+g(\left\lfloor m/2\right\rfloor )\\
+ & \in & O^{\sim}(m^{\omega-1}ns)+2g(\left\lceil m/2\right\rceil )\\
+ & \in & O^{\sim}(m^{\omega-1}ns).
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Let the cost be 
 \begin_inset Formula $g(n)$
 \end_inset
@@ -408,8 +460,13 @@ g(n) & \in & O^{\sim}(n^{\omega}s)+g(\left\lceil n/2\right\rceil )+g(\left\lfloo
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
  Note that always rounding up 
-\begin_inset Formula $n/2$
+\begin_inset Formula $m/2$
 \end_inset
 
  to 
@@ -425,7 +482,7 @@ g(n) & \in & O^{\sim}(n^{\omega}s)+g(\left\lceil n/2\right\rceil )+g(\left\lfloo
 \noun off
 \color none
 
-\begin_inset Formula $\left\lceil n/2\right\rceil $
+\begin_inset Formula $\left\lceil m/2\right\rceil $
 \end_inset
 
  is no worse than assuming 
@@ -438,15 +495,15 @@ g(n) & \in & O^{\sim}(n^{\omega}s)+g(\left\lceil n/2\right\rceil )+g(\left\lfloo
 
 .
  In other words, the entries in the sequence 
-\begin_inset Formula $\left[\left\lceil n/2\right\rceil ,\left\lceil n/4\right\rceil ,\dots,1\right]$
+\begin_inset Formula $\left[\left\lceil m/2\right\rceil ,\left\lceil m/4\right\rceil ,\dots,1\right]$
 \end_inset
 
  is no larger than the corresponding entries in the sequence 
-\begin_inset Formula $\left[n'/2,n'/4,\dots,1\right]$
+\begin_inset Formula $\left[m'/2,m'/4,\dots,1\right]$
 \end_inset
 
 , where 
-\begin_inset Formula $n'$
+\begin_inset Formula $m'$
 \end_inset
 
  is the smallest power of 
@@ -454,15 +511,27 @@ g(n) & \in & O^{\sim}(n^{\omega}s)+g(\left\lceil n/2\right\rceil )+g(\left\lfloo
 \end_inset
 
  that is no less than 
-\begin_inset Formula $n$
+\begin_inset Formula $m$
 \end_inset
 
 , that is, 
-\begin_inset Formula $n'=2^{\left\lceil \log_{2}n\right\rceil }$
+\begin_inset Formula $m'=2^{\left\lceil \log_{2}m\right\rceil }$
 \end_inset
 
 .
  
+\end_layout
+
+\begin_layout Proof
+The cost on the original problem when the dimension 
+\begin_inset Formula $m=n$
+\end_inset
+
+ is therefore 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Lemma

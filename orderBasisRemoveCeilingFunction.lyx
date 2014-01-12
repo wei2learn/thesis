@@ -225,7 +225,7 @@ nullspace basis elements of
 
 \end_inset
 
- correspond to a nullspace basis of a linearized matrix 
+ correspond to a kernel basis of a linearized matrix 
 \begin_inset Formula 
 \[
 \bar{F}=\left[\begin{array}{c}
@@ -247,7 +247,7 @@ of
 \end_layout
 
 \begin_layout Lemma
-The elements of a nullspace basis of 
+The elements of a kernel basis of 
 \begin_inset Formula $\bar{F}$
 \end_inset
 

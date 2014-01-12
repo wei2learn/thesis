@@ -443,7 +443,7 @@ status open
 \begin_inset Formula $\left(\hat{\mathbf{M}}_{i},-\vec{s}_{i}\right)$
 \end_inset
 
--nullspace basis;
+-kernel basis;
 \end_layout
 
 \end_inset

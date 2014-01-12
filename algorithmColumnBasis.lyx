@@ -187,7 +187,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathbf{G}:=\left(\mnbr(\mathbf{N}^{T},\vec{s})\right)^{T}$
+\begin_inset Formula $\mathbf{G}:=\left(\mnbr(\mathbf{N}^{T},\vec{s},\sum\vec{s})\right)^{T}$
 \end_inset
 
 ; 
@@ -203,7 +203,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\vec{t}':=\left[0,\dots,0,-\rdeg_{-\vec{s}}\mathbf{G}\right]$
+\begin_inset Formula $\vec{t}^{*}:=\left[0,\dots,0,-\rdeg_{-\vec{s}}\mathbf{G}\right]$
 \end_inset
 
 , with 
@@ -223,7 +223,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\left[V^{T},\bar{\mathbf{T}}^{T}\right]^{T}:=\mnbr(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{t}')$
+\begin_inset Formula $\left[V^{T},\bar{\mathbf{T}}^{T}\right]^{T}:=\mnbr(\left[\mathbf{F}^{T},\mathbf{G}^{T}\right],\vec{t}^{*},\sum\vec{s})$
 \end_inset
 
  with a square 

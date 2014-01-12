@@ -2732,7 +2732,7 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 \end_inset
 
 , let us get back to our problem of computing a 
-\begin_inset Formula $(\mathbf{F},\vec{s})$
+\begin_inset Formula $(\mathbf{N}^{T},-\vec{s})$
 \end_inset
 
 -kernel basis.
@@ -2786,7 +2786,7 @@ status collapsed
 \begin_layout Lemma
 \begin_inset CommandInset label
 LatexCommand label
-name "lem:nullspaceBasisInOrderBasis"
+name "lem:kernelBasisInOrderBasis"
 
 \end_inset
 
@@ -2946,7 +2946,23 @@ reference "lem:orderbasisContainsNullspacebasisGeneralized"
 \end_layout
 
 \begin_layout Standard
-We can use 
+While 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:kernelBasisInOrderBasis"
+
+\end_inset
+
+ shows that a complete 
+\begin_inset Formula $(\mathbf{N}^{T},-\vec{s})$
+\end_inset
+
+-kernel basis can be computed by computing a 
+\begin_inset Formula $\left(\mathbf{N}^{T},\vec{b}+1,-\vec{s}\right)$
+\end_inset
+
+-basis, in fact we do not compute such a order basis, as the computational
+ efficiency can be improved by using 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "thm:continueComputingNullspaceBasisByRows"
@@ -2958,12 +2974,12 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \end_inset
 
 -kernel basis by rows.
- If we separate 
+ We partition 
 \begin_inset Formula $\mathbf{N}$
 \end_inset
 
- to 
-\begin_inset Formula $\mathbf{N}=\left[\mathbf{N}_{1},\mathbf{N}_{2}\right]$
+ into 
+\begin_inset Formula $\left[\mathbf{N}_{1},\mathbf{N}_{2}\right]$
 \end_inset
 
  with 
@@ -2978,7 +2994,8 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \begin_inset Formula $\vec{b}_{2}$
 \end_inset
 
- respectively, and first compute a 
+ respectively.
+ We first compute a 
 \begin_inset Formula $\left(\mathbf{N}_{1}^{T},-\vec{s}\right)$
 \end_inset
 
@@ -3002,7 +3019,7 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \begin_inset Formula $\mathbf{Q}_{2}$
 \end_inset
 
-, then 
+ implying that 
 \begin_inset Formula $\mathbf{Q}_{1}\mathbf{Q}_{2}$
 \end_inset
 
@@ -3011,7 +3028,7 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \end_inset
 
 -kernel basis.
- To compute kernel bases 
+ In order to compute the kernel bases 
 \begin_inset Formula $\mathbf{Q}_{1}$
 \end_inset
 
@@ -3019,9 +3036,15 @@ reference "thm:continueComputingNullspaceBasisByRows"
 \begin_inset Formula $\mathbf{Q}_{2}$
 \end_inset
 
-, we can use order basis computation.
- However, we need to make sure that the order bases we compute do contain
- these kernel bases.
+, we still use order basis computations but work with subsets of rows rather
+ than the whole matrix 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+.
+ We now need to make sure that the order bases computed from subsets of
+ rows contain these kernel bases.
+ 
 \begin_inset Note Note
 status collapsed
 
@@ -3319,7 +3342,7 @@ status open
 \begin_layout Lemma
 \begin_inset CommandInset label
 LatexCommand label
-name "lem:nullspaceBasisOfSubsetOfRowsContainedInOrderBasis"
+name "lem:kernelBasisOfSubsetOfRowsContainedInOrderBasis"
 
 \end_inset
 
@@ -3478,7 +3501,7 @@ reference "lem:predictableDegree"
 , a contradiction since we know from the proof of 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:nullspaceBasisInOrderBasis"
+reference "lem:kernelBasisInOrderBasis"
 
 \end_inset
 
@@ -3583,7 +3606,7 @@ Now that we can correctly compute a
 -kernel basis by rows with the help of order basis computation using 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "lem:nullspaceBasisOfSubsetOfRowsContainedInOrderBasis"
+reference "lem:kernelBasisOfSubsetOfRowsContainedInOrderBasis"
 
 \end_inset
 
@@ -3623,6 +3646,92 @@ reference "thm:continueComputingNullspaceBasisByRows"
 
 .
  
+\end_layout
+
+\begin_layout Standard
+Now that we can correctly compute a 
+\begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
+\end_inset
+
+-kernel basis by rows with the help of order basis computation using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:kernelBasisOfSubsetOfRowsContainedInOrderBasis"
+
+\end_inset
+
+, we need to look at how to do this efficiently.
+ One major difficulty is that the order 
+\begin_inset Formula $\vec{b}+1$
+\end_inset
+
+, or equivalently, the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees of 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ may be unbalanced and can have degree as large as 
+\begin_inset Formula $\sum\vec{s}$
+\end_inset
+
+.
+ Note that 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasis"
+
+\end_inset
+
+ handles input matrices with unbalanced column degrees, but not unbalanced
+ row degrees.
+ For example, in the simpler special case of 
+\begin_inset Formula $\vec{s}=\left[s,\dots,s\right]$
+\end_inset
+
+ having uniformly equal entries, the sum of the row degrees is 
+\begin_inset Formula $O(ns)$
+\end_inset
+
+, but the sum of column degrees can be 
+\begin_inset Formula $\Theta\left(n^{2}s\right)$
+\end_inset
+
+, which puts an extra factor 
+\begin_inset Formula $n$
+\end_inset
+
+ to the cost if 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalNullspaceBasis"
+
+\end_inset
+
+ is used.
+ To overcome this problem with unbalanced 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees, we separate the rows of 
+\begin_inset Formula $\mathbf{N}^{T}$
+\end_inset
+
+ into blocks according to their 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-row degrees, and then work with these blocks one by one successively using
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:kernelBasisOfSubsetOfRowsContainedInOrderBasis"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -3692,7 +3801,7 @@ Let
 \end_inset
 
  into 
-\begin_inset Formula $\log k$
+\begin_inset Formula $\left\lceil \log k\right\rceil $
 \end_inset
 
  row blocks according to the 
@@ -3711,13 +3820,13 @@ Let
  Let 
 \begin_inset Formula 
 \[
-\mathbf{N}=\left[\mathbf{N}_{1},\mathbf{N}_{2},\cdots,\mathbf{N}_{\log k-1},\mathbf{N}_{\log k}\right]
+\mathbf{N}=\left[\mathbf{N}_{1},\mathbf{N}_{2},\cdots,\mathbf{N}_{\left\lceil \log k\right\rceil -1},\mathbf{N}_{\left\lceil \log k\right\rceil }\right]
 \]
 
 \end_inset
 
 with 
-\begin_inset Formula $\mathbf{N}_{\log k},\mathbf{N}_{\log k-1},\dots,\mathbf{N}_{2},\mathbf{N}_{1}$
+\begin_inset Formula $\mathbf{N}_{\left\lceil \log k\right\rceil },\mathbf{N}_{\left\lceil \log k\right\rceil -1},\dots,\mathbf{N}_{2},\mathbf{N}_{1}$
 \end_inset
 
  having 
@@ -3769,11 +3878,11 @@ with
 \end_inset
 
  Let 
-\begin_inset Formula 
-\[
-\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]
-\]
+\begin_inset Formula $\sigma_{i}=\left\lceil \xi/2^{i-1}\right\rceil +1$
+\end_inset
 
+ and 
+\begin_inset Formula $\vec{\sigma}_{i}=\left[\sigma_{i},\dots,\sigma_{i}\right]$
 \end_inset
 
  with the same dimension as the row dimension of 
@@ -3784,7 +3893,7 @@ with
  Let 
 \begin_inset Formula 
 \[
-\vec{\sigma}=\left[\vec{\sigma}_{\log k},\vec{\sigma}_{\log k-1},\dots,\vec{\sigma}_{1}\right]
+\vec{\sigma}=\left[\vec{\sigma}_{1},\vec{\sigma}_{2},\dots,\vec{\sigma}_{\left\lceil \log k\right\rceil }\right]
 \]
 
 \end_inset
@@ -3793,7 +3902,7 @@ with
 \end_layout
 
 \begin_layout Standard
-To further simply our task, we also make the order of our problem in each
+To further simplify our task, we also make the order of our problem in each
  block uniform.
  Rather than of using 
 \begin_inset Formula $\mathbf{N}^{T}$
@@ -3804,10 +3913,10 @@ To further simply our task, we also make the order of our problem in each
 \begin{eqnarray*}
 \hat{\mathbf{N}} & =\begin{bmatrix}\hat{\mathbf{N}}_{1}\\
 \vdots\\
-\hat{\mathbf{N}}_{\log k}
+\hat{\mathbf{N}}_{\left\lceil \log k\right\rceil }
 \end{bmatrix}= & x^{\vec{\sigma}-\vec{b}-1}\begin{bmatrix}\mathbf{N}_{1}^{T}\\
 \vdots\\
-\mathbf{N}_{\log k}^{T}
+\mathbf{N}_{\left\lceil \log k\right\rceil }^{T}
 \end{bmatrix}=x^{\vec{\sigma}-\vec{b}-1}\mathbf{N}^{T}
 \end{eqnarray*}
 
@@ -3825,25 +3934,54 @@ To further simply our task, we also make the order of our problem in each
 \end_layout
 
 \begin_layout Standard
-We are now ready to compute a 
+In order to compute a 
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--kernel basis, which is done by a series of order basis computations that
- computes a series of kernel bases as follows.
+-kernel basis we determine a series of kernel bases via a series of order
+ basis computations as follows: 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Enumerate
 Let 
 \begin_inset Formula $\vec{s}_{1}=\vec{s}$
 \end_inset
 
 .
- First we compute an 
+ Compute an 
 \begin_inset Formula $\left(\hat{\mathbf{N}}_{1},\vec{\sigma}_{1},-\vec{s}_{1}\right)$
 \end_inset
 
--basis 
+ order basis 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ using Algorithm 2 from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ZL2012"
+
+\end_inset
+
+ for order basis computation with unbalanced shift.
+ Note that here the order 
+\begin_inset Formula $\vec{\sigma}_{1}=\left[\sigma_{1},\dots,\sigma_{1}\right]$
+\end_inset
+
+ is uniform, an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{1},\vec{\sigma}_{1},-\vec{s}_{1}\right)$
+\end_inset
+
+ order basis is also 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{1},\sigma_{1},-\vec{s}_{1}\right)$
+\end_inset
+
+ order basis.
+ Partition 
+\begin_inset Formula $\mathbf{P}_{1}$
+\end_inset
+
+ as 
 \begin_inset Formula $\mathbf{P}_{1}=\left[\mathbf{G}_{1},\mathbf{Q}_{1}\right]$
 \end_inset
 
@@ -3855,294 +3993,100 @@ Let
 \begin_inset Formula $\left(\hat{\mathbf{N}}_{1},-\vec{s}_{1}\right)$
 \end_inset
 
--kernel basis
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
- with 
-\begin_inset Formula $\cdeg_{-\vec{s}_{1}}\mathbf{N}_{1}\le0$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-.
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
- This computation can be done using 
+-kernel basis by 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:umab"
+reference "lem:kernelBasisOfSubsetOfRowsContainedInOrderBasis"
 
-\end_inset
-
- with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
-\end_inset
-
-, where 
-\begin_inset Formula $d=\xi/n$
 \end_inset
 
 .
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Let 
+ Set 
 \begin_inset Formula $\tilde{\mathbf{G}}_{1}=\mathbf{G}_{1}$
 \end_inset
 
-.
- Let 
+ and 
 \begin_inset Formula $\vec{s}_{2}=-\cdeg_{-\vec{s}}\mathbf{G}_{1}$
 \end_inset
 
 .
  
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-Note that 
-\begin_inset Formula $-\vec{s}_{1}\le-[\vec{s}_{2},\vec{t}_{2}]\le\left[0,\dots,0,1,\dots1\right]$
-\end_inset
-
- component-wise, since 
-\begin_inset Formula $\mathbf{P}_{1}$
-\end_inset
-
- has lower order than any 
-\begin_inset Formula $\left(\mathbf{M}^{T},\vec{b}+\left[1,\dots,1\right],-\vec{s}\right)$
-\end_inset
-
--basis 
-\begin_inset Formula $\mathbf{P}$
-\end_inset
-
- hence generates 
-\begin_inset Formula $\mathbf{P}$
-\end_inset
-
-.
- Therefore, 
-\begin_inset Formula $\cdeg_{-\vec{s}}\mathbf{P}_{1}\le\cdeg_{-\vec{s}}\mathbf{P}\le\left[0,\dots,0,1,\dots1\right]$
-\end_inset
-
-.
- 
 \end_layout
 
+\begin_layout Enumerate
+Compute an 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{2}\tilde{\mathbf{G}}_{1},\sigma_{2},-\vec{s}_{2}\right)$
 \end_inset
 
- We then compute an 
-\begin_inset Formula $\left(\hat{\mathbf{N}}_{2}\tilde{\mathbf{G}}_{1},\vec{\sigma}_{2},-\vec{s}_{2}\right)$
+ order basis 
+\begin_inset Formula $\mathbf{P}_{2}$
 \end_inset
 
--basis 
+ and partition 
 \begin_inset Formula $\mathbf{P}_{2}=\left[\mathbf{G}_{2},\mathbf{Q}_{2}\right]$
 \end_inset
 
  with 
+\begin_inset Formula $\mathbf{G}_{2}$
+\end_inset
+
+ a 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{2},-\vec{s}_{2}\right)$
+\end_inset
+
+ kernel basis.
+ Set 
 \begin_inset Formula $\vec{s}_{3}=-\cdeg_{-\vec{s}_{2}}\mathbf{G}_{2}$
 \end_inset
 
-.
- Let 
+ and 
 \begin_inset Formula $\tilde{\mathbf{G}}_{2}=\tilde{\mathbf{G}}_{1}\mathbf{G}_{2}$
 \end_inset
 
 .
  
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-To compute the product 
-\begin_inset Formula $\hat{\mathbf{M}}_{2}\bar{\mathbf{P}}_{1}$
-\end_inset
-
-, since the 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--row degrees of 
-\begin_inset Formula $\hat{\mathbf{N}}_{2}$
-\end_inset
-
- are bounded by 
-\begin_inset Formula $\xi/2$
-\end_inset
-
- and the 
-\begin_inset Formula $-\vec{s}$
-\end_inset
-
--column degrees of 
-\begin_inset Formula $\bar{\mathbf{P}}_{1}$
-\end_inset
-
- are bounded by 
-\begin_inset Formula $\left[1,\dots,1\right]$
-\end_inset
-
-, we can use 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "thm:multiplyUnbalancedMatrices"
-
-\end_inset
-
- to multiply 
-\begin_inset Formula $\bar{\mathbf{P}}_{1}^{T}$
-\end_inset
-
-, which has column degrees bounded by 
-\begin_inset Formula $\vec{s}+\left[1,\dots,1\right]$
-\end_inset
-
-, and 
-\begin_inset Formula $\hat{\mathbf{N}}_{2}^{T}$
-\end_inset
-
- with the sum of its 
-\begin_inset Formula $\vec{s}$
-\end_inset
-
--column degrees bounded by 
-\begin_inset Formula $\xi$
-\end_inset
-
- with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
-\end_inset
-
-.
- Now we can use 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "alg:umab"
-
-\end_inset
-
- to compute an 
-\begin_inset Formula $\left(\hat{\mathbf{N}}_{2}\bar{\mathbf{P}}_{1},-\vec{t},\vec{\sigma}_{2}\right)$
-\end_inset
-
--basis 
-\begin_inset Formula $\bar{\mathbf{P}}_{2}$
-\end_inset
-
- with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
-\end_inset
-
-
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-, since the 
-\begin_inset Formula $-\vec{s}$
-\end_inset
-
--column degrees of 
-\begin_inset Formula $\bar{\mathbf{P}}_{1}$
-\end_inset
-
-are bounded by that of 
-\begin_inset Formula $\bar{\mathbf{P}}$
-\end_inset
-
- (since the columns of 
-\begin_inset Formula $\bar{\mathbf{P}}$
-\end_inset
-
- are generated by 
-\begin_inset Formula $\bar{\mathbf{P}}_{1}$
-\end_inset
-
-), which in turn are bounded by
-\begin_inset Formula $\left[1,\dots,1\right]$
-\end_inset
-
-
 \end_layout
 
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
- 
-\begin_inset Note Comment
-status collapsed
-
-\begin_layout Plain Layout
-Let 
-\begin_inset Formula $\mathbf{R}_{1}=\left[\mathbf{N}_{1}\mathbf{Q}_{2},\mathbf{Q}_{1}\right]$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{R}_{1}^{r}=\revCol\left(\mathbf{R}_{1},-\vec{s},\cdeg_{-\vec{s}}\mathbf{R}_{1}\right)$
-\end_inset
-
-.
- Then from 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "lem:unimodularComputationByRows"
-
-\end_inset
-
- we know 
-\begin_inset Formula $\left[\mathbf{F}^{T},\mathbf{R}_{1}^{r}\right]$
-\end_inset
-
- is a unimodular matrix.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Continuing this process, at step 
+\begin_layout Enumerate
+Continuing this process, at each step 
 \begin_inset Formula $i$
 \end_inset
 
- we compute an 
-\begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
+ we compute a 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\sigma_{i},-\vec{s}_{i}\right)$
 \end_inset
 
--basis 
+ order basis 
+\begin_inset Formula $\mathbf{P}_{i}$
+\end_inset
+
+ and then partition 
 \begin_inset Formula $\mathbf{P}_{i}=\left[\mathbf{G}_{i},\mathbf{Q}_{i}\right]$
 \end_inset
 
-.
+ with 
+\begin_inset Formula $\mathbf{G}_{i}$
+\end_inset
+
+ a 
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},-\vec{s}_{i}\right)$
+\end_inset
+
+ kernel basis.
  Let 
 \begin_inset Formula $\tilde{\mathbf{G}}_{i}=\prod_{j=1}^{i}\mathbf{G}_{i}=\tilde{\mathbf{G}}_{i-1}\mathbf{G}_{i}$
 \end_inset
 
 .
- Note that 
-\begin_inset Formula $\tilde{\mathbf{G}}_{\log k}$
+ 
+\end_layout
+
+\begin_layout Enumerate
+Return 
+\begin_inset Formula $\tilde{\mathbf{G}}_{\left\lceil \log k\right\rceil }$
 \end_inset
 
- is a 
+, a 
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
@@ -4155,10 +4099,10 @@ This process of computing a
 \begin_inset Formula $\left(\mathbf{N}^{T},-\vec{s}\right)$
 \end_inset
 
--kernel basis gives 
+-kernel basis is formally given in Algorithm 
 \begin_inset CommandInset ref
-LatexCommand formatted
-reference "alg:minimalNullspaceBasisReverse"
+LatexCommand ref
+reference "alg:minimalKernelBasisReverse"
 
 \end_inset
 
@@ -4186,7 +4130,7 @@ Now let us check the cost of this algorithm.
 
 \begin_layout Lemma
 An 
-\begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\vec{\sigma}_{i},-\vec{s}_{i}\right)$
+\begin_inset Formula $\left(\hat{\mathbf{N}}_{i}\tilde{\mathbf{G}}_{i-1},\sigma_{i},-\vec{s}_{i}\right)$
 \end_inset
 
 -basis can be computed with a cost of 
@@ -4236,14 +4180,10 @@ It follows that
 
  rows.
  We also have 
-\begin_inset Formula $\vec{\sigma}_{i}=\left[\xi/2^{i-1}+1,\dots,\xi/2^{i-1}+1\right]$
+\begin_inset Formula $\sigma_{i}=\left\lceil \xi/2^{i-1}\right\rceil +1\in\Theta\left(\xi/2^{i}\right)$
 \end_inset
 
- with entries in 
-\begin_inset Formula $\Theta\left(\xi/2^{i}\right)$
-\end_inset
-
-.
+..
  Therefore, 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -4431,7 +4371,7 @@ and any
 Then 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasisReverse"
+reference "alg:minimalKernelBasisReverse"
 
 \end_inset
 
@@ -4456,6 +4396,53 @@ Note that
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+Note that while the upper bound 
+\begin_inset Formula $\xi$
+\end_inset
+
+ can be simply replaced by 
+\begin_inset Formula $\sum\vec{s}$
+\end_inset
+
+ in Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:costKernelBasisReverse"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:minimalKernelBasisReverse"
+
+\end_inset
+
+ for computing a right factor in this section, keeping it separate makes
+ the algorithm more general and allows it to be reused in the next section.
+ 
+\end_layout
+
+\begin_layout Standard
+It may also be informative to note again the correspondence between 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:costKernelBasisReverse"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:costGeneral"
+
+\end_inset
+
+, on the reversal of the degree structures of the input matrices and the
+ output kernel bases.
 \end_layout
 
 \begin_layout Theorem
@@ -4968,7 +4955,7 @@ reference "sec:computeRightFactor"
  and hence we can again use Algorithm 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "alg:minimalNullspaceBasisReverse"
+reference "alg:minimalKernelBasisReverse"
 
 \end_inset
 
@@ -4990,7 +4977,7 @@ A
 -kernel basis can be computed using 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasisReverse"
+reference "alg:minimalKernelBasisReverse"
 
 \end_inset
 
@@ -5226,7 +5213,7 @@ reference "thm:costGeneral"
 , while the remaining two are handled by 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "alg:minimalNullspaceBasisReverse"
+reference "alg:minimalKernelBasisReverse"
 
 \end_inset
 

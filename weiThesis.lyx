@@ -73,7 +73,7 @@
 \usepackage{ifthen}
 
 \newboolean{ElectronicVersion}
-\setboolean{ElectronicVersion}{true} % CHANGE THIS AS REQUIRED
+\setboolean{ElectronicVersion}{false} % CHANGE THIS AS REQUIRED
 
 % allows easy specifying of the page layout
 \usepackage{geometry}

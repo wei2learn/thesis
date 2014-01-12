@@ -106,7 +106,7 @@ status open
 
 \begin_inset CommandInset label
 LatexCommand label
-name "alg:minimalNullspaceBasisReverse"
+name "alg:minimalKernelBasisReverse"
 
 \end_inset
 
@@ -122,7 +122,7 @@ name "alg:minimalNullspaceBasisReverse"
 
 \begin_layout Plain Layout
 \begin_inset Flex ALGORITHMIC
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Flex INPUT
@@ -205,13 +205,13 @@ status open
 \begin_layout Plain Layout
 
 \series bold
-\begin_inset Formula $\left[\mathbf{M}_{1}^{T},\mathbf{M}_{2}^{T},\cdots,\mathbf{M}_{\log k-1}^{T},\mathbf{M}_{\log k}^{T}\right]:=\mathbf{M}^{T}$
+\begin_inset Formula $\left[\mathbf{M}_{1}^{T},\mathbf{M}_{2}^{T},\cdots,\mathbf{M}_{\left\lceil \log k\right\rceil -1}^{T},\mathbf{M}_{\left\lceil \log k\right\rceil }^{T}\right]:=\mathbf{M}^{T}$
 \end_inset
 
 
 \series default
 , with 
-\begin_inset Formula $\mathbf{M}_{\log k},\mathbf{M}_{\log k-1},\cdots,\mathbf{M}_{2},\mathbf{M}_{1}$
+\begin_inset Formula $\mathbf{M}_{\left\lceil \log k\right\rceil },\mathbf{M}_{\left\lceil \log k\right\rceil -1},\cdots,\mathbf{M}_{2},\mathbf{M}_{1}$
 \end_inset
 
  having 
@@ -247,7 +247,7 @@ from
 \end_inset
 
  to 
-\begin_inset Formula $\log k$
+\begin_inset Formula $\left\lceil \log k\right\rceil $
 \end_inset
 
  
@@ -267,10 +267,14 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\vec{\sigma}_{i}:=\left[\frac{\xi}{2^{i-1}}+1,\dots,\frac{\xi}{2^{i-1}}+1\right]$
+\begin_inset Formula $\sigma_{i}:=\left\lceil \frac{\xi}{2^{i-1}}\right\rceil +1$
 \end_inset
 
-, number of entries matching the row dimension of 
+;
+\begin_inset Formula $\vec{\sigma}_{i}:=\left[\sigma_{i},\dots,\sigma_{i}\right]$
+\end_inset
+
+,number of entries matching the row dimension of 
 \begin_inset Formula $\mathbf{M}_{i};$
 \end_inset
 
@@ -292,7 +296,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\vec{\sigma}:=\left[\vec{\sigma}_{1},\vec{\sigma}_{2},\dots,\vec{\sigma}_{\log k}\right]$
+\begin_inset Formula $\vec{\sigma}:=\left[\vec{\sigma}_{1},\vec{\sigma}_{2},\dots,\vec{\sigma}_{\left\lceil \log k\right\rceil }\right]$
 \end_inset
 
 ;
@@ -354,7 +358,7 @@ from
 \end_inset
 
  to 
-\begin_inset Formula $\log k$
+\begin_inset Formula $\left\lceil \log k\right\rceil $
 \end_inset
 
  

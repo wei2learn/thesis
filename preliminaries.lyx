@@ -81,7 +81,7 @@ name "chap:Background"
 
 \begin_layout Standard
 In this chapter, we provide some of the background needed in order to understand
- the basic concepts needed for order basis computation and nullspace basis
+ the basic concepts needed for order basis computation and kernel basis
  computation.
  
 \begin_inset Note Comment
